@@ -1,0 +1,1629 @@
+{
+  "id": "kohelet",
+  "name": "Prediker",
+  "description": "",
+  "sefariaRef": "Ecclesiastes",
+  "chapters": [
+    {
+      "chapter": 1,
+      "verses": [
+        {
+          "verse": 1,
+          "translations": {
+            "hebrew": "דִּבְרֵי֙ קֹהֶ֣לֶת בֶּן־דָּוִ֔ד מֶ֖לֶךְ בִּירוּשָׁלָֽ͏ִם׃",
+            "english": "The words of Koheleth<sup class=\"footnote-marker\">a</sup><i class=\"footnote\">Probably “the Assembler,” i.e., of hearers or of sayings; cf. 12.9–11.</i> son of David, king in Jerusalem.<br>"
+          }
+        },
+        {
+          "verse": 2,
+          "translations": {
+            "hebrew": "הֲבֵ֤ל הֲבָלִים֙ אָמַ֣ר קֹהֶ֔לֶת הֲבֵ֥ל הֲבָלִ֖ים הַכֹּ֥ל הָֽבֶל׃",
+            "english": "Utter futility!—said Koheleth—<br>Utter futility! All is futile!<br>"
+          }
+        },
+        {
+          "verse": 3,
+          "translations": {
+            "hebrew": "מַה־יִּתְר֖וֹן לָֽאָדָ֑ם בְּכׇ֨ל־עֲמָל֔וֹ שֶֽׁיַּעֲמֹ֖ל תַּ֥חַת הַשָּֽׁמֶשׁ׃",
+            "english": "What real value is there for a man<br>In all the gains<sup class=\"footnote-marker\">b</sup><i class=\"footnote\">So Rashbam. Heb. ‘amal usually has this sense in Ecclesiastes; cf. Ps. 105.44.</i> he makes beneath the sun?"
+          }
+        },
+        {
+          "verse": 4,
+          "translations": {
+            "hebrew": "דּ֤וֹר הֹלֵךְ֙ וְד֣וֹר בָּ֔א וְהָאָ֖רֶץ לְעוֹלָ֥ם עֹמָֽדֶת׃",
+            "english": "One generation goes, another comes,<br>But the earth remains the same forever."
+          }
+        },
+        {
+          "verse": 5,
+          "translations": {
+            "hebrew": "וְזָרַ֥ח הַשֶּׁ֖מֶשׁ וּבָ֣א הַשָּׁ֑מֶשׁ וְאֶ֨ל־מְקוֹמ֔וֹ שׁוֹאֵ֛ף זוֹרֵ֥חַֽ ה֖וּא שָֽׁם׃",
+            "english": "The sun rises, and the sun sets—<br>And glides<sup class=\"footnote-marker\">c</sup><i class=\"footnote\">So Targum; cf. Bereshith Rabbah on Gen. 1.17.</i> back to where it rises."
+          }
+        },
+        {
+          "verse": 6,
+          "translations": {
+            "hebrew": "הוֹלֵךְ֙ אֶל־דָּר֔וֹם וְסוֹבֵ֖ב אֶל־צָפ֑וֹן סוֹבֵ֤ב&thinsp;<small>׀</small>&thinsp;סֹבֵב֙ הוֹלֵ֣ךְ הָר֔וּחַ וְעַל־סְבִיבֹתָ֖יו שָׁ֥ב הָרֽוּחַ׃",
+            "english": "Southward blowing,<br>Turning northward,<br>Ever turning blows the wind;<br>On its rounds the wind returns."
+          }
+        },
+        {
+          "verse": 7,
+          "translations": {
+            "hebrew": "כׇּל־הַנְּחָלִים֙ הֹלְכִ֣ים אֶל־הַיָּ֔ם וְהַיָּ֖ם אֵינֶ֣נּוּ מָלֵ֑א אֶל־מְק֗וֹם שֶׁ֤הַנְּחָלִים֙ הֹֽלְכִ֔ים שָׁ֛ם הֵ֥ם שָׁבִ֖ים לָלָֽכֶת׃",
+            "english": "All streams flow into the sea,<br>Yet the sea is never full;<br>To the place [from] which they flow<br>The streams flow back again.<sup class=\"footnote-marker\">d</sup><i class=\"footnote\">According to popular belief, through tunnels; so Targum and Rashi.</i>"
+          }
+        },
+        {
+          "verse": 8,
+          "translations": {
+            "hebrew": "כׇּל־הַדְּבָרִ֣ים יְגֵעִ֔ים לֹא־יוּכַ֥ל אִ֖ישׁ לְדַבֵּ֑ר לֹא־תִשְׂבַּ֥ע עַ֙יִן֙ לִרְא֔וֹת וְלֹא־תִמָּלֵ֥א אֹ֖זֶן מִשְּׁמֹֽעַ׃",
+            "english": "All such things are wearisome:<br>No man can ever state them;<br>The eye never has enough of seeing,<br>Nor the ear enough of hearing."
+          }
+        },
+        {
+          "verse": 9,
+          "translations": {
+            "hebrew": "מַה־שֶּֽׁהָיָה֙ ה֣וּא שֶׁיִּהְיֶ֔ה וּמַה־שֶּׁנַּֽעֲשָׂ֔ה ה֖וּא שֶׁיֵּעָשֶׂ֑ה וְאֵ֥ין כׇּל־חָדָ֖שׁ תַּ֥חַת הַשָּֽׁמֶשׁ׃",
+            "english": "Only that shall happen<br>Which has happened,<br>Only that occur<br>Which has occurred;<br>There is nothing new<br>Beneath the sun!<br>"
+          }
+        },
+        {
+          "verse": 10,
+          "translations": {
+            "hebrew": "יֵ֥שׁ דָּבָ֛ר שֶׁיֹּאמַ֥ר רְאֵה־זֶ֖ה חָדָ֣שׁ ה֑וּא כְּבָר֙ הָיָ֣ה לְעֹֽלָמִ֔ים אֲשֶׁ֥ר הָיָ֖ה מִלְּפָנֵֽנוּ׃",
+            "english": "Sometimes there is a phenomenon of which they say, “Look, this one is new!”—it occurred long since, in ages that went by before us."
+          }
+        },
+        {
+          "verse": 11,
+          "translations": {
+            "hebrew": "אֵ֥ין זִכְר֖וֹן לָרִאשֹׁנִ֑ים וְגַ֨ם לָאַחֲרֹנִ֜ים שֶׁיִּהְי֗וּ לֹֽא־יִהְיֶ֤ה לָהֶם֙ זִכָּר֔וֹן עִ֥ם שֶׁיִּהְי֖וּ לָאַחֲרֹנָֽה׃&nbsp;<span class=\"mam-spi-pe\">{פ}</span><br>",
+            "english": "The earlier ones are not remembered; so too those that will occur later <sup class=\"footnote-marker\">e</sup><i class=\"footnote\">Lit. “will not be remembered like…” For ‘im meaning “like,” cf. 2.16; 7.11; Job 9.26.</i>will no more be remembered than<sup class=\"endFootnote\">-e</sup> those that will occur at the very end.<br>"
+          }
+        },
+        {
+          "verse": 12,
+          "translations": {
+            "hebrew": "אֲנִ֣י קֹהֶ֗לֶת הָיִ֥יתִי מֶ֛לֶךְ עַל־יִשְׂרָאֵ֖ל בִּירוּשָׁלָֽ͏ִם׃",
+            "english": "I, Koheleth, was king in Jerusalem over Israel."
+          }
+        },
+        {
+          "verse": 13,
+          "translations": {
+            "hebrew": "וְנָתַ֣תִּי אֶת־לִבִּ֗י לִדְר֤וֹשׁ וְלָתוּר֙ בַּֽחׇכְמָ֔ה עַ֛ל כׇּל־אֲשֶׁ֥ר נַעֲשָׂ֖ה תַּ֣חַת הַשָּׁמָ֑יִם ה֣וּא&thinsp;<b>׀</b> עִנְיַ֣ן רָ֗ע נָתַ֧ן אֱלֹהִ֛ים לִבְנֵ֥י הָאָדָ֖ם לַעֲנ֥וֹת בּֽוֹ׃",
+            "english": "I set my mind to study and to probe with wisdom all that happens under the sun.—An unhappy business, that, which God gave men to be concerned with!"
+          }
+        },
+        {
+          "verse": 14,
+          "translations": {
+            "hebrew": "רָאִ֙יתִי֙ אֶת־כׇּל־הַֽמַּעֲשִׂ֔ים שֶֽׁנַּעֲשׂ֖וּ תַּ֣חַת הַשָּׁ֑מֶשׁ וְהִנֵּ֥ה הַכֹּ֛ל הֶ֖בֶל וּרְע֥וּת רֽוּחַ׃",
+            "english": "I observed all the happenings beneath the sun, and I found that all is futile and pursuit<sup class=\"footnote-marker\">f</sup><i class=\"footnote\">Lit. “tending,” from root ra‘ah, “to shepherd.”</i> of wind:"
+          }
+        },
+        {
+          "verse": 15,
+          "translations": {
+            "hebrew": "מְעֻוָּ֖ת לֹא־יוּכַ֣ל לִתְקֹ֑ן וְחֶסְר֖וֹן לֹא־יוּכַ֥ל לְהִמָּנֽוֹת׃",
+            "english": "A twisted thing that cannot be made straight,<br>A lack that cannot be made good."
+          }
+        },
+        {
+          "verse": 16,
+          "translations": {
+            "hebrew": "דִּבַּ֨רְתִּי אֲנִ֤י עִם־לִבִּי֙ לֵאמֹ֔ר אֲנִ֗י הִנֵּ֨ה הִגְדַּ֤לְתִּי וְהוֹסַ֙פְתִּי֙ חׇכְמָ֔ה עַ֛ל כׇּל־אֲשֶׁר־הָיָ֥ה לְפָנַ֖י עַל־יְרוּשָׁלָ֑͏ִם וְלִבִּ֛י רָאָ֥ה הַרְבֵּ֖ה חׇכְמָ֥ה וָדָֽעַת׃",
+            "english": "I said to myself: “Here I have grown richer and wiser than any that ruled before me over Jerusalem, and my mind has zealously absorbed wisdom and learning.”"
+          }
+        },
+        {
+          "verse": 17,
+          "translations": {
+            "hebrew": "וָאֶתְּנָ֤ה לִבִּי֙ לָדַ֣עַת חׇכְמָ֔ה וְדַ֥עַת הוֹלֵלֹ֖ת וְשִׂכְל֑וּת יָדַ֕עְתִּי שֶׁגַּם־זֶ֥ה ה֖וּא רַעְי֥וֹן רֽוּחַ׃",
+            "english": "And so I set my mind to appraise wisdom and to appraise madness and folly. And I learned—that this too was pursuit of wind:"
+          }
+        },
+        {
+          "verse": 18,
+          "translations": {
+            "hebrew": "כִּ֛י בְּרֹ֥ב חׇכְמָ֖ה רׇב־כָּ֑עַס וְיוֹסִ֥יף דַּ֖עַת יוֹסִ֥יף מַכְאֽוֹב׃",
+            "english": "For as wisdom grows, vexation grows;<br>To increase learning is to increase heartache."
+          }
+        }
+      ]
+    },
+    {
+      "chapter": 2,
+      "verses": [
+        {
+          "verse": 1,
+          "translations": {
+            "hebrew": "אָמַ֤רְתִּֽי אֲנִי֙ בְּלִבִּ֔י לְכָה־נָּ֛א אֲנַסְּכָ֥ה בְשִׂמְחָ֖ה וּרְאֵ֣ה בְט֑וֹב וְהִנֵּ֥ה גַם־ה֖וּא הָֽבֶל׃",
+            "english": "I said to myself, “Come, I will treat you to merriment. Taste mirth!” That too, I found, was futile."
+          }
+        },
+        {
+          "verse": 2,
+          "translations": {
+            "hebrew": "לִשְׂח֖וֹק אָמַ֣רְתִּי מְהוֹלָ֑ל וּלְשִׂמְחָ֖ה מַה־זֹּ֥ה עֹשָֽׂה׃",
+            "english": "Of revelry I said, “It’s mad!”<br>Of merriment, “What good is that?”<br>"
+          }
+        },
+        {
+          "verse": 3,
+          "translations": {
+            "hebrew": "תַּ֣רְתִּי בְלִבִּ֔י לִמְשׁ֥וֹךְ בַּיַּ֖יִן אֶת־בְּשָׂרִ֑י וְלִבִּ֞י נֹהֵ֤ג בַּֽחׇכְמָה֙ וְלֶאֱחֹ֣ז בְּסִכְל֔וּת עַ֣ד אֲשֶׁר־אֶרְאֶ֗ה אֵי־זֶ֨ה ט֜וֹב לִבְנֵ֤י הָאָדָם֙ אֲשֶׁ֤ר יַעֲשׂוּ֙ תַּ֣חַת הַשָּׁמַ֔יִם מִסְפַּ֖ר יְמֵ֥י חַיֵּיהֶֽם׃",
+            "english": "I ventured to tempt my flesh with wine, and to grasp folly, while letting my mind direct with wisdom, to the end that I might learn which of the two was better for men to practice in their few days of life under heaven."
+          }
+        },
+        {
+          "verse": 4,
+          "translations": {
+            "hebrew": "הִגְדַּ֖לְתִּי מַעֲשָׂ֑י בָּנִ֤יתִי לִי֙ בָּתִּ֔ים נָטַ֥עְתִּי לִ֖י כְּרָמִֽים׃",
+            "english": "I multiplied my possessions. I built myself houses and I planted vineyards."
+          }
+        },
+        {
+          "verse": 5,
+          "translations": {
+            "hebrew": "עָשִׂ֣יתִי לִ֔י גַּנּ֖וֹת וּפַרְדֵּסִ֑ים וְנָטַ֥עְתִּי בָהֶ֖ם עֵ֥ץ כׇּל־פֶּֽרִי׃",
+            "english": "I laid out gardens and groves, in which I planted every kind of fruit tree."
+          }
+        },
+        {
+          "verse": 6,
+          "translations": {
+            "hebrew": "עָשִׂ֥יתִי לִ֖י בְּרֵכ֣וֹת מָ֑יִם לְהַשְׁק֣וֹת מֵהֶ֔ם יַ֖עַר צוֹמֵ֥חַ עֵצִֽים׃",
+            "english": "I constructed pools of water, enough to irrigate a forest shooting up with trees."
+          }
+        },
+        {
+          "verse": 7,
+          "translations": {
+            "hebrew": "קָנִ֙יתִי֙ עֲבָדִ֣ים וּשְׁפָח֔וֹת וּבְנֵי־בַ֖יִת הָ֣יָה לִ֑י גַּ֣ם מִקְנֶה֩ בָקָ֨ר וָצֹ֤אן הַרְבֵּה֙ הָ֣יָה לִ֔י מִכֹּ֛ל שֶֽׁהָי֥וּ לְפָנַ֖י בִּירוּשָׁלָֽ͏ִם׃",
+            "english": "I bought male and female slaves, and I acquired stewards. I also acquired more cattle, both herds and flocks, than all who were before me in Jerusalem."
+          }
+        },
+        {
+          "verse": 8,
+          "translations": {
+            "hebrew": "כָּנַ֤סְתִּי לִי֙ גַּם־כֶּ֣סֶף וְזָהָ֔ב וּסְגֻלַּ֥ת מְלָכִ֖ים וְהַמְּדִינ֑וֹת עָשִׂ֨יתִי לִ֜י שָׁרִ֣ים וְשָׁר֗וֹת וְתַעֲנֻג֛וֹת בְּנֵ֥י הָאָדָ֖ם שִׁדָּ֥ה וְשִׁדּֽוֹת׃",
+            "english": "I further amassed silver and gold and treasures of kings and provinces; and I got myself male and female singers, as well as the luxuries of commoners—coffers<sup class=\"footnote-marker\">a</sup><i class=\"footnote\">The Heb. shiddah occurs only here in the Bible; in the Mishnah it designates a kind of chest.</i> and coffers of them."
+          }
+        },
+        {
+          "verse": 9,
+          "translations": {
+            "hebrew": "וְגָדַ֣לְתִּי וְהוֹסַ֔פְתִּי מִכֹּ֛ל שֶׁהָיָ֥ה לְפָנַ֖י בִּירוּשָׁלָ֑͏ִם אַ֥ף חׇכְמָתִ֖י עָ֥מְדָה לִּֽי׃",
+            "english": "Thus, I gained more wealth than anyone before me in Jerusalem. In addition, my wisdom remained with me:"
+          }
+        },
+        {
+          "verse": 10,
+          "translations": {
+            "hebrew": "וְכֹל֙ אֲשֶׁ֣ר שָֽׁאֲל֣וּ עֵינַ֔י לֹ֥א אָצַ֖לְתִּי מֵהֶ֑ם לֹֽא־מָנַ֨עְתִּי אֶת־לִבִּ֜י מִכׇּל־שִׂמְחָ֗ה כִּֽי־לִבִּ֤י שָׂמֵ֙חַ֙ מִכׇּל־עֲמָלִ֔י וְזֶֽה־הָיָ֥ה חֶלְקִ֖י מִכׇּל־עֲמָלִֽי׃",
+            "english": "I withheld from my eyes nothing they asked for, and denied myself no enjoyment; rather, I got enjoyment out of<sup class=\"footnote-marker\">b</sup><i class=\"footnote\">Septuagint and a few Heb. manuscripts have “(in exchange) for”; cf. 2.24; 3.13, 22; 5.17.</i> all my wealth. And that was all I got out of my wealth."
+          }
+        },
+        {
+          "verse": 11,
+          "translations": {
+            "hebrew": "וּפָנִ֣יתִֽי אֲנִ֗י בְּכׇל־מַעֲשַׂי֙ שֶֽׁעָשׂ֣וּ יָדַ֔י וּבֶֽעָמָ֖ל שֶׁעָמַ֣לְתִּי לַעֲשׂ֑וֹת וְהִנֵּ֨ה הַכֹּ֥ל הֶ֙בֶל֙ וּרְע֣וּת ר֔וּחַ וְאֵ֥ין יִתְר֖וֹן תַּ֥חַת הַשָּֽׁמֶשׁ׃",
+            "english": "Then my thoughts turned to all the fortune my hands had built up, to the wealth I had acquired and won—and oh, it was all futile and pursuit of wind; there was no real value under the sun!"
+          }
+        },
+        {
+          "verse": 12,
+          "translations": {
+            "hebrew": "וּפָנִ֤יתִֽי אֲנִי֙ לִרְא֣וֹת חׇכְמָ֔ה וְהוֹלֵל֖וֹת וְסִכְל֑וּת כִּ֣י&thinsp;<b>׀</b> מֶ֣ה הָאָדָ֗ם שֶׁיָּבוֹא֙ אַחֲרֵ֣י הַמֶּ֔לֶךְ אֵ֥ת אֲשֶׁר־כְּבָ֖ר עָשֽׂוּהוּ׃",
+            "english": "<sup class=\"footnote-marker\">c</sup><i class=\"footnote\">The order of the two sentences in this verse is reversed in the translation for clarity.</i>For what will the man be like who will succeed <sup class=\"footnote-marker\">d</sup><i class=\"footnote\">Change of vocalization yields “me, and who is to rule”; cf. vv. 18–19.</i>the one who is ruling<sup class=\"endFootnote\">-d</sup> over what was built up long ago?<br>My thoughts also turned to appraising wisdom and madness and folly."
+          }
+        },
+        {
+          "verse": 13,
+          "translations": {
+            "hebrew": "וְרָאִ֣יתִי אָ֔נִי שֶׁיֵּ֥שׁ יִתְר֛וֹן לַֽחׇכְמָ֖ה מִן־הַסִּכְל֑וּת כִּֽיתְר֥וֹן הָא֖וֹר מִן־הַחֹֽשֶׁךְ׃",
+            "english": "I found that<br>Wisdom is superior to folly<br>As light is superior to darkness;"
+          }
+        },
+        {
+          "verse": 14,
+          "translations": {
+            "hebrew": "הֶֽחָכָם֙ עֵינָ֣יו בְּרֹאשׁ֔וֹ וְהַכְּסִ֖יל בַּחֹ֣שֶׁךְ הוֹלֵ֑ךְ וְיָדַ֣עְתִּי גַם־אָ֔נִי שֶׁמִּקְרֶ֥ה אֶחָ֖ד יִקְרֶ֥ה אֶת־כֻּלָּֽם׃",
+            "english": "A wise man has his eyes in his head,<br>Whereas a fool walks in darkness.<br>But I also realized that the same fate awaits them both."
+          }
+        },
+        {
+          "verse": 15,
+          "translations": {
+            "hebrew": "וְאָמַ֨רְתִּֽי אֲנִ֜י בְּלִבִּ֗י כְּמִקְרֵ֤ה הַכְּסִיל֙ גַּם־אֲנִ֣י יִקְרֵ֔נִי וְלָ֧מָּה חָכַ֛מְתִּי אֲנִ֖י אָ֣ז יֹתֵ֑ר וְדִבַּ֣רְתִּי בְלִבִּ֔י שֶׁגַּם־זֶ֖ה הָֽבֶל׃",
+            "english": "So I reflected: “The fate of the fool is also destined for me; to what advantage, then, have I been wise?” And I came to the conclusion that that too was futile,"
+          }
+        },
+        {
+          "verse": 16,
+          "translations": {
+            "hebrew": "כִּי֩ אֵ֨ין זִכְר֧וֹן לֶחָכָ֛ם עִֽם־הַכְּסִ֖יל לְעוֹלָ֑ם בְּשֶׁכְּבָ֞ר הַיָּמִ֤ים הַבָּאִים֙ הַכֹּ֣ל נִשְׁכָּ֔ח וְאֵ֛יךְ יָמ֥וּת הֶחָכָ֖ם עִֽם־הַכְּסִֽיל׃",
+            "english": "because the wise man, just like<sup class=\"footnote-marker\">e</sup><i class=\"footnote\">See note on 1.11.</i> the fool, is not remembered forever; for, as the succeeding days roll by, both are forgotten. Alas, the wise man dies, just like<sup class=\"endFootnote\">-e</sup> the fool!"
+          }
+        },
+        {
+          "verse": 17,
+          "translations": {
+            "hebrew": "וְשָׂנֵ֙אתִי֙ אֶת־הַ֣חַיִּ֔ים כִּ֣י רַ֤ע עָלַי֙ הַֽמַּעֲשֶׂ֔ה שֶׁנַּעֲשָׂ֖ה תַּ֣חַת הַשָּׁ֑מֶשׁ כִּֽי־הַכֹּ֥ל הֶ֖בֶל וּרְע֥וּת רֽוּחַ׃",
+            "english": "And so I loathed life. For I was distressed by all that goes on under the sun, because everything is futile and pursuit of wind."
+          }
+        },
+        {
+          "verse": 18,
+          "translations": {
+            "hebrew": "וְשָׂנֵ֤אתִֽי אֲנִי֙ אֶת־כׇּל־עֲמָלִ֔י שֶׁאֲנִ֥י עָמֵ֖ל תַּ֣חַת הַשָּׁ֑מֶשׁ שֶׁ֣אַנִּיחֶ֔נּוּ לָאָדָ֖ם שֶׁיִּהְיֶ֥ה אַחֲרָֽי׃",
+            "english": "So, too, I loathed all the wealth that I was gaining under the sun. For I shall leave it to the man who will succeed me—"
+          }
+        },
+        {
+          "verse": 19,
+          "translations": {
+            "hebrew": "וּמִ֣י יוֹדֵ֗עַ הֶֽחָכָ֤ם יִהְיֶה֙ א֣וֹ סָכָ֔ל וְיִשְׁלַט֙ בְּכׇל־עֲמָלִ֔י שֶֽׁעָמַ֥לְתִּי וְשֶׁחָכַ֖מְתִּי תַּ֣חַת הַשָּׁ֑מֶשׁ גַּם־זֶ֖ה הָֽבֶל׃",
+            "english": "and who knows whether he will be wise or foolish?—and he will control all the wealth that I gained by toil and wisdom under the sun. That too is futile."
+          }
+        },
+        {
+          "verse": 20,
+          "translations": {
+            "hebrew": "וְסַבּ֥וֹתִֽי אֲנִ֖י לְיַאֵ֣שׁ אֶת־לִבִּ֑י עַ֚ל כׇּל־הֶ֣עָמָ֔ל שֶׁעָמַ֖לְתִּי תַּ֥חַת הַשָּֽׁמֶשׁ׃",
+            "english": "And so I came to view with despair all the gains I had made under the sun."
+          }
+        },
+        {
+          "verse": 21,
+          "translations": {
+            "hebrew": "כִּי־יֵ֣שׁ אָדָ֗ם שֶׁעֲמָל֛וֹ בְּחׇכְמָ֥ה וּבְדַ֖עַת וּבְכִשְׁר֑וֹן וּלְאָדָ֞ם שֶׁלֹּ֤א עָֽמַל־בּוֹ֙ יִתְּנֶ֣נּוּ חֶלְק֔וֹ גַּם־זֶ֥ה הֶ֖בֶל וְרָעָ֥ה רַבָּֽה׃",
+            "english": "For sometimes a person whose fortune was made with wisdom, knowledge, and skill must hand it on to be the portion of somebody who did not toil for it. That too is futile, and a grave evil."
+          }
+        },
+        {
+          "verse": 22,
+          "translations": {
+            "hebrew": "כִּ֠י מֶֽה־הֹוֶ֤ה לָֽאָדָם֙ בְּכׇל־עֲמָל֔וֹ וּבְרַעְי֖וֹן לִבּ֑וֹ שְׁה֥וּא עָמֵ֖ל תַּ֥חַת הַשָּֽׁמֶשׁ׃",
+            "english": "For what does a man get for all the toiling and worrying he does under the sun?"
+          }
+        },
+        {
+          "verse": 23,
+          "translations": {
+            "hebrew": "כִּ֧י כׇל־יָמָ֣יו מַכְאֹבִ֗ים וָכַ֙עַס֙ עִנְיָנ֔וֹ גַּם־בַּלַּ֖יְלָה לֹא־שָׁכַ֣ב לִבּ֑וֹ גַּם־זֶ֖ה הֶ֥בֶל הֽוּא׃",
+            "english": "All his days his thoughts are grief and heartache, and even at night his mind has no respite. That too is futile!"
+          }
+        },
+        {
+          "verse": 24,
+          "translations": {
+            "hebrew": "אֵֽין־ט֤וֹב בָּאָדָם֙ שֶׁיֹּאכַ֣ל וְשָׁתָ֔ה וְהֶרְאָ֧ה אֶת־נַפְשׁ֛וֹ ט֖וֹב בַּעֲמָל֑וֹ גַּם־זֹה֙ רָאִ֣יתִי אָ֔נִי כִּ֛י מִיַּ֥ד הָאֱלֹהִ֖ים הִֽיא׃",
+            "english": "There is nothing worthwhile for a man but to eat and drink and afford himself enjoyment with his means. And even that, I noted, comes from God."
+          }
+        },
+        {
+          "verse": 25,
+          "translations": {
+            "hebrew": "כִּ֣י מִ֥י יֹאכַ֛ל וּמִ֥י יָח֖וּשׁ ח֥וּץ מִמֶּֽנִּי׃",
+            "english": "For who eats and who enjoys but myself?<sup class=\"footnote-marker\">f</sup><i class=\"footnote\">Some mss. and ancient versions read mimmennu, “by His doing.”</i>"
+          }
+        },
+        {
+          "verse": 26,
+          "translations": {
+            "hebrew": "כִּ֤י לְאָדָם֙ שֶׁטּ֣וֹב לְפָנָ֔יו נָתַ֛ן חׇכְמָ֥ה וְדַ֖עַת וְשִׂמְחָ֑ה וְלַחוֹטֶא֩ נָתַ֨ן עִנְיָ֜ן לֶאֱסֹ֣ף וְלִכְנ֗וֹס לָתֵת֙ לְטוֹב֙ לִפְנֵ֣י הָֽאֱלֹהִ֔ים גַּם־זֶ֥ה הֶ֖בֶל וּרְע֥וּת רֽוּחַ׃",
+            "english": "To the man, namely, who pleases Him He has given <sup class=\"footnote-marker\">g</sup><i class=\"footnote\">Lit. “wisdom and knowledge and enjoyment.”</i>the wisdom and shrewdness to enjoy himself;<sup class=\"endFootnote\">-g</sup> and to him who displeases, He has given the urge to gather and amass—only for handing on to one who is pleasing to God. That too is futile and pursuit of wind."
+          }
+        }
+      ]
+    },
+    {
+      "chapter": 3,
+      "verses": [
+        {
+          "verse": 1,
+          "translations": {
+            "hebrew": "לַכֹּ֖ל זְמָ֑ן וְעֵ֥ת לְכׇל־חֵ֖פֶץ תַּ֥חַת הַשָּׁמָֽיִם׃&nbsp;<span class=\"mam-spi-samekh\">{ס}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;",
+            "english": "A season is set for everything, a time for every experience under heaven:<sup class=\"footnote-marker\">a</sup><i class=\"footnote\">I.e., all human experiences are preordained by God; see v. 11.</i>"
+          }
+        },
+        {
+          "verse": 2,
+          "translations": {
+            "hebrew": "עֵ֥ת לָלֶ֖דֶת&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;וְעֵ֣ת לָמ֑וּת&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;עֵ֣ת לָטַ֔עַת&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;וְעֵ֖ת לַעֲק֥וֹר נָטֽוּעַ׃&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;",
+            "english": "A time for <sup class=\"footnote-marker\">b</sup><i class=\"footnote\">Lit. “giving birth.”</i>being born<sup class=\"endFootnote\">-b</sup> and a time for dying,<br>A time for planting and a time for uprooting the planted;"
+          }
+        },
+        {
+          "verse": 3,
+          "translations": {
+            "hebrew": "עֵ֤ת לַהֲרוֹג֙&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;וְעֵ֣ת לִרְפּ֔וֹא&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;עֵ֥ת לִפְר֖וֹץ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;וְעֵ֥ת לִבְנֽוֹת׃&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;",
+            "english": "A time for <sup class=\"footnote-marker\">c</sup><i class=\"footnote\">Emendation yields “wrecking…repairing”; cf. 1 Kings 18.30.</i>slaying and a time for healing,<sup class=\"endFootnote\">-c</sup><br>A time for tearing down and a time for building up;"
+          }
+        },
+        {
+          "verse": 4,
+          "translations": {
+            "hebrew": "עֵ֤ת לִבְכּוֹת֙&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;וְעֵ֣ת לִשְׂח֔וֹק&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;עֵ֥ת סְפ֖וֹד&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;וְעֵ֥ת רְקֽוֹד׃&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;",
+            "english": "A time for weeping and a time for laughing,<br>A time for wailing and a time for dancing;"
+          }
+        },
+        {
+          "verse": 5,
+          "translations": {
+            "hebrew": "עֵ֚ת לְהַשְׁלִ֣יךְ אֲבָנִ֔ים&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;וְעֵ֖ת כְּנ֣וֹס אֲבָנִ֑ים&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;עֵ֣ת לַחֲב֔וֹק&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;וְעֵ֖ת לִרְחֹ֥ק מֵחַבֵּֽק׃&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;",
+            "english": "A time for throwing stones and a time for gathering stones,<br>A time for embracing and a time for shunning embraces;"
+          }
+        },
+        {
+          "verse": 6,
+          "translations": {
+            "hebrew": "עֵ֤ת לְבַקֵּשׁ֙&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;וְעֵ֣ת לְאַבֵּ֔ד&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;עֵ֥ת לִשְׁמ֖וֹר&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;וְעֵ֥ת לְהַשְׁלִֽיךְ׃&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;",
+            "english": "A time for seeking and a time for losing,<br>A time for keeping and a time for discarding;"
+          }
+        },
+        {
+          "verse": 7,
+          "translations": {
+            "hebrew": "עֵ֤ת לִקְר֙וֹעַ֙&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;וְעֵ֣ת לִתְפּ֔וֹר&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;עֵ֥ת לַחֲשׁ֖וֹת&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;וְעֵ֥ת לְדַבֵּֽר׃&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;",
+            "english": "A time for ripping and a time for sewing,<br>A time for silence and a time for speaking;"
+          }
+        },
+        {
+          "verse": 8,
+          "translations": {
+            "hebrew": "עֵ֤ת לֶֽאֱהֹב֙&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;וְעֵ֣ת לִשְׂנֹ֔א&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;עֵ֥ת מִלְחָמָ֖ה&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;וְעֵ֥ת שָׁלֽוֹם׃&nbsp;<span class=\"mam-spi-samekh\">{ס}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;",
+            "english": "A time for loving and a time for hating;<br>A time for war and a time for peace."
+          }
+        },
+        {
+          "verse": 9,
+          "translations": {
+            "hebrew": "מַה־יִּתְרוֹן֙ הָֽעוֹשֶׂ֔ה בַּאֲשֶׁ֖ר ה֥וּא עָמֵֽל׃",
+            "english": "What value, then, can the man of affairs get from what he earns?"
+          }
+        },
+        {
+          "verse": 10,
+          "translations": {
+            "hebrew": "רָאִ֣יתִי אֶת־הָֽעִנְיָ֗ן אֲשֶׁ֨ר נָתַ֧ן אֱלֹהִ֛ים לִבְנֵ֥י הָאָדָ֖ם לַעֲנ֥וֹת בּֽוֹ׃",
+            "english": "I have observed the business that God gave man to be concerned with:"
+          }
+        },
+        {
+          "verse": 11,
+          "translations": {
+            "hebrew": "אֶת־הַכֹּ֥ל עָשָׂ֖ה יָפֶ֣ה בְעִתּ֑וֹ גַּ֤ם אֶת־הָעֹלָם֙ נָתַ֣ן בְּלִבָּ֔ם מִבְּלִ֞י אֲשֶׁ֧ר לֹא־יִמְצָ֣א הָאָדָ֗ם אֶת־הַֽמַּעֲשֶׂ֛ה אֲשֶׁר־עָשָׂ֥ה הָאֱלֹהִ֖ים מֵרֹ֥אשׁ וְעַד־סֽוֹף׃",
+            "english": "He brings everything to pass precisely at its time; He also puts eternity in their mind,<sup class=\"footnote-marker\">d</sup><i class=\"footnote\">I.e., He preoccupies man with the attempt to discover the times of future events; cf. 8.17.</i> but without man ever guessing, from first to last, all the things that God brings to pass."
+          }
+        },
+        {
+          "verse": 12,
+          "translations": {
+            "hebrew": "יָדַ֕עְתִּי כִּ֛י אֵ֥ין ט֖וֹב בָּ֑ם כִּ֣י אִם־לִשְׂמ֔וֹחַ וְלַעֲשׂ֥וֹת ט֖וֹב בְּחַיָּֽיו׃",
+            "english": "Thus I realized that the only worthwhile thing there is for them is to enjoy themselves and do what is good<sup class=\"footnote-marker\">e</sup><i class=\"footnote\">I.e., what the author has already concluded (2.24) is good.</i> in their lifetime;"
+          }
+        },
+        {
+          "verse": 13,
+          "translations": {
+            "hebrew": "וְגַ֤ם כׇּל־הָאָדָם֙ שֶׁיֹּאכַ֣ל וְשָׁתָ֔ה וְרָאָ֥ה ט֖וֹב בְּכׇל־עֲמָל֑וֹ מַתַּ֥ת אֱלֹהִ֖ים הִֽיא׃",
+            "english": "also, that whenever a man does eat and drink and get enjoyment out of all his wealth, it is a gift of God."
+          }
+        },
+        {
+          "verse": 14,
+          "translations": {
+            "hebrew": "יָדַ֗עְתִּי כִּ֠י כׇּל־אֲשֶׁ֨ר יַעֲשֶׂ֤ה הָאֱלֹהִים֙ ה֚וּא יִהְיֶ֣ה לְעוֹלָ֔ם עָלָיו֙ אֵ֣ין לְהוֹסִ֔יף וּמִמֶּ֖נּוּ אֵ֣ין לִגְרֹ֑עַ וְהָאֱלֹהִ֣ים עָשָׂ֔ה שֶׁיִּֽרְא֖וּ מִלְּפָנָֽיו׃",
+            "english": "I realized, too, that whatever God has brought to pass will recur evermore:<br>Nothing can be added to it<br>And nothing taken from it—<br>and God has brought to pass that men revere Him."
+          }
+        },
+        {
+          "verse": 15,
+          "translations": {
+            "hebrew": "מַה־שֶּֽׁהָיָה֙ כְּבָ֣ר ה֔וּא וַאֲשֶׁ֥ר לִהְי֖וֹת כְּבָ֣ר הָיָ֑ה וְהָאֱלֹהִ֖ים יְבַקֵּ֥שׁ אֶת־נִרְדָּֽף׃",
+            "english": "<sup class=\"footnote-marker\">f</sup><i class=\"footnote\">Meaning of parts of verse uncertain.</i>What is occurring occurred long since,<br>And what is to occur occurred long since:<br>and God seeks the pursued."
+          }
+        },
+        {
+          "verse": 16,
+          "translations": {
+            "hebrew": "וְע֥וֹד רָאִ֖יתִי תַּ֣חַת הַשָּׁ֑מֶשׁ מְק֤וֹם הַמִּשְׁפָּט֙ שָׁ֣מָּה הָרֶ֔שַׁע וּמְק֥וֹם הַצֶּ֖דֶק שָׁ֥מָּה הָרָֽשַׁע׃",
+            "english": "And, indeed, I have observed under the sun:<br>Alongside justice there is wickedness,<br>Alongside righteousness there is wickedness."
+          }
+        },
+        {
+          "verse": 17,
+          "translations": {
+            "hebrew": "אָמַ֤רְתִּֽי אֲנִי֙ בְּלִבִּ֔י אֶת־הַצַּדִּיק֙ וְאֶת־הָ֣רָשָׁ֔ע יִשְׁפֹּ֖ט הָאֱלֹהִ֑ים כִּי־עֵ֣ת לְכׇל־חֵ֔פֶץ וְעַ֥ל כׇּל־הַֽמַּעֲשֶׂ֖ה שָֽׁם׃",
+            "english": "I mused: “God will doom both righteous and wicked, for <sup class=\"footnote-marker\">g</sup><i class=\"footnote\">Shift of a diacritical point yields “He has set.”</i>there is<sup class=\"endFootnote\">-g</sup> a time for every experience and for every happening.”"
+          }
+        },
+        {
+          "verse": 18,
+          "translations": {
+            "hebrew": "אָמַ֤רְתִּֽי אֲנִי֙ בְּלִבִּ֔י עַל־דִּבְרַת֙ בְּנֵ֣י הָאָדָ֔ם לְבָרָ֖ם הָאֱלֹהִ֑ים וְלִרְא֕וֹת שְׁהֶם־בְּהֵמָ֥ה הֵ֖מָּה לָהֶֽם׃",
+            "english": "<sup class=\"footnote-marker\">f</sup><i class=\"footnote\">Meaning of parts of verse uncertain.</i>So I decided, as regards men, to dissociate them [from] the divine beings and to face the fact that they are beasts.<sup class=\"footnote-marker\">h</sup><i class=\"footnote\">Contrast Ps. 8.5–6.</i>"
+          }
+        },
+        {
+          "verse": 19,
+          "translations": {
+            "hebrew": "כִּי֩ מִקְרֶ֨ה בְֽנֵי־הָאָדָ֜ם וּמִקְרֶ֣ה הַבְּהֵמָ֗ה וּמִקְרֶ֤ה אֶחָד֙ לָהֶ֔ם כְּמ֥וֹת זֶה֙ כֵּ֣ן מ֣וֹת זֶ֔ה וְר֥וּחַ אֶחָ֖ד לַכֹּ֑ל וּמוֹתַ֨ר הָאָדָ֤ם מִן־הַבְּהֵמָה֙ אָ֔יִן כִּ֥י הַכֹּ֖ל הָֽבֶל׃",
+            "english": "For in respect of the fate of man and the fate of beast, they have one and the same fate: as the one dies so dies the other, and both have the same lifebreath; man has no superiority over beast, since both amount to nothing."
+          }
+        },
+        {
+          "verse": 20,
+          "translations": {
+            "hebrew": "הַכֹּ֥ל הוֹלֵ֖ךְ אֶל־מָק֣וֹם אֶחָ֑ד הַכֹּל֙ הָיָ֣ה מִן־הֶֽעָפָ֔ר וְהַכֹּ֖ל שָׁ֥ב אֶל־הֶעָפָֽר׃",
+            "english": "Both go to the same place; both came from dust and both return to dust."
+          }
+        },
+        {
+          "verse": 21,
+          "translations": {
+            "hebrew": "מִ֣י יוֹדֵ֗עַ ר֚וּחַ בְּנֵ֣י הָאָדָ֔ם הָעֹלָ֥ה הִ֖יא לְמָ֑עְלָה וְר֙וּחַ֙ הַבְּהֵמָ֔ה הַיֹּרֶ֥דֶת הִ֖יא לְמַ֥טָּה לָאָֽרֶץ׃",
+            "english": "Who knows if a man’s lifebreath does rise upward and if a beast’s breath does sink down into the earth?"
+          }
+        },
+        {
+          "verse": 22,
+          "translations": {
+            "hebrew": "וְרָאִ֗יתִי כִּ֣י אֵ֥ין טוֹב֙ מֵאֲשֶׁ֨ר יִשְׂמַ֤ח הָאָדָם֙ בְּֽמַעֲשָׂ֔יו כִּי־ה֖וּא חֶלְק֑וֹ כִּ֣י מִ֤י יְבִיאֶ֙נּוּ֙ לִרְא֔וֹת בְּמֶ֖ה שֶׁיִּהְיֶ֥ה אַחֲרָֽיו׃",
+            "english": "I saw that there is nothing better for man than to enjoy his possessions, since that is his portion. For who can enable him to see what will happen afterward?"
+          }
+        }
+      ]
+    },
+    {
+      "chapter": 4,
+      "verses": [
+        {
+          "verse": 1,
+          "translations": {
+            "hebrew": "וְשַׁ֣בְתִּֽי אֲנִ֗י וָאֶרְאֶה֙ אֶת־כׇּל־הָ֣עֲשֻׁקִ֔ים אֲשֶׁ֥ר נַעֲשִׂ֖ים תַּ֣חַת הַשָּׁ֑מֶשׁ וְהִנֵּ֣ה&thinsp;<b>׀</b> דִּמְעַ֣ת הָעֲשֻׁקִ֗ים וְאֵ֤ין לָהֶם֙ מְנַחֵ֔ם וּמִיַּ֤ד עֹֽשְׁקֵיהֶם֙ כֹּ֔חַ וְאֵ֥ין לָהֶ֖ם מְנַחֵֽם׃",
+            "english": "I further observed<sup class=\"footnote-marker\">a</sup><i class=\"footnote\">Cf. 3.16.</i> all the oppression that goes on under the sun: the tears of the oppressed, with none to comfort them; and the power of their oppressors—with none to comfort them."
+          }
+        },
+        {
+          "verse": 2,
+          "translations": {
+            "hebrew": "וְשַׁבֵּ֧חַ אֲנִ֛י אֶת־הַמֵּתִ֖ים שֶׁכְּבָ֣ר מֵ֑תוּ מִן־הַ֣חַיִּ֔ים אֲשֶׁ֛ר הֵ֥מָּה חַיִּ֖ים עֲדֶֽנָה׃",
+            "english": "Then I accounted those who died long since more fortunate than those who are still living;"
+          }
+        },
+        {
+          "verse": 3,
+          "translations": {
+            "hebrew": "וְטוֹב֙ מִשְּׁנֵיהֶ֔ם אֵ֥ת אֲשֶׁר־עֲדֶ֖ן לֹ֣א הָיָ֑ה אֲשֶׁ֤ר לֹֽא־רָאָה֙ אֶת־הַמַּעֲשֶׂ֣ה הָרָ֔ע אֲשֶׁ֥ר נַעֲשָׂ֖ה תַּ֥חַת הַשָּֽׁמֶשׁ׃",
+            "english": "and happier than either are those who have not yet come into being and have never witnessed the miseries that go on under the sun.<br>"
+          }
+        },
+        {
+          "verse": 4,
+          "translations": {
+            "hebrew": "וְרָאִ֨יתִֽי אֲנִ֜י אֶת־כׇּל־עָמָ֗ל וְאֵת֙ כׇּל־כִּשְׁר֣וֹן הַֽמַּעֲשֶׂ֔ה כִּ֛י הִ֥יא קִנְאַת־אִ֖ישׁ מֵרֵעֵ֑הוּ גַּם־זֶ֥ה הֶ֖בֶל וּרְע֥וּת רֽוּחַ׃",
+            "english": "I have also noted that all labor and skillful enterprise come from men’s envy of each other—another futility and pursuit of wind!"
+          }
+        },
+        {
+          "verse": 5,
+          "translations": {
+            "hebrew": "הַכְּסִיל֙ חֹבֵ֣ק אֶת־יָדָ֔יו וְאֹכֵ֖ל אֶת־בְּשָׂרֽוֹ׃",
+            "english": "[True,]<br>The fool folds his hands together<sup class=\"footnote-marker\">b</sup><i class=\"footnote\">I.e., does not work; cf. Prov. 6.10; 24.33.</i><br>And has to eat his own flesh."
+          }
+        },
+        {
+          "verse": 6,
+          "translations": {
+            "hebrew": "ט֕וֹב מְלֹ֥א כַ֖ף נָ֑חַת מִמְּלֹ֥א חׇפְנַ֛יִם עָמָ֖ל וּרְע֥וּת רֽוּחַ׃",
+            "english": "[But no less truly,]<br>Better is a handful of gratification<br>Than two fistfuls of labor which is pursuit of wind."
+          }
+        },
+        {
+          "verse": 7,
+          "translations": {
+            "hebrew": "וְשַׁ֧בְתִּי אֲנִ֛י וָאֶרְאֶ֥ה הֶ֖בֶל תַּ֥חַת הַשָּֽׁמֶשׁ׃",
+            "english": "And I have noted this further futility under the sun:"
+          }
+        },
+        {
+          "verse": 8,
+          "translations": {
+            "hebrew": "יֵ֣שׁ אֶחָד֩ וְאֵ֨ין שֵׁנִ֜י גַּ֣ם בֵּ֧ן וָאָ֣ח אֵֽין־ל֗וֹ וְאֵ֥ין קֵץ֙ לְכׇל־עֲמָל֔וֹ גַּם־<span class=\"mam-kq\"><span class=\"mam-kq-q\">[עֵינ֖וֹ]</span> <span class=\"mam-kq-k\">(עיניו)</span></span> לֹא־תִשְׂבַּ֣ע עֹ֑שֶׁר וּלְמִ֣י&thinsp;<b>׀</b> אֲנִ֣י עָמֵ֗ל וּמְחַסֵּ֤ר אֶת־נַפְשִׁי֙ מִטּוֹבָ֔ה גַּם־זֶ֥ה הֶ֛בֶל וְעִנְיַ֥ן רָ֖ע הֽוּא׃",
+            "english": "the case of the man who is alone, with no companion, who has neither son nor brother; yet he amasses wealth without limit, and his eye is never sated with riches. For whom, now, <sup class=\"footnote-marker\">c</sup><i class=\"footnote\">Lit. “am I amassing…myself.”</i>is he amassing it while denying himself<sup class=\"endFootnote\">-c</sup> enjoyment? That too is a futility and an unhappy business."
+          }
+        },
+        {
+          "verse": 9,
+          "translations": {
+            "hebrew": "טוֹבִ֥ים הַשְּׁנַ֖יִם מִן־הָאֶחָ֑ד אֲשֶׁ֧ר יֵשׁ־לָהֶ֛ם שָׂכָ֥ר ט֖וֹב בַּעֲמָלָֽם׃",
+            "english": "<sup class=\"footnote-marker\">d</sup><i class=\"footnote\">4.9–5.8 consists of a series of observations, each of which is introduced by some slight association with what precedes. The theme of 4.4–8 is not resumed until 5.9.</i>Two are better off than one, in that they have greater <sup class=\"footnote-marker\">e</sup><i class=\"footnote\">Emendation yields “hope for”; cf. 2.20.</i>benefit from<sup class=\"endFootnote\">-e</sup> their earnings."
+          }
+        },
+        {
+          "verse": 10,
+          "translations": {
+            "hebrew": "כִּ֣י אִם־יִפֹּ֔לוּ הָאֶחָ֖ד יָקִ֣ים אֶת־חֲבֵר֑וֹ וְאִ֣יל֗וֹ הָֽאֶחָד֙ שֶׁיִּפּ֔וֹל וְאֵ֥ין שֵׁנִ֖י לַהֲקִימֽוֹ׃",
+            "english": "For should they fall, one can raise the other; but woe betide him who is alone and falls with no companion to raise him!"
+          }
+        },
+        {
+          "verse": 11,
+          "translations": {
+            "hebrew": "גַּ֛ם אִם־יִשְׁכְּב֥וּ שְׁנַ֖יִם וְחַ֣ם לָהֶ֑ם וּלְאֶחָ֖ד אֵ֥יךְ יֵחָֽם׃",
+            "english": "Further, when two lie together they are warm; but how can he who is alone get warm?"
+          }
+        },
+        {
+          "verse": 12,
+          "translations": {
+            "hebrew": "וְאִֽם־יִתְקְפוֹ֙ הָאֶחָ֔ד הַשְּׁנַ֖יִם יַעַמְד֣וּ נֶגְדּ֑וֹ וְהַחוּט֙ הַֽמְשֻׁלָּ֔שׁ לֹ֥א בִמְהֵרָ֖ה יִנָּתֵֽק׃",
+            "english": "Also, if one attacks, two can stand up to him. A threefold cord is not readily broken!"
+          }
+        },
+        {
+          "verse": 13,
+          "translations": {
+            "hebrew": "ט֛וֹב יֶ֥לֶד מִסְכֵּ֖ן וְחָכָ֑ם מִמֶּ֤לֶךְ זָקֵן֙ וּכְסִ֔יל אֲשֶׁ֛ר לֹא־יָדַ֥ע לְהִזָּהֵ֖ר עֽוֹד׃",
+            "english": "Better a poor but wise youth than an old but foolish king who no longer has the sense to heed warnings."
+          }
+        },
+        {
+          "verse": 14,
+          "translations": {
+            "hebrew": "כִּֽי־מִבֵּ֥ית הָסוּרִ֖ים יָצָ֣א לִמְלֹ֑ךְ כִּ֛י גַּ֥ם בְּמַלְכוּת֖וֹ נוֹלַ֥ד רָֽשׁ׃",
+            "english": "For the former can emerge from a dungeon to become king; while the latter, even if born to kingship, can become a pauper.<sup class=\"footnote-marker\">f</sup><i class=\"footnote\">Taking rash as a verb; cf. Ps. 34.11.</i>"
+          }
+        },
+        {
+          "verse": 15,
+          "translations": {
+            "hebrew": "רָאִ֙יתִי֙ אֶת־כׇּל־הַ֣חַיִּ֔ים הַֽמְהַלְּכִ֖ים תַּ֣חַת הַשָּׁ֑מֶשׁ עִ֚ם הַיֶּ֣לֶד הַשֵּׁנִ֔י אֲשֶׁ֥ר יַעֲמֹ֖ד תַּחְתָּֽיו׃",
+            "english": "[However,] I reflected about <sup class=\"footnote-marker\">g</sup><i class=\"footnote\">I.e., “the contemporaries of.”</i>all the living who walk under the sun with<sup class=\"endFootnote\">-g</sup> that youthful successor who steps into his place."
+          }
+        },
+        {
+          "verse": 16,
+          "translations": {
+            "hebrew": "אֵֽין־קֵ֣ץ לְכׇל־הָעָ֗ם לְכֹ֤ל אֲשֶׁר־הָיָה֙ לִפְנֵיהֶ֔ם גַּ֥ם הָאַחֲרוֹנִ֖ים לֹ֣א יִשְׂמְחוּ־ב֑וֹ כִּֽי־גַם־זֶ֥ה הֶ֖בֶל וְרַעְי֥וֹן רֽוּחַ׃",
+            "english": "Unnumbered are the multitudes of all those who preceded them;<sup class=\"footnote-marker\">h</sup><i class=\"footnote\">And so never heard of the gifted youth.</i> and later generations will not acclaim him either.<sup class=\"footnote-marker\">i</sup><i class=\"footnote\">For despite his wisdom, he too will be forgotten; cf. 2.16.</i> For that<sup class=\"footnote-marker\">j</sup><i class=\"footnote\">I.e., the advantage of wisdom over folly.</i> too is futile and pursuit of wind.<br>"
+          }
+        },
+        {
+          "verse": 17,
+          "translations": {
+            "hebrew": "שְׁמֹ֣ר <span class=\"mam-kq\"><span class=\"mam-kq-k\">(רגליך)</span> <span class=\"mam-kq-q\">[רַגְלְךָ֗]</span></span> כַּאֲשֶׁ֤ר תֵּלֵךְ֙ אֶל־בֵּ֣ית הָאֱלֹהִ֔ים וְקָר֣וֹב לִשְׁמֹ֔עַ מִתֵּ֥ת הַכְּסִילִ֖ים זָ֑בַח כִּֽי־אֵינָ֥ם יוֹדְעִ֖ים לַעֲשׂ֥וֹת רָֽע׃",
+            "english": "<sup class=\"footnote-marker\">k</sup><i class=\"footnote\">Lit. “Guard your foot when it [or, you] would go.”</i>Be not overeager to go<sup class=\"endFootnote\">-k</sup> to the House of God: more acceptable is obedience than the offering of fools, for they know nothing [but] to do wrong."
+          }
+        }
+      ]
+    },
+    {
+      "chapter": 5,
+      "verses": [
+        {
+          "verse": 1,
+          "translations": {
+            "hebrew": "אַל־תְּבַהֵ֨ל עַל־פִּ֜יךָ וְלִבְּךָ֧ אַל־יְמַהֵ֛ר לְהוֹצִ֥יא דָבָ֖ר לִפְנֵ֣י הָאֱלֹהִ֑ים כִּ֣י הָאֱלֹהִ֤ים בַּשָּׁמַ֙יִם֙ וְאַתָּ֣ה עַל־הָאָ֔רֶץ עַל־כֵּ֛ן יִהְי֥וּ דְבָרֶ֖יךָ מְעַטִּֽים׃",
+            "english": "Keep your mouth from being rash, and let not your throat<sup class=\"footnote-marker\">a</sup><i class=\"footnote\">Heb. leb, lit. “heart,” sometimes designates the organ of speech; cf. Isa. 33.18; 59.13; Ps. 19.15; 49.4; Job. 8.10.</i> be quick to bring forth speech before God. For God is in heaven and you are on earth; that is why your words should be few."
+          }
+        },
+        {
+          "verse": 2,
+          "translations": {
+            "hebrew": "כִּ֛י בָּ֥א הַחֲל֖וֹם בְּרֹ֣ב עִנְיָ֑ן וְק֥וֹל כְּסִ֖יל בְּרֹ֥ב דְּבָרִֽים׃",
+            "english": "Just as dreams come with much brooding, so does foolish utterance come with much speech."
+          }
+        },
+        {
+          "verse": 3,
+          "translations": {
+            "hebrew": "כַּאֲשֶׁר֩ תִּדֹּ֨ר נֶ֜דֶר לֵֽאלֹהִ֗ים אַל־תְּאַחֵר֙ לְשַׁלְּמ֔וֹ כִּ֛י אֵ֥ין חֵ֖פֶץ בַּכְּסִילִ֑ים אֵ֥ת אֲשֶׁר־תִּדֹּ֖ר שַׁלֵּֽם׃",
+            "english": "When you make a vow to God, do not delay to fulfill it. For He has no pleasure in fools; what you vow, fulfill."
+          }
+        },
+        {
+          "verse": 4,
+          "translations": {
+            "hebrew": "ט֖וֹב אֲשֶׁ֣ר לֹֽא־תִדֹּ֑ר מִשֶּׁתִּדּ֖וֹר וְלֹ֥א תְשַׁלֵּֽם׃",
+            "english": "It is better not to vow at all than to vow and not fulfill."
+          }
+        },
+        {
+          "verse": 5,
+          "translations": {
+            "hebrew": "אַל־תִּתֵּ֤ן אֶת־פִּ֙יךָ֙ לַחֲטִ֣יא אֶת־בְּשָׂרֶ֔ךָ וְאַל־תֹּאמַר֙ לִפְנֵ֣י הַמַּלְאָ֔ךְ כִּ֥י שְׁגָגָ֖ה הִ֑יא לָ֣מָּה יִקְצֹ֤ף הָֽאֱלֹהִים֙ עַל־קוֹלֶ֔ךָ וְחִבֵּ֖ל אֶת־מַעֲשֵׂ֥ה יָדֶֽיךָ׃",
+            "english": "Don’t let your mouth bring you into disfavor, and don’t plead before the messenger<sup class=\"footnote-marker\">b</sup><i class=\"footnote\">Some ancient versions read “God.”</i> that it was an error, <sup class=\"footnote-marker\">c</sup><i class=\"footnote\">Moved up from v. 6 for clarity.</i>but fear God;<sup class=\"endFootnote\">-c</sup> else God may be angered by your talk and destroy your possessions."
+          }
+        },
+        {
+          "verse": 6,
+          "translations": {
+            "hebrew": "כִּ֣י בְרֹ֤ב חֲלֹמוֹת֙ וַהֲבָלִ֔ים וּדְבָרִ֖ים הַרְבֵּ֑ה כִּ֥י אֶת־הָאֱלֹהִ֖ים יְרָֽא׃",
+            "english": "<sup class=\"footnote-marker\">d</sup><i class=\"footnote\">Meaning of verse uncertain. Emendation yields “Much brooding results in dreams; and much talk in futilities”; cf. v. 2.</i>For much dreaming leads to futility and to superfluous talk.<br>"
+          }
+        },
+        {
+          "verse": 7,
+          "translations": {
+            "hebrew": "אִם־עֹ֣שֶׁק רָ֠שׁ וְגֵ֨זֶל מִשְׁפָּ֤ט וָצֶ֙דֶק֙ תִּרְאֶ֣ה בַמְּדִינָ֔ה אַל־תִּתְמַ֖הּ עַל־הַחֵ֑פֶץ כִּ֣י גָבֹ֜הַּ מֵעַ֤ל גָּבֹ֙הַּ֙ שֹׁמֵ֔ר וּגְבֹהִ֖ים עֲלֵיהֶֽם׃",
+            "english": "If you see in a province oppression of the poor and suppression of right and justice, don’t wonder at the fact; for one high official is protected by a higher one, and both of them by still higher ones."
+          }
+        },
+        {
+          "verse": 8,
+          "translations": {
+            "hebrew": "וְיִתְר֥וֹן אֶ֖רֶץ בַּכֹּ֣ל <span class=\"mam-kq\"><span class=\"mam-kq-k\">(היא)</span> <span class=\"mam-kq-q\">[ה֑וּא]</span></span> מֶ֥לֶךְ לְשָׂדֶ֖ה נֶעֱבָֽד׃",
+            "english": "Thus the greatest advantage in all the land is his: he controls a field that is cultivated.<sup class=\"footnote-marker\">e</sup><i class=\"footnote\">I.e., the high official profits from the labor of others; but meaning of verse uncertain.</i><br>"
+          }
+        },
+        {
+          "verse": 9,
+          "translations": {
+            "hebrew": "אֹהֵ֥ב כֶּ֙סֶף֙ לֹא־יִשְׂבַּ֣ע כֶּ֔סֶף וּמִֽי־אֹהֵ֥ב בֶּהָמ֖וֹן לֹ֣א תְבוּאָ֑ה גַּם־זֶ֖ה הָֽבֶל׃",
+            "english": "A lover of money never has his fill of money, nor a lover of wealth his fill of income. That too is futile."
+          }
+        },
+        {
+          "verse": 10,
+          "translations": {
+            "hebrew": "בִּרְבוֹת֙ הַטּוֹבָ֔ה רַבּ֖וּ אוֹכְלֶ֑יהָ וּמַה־כִּשְׁרוֹן֙ לִבְעָלֶ֔יהָ כִּ֖י אִם־<span class=\"mam-kq\"><span class=\"mam-kq-q\">[רְא֥וּת]</span> <span class=\"mam-kq-k\">(ראית)</span></span> עֵינָֽיו׃",
+            "english": "As his substance increases, so do those who consume it; what, then, does the success of its owner amount to but feasting his eyes?"
+          }
+        },
+        {
+          "verse": 11,
+          "translations": {
+            "hebrew": "מְתוּקָה֙ שְׁנַ֣ת הָעֹבֵ֔ד אִם־מְעַ֥ט וְאִם־הַרְבֵּ֖ה יֹאכֵ֑ל וְהַשָּׂבָע֙ לֶֽעָשִׁ֔יר אֵינֶ֛נּוּ מַנִּ֥יחַֽ ל֖וֹ לִישֽׁוֹן׃",
+            "english": "A worker’s<sup class=\"footnote-marker\">f</sup><i class=\"footnote\">Some ancient versions have “slave’s.”</i> sleep is sweet, whether he has much or little to eat; but the rich man’s abundance doesn’t let him sleep."
+          }
+        },
+        {
+          "verse": 12,
+          "translations": {
+            "hebrew": "יֵ֚שׁ רָעָ֣ה חוֹלָ֔ה רָאִ֖יתִי תַּ֣חַת הַשָּׁ֑מֶשׁ עֹ֛שֶׁר שָׁמ֥וּר לִבְעָלָ֖יו לְרָעָתֽוֹ׃",
+            "english": "Here is a grave evil I have observed under the sun: riches hoarded by their owner to his misfortune,"
+          }
+        },
+        {
+          "verse": 13,
+          "translations": {
+            "hebrew": "וְאָבַ֛ד הָעֹ֥שֶׁר הַה֖וּא בְּעִנְיַ֣ן רָ֑ע וְהוֹלִ֣יד בֵּ֔ן וְאֵ֥ין בְּיָד֖וֹ מְאֽוּמָה׃",
+            "english": "in that those riches are lost in some unlucky venture; and if he begets a son, he has nothing in hand."
+          }
+        },
+        {
+          "verse": 14,
+          "translations": {
+            "hebrew": "כַּאֲשֶׁ֤ר יָצָא֙ מִבֶּ֣טֶן אִמּ֔וֹ עָר֛וֹם יָשׁ֥וּב לָלֶ֖כֶת כְּשֶׁבָּ֑א וּמְא֙וּמָה֙ לֹא־יִשָּׂ֣א בַעֲמָל֔וֹ שֶׁיֹּלֵ֖ךְ בְּיָדֽוֹ׃",
+            "english": "<sup class=\"footnote-marker\">g</sup><i class=\"footnote\">Moved up from v. 15 for clarity.</i>Another grave evil is this: He must depart just as he came.<sup class=\"endFootnote\">-g</sup> As he came out of his mother’s womb, so must he depart at last, naked as he came. He can take nothing of his wealth to carry with him."
+          }
+        },
+        {
+          "verse": 15,
+          "translations": {
+            "hebrew": "וְגַם־זֹה֙ רָעָ֣ה חוֹלָ֔ה כׇּל־עֻמַּ֥ת שֶׁבָּ֖א כֵּ֣ן יֵלֵ֑ךְ וּמַה־יִּתְר֣וֹן ל֔וֹ שֶֽׁיַּעֲמֹ֖ל לָרֽוּחַ׃",
+            "english": "So what is the good of his toiling for the wind?"
+          }
+        },
+        {
+          "verse": 16,
+          "translations": {
+            "hebrew": "גַּ֥ם כׇּל־יָמָ֖יו בַּחֹ֣שֶׁךְ יֹאכֵ֑ל וְכָעַ֥ס הַרְבֵּ֖ה וְחׇלְי֥וֹ וָקָֽצֶף׃",
+            "english": "Besides, all his days <sup class=\"footnote-marker\">h</sup><i class=\"footnote\">Septuagint reads “are [spent] in darkness and mourning.”</i>he eats in darkness,<sup class=\"endFootnote\">-h</sup> with much vexation and grief and anger."
+          }
+        },
+        {
+          "verse": 17,
+          "translations": {
+            "hebrew": "הִנֵּ֞ה אֲשֶׁר־רָאִ֣יתִי אָ֗נִי ט֣וֹב אֲשֶׁר־יָפֶ֣ה לֶֽאֱכוֹל־וְ֠לִשְׁתּ֠וֹת וְלִרְא֨וֹת טוֹבָ֜ה בְּכׇל־עֲמָל֣וֹ&thinsp;<b>׀</b> שֶׁיַּעֲמֹ֣ל תַּֽחַת־הַשֶּׁ֗מֶשׁ מִסְפַּ֧ר יְמֵי־<span class=\"mam-kq-trivial\">חַיָּ֛ו</span> אֲשֶׁר־נָֽתַן־ל֥וֹ הָאֱלֹהִ֖ים כִּי־ה֥וּא חֶלְקֽוֹ׃",
+            "english": "Only this, I have found, is a real good: that one should eat and drink and get pleasure with all the gains he makes under the sun, during the numbered days of life that God has given him; for that is his portion."
+          }
+        },
+        {
+          "verse": 18,
+          "translations": {
+            "hebrew": "גַּ֣ם כׇּֽל־הָאָדָ֡ם אֲשֶׁ֣ר נָֽתַן־ל֣וֹ הָאֱלֹהִים֩ עֹ֨שֶׁר וּנְכָסִ֜ים וְהִשְׁלִיט֨וֹ לֶאֱכֹ֤ל מִמֶּ֙נּוּ֙ וְלָשֵׂ֣את אֶת־חֶלְק֔וֹ וְלִשְׂמֹ֖חַ בַּעֲמָל֑וֹ זֹ֕ה מַתַּ֥ת אֱלֹהִ֖ים הִֽיא׃",
+            "english": "Also, whenever a man is given riches and property by God, and is also permitted by Him to enjoy them and to take his portion and get pleasure for his gains—that is a gift of God."
+          }
+        },
+        {
+          "verse": 19,
+          "translations": {
+            "hebrew": "כִּ֚י לֹ֣א הַרְבֵּ֔ה יִזְכֹּ֖ר אֶת־יְמֵ֣י חַיָּ֑יו כִּ֧י הָאֱלֹהִ֛ים מַעֲנֶ֖ה בְּשִׂמְחַ֥ת לִבּֽוֹ׃",
+            "english": "For [such a man] will not brood much over the days of his life,<sup class=\"footnote-marker\">i</sup><i class=\"footnote\">The thought of which is depressing; see v. 16.</i> because God keeps him busy enjoying himself."
+          }
+        }
+      ]
+    },
+    {
+      "chapter": 6,
+      "verses": [
+        {
+          "verse": 1,
+          "translations": {
+            "hebrew": "יֵ֣שׁ רָעָ֔ה אֲשֶׁ֥ר רָאִ֖יתִי תַּ֣חַת הַשָּׁ֑מֶשׁ וְרַבָּ֥ה הִ֖יא עַל־הָאָדָֽם׃",
+            "english": "There is an evil I have observed under the sun, and a grave one it is for man:"
+          }
+        },
+        {
+          "verse": 2,
+          "translations": {
+            "hebrew": "אִ֣ישׁ אֲשֶׁ֣ר יִתֶּן־ל֣וֹ הָאֱלֹהִ֡ים עֹ֩שֶׁר֩ וּנְכָסִ֨ים וְכָב֜וֹד וְֽאֵינֶ֨נּוּ חָסֵ֥ר לְנַפְשׁ֣וֹ&thinsp;<b>׀</b> מִכֹּ֣ל אֲשֶׁר־יִתְאַוֶּ֗ה וְלֹֽא־יַשְׁלִיטֶ֤נּוּ הָֽאֱלֹהִים֙ לֶאֱכֹ֣ל מִמֶּ֔נּוּ כִּ֛י אִ֥ישׁ נׇכְרִ֖י יֹֽאכְלֶ֑נּוּ זֶ֥ה הֶ֛בֶל וׇחֳלִ֥י רָ֖ע הֽוּא׃",
+            "english": "that God sometimes grants a man riches, property, and wealth, so that he does not want for anything his appetite may crave, but God does not permit him to enjoy it; instead, a stranger will enjoy it. That is futility and a grievous ill."
+          }
+        },
+        {
+          "verse": 3,
+          "translations": {
+            "hebrew": "אִם־יוֹלִ֣יד אִ֣ישׁ מֵאָ֡ה וְשָׁנִים֩ רַבּ֨וֹת יִֽחְיֶ֜ה וְרַ֣ב&thinsp;<b>׀</b> שֶׁיִּהְי֣וּ יְמֵֽי־שָׁנָ֗יו וְנַפְשׁוֹ֙ לֹא־תִשְׂבַּ֣ע מִן־הַטּוֹבָ֔ה וְגַם־קְבוּרָ֖ה לֹא־הָ֣יְתָה לּ֑וֹ אָמַ֕רְתִּי ט֥וֹב מִמֶּ֖נּוּ הַנָּֽפֶל׃",
+            "english": "Even if a man should beget a hundred children and live many years—no matter how many the days of his years may come to, if his gullet is not sated through his wealth, I say: The stillbirth, though it was not even accorded a burial,<sup class=\"footnote-marker\">a</sup><i class=\"footnote\">Stillbirths were cast into pits or hidden in the ground in no recognizable graves; cf. v. 4 end.</i> is more fortunate than he."
+          }
+        },
+        {
+          "verse": 4,
+          "translations": {
+            "hebrew": "כִּֽי־בַהֶ֥בֶל בָּ֖א וּבַחֹ֣שֶׁךְ יֵלֵ֑ךְ וּבַחֹ֖שֶׁךְ שְׁמ֥וֹ יְכֻסֶּֽה׃",
+            "english": "Though it comes into futility and departs into darkness, and its very name is covered with darkness,"
+          }
+        },
+        {
+          "verse": 5,
+          "translations": {
+            "hebrew": "גַּם־שֶׁ֥מֶשׁ לֹא־רָאָ֖ה וְלֹ֣א יָדָ֑ע נַ֥חַת לָזֶ֖ה מִזֶּֽה׃",
+            "english": "though it has never seen or experienced the sun, it is better off than he—"
+          }
+        },
+        {
+          "verse": 6,
+          "translations": {
+            "hebrew": "וְאִלּ֣וּ חָיָ֗ה אֶ֤לֶף שָׁנִים֙ פַּעֲמַ֔יִם וְטוֹבָ֖ה לֹ֣א רָאָ֑ה הֲלֹ֛א אֶל־מָק֥וֹם אֶחָ֖ד הַכֹּ֥ל הוֹלֵֽךְ׃",
+            "english": "yes, even if the other lived a thousand years twice over but never had his fill of enjoyment! For are not both of them bound for the same place?"
+          }
+        },
+        {
+          "verse": 7,
+          "translations": {
+            "hebrew": "כׇּל־עֲמַ֥ל הָאָדָ֖ם לְפִ֑יהוּ וְגַם־הַנֶּ֖פֶשׁ לֹ֥א תִמָּלֵֽא׃",
+            "english": "<sup class=\"footnote-marker\">b</sup><i class=\"footnote\">Cf. Prov. 16.26.</i>All of man’s earning is for the sake of his mouth, <sup class=\"footnote-marker\">c</sup><i class=\"footnote\">Meaning of Heb. uncertain; emendation yields “And if the gullet is not sated, what advantage has the wise man over the fool, he who knows how to get on in life over the pauper?”</i>yet his gullet is not sated."
+          }
+        },
+        {
+          "verse": 8,
+          "translations": {
+            "hebrew": "כִּ֛י מַה־יּוֹתֵ֥ר לֶחָכָ֖ם מִֽן־הַכְּסִ֑יל מַה־לֶּעָנִ֣י יוֹדֵ֔עַ לַהֲלֹ֖ךְ נֶ֥גֶד הַחַיִּֽים׃",
+            "english": "What advantage then has the wise man over the fool, what advantage has the pauper who knows how to get on in life?<sup class=\"endFootnote\">-c</sup>"
+          }
+        },
+        {
+          "verse": 9,
+          "translations": {
+            "hebrew": "ט֛וֹב מַרְאֵ֥ה עֵינַ֖יִם מֵֽהֲלׇךְ־נָ֑פֶשׁ גַּם־זֶ֥ה הֶ֖בֶל וּרְע֥וּת רֽוּחַ׃",
+            "english": "<sup class=\"footnote-marker\">d</sup><i class=\"footnote\">Meaning of first half of verse uncertain.</i>Is the feasting of the eyes more important than the pursuit of desire? That, too, is futility and pursuit of wind."
+          }
+        },
+        {
+          "verse": 10,
+          "translations": {
+            "hebrew": "מַה־שֶּֽׁהָיָ֗ה כְּבָר֙ נִקְרָ֣א שְׁמ֔וֹ וְנוֹדָ֖ע אֲשֶׁר־ה֣וּא אָדָ֑ם וְלֹא־יוּכַ֣ל לָדִ֔ין עִ֥ם <span class=\"mam-kq\"><span class=\"mam-kq-k\">(שהתקיף)</span> <span class=\"mam-kq-q\">[שֶׁתַּקִּ֖יף]</span></span> מִמֶּֽנּוּ׃",
+            "english": "Whatever happens, it was designated long ago and it was known that it would happen; as for man, he cannot contend with what is stronger than he."
+          }
+        },
+        {
+          "verse": 11,
+          "translations": {
+            "hebrew": "כִּ֛י יֵשׁ־דְּבָרִ֥ים הַרְבֵּ֖ה מַרְבִּ֣ים הָ֑בֶל מַה־יֹּתֵ֖ר לָאָדָֽם׃",
+            "english": "Often, much talk means much futility. How does it benefit a man?"
+          }
+        },
+        {
+          "verse": 12,
+          "translations": {
+            "hebrew": "כִּ֣י מִֽי־יוֹדֵ֩עַ֩ מַה־טּ֨וֹב לָֽאָדָ֜ם בַּֽחַיִּ֗ים מִסְפַּ֛ר יְמֵי־חַיֵּ֥י הֶבְל֖וֹ וְיַעֲשֵׂ֣ם כַּצֵּ֑ל אֲשֶׁר֙ מִֽי־יַגִּ֣יד לָֽאָדָ֔ם מַה־יִּהְיֶ֥ה אַחֲרָ֖יו תַּ֥חַת הַשָּֽׁמֶשׁ׃",
+            "english": "Who can possibly know what is best for a man to do in life—the few days of his fleeting life? For<sup class=\"footnote-marker\">e</sup><i class=\"footnote\">Lit. “according to the shadow that”; cf. Qumran Aramaic betel and Syriac met·t·ol; and see 8.13.</i> who can tell him what the future holds for him under the sun?"
+          }
+        }
+      ]
+    },
+    {
+      "chapter": 7,
+      "verses": [
+        {
+          "verse": 1,
+          "translations": {
+            "hebrew": "<big>ט֥</big>וֹב שֵׁ֖ם מִשֶּׁ֣מֶן ט֑וֹב וְי֣וֹם הַמָּ֔וֶת מִיּ֖וֹם הִוָּלְדֽוֹ׃",
+            "english": "<sup class=\"footnote-marker\">a</sup><i class=\"footnote\">The author now offers a number of practical maxims, which, however, he concludes (vv. 23–24) are of limited value.</i>A good name is better than fragrant oil, and the day of death than the day of birth.<sup class=\"footnote-marker\">b</sup><i class=\"footnote\">Until a man dies, there is always danger that he may forfeit his good name.</i>"
+          }
+        },
+        {
+          "verse": 2,
+          "translations": {
+            "hebrew": "ט֞וֹב לָלֶ֣כֶת אֶל־בֵּֽית־אֵ֗בֶל מִלֶּ֙כֶת֙ אֶל־בֵּ֣ית מִשְׁתֶּ֔ה בַּאֲשֶׁ֕ר ה֖וּא ס֣וֹף כׇּל־הָאָדָ֑ם וְהַחַ֖י יִתֵּ֥ן אֶל־לִבּֽוֹ׃",
+            "english": "It is better to go to a house of mourning than to a house of feasting; for that is the end of every man, and a living one should take it to heart."
+          }
+        },
+        {
+          "verse": 3,
+          "translations": {
+            "hebrew": "ט֥וֹב כַּ֖עַס מִשְּׂח֑וֹק כִּֽי־בְרֹ֥עַ פָּנִ֖ים יִ֥יטַב לֵֽב׃",
+            "english": "Vexation is better than revelry;<sup class=\"footnote-marker\">c</sup><i class=\"footnote\">For empty revelry precludes real happiness; cf. 2.2.</i> for though the face be sad, the heart may be glad."
+          }
+        },
+        {
+          "verse": 4,
+          "translations": {
+            "hebrew": "לֵ֤ב חֲכָמִים֙ בְּבֵ֣ית אֵ֔בֶל וְלֵ֥ב כְּסִילִ֖ים בְּבֵ֥ית שִׂמְחָֽה׃",
+            "english": "Wise men are drawn to a house of mourning, and fools to a house of merrymaking."
+          }
+        },
+        {
+          "verse": 5,
+          "translations": {
+            "hebrew": "ט֕וֹב לִשְׁמֹ֖עַ גַּעֲרַ֣ת חָכָ֑ם מֵאִ֕ישׁ שֹׁמֵ֖עַ שִׁ֥יר כְּסִילִֽים׃",
+            "english": "It is better to listen to a wise man’s reproof than to listen to the praise of fools."
+          }
+        },
+        {
+          "verse": 6,
+          "translations": {
+            "hebrew": "כִּ֣י כְק֤וֹל הַסִּירִים֙ תַּ֣חַת הַסִּ֔יר כֵּ֖ן שְׂחֹ֣ק הַכְּסִ֑יל וְגַם־זֶ֖ה הָֽבֶל׃",
+            "english": "For the levity<sup class=\"footnote-marker\">d</sup><i class=\"footnote\">Emendation yields “praise” (shbḥ.)</i> of the fool is like the crackling of nettles under a kettle. <sup class=\"footnote-marker\">e</sup><i class=\"footnote\">This section, to end of verse 7, is apparently a continuation of the thought in vv. 11–12 and 19.</i>But that too is illusory;"
+          }
+        },
+        {
+          "verse": 7,
+          "translations": {
+            "hebrew": "כִּ֥י הָעֹ֖שֶׁק יְהוֹלֵ֣ל חָכָ֑ם וִֽיאַבֵּ֥ד אֶת־לֵ֖ב מַתָּנָֽה׃",
+            "english": "for cheating<sup class=\"footnote-marker\">f</sup><i class=\"footnote\">Emendation yields “riches.”</i> may rob the wise man of reason and destroy the prudence of the cautious.<sup class=\"footnote-marker\">g</sup><i class=\"footnote\">Lit. “caution”; cf. postbiblical mathun, “cautious.”</i>"
+          }
+        },
+        {
+          "verse": 8,
+          "translations": {
+            "hebrew": "ט֛וֹב אַחֲרִ֥ית דָּבָ֖ר מֵֽרֵאשִׁית֑וֹ ט֥וֹב אֶֽרֶךְ־ר֖וּחַ מִגְּבַהּ־רֽוּחַ׃",
+            "english": "The end of a matter is better than the beginning of it.<br>Better a patient spirit than a haughty spirit."
+          }
+        },
+        {
+          "verse": 9,
+          "translations": {
+            "hebrew": "אַל־תְּבַהֵ֥ל בְּרֽוּחֲךָ֖ לִכְע֑וֹס כִּ֣י כַ֔עַס בְּחֵ֥יק כְּסִילִ֖ים יָנֽוּחַ׃",
+            "english": "Don’t let your spirit be quickly vexed, for vexation abides in the breasts of fools."
+          }
+        },
+        {
+          "verse": 10,
+          "translations": {
+            "hebrew": "אַל־תֹּאמַר֙ מֶ֣ה הָיָ֔ה שֶׁ֤הַיָּמִים֙ הָרִ֣אשֹׁנִ֔ים הָי֥וּ טוֹבִ֖ים מֵאֵ֑לֶּה כִּ֛י לֹ֥א מֵחׇכְמָ֖ה שָׁאַ֥לְתָּ עַל־זֶֽה׃",
+            "english": "Don’t say, “How has it happened that former times were better than these?” For it is not wise of you to ask that question."
+          }
+        },
+        {
+          "verse": 11,
+          "translations": {
+            "hebrew": "טוֹבָ֥ה חׇכְמָ֖ה עִֽם־נַחֲלָ֑ה וְיֹתֵ֖ר לְרֹאֵ֥י הַשָּֽׁמֶשׁ׃",
+            "english": "Wisdom is as good as a patrimony, and even better, for those who behold the sun."
+          }
+        },
+        {
+          "verse": 12,
+          "translations": {
+            "hebrew": "כִּ֛י בְּצֵ֥ל הַֽחׇכְמָ֖ה בְּצֵ֣ל הַכָּ֑סֶף וְיִתְר֣וֹן דַּ֔עַת הַֽחׇכְמָ֖ה תְּחַיֶּ֥ה בְעָלֶֽיהָ׃",
+            "english": "For to be in the shelter of wisdom is to be also in the shelter of money,<sup class=\"footnote-marker\">h</sup><i class=\"footnote\">Emendation yields “For the possessor of wisdom becomes a possessor of money.”</i> and the advantage of intelligence is that wisdom preserves the life of him who possesses it."
+          }
+        },
+        {
+          "verse": 13,
+          "translations": {
+            "hebrew": "רְאֵ֖ה אֶת־מַעֲשֵׂ֣ה הָאֱלֹהִ֑ים כִּ֣י מִ֤י יוּכַל֙ לְתַקֵּ֔ן אֵ֖ת אֲשֶׁ֥ר עִוְּתֽוֹ׃",
+            "english": "<sup class=\"footnote-marker\">i</sup><i class=\"footnote\">Vv. 13–14 continue the thought of v. 10.</i>Consider God’s doing! Who can straighten what He has twisted?"
+          }
+        },
+        {
+          "verse": 14,
+          "translations": {
+            "hebrew": "בְּי֤וֹם טוֹבָה֙ הֱיֵ֣ה בְט֔וֹב וּבְי֥וֹם רָעָ֖ה רְאֵ֑ה גַּ֣ם אֶת־זֶ֤ה לְעֻמַּת־זֶה֙ עָשָׂ֣ה הָֽאֱלֹהִ֔ים עַל־דִּבְרַ֗ת שֶׁלֹּ֨א יִמְצָ֧א הָֽאָדָ֛ם אַחֲרָ֖יו מְאֽוּמָה׃",
+            "english": "So in a time of good fortune enjoy the good fortune; and in a time of misfortune, reflect: The one no less than the other was God’s doing; consequently, man may find no fault with Him.<sup class=\"footnote-marker\">j</sup><i class=\"footnote\">So Rashi; cf. the same thought in Job 1.22; 2.10.</i>"
+          }
+        },
+        {
+          "verse": 15,
+          "translations": {
+            "hebrew": "אֶת־הַכֹּ֥ל רָאִ֖יתִי בִּימֵ֣י הֶבְלִ֑י יֵ֤שׁ צַדִּיק֙ אֹבֵ֣ד בְּצִדְק֔וֹ וְיֵ֣שׁ רָשָׁ֔ע מַאֲרִ֖יךְ בְּרָעָתֽוֹ׃",
+            "english": "In my own brief span of life, I have seen both these things: sometimes a good man perishes in spite of his goodness, and sometimes a wicked one endures in spite of his wickedness."
+          }
+        },
+        {
+          "verse": 16,
+          "translations": {
+            "hebrew": "אַל־תְּהִ֤י צַדִּיק֙ הַרְבֵּ֔ה וְאַל־תִּתְחַכַּ֖ם יוֹתֵ֑ר לָ֖מָּה תִּשּׁוֹמֵֽם׃",
+            "english": "So don’t overdo goodness and don’t act the wise man to excess, or you may be dumfounded."
+          }
+        },
+        {
+          "verse": 17,
+          "translations": {
+            "hebrew": "אַל־תִּרְשַׁ֥ע הַרְבֵּ֖ה וְאַל־תְּהִ֣י סָכָ֑ל לָ֥מָּה תָמ֖וּת בְּלֹ֥א עִתֶּֽךָ׃",
+            "english": "Don’t overdo wickedness and don’t be a fool, or you may die before your time."
+          }
+        },
+        {
+          "verse": 18,
+          "translations": {
+            "hebrew": "ט֚וֹב אֲשֶׁ֣ר תֶּאֱחֹ֣ז בָּזֶ֔ה וְגַם־מִזֶּ֖ה אַל־תַּנַּ֣ח אֶת־יָדֶ֑ךָ כִּֽי־יְרֵ֥א אֱלֹהִ֖ים יֵצֵ֥א אֶת־כֻּלָּֽם׃",
+            "english": "It is best that you grasp the one without letting go of the other, for one who fears God will do his duty<sup class=\"footnote-marker\">k</sup><i class=\"footnote\">Cf. postbiblical yaṣa yede.</i> by both."
+          }
+        },
+        {
+          "verse": 19,
+          "translations": {
+            "hebrew": "הַֽחׇכְמָ֖ה תָּעֹ֣ז לֶחָכָ֑ם מֵֽעֲשָׂרָה֙ שַׁלִּיטִ֔ים אֲשֶׁ֥ר הָי֖וּ בָּעִֽיר׃",
+            "english": "Wisdom is more of a stronghold to a wise man than <sup class=\"footnote-marker\">l</sup><i class=\"footnote\">Emendation yields “the riches of the magnates”; cf. Prov. 18.11.</i>ten magnates<sup class=\"endFootnote\">-l</sup> that a city may contain."
+          }
+        },
+        {
+          "verse": 20,
+          "translations": {
+            "hebrew": "כִּ֣י אָדָ֔ם אֵ֥ין צַדִּ֖יק בָּאָ֑רֶץ אֲשֶׁ֥ר יַעֲשֶׂה־טּ֖וֹב וְלֹ֥א יֶחֱטָֽא׃",
+            "english": "<sup class=\"footnote-marker\">m</sup><i class=\"footnote\">Apparently continuing the thought of v. 16.</i>For there is not one good man on earth who does what is best<sup class=\"footnote-marker\">n</sup><i class=\"footnote\">Refers back to 6.12.</i> and doesn’t err."
+          }
+        },
+        {
+          "verse": 21,
+          "translations": {
+            "hebrew": "גַּ֤ם לְכׇל־הַדְּבָרִים֙ אֲשֶׁ֣ר יְדַבֵּ֔רוּ אַל־תִּתֵּ֖ן לִבֶּ֑ךָ אֲשֶׁ֛ר לֹֽא־תִשְׁמַ֥ע אֶֽת־עַבְדְּךָ֖ מְקַלְלֶֽךָ׃",
+            "english": "Finally, don’t pay attention to everything that is said, so that you may not hear your slave reviling you;"
+          }
+        },
+        {
+          "verse": 22,
+          "translations": {
+            "hebrew": "כִּ֛י גַּם־פְּעָמִ֥ים רַבּ֖וֹת יָדַ֣ע לִבֶּ֑ךָ אֲשֶׁ֥ר גַּם־<span class=\"mam-kq\"><span class=\"mam-kq-q\">[אַתָּ֖ה]</span> <span class=\"mam-kq-k\">(את)</span></span> קִלַּ֥לְתָּ אֲחֵרִֽים׃",
+            "english": "for well you remember<sup class=\"footnote-marker\">o</sup><i class=\"footnote\">Lit. “your heart knows”; the same idiom occurs again in 8.5.</i> the many times that you yourself have reviled others."
+          }
+        },
+        {
+          "verse": 23,
+          "translations": {
+            "hebrew": "כׇּל־זֹ֖ה נִסִּ֣יתִי בַֽחׇכְמָ֑ה אָמַ֣רְתִּי אֶחְכָּ֔מָה וְהִ֖יא רְחוֹקָ֥ה מִמֶּֽנִּי׃",
+            "english": "All this I tested with wisdom. I thought I could fathom it,<sup class=\"footnote-marker\">n</sup><i class=\"footnote\">Refers back to 6.12.</i> but it eludes me."
+          }
+        },
+        {
+          "verse": 24,
+          "translations": {
+            "hebrew": "רָח֖וֹק מַה־שֶּׁהָיָ֑ה וְעָמֹ֥ק&thinsp;<small>׀</small>&thinsp;עָמֹ֖ק מִ֥י יִמְצָאֶֽנּוּ׃",
+            "english": "[The secret of] what happens is elusive and deep, deep down; who can discover it?"
+          }
+        },
+        {
+          "verse": 25,
+          "translations": {
+            "hebrew": "סַבּ֨וֹתִֽי אֲנִ֤י וְלִבִּי֙ לָדַ֣עַת וְלָת֔וּר וּבַקֵּ֥שׁ חׇכְמָ֖ה וְחֶשְׁבּ֑וֹן וְלָדַ֙עַת֙ רֶ֣שַׁע כֶּ֔סֶל וְהַסִּכְל֖וּת הוֹלֵלֽוֹת׃",
+            "english": "I put my mind to studying, exploring, and seeking wisdom and the reason of things, and to studying wickedness, stupidity, madness, and folly."
+          }
+        },
+        {
+          "verse": 26,
+          "translations": {
+            "hebrew": "וּמוֹצֶ֨א אֲנִ֜י מַ֣ר מִמָּ֗וֶת אֶת־הָֽאִשָּׁה֙ אֲשֶׁר־הִ֨יא מְצוֹדִ֧ים וַחֲרָמִ֛ים לִבָּ֖הּ אֲסוּרִ֣ים יָדֶ֑יהָ ט֞וֹב לִפְנֵ֤י הָאֱלֹהִים֙ יִמָּלֵ֣ט מִמֶּ֔נָּה וְחוֹטֵ֖א יִלָּ֥כֶד בָּֽהּ׃",
+            "english": "Now, I find woman more bitter than death; she is all traps, her hands are fetters and her heart is snares. He who is pleasing to God escapes her, and he who is displeasing is caught by her."
+          }
+        },
+        {
+          "verse": 27,
+          "translations": {
+            "hebrew": "רְאֵה֙ זֶ֣ה מָצָ֔אתִי אָמְרָ֖ה קֹהֶ֑לֶת אַחַ֥ת לְאַחַ֖ת לִמְצֹ֥א חֶשְׁבּֽוֹן׃",
+            "english": "See, this is what I found, said Koheleth, item by item in my search for the reason of things."
+          }
+        },
+        {
+          "verse": 28,
+          "translations": {
+            "hebrew": "אֲשֶׁ֛ר עוֹד־בִּקְשָׁ֥ה נַפְשִׁ֖י וְלֹ֣א מָצָ֑אתִי אָדָ֞ם אֶחָ֤ד מֵאֶ֙לֶף֙ מָצָ֔אתִי וְאִשָּׁ֥ה בְכׇל־אֵ֖לֶּה לֹ֥א מָצָֽאתִי׃",
+            "english": "As for what I sought further but did not find, I found only one human being in a thousand, and the one I found among so many was never a woman."
+          }
+        },
+        {
+          "verse": 29,
+          "translations": {
+            "hebrew": "לְבַד֙ רְאֵה־זֶ֣ה מָצָ֔אתִי אֲשֶׁ֨ר עָשָׂ֧ה הָאֱלֹהִ֛ים אֶת־הָאָדָ֖ם יָשָׁ֑ר וְהֵ֥מָּה בִקְשׁ֖וּ חִשְּׁבֹנ֥וֹת רַבִּֽים׃",
+            "english": "But, see, this I did find: God made men plain, but they have engaged in too much reasoning."
+          }
+        }
+      ]
+    },
+    {
+      "chapter": 8,
+      "verses": [
+        {
+          "verse": 1,
+          "translations": {
+            "hebrew": "מִ֚י כְּהֶ֣חָכָ֔ם וּמִ֥י יוֹדֵ֖עַ פֵּ֣שֶׁר דָּבָ֑ר חׇכְמַ֤ת אָדָם֙ תָּאִ֣יר פָּנָ֔יו וְעֹ֥ז פָּנָ֖יו יְשֻׁנֶּֽא׃",
+            "english": "<sup class=\"footnote-marker\">a</sup><i class=\"footnote\">Some ancient versions read “Who here is wise.”</i>Who is like the wise man,<sup class=\"endFootnote\">-a</sup> and who knows the meaning of the adage:<br>“A man’s wisdom lights up his face,<br>So that his deep discontent<sup class=\"footnote-marker\">b</sup><i class=\"footnote\">Lit. “face”; cf. 1 Sam. 1.18; Job 9.27.</i> is dissembled”?"
+          }
+        },
+        {
+          "verse": 2,
+          "translations": {
+            "hebrew": "אֲנִי֙ פִּי־מֶ֣לֶךְ שְׁמֹ֔ר וְעַ֕ל דִּבְרַ֖ת שְׁבוּעַ֥ת אֱלֹהִֽים׃",
+            "english": "I do! “Obey the king’s orders—and <sup class=\"footnote-marker\">c</sup><i class=\"footnote\">Moved up from v. 3 for English word order.</i>don’t rush<sup class=\"endFootnote\">-c</sup> into uttering an oath by God.”<sup class=\"footnote-marker\">d</sup><i class=\"footnote\">The answer to the inquiry about the implications of the proverb in v. 1 is given in the form of another proverb, of which only the first half is relevant and is enlarged upon.</i>"
+          }
+        },
+        {
+          "verse": 3,
+          "translations": {
+            "hebrew": "אַל־תִּבָּהֵ֤ל מִפָּנָיו֙ תֵּלֵ֔ךְ אַֽל־תַּעֲמֹ֖ד בְּדָבָ֣ר רָ֑ע כִּ֛י כׇּל־אֲשֶׁ֥ר יַחְפֹּ֖ץ יַעֲשֶֽׂה׃",
+            "english": "<sup class=\"footnote-marker\">e</sup><i class=\"footnote\">Or “Give ground before him; do not resist.”</i>Leave his presence; do not tarry<sup class=\"endFootnote\">-e</sup> in a dangerous situation, for he can do anything he pleases;"
+          }
+        },
+        {
+          "verse": 4,
+          "translations": {
+            "hebrew": "בַּאֲשֶׁ֥ר דְּבַר־מֶ֖לֶךְ שִׁלְט֑וֹן וּמִ֥י יֹֽאמַר־ל֖וֹ מַֽה־תַּעֲשֶֽׂה׃",
+            "english": "inasmuch as a king’s command is authoritative, and none can say to him, “What are you doing?”"
+          }
+        },
+        {
+          "verse": 5,
+          "translations": {
+            "hebrew": "שׁוֹמֵ֣ר מִצְוָ֔ה לֹ֥א יֵדַ֖ע דָּבָ֣ר רָ֑ע וְעֵ֣ת וּמִשְׁפָּ֔ט יֵדַ֖ע לֵ֥ב חָכָֽם׃",
+            "english": "One who obeys orders will not suffer from the dangerous situation.<br>A wise man, however, will bear in mind<sup class=\"footnote-marker\">f</sup><i class=\"footnote\">The same idiom as in 7.22.</i> that there is a time of doom.<sup class=\"footnote-marker\">g</sup><i class=\"footnote\">Lit. “time and doom”; cf. the synonymous “time of misfortune,” lit. “time and misfortune,” 9.11.</i>"
+          }
+        },
+        {
+          "verse": 6,
+          "translations": {
+            "hebrew": "כִּ֣י לְכׇל־חֵ֔פֶץ יֵ֖שׁ עֵ֣ת וּמִשְׁפָּ֑ט כִּֽי־רָעַ֥ת הָאָדָ֖ם רַבָּ֥ה עָלָֽיו׃",
+            "english": "For there is a time for every experience, including the doom; for a man’s calamity<sup class=\"footnote-marker\">h</sup><i class=\"footnote\">Still another term for death; cf. “the time of calamity” for “the hour of death,” 9.12.</i> overwhelms him."
+          }
+        },
+        {
+          "verse": 7,
+          "translations": {
+            "hebrew": "כִּֽי־אֵינֶ֥נּוּ יֹדֵ֖עַ מַה־שֶּׁיִּֽהְיֶ֑ה כִּ֚י כַּאֲשֶׁ֣ר יִֽהְיֶ֔ה מִ֖י יַגִּ֥יד לֽוֹ׃",
+            "english": "Indeed, he does not know what is to happen; even when it is on the point of happening, who can tell him?"
+          }
+        },
+        {
+          "verse": 8,
+          "translations": {
+            "hebrew": "אֵ֣ין אָדָ֞ם שַׁלִּ֤יט בָּר֙וּחַ֙ לִכְל֣וֹא אֶת־הָר֔וּחַ וְאֵ֤ין שִׁלְטוֹן֙ בְּי֣וֹם הַמָּ֔וֶת וְאֵ֥ין מִשְׁלַ֖חַת בַּמִּלְחָמָ֑ה וְלֹֽא־יְמַלֵּ֥ט רֶ֖שַׁע אֶת־בְּעָלָֽיו׃",
+            "english": "No man has authority over the lifebreath—to hold back the lifebreath;<sup class=\"footnote-marker\">i</sup><i class=\"footnote\">From leaving the body when the time comes; see 12.7; cf. Ps. 104.29; 146.4.</i> there is no authority over the day of death. There is no mustering out from that war; wickedness<sup class=\"footnote-marker\">j</sup><i class=\"footnote\">Emendation yields “riches.”</i> is powerless to save its owner."
+          }
+        },
+        {
+          "verse": 9,
+          "translations": {
+            "hebrew": "אֶת־כׇּל־זֶ֤ה רָאִ֙יתִי֙ וְנָת֣וֹן אֶת־לִבִּ֔י לְכׇֽל־מַעֲשֶׂ֔ה אֲשֶׁ֥ר נַעֲשָׂ֖ה תַּ֣חַת הַשָּׁ֑מֶשׁ עֵ֗ת אֲשֶׁ֨ר שָׁלַ֧ט הָאָדָ֛ם בְּאָדָ֖ם לְרַ֥ע לֽוֹ׃",
+            "english": "All these things I observed; I noted all that went on under the sun, while men still had authority over men to treat them unjustly."
+          }
+        },
+        {
+          "verse": 10,
+          "translations": {
+            "hebrew": "וּבְכֵ֡ן רָאִ֩יתִי֩ רְשָׁעִ֨ים קְבֻרִ֜ים וָבָ֗אוּ וּמִמְּק֤וֹם קָדוֹשׁ֙ יְהַלֵּ֔כוּ וְיִֽשְׁתַּכְּח֥וּ בָעִ֖יר אֲשֶׁ֣ר כֵּן־עָשׂ֑וּ גַּם־זֶ֖ה הָֽבֶל׃",
+            "english": "And then I saw scoundrels <sup class=\"footnote-marker\">k</sup><i class=\"footnote\">Meaning uncertain; emendation yields “approaching [to minister]. They would come and profane the Holy Site.”</i>coming from the Holy Site and being brought to burial,<sup class=\"endFootnote\">-k</sup> while such as had acted righteously were forgotten in the city.<br>And here is another frustration:"
+          }
+        },
+        {
+          "verse": 11,
+          "translations": {
+            "hebrew": "אֲשֶׁר֙ אֵין־נַעֲשָׂ֣ה פִתְגָ֔ם מַעֲשֵׂ֥ה הָרָעָ֖ה מְהֵרָ֑ה עַל־כֵּ֡ן מָלֵ֞א לֵ֧ב בְּֽנֵי־הָאָדָ֛ם בָּהֶ֖ם לַעֲשׂ֥וֹת רָֽע׃",
+            "english": "the fact that the sentence imposed for evil deeds is not executed swiftly, which is why men are emboldened to do evil—"
+          }
+        },
+        {
+          "verse": 12,
+          "translations": {
+            "hebrew": "אֲשֶׁ֣ר חֹטֶ֗א עֹשֶׂ֥ה רָ֛ע מְאַ֖ת וּמַאֲרִ֣יךְ ל֑וֹ כִּ֚י גַּם־יוֹדֵ֣עַ אָ֔נִי אֲשֶׁ֤ר יִהְיֶה־טּוֹב֙ לְיִרְאֵ֣י הָאֱלֹהִ֔ים אֲשֶׁ֥ר יִֽירְא֖וּ מִלְּפָנָֽיו׃",
+            "english": "the fact that a sinner may do evil a hundred times and his [punishment] still be delayed. For although I am aware that “It will be well with those who revere God since they revere Him,"
+          }
+        },
+        {
+          "verse": 13,
+          "translations": {
+            "hebrew": "וְטוֹב֙ לֹֽא־יִהְיֶ֣ה לָֽרָשָׁ֔ע וְלֹֽא־יַאֲרִ֥יךְ יָמִ֖ים כַּצֵּ֑ל אֲשֶׁ֛ר אֵינֶ֥נּוּ יָרֵ֖א מִלִּפְנֵ֥י אֱלֹהִֽים׃",
+            "english": "and it will not be well with the scoundrel, and he will not live long, because<sup class=\"footnote-marker\">l</sup><i class=\"footnote\">See note on 6.12.</i> he does not revere God”—"
+          }
+        },
+        {
+          "verse": 14,
+          "translations": {
+            "hebrew": "יֶשׁ־הֶ֘בֶל֮ אֲשֶׁ֣ר נַעֲשָׂ֣ה עַל־הָאָ֒רֶץ֒ אֲשֶׁ֣ר&thinsp;<b>׀</b> יֵ֣שׁ צַדִּיקִ֗ים אֲשֶׁ֨ר מַגִּ֤יעַ אֲלֵהֶם֙ כְּמַעֲשֵׂ֣ה הָרְשָׁעִ֔ים וְיֵ֣שׁ רְשָׁעִ֔ים שֶׁמַּגִּ֥יעַ אֲלֵהֶ֖ם כְּמַעֲשֵׂ֣ה הַצַּדִּיקִ֑ים אָמַ֕רְתִּי שֶׁגַּם־זֶ֖ה הָֽבֶל׃",
+            "english": "here is a frustration that occurs in the world: sometimes an upright man is requited according to the conduct of the scoundrel; and sometimes the scoundrel is requited according to the conduct of the upright. I say all that is frustration."
+          }
+        },
+        {
+          "verse": 15,
+          "translations": {
+            "hebrew": "וְשִׁבַּ֤חְתִּֽי אֲנִי֙ אֶת־הַשִּׂמְחָ֔ה אֲשֶׁ֨ר אֵֽין־ט֤וֹב לָֽאָדָם֙ תַּ֣חַת הַשֶּׁ֔מֶשׁ כִּ֛י אִם־לֶאֱכֹ֥ל וְלִשְׁתּ֖וֹת וְלִשְׂמ֑וֹחַ וְה֞וּא יִלְוֶ֣נּוּ בַעֲמָל֗וֹ יְמֵ֥י חַיָּ֛יו אֲשֶׁר־נָֽתַן־ל֥וֹ הָאֱלֹהִ֖ים תַּ֥חַת הַשָּֽׁמֶשׁ׃",
+            "english": "I therefore praised enjoyment. For the only good a man can have under the sun is to eat and drink and enjoy himself. That much can accompany him, in exchange for his wealth, through the days of life that God has granted him under the sun."
+          }
+        },
+        {
+          "verse": 16,
+          "translations": {
+            "hebrew": "כַּאֲשֶׁ֨ר נָתַ֤תִּי אֶת־לִבִּי֙ לָדַ֣עַת חׇכְמָ֔ה וְלִרְאוֹת֙ אֶת־הָ֣עִנְיָ֔ן אֲשֶׁ֥ר נַעֲשָׂ֖ה עַל־הָאָ֑רֶץ כִּ֣י גַ֤ם בַּיּוֹם֙ וּבַלַּ֔יְלָה שֵׁנָ֕ה בְּעֵינָ֖יו אֵינֶ֥נּוּ רֹאֶֽה׃",
+            "english": "For I have set my mind to learn wisdom and to observe the business that goes on in the world—even to the extent of going without sleep day and night—"
+          }
+        },
+        {
+          "verse": 17,
+          "translations": {
+            "hebrew": "וְרָאִ֘יתִי֮ אֶת־כׇּל־מַעֲשֵׂ֣ה הָאֱלֹהִים֒ כִּי֩ לֹ֨א יוּכַ֜ל הָאָדָ֗ם לִמְצוֹא֙ אֶת־הַֽמַּעֲשֶׂה֙ אֲשֶׁ֣ר נַעֲשָׂ֣ה תַֽחַת־הַשֶּׁ֔מֶשׁ בְּ֠שֶׁ֠ל אֲשֶׁ֨ר יַעֲמֹ֧ל הָאָדָ֛ם לְבַקֵּ֖שׁ וְלֹ֣א יִמְצָ֑א וְגַ֨ם אִם־יֹאמַ֤ר הֶֽחָכָם֙ לָדַ֔עַת לֹ֥א יוּכַ֖ל לִמְצֹֽא׃",
+            "english": "and I have observed all that God brings to pass. Indeed, man cannot guess the events that occur under the sun. For man tries strenuously, but fails to guess them; and even if a sage should think to discover them he would not be able to guess them."
+          }
+        }
+      ]
+    },
+    {
+      "chapter": 9,
+      "verses": [
+        {
+          "verse": 1,
+          "translations": {
+            "hebrew": "כִּ֣י אֶת־כׇּל־זֶ֞ה נָתַ֤תִּי אֶל־לִבִּי֙ וְלָב֣וּר אֶת־כׇּל־זֶ֔ה אֲשֶׁ֨ר הַצַּדִּיקִ֧ים וְהַחֲכָמִ֛ים וַעֲבָדֵיהֶ֖ם בְּיַ֣ד הָאֱלֹהִ֑ים גַּֽם־אַהֲבָ֣ה גַם־שִׂנְאָ֗ה אֵ֤ין יוֹדֵ֙עַ֙ הָֽאָדָ֔ם הַכֹּ֖ל לִפְנֵיהֶֽם׃",
+            "english": "For all this I noted, and I ascertained<sup class=\"footnote-marker\">a</sup><i class=\"footnote\">Meaning of verb uncertain; construction as in Hos. 12.3; Ezra 3.12.</i> all this: that the actions of even the righteous and the wise are determined by God. <sup class=\"footnote-marker\">b</sup><i class=\"footnote\">Emendation yields “Even love, even hate, no man can know in advance. All 2are insignificant.”</i>Even love! Even hate! Man knows none of these in advance—"
+          }
+        },
+        {
+          "verse": 2,
+          "translations": {
+            "hebrew": "הַכֹּ֞ל כַּאֲשֶׁ֣ר לַכֹּ֗ל מִקְרֶ֨ה אֶחָ֜ד לַצַּדִּ֤יק וְלָרָשָׁע֙ לַטּוֹב֙ וְלַטָּה֣וֹר וְלַטָּמֵ֔א וְלַ֨זֹּבֵ֔חַ וְלַאֲשֶׁ֖ר אֵינֶ֣נּוּ זֹבֵ֑חַ כַּטּוֹב֙ כַּֽחֹטֶ֔א הַנִּשְׁבָּ֕ע כַּאֲשֶׁ֖ר שְׁבוּעָ֥ה יָרֵֽא׃",
+            "english": "none!<sup class=\"endFootnote\">-b</sup> For the same fate is in store for all: for the righteous, and for the wicked; for the good and pure,<sup class=\"footnote-marker\">c</sup><i class=\"footnote\">I.e., those who observe the laws of ritual purity.</i> and for the impure; for him who sacrifices, and for him who does not;<sup class=\"footnote-marker\">d</sup><i class=\"footnote\">Cf. 4.17.</i> for him who is pleasing,<sup class=\"footnote-marker\">e</sup><i class=\"footnote\">I.e., to God; cf. 2.26; 7.26.</i> and for him who is displeasing; and for him who swears, and for him who shuns oaths.<sup class=\"footnote-marker\">f</sup><i class=\"footnote\">Cf. 8.2.</i>"
+          }
+        },
+        {
+          "verse": 3,
+          "translations": {
+            "hebrew": "זֶ֣ה&thinsp;<b>׀</b> רָ֗ע בְּכֹ֤ל אֲשֶֽׁר־נַעֲשָׂה֙ תַּ֣חַת הַשֶּׁ֔מֶשׁ כִּֽי־מִקְרֶ֥ה אֶחָ֖ד לַכֹּ֑ל וְגַ֣ם לֵ֣ב בְּֽנֵי־הָ֠אָדָ֠ם מָלֵא־רָ֨ע וְהוֹלֵל֤וֹת בִּלְבָבָם֙ בְּחַיֵּיהֶ֔ם וְאַחֲרָ֖יו אֶל־הַמֵּתִֽים׃",
+            "english": "That is the sad thing about all that goes on under the sun: that the same fate is in store for all. (Not only that, but men’s hearts are full of sadness, and their minds of madness, while they live; and then—to the dead!)"
+          }
+        },
+        {
+          "verse": 4,
+          "translations": {
+            "hebrew": "כִּי־מִי֙ אֲשֶׁ֣ר <span class=\"mam-kq\"><span class=\"mam-kq-k\">(יבחר)</span> <span class=\"mam-kq-q\">[יְחֻבַּ֔ר]</span></span> אֶ֥ל כׇּל־הַחַיִּ֖ים יֵ֣שׁ בִּטָּח֑וֹן כִּֽי־לְכֶ֤לֶב חַי֙ ה֣וּא ט֔וֹב מִן־הָאַרְיֵ֖ה הַמֵּֽת׃",
+            "english": "For he who is <sup class=\"footnote-marker\">g</sup><i class=\"footnote\">Lit. “joined to all.”</i>reckoned among<sup class=\"endFootnote\">-g</sup> the living has something to look forward to—even a live dog is better than a dead lion—"
+          }
+        },
+        {
+          "verse": 5,
+          "translations": {
+            "hebrew": "כִּ֧י הַֽחַיִּ֛ים יוֹדְעִ֖ים שֶׁיָּמֻ֑תוּ וְהַמֵּתִ֞ים אֵינָ֧ם יוֹדְעִ֣ים מְא֗וּמָה וְאֵֽין־ע֤וֹד לָהֶם֙ שָׂכָ֔ר כִּ֥י נִשְׁכַּ֖ח זִכְרָֽם׃",
+            "english": "since the living know they will die. But the dead know nothing; they have no more recompense,<sup class=\"footnote-marker\">h</sup><i class=\"footnote\">Emendation yields “hope.”</i> for even the memory of them has died."
+          }
+        },
+        {
+          "verse": 6,
+          "translations": {
+            "hebrew": "גַּ֣ם אַהֲבָתָ֧ם גַּם־שִׂנְאָתָ֛ם גַּם־קִנְאָתָ֖ם כְּבָ֣ר אָבָ֑דָה וְחֵ֨לֶק אֵין־לָהֶ֥ם עוֹד֙ לְעוֹלָ֔ם בְּכֹ֥ל אֲשֶֽׁר־נַעֲשָׂ֖ה תַּ֥חַת הַשָּֽׁמֶשׁ׃",
+            "english": "Their loves, their hates, their jealousies have long since perished; and they have no more share till the end of time in all that goes on under the sun.<br>"
+          }
+        },
+        {
+          "verse": 7,
+          "translations": {
+            "hebrew": "לֵ֣ךְ אֱכֹ֤ל בְּשִׂמְחָה֙ לַחְמֶ֔ךָ וּֽשְׁתֵ֥ה בְלֶב־ט֖וֹב יֵינֶ֑ךָ כִּ֣י כְבָ֔ר רָצָ֥ה הָאֱלֹהִ֖ים אֶֽת־מַעֲשֶֽׂיךָ׃",
+            "english": "Go, eat your bread in gladness, and drink your wine in joy; for your action was long ago approved by God.<sup class=\"footnote-marker\">i</sup><i class=\"footnote\">Cf. 2.24–25; 3.13; 5.18.</i>"
+          }
+        },
+        {
+          "verse": 8,
+          "translations": {
+            "hebrew": "בְּכׇל־עֵ֕ת יִהְי֥וּ בְגָדֶ֖יךָ לְבָנִ֑ים וְשֶׁ֖מֶן עַל־רֹאשְׁךָ֥ אַל־יֶחְסָֽר׃",
+            "english": "Let your clothes always be freshly washed, and your head never lack ointment."
+          }
+        },
+        {
+          "verse": 9,
+          "translations": {
+            "hebrew": "רְאֵ֨ה חַיִּ֜ים עִם־אִשָּׁ֣ה אֲשֶׁר־אָהַ֗בְתָּ כׇּל־יְמֵי֙ חַיֵּ֣י הֶבְלֶ֔ךָ אֲשֶׁ֤ר נָֽתַן־לְךָ֙ תַּ֣חַת הַשֶּׁ֔מֶשׁ כֹּ֖ל יְמֵ֣י הֶבְלֶ֑ךָ כִּ֣י ה֤וּא חֶלְקְךָ֙ בַּֽחַיִּ֔ים וּבַעֲמָ֣לְךָ֔ אֲשֶׁר־אַתָּ֥ה עָמֵ֖ל תַּ֥חַת הַשָּֽׁמֶשׁ׃",
+            "english": "Enjoy happiness with a woman you love all the fleeting days of life that have been granted to you under the sun—all your fleeting days. For that alone is what you can get out of life and out of the means you acquire under the sun."
+          }
+        },
+        {
+          "verse": 10,
+          "translations": {
+            "hebrew": "כֹּ֠ל אֲשֶׁ֨ר תִּמְצָ֧א יָֽדְךָ֛ לַעֲשׂ֥וֹת בְּכֹחֲךָ֖ עֲשֵׂ֑ה כִּי֩ אֵ֨ין מַעֲשֶׂ֤ה וְחֶשְׁבּוֹן֙ וְדַ֣עַת וְחׇכְמָ֔ה בִּשְׁא֕וֹל אֲשֶׁ֥ר אַתָּ֖ה הֹלֵ֥ךְ שָֽׁמָּה׃",
+            "english": "Whatever it is in your power to do, do with all your might. For there is no action, no reasoning, no learning, no wisdom in Sheol, where you are going."
+          }
+        },
+        {
+          "verse": 11,
+          "translations": {
+            "hebrew": "שַׁ֜בְתִּי וְרָאֹ֣ה תַֽחַת־הַשֶּׁ֗מֶשׁ כִּ֣י לֹא֩ לַקַּלִּ֨ים הַמֵּר֜וֹץ וְלֹ֧א לַגִּבּוֹרִ֣ים הַמִּלְחָמָ֗ה וְ֠גַ֠ם לֹ֣א לַחֲכָמִ֥ים לֶ֙חֶם֙ וְגַ֨ם לֹ֤א לַנְּבֹנִים֙ עֹ֔שֶׁר וְגַ֛ם לֹ֥א לַיֹּדְעִ֖ים חֵ֑ן כִּי־עֵ֥ת וָפֶ֖גַע יִקְרֶ֥ה אֶת־כֻּלָּֽם׃",
+            "english": "I have further observed under the sun that<br>The race is not won by the swift,<br>Nor the battle by the valiant;<br>Nor is bread won by the wise,<br>Nor wealth by the intelligent,<br>Nor favor by the learned.<br>For the time of mischance<sup class=\"footnote-marker\">j</sup><i class=\"footnote\">Euphemism for death.</i> comes to all.<sup class=\"footnote-marker\">k</sup><i class=\"footnote\">I.e., the insignificant duration of life renders all successes illusory; cf. 4.15–16.</i>"
+          }
+        },
+        {
+          "verse": 12,
+          "translations": {
+            "hebrew": "כִּ֡י גַּם֩ לֹֽא־יֵדַ֨ע הָאָדָ֜ם אֶת־עִתּ֗וֹ כַּדָּגִים֙ שֶׁנֶּֽאֱחָזִים֙ בִּמְצוֹדָ֣ה רָעָ֔ה וְכַ֨צִּפֳּרִ֔ים הָאֲחֻז֖וֹת בַּפָּ֑ח כָּהֵ֗ם יֽוּקָשִׁים֙ בְּנֵ֣י הָֽאָדָ֔ם לְעֵ֣ת רָעָ֔ה כְּשֶׁתִּפּ֥וֹל עֲלֵיהֶ֖ם פִּתְאֹֽם׃",
+            "english": "And a man cannot even know his time. As fishes are enmeshed in a fatal net, and as birds are trapped in a snare, so men are caught at the time of calamity,<sup class=\"footnote-marker\">j</sup><i class=\"footnote\">Euphemism for death.</i> when it comes upon them without warning."
+          }
+        },
+        {
+          "verse": 13,
+          "translations": {
+            "hebrew": "גַּם־זֹ֛ה רָאִ֥יתִי חׇכְמָ֖ה תַּ֣חַת הַשָּׁ֑מֶשׁ וּגְדוֹלָ֥ה הִ֖יא אֵלָֽי׃",
+            "english": "This thing too I observed under the sun about wisdom, and it affected me profoundly."
+          }
+        },
+        {
+          "verse": 14,
+          "translations": {
+            "hebrew": "עִ֣יר קְטַנָּ֔ה וַאֲנָשִׁ֥ים בָּ֖הּ מְעָ֑ט וּבָֽא־אֵלֶ֜יהָ מֶ֤לֶךְ גָּדוֹל֙ וְסָבַ֣ב אֹתָ֔הּ וּבָנָ֥ה עָלֶ֖יהָ מְצוֹדִ֥ים גְּדֹלִֽים׃",
+            "english": "There was a little city, with few men in it; and to it came a great king, who invested it and built mighty siege works against it."
+          }
+        },
+        {
+          "verse": 15,
+          "translations": {
+            "hebrew": "וּמָ֣צָא בָ֗הּ אִ֤ישׁ מִסְכֵּן֙ חָכָ֔ם וּמִלַּט־ה֥וּא אֶת־הָעִ֖יר בְּחׇכְמָת֑וֹ וְאָדָם֙ לֹ֣א זָכַ֔ר אֶת־הָאִ֥ישׁ הַמִּסְכֵּ֖ן הַהֽוּא׃",
+            "english": "Present in the city was a poor wise man <sup class=\"footnote-marker\">l</sup><i class=\"footnote\">Others “who saved.”</i>who might have saved<sup class=\"endFootnote\">-l</sup> it with his wisdom, but nobody thought of that poor man."
+          }
+        },
+        {
+          "verse": 16,
+          "translations": {
+            "hebrew": "וְאָמַ֣רְתִּי אָ֔נִי טוֹבָ֥ה חׇכְמָ֖ה מִגְּבוּרָ֑ה וְחׇכְמַ֤ת הַמִּסְכֵּן֙ בְּזוּיָ֔ה וּדְבָרָ֖יו אֵינָ֥ם נִשְׁמָעִֽים׃",
+            "english": "So I observed: Wisdom is better than valor; but<br>A poor man’s wisdom is scorned,<br>And his words are not heeded."
+          }
+        },
+        {
+          "verse": 17,
+          "translations": {
+            "hebrew": "דִּבְרֵ֣י חֲכָמִ֔ים בְּנַ֖חַת נִשְׁמָעִ֑ים מִזַּעֲקַ֥ת מוֹשֵׁ֖ל בַּכְּסִילִֽים׃",
+            "english": "<sup class=\"footnote-marker\">m</sup><i class=\"footnote\">Verses 9.17–10.19 constitute a group of loosely connected aphorisms.</i>Words spoken softly by wise men are heeded <sup class=\"footnote-marker\">n</sup><i class=\"footnote\">Lit. “than the scream of a lord in [the manner of] the fools.”</i>sooner than those shouted by a lord in folly.<sup class=\"endFootnote\">-n</sup>"
+          }
+        },
+        {
+          "verse": 18,
+          "translations": {
+            "hebrew": "טוֹבָ֥ה חׇכְמָ֖ה מִכְּלֵ֣י קְרָ֑ב וְחוֹטֶ֣א אֶחָ֔ד יְאַבֵּ֖ד טוֹבָ֥ה הַרְבֵּֽה׃",
+            "english": "Wisdom is more valuable than <sup class=\"footnote-marker\">o</sup><i class=\"footnote\">Emendation yields “everything precious.”</i>weapons of war,<sup class=\"endFootnote\">-o</sup> but a single error destroys much of value."
+          }
+        }
+      ]
+    },
+    {
+      "chapter": 10,
+      "verses": [
+        {
+          "verse": 1,
+          "translations": {
+            "hebrew": "זְב֣וּבֵי מָ֔וֶת יַבְאִ֥ישׁ יַבִּ֖יעַ שֶׁ֣מֶן רוֹקֵ֑חַ יָקָ֛ר מֵחׇכְמָ֥ה מִכָּב֖וֹד סִכְל֥וּת מְעָֽט׃",
+            "english": "Dead flies turn the perfumer’s ointment fetid and putrid;<sup class=\"footnote-marker\">a</sup><i class=\"footnote\">Meaning of Heb. uncertain.</i> so a little folly outweighs massive wisdom."
+          }
+        },
+        {
+          "verse": 2,
+          "translations": {
+            "hebrew": "לֵ֤ב חָכָם֙ לִֽימִינ֔וֹ וְלֵ֥ב כְּסִ֖יל לִשְׂמֹאלֽוֹ׃",
+            "english": "A wise man’s mind tends toward the right hand, a fool’s toward the left.<sup class=\"footnote-marker\">b</sup><i class=\"footnote\">I.e., a wise man’s mind brings him good luck; a fool’s brings him bad luck.</i>"
+          }
+        },
+        {
+          "verse": 3,
+          "translations": {
+            "hebrew": "וְגַם־בַּדֶּ֛רֶךְ <span class=\"mam-kq\"><span class=\"mam-kq-k\">(כשהסכל)</span> <span class=\"mam-kq-q\">[כְּשֶׁסָּכָ֥ל]</span></span> הֹלֵ֖ךְ לִבּ֣וֹ חָסֵ֑ר וְאָמַ֥ר לַכֹּ֖ל סָכָ֥ל הֽוּא׃",
+            "english": "A fool’s mind is also wanting when he travels, and he lets everybody know he is a fool."
+          }
+        },
+        {
+          "verse": 4,
+          "translations": {
+            "hebrew": "אִם־ר֤וּחַ הַמּוֹשֵׁל֙ תַּעֲלֶ֣ה עָלֶ֔יךָ מְקוֹמְךָ֖ אַל־תַּנַּ֑ח כִּ֣י מַרְפֵּ֔א יַנִּ֖יחַ חֲטָאִ֥ים גְּדוֹלִֽים׃",
+            "english": "If the wrath of a lord flares up against you, don’t give up your post;<sup class=\"footnote-marker\">c</sup><i class=\"footnote\">Emendation yields “hope.”</i> for <sup class=\"footnote-marker\">d</sup><i class=\"footnote\">Lit. “abatement (2 Chron. 36.16) remits grave offenses.” For hinniaḥ, “to remit,” cf. Abodah Zarah 13a; cf. hanaḥah, “remission of taxes,” Esth. 2.18.</i>when wrath abates, grave offenses are pardoned.<sup class=\"endFootnote\">-d</sup>"
+          }
+        },
+        {
+          "verse": 5,
+          "translations": {
+            "hebrew": "יֵ֣שׁ רָעָ֔ה רָאִ֖יתִי תַּ֣חַת הַשָּׁ֑מֶשׁ כִּשְׁגָגָ֕ה שֶׁיֹּצָ֖א מִלִּפְנֵ֥י הַשַּׁלִּֽיט׃",
+            "english": "Here is an evil I have seen under the sun as great as an error committed by a ruler:"
+          }
+        },
+        {
+          "verse": 6,
+          "translations": {
+            "hebrew": "נִתַּ֣ן הַסֶּ֔כֶל בַּמְּרוֹמִ֖ים רַבִּ֑ים וַעֲשִׁירִ֖ים בַּשֵּׁ֥פֶל יֵשֵֽׁבוּ׃",
+            "english": "Folly was placed on lofty heights, while rich men sat in low estate."
+          }
+        },
+        {
+          "verse": 7,
+          "translations": {
+            "hebrew": "רָאִ֥יתִי עֲבָדִ֖ים עַל־סוּסִ֑ים וְשָׂרִ֛ים הֹלְכִ֥ים כַּעֲבָדִ֖ים עַל־הָאָֽרֶץ׃",
+            "english": "I have seen slaves on horseback, and nobles walking on the ground like slaves."
+          }
+        },
+        {
+          "verse": 8,
+          "translations": {
+            "hebrew": "חֹפֵ֥ר גּוּמָּ֖ץ בּ֣וֹ יִפּ֑וֹל וּפֹרֵ֥ץ גָּדֵ֖ר יִשְּׁכֶ֥נּוּ נָחָֽשׁ׃",
+            "english": "He who digs a pit will fall into it; he who breaches a stone fence will be bitten by a snake."
+          }
+        },
+        {
+          "verse": 9,
+          "translations": {
+            "hebrew": "מַסִּ֣יעַ אֲבָנִ֔ים יֵעָצֵ֖ב בָּהֶ֑ם בּוֹקֵ֥עַ עֵצִ֖ים יִסָּ֥כֶן בָּֽם׃",
+            "english": "He who quarries stones will <sup class=\"footnote-marker\">e</sup><i class=\"footnote\">Emendation yields “profit…shall make use of.”</i>be hurt by them; he who splits wood will be harmed by<sup class=\"endFootnote\">-e</sup> it."
+          }
+        },
+        {
+          "verse": 10,
+          "translations": {
+            "hebrew": "אִם־קֵהָ֣ה הַבַּרְזֶ֗ל וְהוּא֙ לֹא־פָנִ֣ים קִלְקַ֔ל וַחֲיָלִ֖ים יְגַבֵּ֑ר וְיִתְר֥וֹן <span class=\"mam-kq-trivial\">הַכְשֵׁ֖יר</span> חׇכְמָֽה׃",
+            "english": "<sup class=\"footnote-marker\">f</sup><i class=\"footnote\">Meaning of verse uncertain.</i>If the ax has become dull and he has not whetted the edge, he must exert more strength. Thus the advantage of a skill [depends on the exercise of] prudence."
+          }
+        },
+        {
+          "verse": 11,
+          "translations": {
+            "hebrew": "אִם־יִשֹּׁ֥ךְ הַנָּחָ֖שׁ בְּלוֹא־לָ֑חַשׁ וְאֵ֣ין יִתְר֔וֹן לְבַ֖עַל הַלָּשֽׁוֹן׃",
+            "english": "If the snake bites because no spell was uttered, no advantage is gained by the trained charmer."
+          }
+        },
+        {
+          "verse": 12,
+          "translations": {
+            "hebrew": "דִּבְרֵ֥י פִי־חָכָ֖ם חֵ֑ן וְשִׂפְת֥וֹת כְּסִ֖יל תְּבַלְּעֶֽנּוּ׃",
+            "english": "A wise man’s talk brings him favor, but a fool’s lips are his undoing."
+          }
+        },
+        {
+          "verse": 13,
+          "translations": {
+            "hebrew": "תְּחִלַּ֥ת דִּבְרֵי־פִ֖יהוּ סִכְל֑וּת וְאַחֲרִ֣ית פִּ֔יהוּ הוֹלֵל֖וּת רָעָֽה׃",
+            "english": "His talk begins as silliness and ends as disastrous madness."
+          }
+        },
+        {
+          "verse": 14,
+          "translations": {
+            "hebrew": "וְהַסָּכָ֖ל יַרְבֶּ֣ה דְבָרִ֑ים לֹא־יֵדַ֤ע הָאָדָם֙ מַה־שֶּׁיִּֽהְיֶ֔ה וַאֲשֶׁ֤ר יִֽהְיֶה֙ מֵֽאַחֲרָ֔יו מִ֖י יַגִּ֥יד לֽוֹ׃",
+            "english": "Yet the fool talks and talks!<br><sup class=\"footnote-marker\">g</sup><i class=\"footnote\">The thought of this sentence is resumed at v. 20.</i>A man cannot know what will happen; who can tell him what the future holds?"
+          }
+        },
+        {
+          "verse": 15,
+          "translations": {
+            "hebrew": "עֲמַ֥ל הַכְּסִילִ֖ים תְּיַגְּעֶ֑נּוּ אֲשֶׁ֥ר לֹֽא־יָדַ֖ע לָלֶ֥כֶת אֶל־עִֽיר׃",
+            "english": "<sup class=\"footnote-marker\">h</sup><i class=\"footnote\">This verse continues the thought of v. 3.</i>A fool’s exertions tire him out, for he doesn’t know how to get to a town."
+          }
+        },
+        {
+          "verse": 16,
+          "translations": {
+            "hebrew": "אִֽי־לָ֣ךְ אֶ֔רֶץ שֶׁמַּלְכֵּ֖ךְ נָ֑עַר וְשָׂרַ֖יִךְ בַּבֹּ֥קֶר יֹאכֵֽלוּ׃",
+            "english": "Alas for you, O land whose king is a lackey and whose ministers dine in the morning!"
+          }
+        },
+        {
+          "verse": 17,
+          "translations": {
+            "hebrew": "אַשְׁרֵ֣יךְ אֶ֔רֶץ שֶׁמַּלְכֵּ֖ךְ בֶּן־חוֹרִ֑ים וְשָׂרַ֙יִךְ֙ בָּעֵ֣ת יֹאכֵ֔לוּ בִּגְבוּרָ֖ה וְלֹ֥א בַשְּׁתִֽי׃",
+            "english": "Happy are you, O land whose king is a master and whose ministers dine at the proper time—with restraint, not with guzzling!"
+          }
+        },
+        {
+          "verse": 18,
+          "translations": {
+            "hebrew": "בַּעֲצַלְתַּ֖יִם יִמַּ֣ךְ הַמְּקָרֶ֑ה וּבְשִׁפְל֥וּת יָדַ֖יִם יִדְלֹ֥ף הַבָּֽיִת׃",
+            "english": "Through slothfulness the ceiling sags,<br>Through lazy hands the house caves in."
+          }
+        },
+        {
+          "verse": 19,
+          "translations": {
+            "hebrew": "לִשְׂחוֹק֙ עֹשִׂ֣ים לֶ֔חֶם וְיַ֖יִן יְשַׂמַּ֣ח חַיִּ֑ים וְהַכֶּ֖סֶף יַעֲנֶ֥ה אֶת־הַכֹּֽל׃",
+            "english": "They<sup class=\"footnote-marker\">i</sup><i class=\"footnote\">I.e., the ministers of v. 16.</i> make a banquet for revelry; wine makes life merry, and money answers every need."
+          }
+        },
+        {
+          "verse": 20,
+          "translations": {
+            "hebrew": "גַּ֣ם בְּמַדָּֽעֲךָ֗ מֶ֚לֶךְ אַל־תְּקַלֵּ֔ל וּבְחַדְרֵי֙ מִשְׁכָּ֣בְךָ֔ אַל־תְּקַלֵּ֖ל עָשִׁ֑יר כִּ֣י ע֤וֹף הַשָּׁמַ֙יִם֙ יוֹלִ֣יךְ אֶת־הַקּ֔וֹל וּבַ֥עַל <span class=\"mam-kq\"><span class=\"mam-kq-k\">(הכנפים)</span> <span class=\"mam-kq-q\">[כְּנָפַ֖יִם]</span></span> יַגֵּ֥יד דָּבָֽר׃",
+            "english": "Don’t revile a king even among your intimates.<sup class=\"footnote-marker\">j</sup><i class=\"footnote\">Others “thoughts”; meaning of Heb. uncertain.</i><br>Don’t revile a rich man even in your bedchamber;<br>For a bird of the air may carry the utterance,<br>And a winged creature may report the word."
+          }
+        }
+      ]
+    },
+    {
+      "chapter": 11,
+      "verses": [
+        {
+          "verse": 1,
+          "translations": {
+            "hebrew": "שַׁלַּ֥ח לַחְמְךָ֖ עַל־פְּנֵ֣י הַמָּ֑יִם כִּֽי־בְרֹ֥ב הַיָּמִ֖ים תִּמְצָאֶֽנּוּ׃",
+            "english": "Send your bread forth upon the waters; for after many days you will find it."
+          }
+        },
+        {
+          "verse": 2,
+          "translations": {
+            "hebrew": "תֶּן־חֵ֥לֶק לְשִׁבְעָ֖ה וְגַ֣ם לִשְׁמוֹנָ֑ה כִּ֚י לֹ֣א תֵדַ֔ע מַה־יִּהְיֶ֥ה רָעָ֖ה עַל־הָאָֽרֶץ׃",
+            "english": "Distribute portions to seven or even to eight, for you cannot know what misfortune may occur on earth."
+          }
+        },
+        {
+          "verse": 3,
+          "translations": {
+            "hebrew": "אִם־יִמָּלְא֨וּ הֶעָבִ֥ים גֶּ֙שֶׁם֙ עַל־הָאָ֣רֶץ יָרִ֔יקוּ וְאִם־יִפּ֥וֹל עֵ֛ץ בַּדָּר֖וֹם וְאִ֣ם בַּצָּפ֑וֹן מְק֛וֹם שֶׁיִּפּ֥וֹל הָעֵ֖ץ שָׁ֥ם יְהֽוּא׃",
+            "english": "If the clouds are filled, they will pour down rain on the earth; and <sup class=\"footnote-marker\">a</sup><i class=\"footnote\">Emendation yields, “if a thunderbolt (lit. arrow, cf., e.g., 2 Sam. 22.15) falls…where the thunderbolt falls, only there will it strike.”</i>if a tree falls to the south or to the north, the tree will stay where it falls.<sup class=\"endFootnote\">-a</sup>"
+          }
+        },
+        {
+          "verse": 4,
+          "translations": {
+            "hebrew": "שֹׁמֵ֥ר ר֖וּחַ לֹ֣א יִזְרָ֑ע וְרֹאֶ֥ה בֶעָבִ֖ים לֹ֥א יִקְצֽוֹר׃",
+            "english": "If one watches the wind, he will never sow; and if one observes the clouds, he will never reap."
+          }
+        },
+        {
+          "verse": 5,
+          "translations": {
+            "hebrew": "כַּאֲשֶׁ֨ר אֵֽינְךָ֤ יוֹדֵ֙עַ֙ מַה־דֶּ֣רֶךְ הָר֔וּחַ כַּעֲצָמִ֖ים בְּבֶ֣טֶן הַמְּלֵאָ֑ה כָּ֗כָה לֹ֤א תֵדַע֙ אֶת־מַעֲשֵׂ֣ה הָֽאֱלֹהִ֔ים אֲשֶׁ֥ר יַעֲשֶׂ֖ה אֶת־הַכֹּֽל׃",
+            "english": "Just as you do not know how the lifebreath passes into<sup class=\"footnote-marker\">b</sup><i class=\"footnote\">So many mss. and Targum; most mss. read “like.”</i> the limbs within the womb of the pregnant woman, so you cannot foresee the actions of God, who causes all things to happen."
+          }
+        },
+        {
+          "verse": 6,
+          "translations": {
+            "hebrew": "בַּבֹּ֙קֶר֙ זְרַ֣ע אֶת־זַרְעֶ֔ךָ וְלָעֶ֖רֶב אַל־תַּנַּ֣ח יָדֶ֑ךָ כִּי֩ אֵֽינְךָ֨ יוֹדֵ֜עַ אֵ֣י זֶ֤ה יִכְשָׁר֙ הֲזֶ֣ה אוֹ־זֶ֔ה וְאִם־שְׁנֵיהֶ֥ם כְּאֶחָ֖ד טוֹבִֽים׃",
+            "english": "Sow your seed in the morning, and don’t hold back your hand in the evening, since you don’t know which is going to succeed, the one or the other, or if both are equally good.<br>"
+          }
+        },
+        {
+          "verse": 7,
+          "translations": {
+            "hebrew": "וּמָת֖וֹק הָא֑וֹר וְט֥וֹב לַֽעֵינַ֖יִם לִרְא֥וֹת אֶת־הַשָּֽׁמֶשׁ׃",
+            "english": "How sweet is the light, what a delight for the eyes to behold the sun!"
+          }
+        },
+        {
+          "verse": 8,
+          "translations": {
+            "hebrew": "כִּ֣י אִם־שָׁנִ֥ים הַרְבֵּ֛ה יִחְיֶ֥ה הָאָדָ֖ם בְּכֻלָּ֣ם יִשְׂמָ֑ח וְיִזְכֹּר֙ אֶת־יְמֵ֣י הַחֹ֔שֶׁךְ כִּֽי־הַרְבֵּ֥ה יִהְי֖וּ כׇּל־שֶׁבָּ֥א הָֽבֶל׃",
+            "english": "Even if a man lives many years, let him enjoy himself in all of them, remembering how many the days of darkness are going to be. The only future is nothingness!"
+          }
+        },
+        {
+          "verse": 9,
+          "translations": {
+            "hebrew": "שְׂמַ֧ח בָּח֣וּר בְּיַלְדוּתֶ֗יךָ וִֽיטִֽיבְךָ֤ לִבְּךָ֙ בִּימֵ֣י בְחוּרוֹתֶ֔יךָ וְהַלֵּךְ֙ בְּדַרְכֵ֣י לִבְּךָ֔ וּבְמַרְאֵ֖י עֵינֶ֑יךָ וְדָ֕ע כִּ֧י עַל־כׇּל־אֵ֛לֶּה יְבִֽיאֲךָ֥ הָאֱלֹהִ֖ים בַּמִּשְׁפָּֽט׃",
+            "english": "O youth, enjoy yourself while you are young! Let your heart lead you to enjoyment in the days of your youth. Follow the desires of your heart and the glances of your eyes—but know well that God will call you to account for all such things—"
+          }
+        },
+        {
+          "verse": 10,
+          "translations": {
+            "hebrew": "וְהָסֵ֥ר כַּ֙עַס֙ מִלִּבֶּ֔ךָ וְהַעֲבֵ֥ר רָעָ֖ה מִבְּשָׂרֶ֑ךָ כִּֽי־הַיַּלְד֥וּת וְהַֽשַּׁחֲר֖וּת הָֽבֶל׃",
+            "english": "and banish care from your mind, and pluck sorrow out of your flesh! For youth and black hair are fleeting."
+          }
+        }
+      ]
+    },
+    {
+      "chapter": 12,
+      "verses": [
+        {
+          "verse": 1,
+          "translations": {
+            "hebrew": "וּזְכֹר֙ אֶת־בּ֣וֹרְאֶ֔יךָ בִּימֵ֖י בְּחוּרֹתֶ֑יךָ עַ֣ד אֲשֶׁ֤ר לֹא־יָבֹ֙אוּ֙ יְמֵ֣י הָֽרָעָ֔ה וְהִגִּ֣יעוּ שָׁנִ֔ים אֲשֶׁ֣ר תֹּאמַ֔ר אֵֽין־לִ֥י בָהֶ֖ם חֵֽפֶץ׃",
+            "english": "So appreciate your vigor<sup class=\"footnote-marker\">a</sup><i class=\"footnote\">Cf. postbiblical bori; others “Remember thy Creator.”</i> in the days of your youth, before those days of sorrow come and those years arrive of which you will say, “I have no pleasure in them”;"
+          }
+        },
+        {
+          "verse": 2,
+          "translations": {
+            "hebrew": "עַ֠ד אֲשֶׁ֨ר לֹֽא־תֶחְשַׁ֤ךְ הַשֶּׁ֙מֶשׁ֙ וְהָא֔וֹר וְהַיָּרֵ֖חַ וְהַכּוֹכָבִ֑ים וְשָׁ֥בוּ הֶעָבִ֖ים אַחַ֥ר הַגָּֽשֶׁם׃",
+            "english": "before sun and light and moon and stars grow dark, and the clouds come back again after the rain:<br>"
+          }
+        },
+        {
+          "verse": 3,
+          "translations": {
+            "hebrew": "בַּיּ֗וֹם שֶׁיָּזֻ֙עוּ֙ שֹׁמְרֵ֣י הַבַּ֔יִת וְהִֽתְעַוְּת֖וּ אַנְשֵׁ֣י הֶחָ֑יִל וּבָטְל֤וּ הַטֹּֽחֲנוֹת֙ כִּ֣י מִעֵ֔טוּ וְחָשְׁכ֥וּ הָרֹא֖וֹת בָּאֲרֻבּֽוֹת׃",
+            "english": "When the guards of the house<sup class=\"footnote-marker\">b</sup><i class=\"footnote\">I.e., the arms.</i> become shaky,<br>And the men of valor<sup class=\"footnote-marker\">c</sup><i class=\"footnote\">I.e., the legs.</i> are bent,<br>And the maids that grind,<sup class=\"footnote-marker\">d</sup><i class=\"footnote\">I.e., the teeth.</i> grown few, are idle,<br>And the ladies that peer through the windows<sup class=\"footnote-marker\">e</sup><i class=\"footnote\">I.e., the eyes.</i> grow dim,"
+          }
+        },
+        {
+          "verse": 4,
+          "translations": {
+            "hebrew": "וְסֻגְּר֤וּ דְלָתַ֙יִם֙ בַּשּׁ֔וּק בִּשְׁפַ֖ל ק֣וֹל הַֽטַּחֲנָ֑ה וְיָקוּם֙ לְק֣וֹל הַצִּפּ֔וֹר וְיִשַּׁ֖חוּ כׇּל־בְּנ֥וֹת הַשִּֽׁיר׃",
+            "english": "And the doors to the street<sup class=\"footnote-marker\">f</sup><i class=\"footnote\">I.e., the ears.</i> are shut—<br>With the noise of the hand mill growing fainter,<br>And the song of the bird <sup class=\"footnote-marker\">g</sup><i class=\"footnote\">Exact meaning of Heb. uncertain.</i>growing feebler,<sup class=\"endFootnote\">-g</sup><br>And all the strains of music dying down;<sup class=\"footnote-marker\">h</sup><i class=\"footnote\">Cf. 2 Sam. 19.36.</i>"
+          }
+        },
+        {
+          "verse": 5,
+          "translations": {
+            "hebrew": "גַּ֣ם מִגָּבֹ֤הַּ יִרָ֙אוּ֙ וְחַתְחַתִּ֣ים בַּדֶּ֔רֶךְ וְיָנֵ֤אץ הַשָּׁקֵד֙ וְיִסְתַּבֵּ֣ל הֶֽחָגָ֔ב וְתָפֵ֖ר הָֽאֲבִיּוֹנָ֑ה כִּֽי־הֹלֵ֤ךְ הָאָדָם֙ אֶל־בֵּ֣ית עוֹלָמ֔וֹ וְסָבְב֥וּ בַשּׁ֖וּק הַסּוֹפְדִֽים׃",
+            "english": "When one is afraid of heights<br>And there is terror on the road.—<br>For the almond tree may blossom,<br><sup class=\"footnote-marker\">i</sup><i class=\"footnote\">Emendation yields “The squill (postbiblical Heb. ḥaṣab) resume its burden,” i.e., its blossom-stalk and its leaves.</i>The grasshopper be burdened,<sup class=\"endFootnote\">-i</sup><br>And the caper bush may bud again;<sup class=\"footnote-marker\">j</sup><i class=\"footnote\">These plants, after seeming dead for part of the year, revive, unlike man; cf. Job 14.7–10.</i><br>But man sets out for his eternal abode,<br>With mourners all around in the street.—"
+          }
+        },
+        {
+          "verse": 6,
+          "translations": {
+            "hebrew": "עַ֣ד אֲשֶׁ֤ר לֹֽא־<span class=\"mam-kq\"><span class=\"mam-kq-q\">[יֵרָתֵק֙]</span> <span class=\"mam-kq-k\">(ירחק)</span></span> חֶ֣בֶל הַכֶּ֔סֶף וְתָר֖וּץ גֻּלַּ֣ת הַזָּהָ֑ב וְתִשָּׁ֤בֶר כַּד֙ עַל־הַמַּבּ֔וּעַ וְנָרֹ֥ץ הַגַּלְגַּ֖ל אֶל־הַבּֽוֹר׃",
+            "english": "Before the silver cord snaps<br>And the golden bowl crashes,<br>The jar is shattered at the spring,<br>And the jug<sup class=\"footnote-marker\">k</sup><i class=\"footnote\">So in Punic; others “wheel.”</i> is smashed at the cistern.<sup class=\"footnote-marker\">l</sup><i class=\"footnote\">Poetic figure for the end of life.</i>"
+          }
+        },
+        {
+          "verse": 7,
+          "translations": {
+            "hebrew": "וְיָשֹׁ֧ב הֶעָפָ֛ר עַל־הָאָ֖רֶץ כְּשֶׁהָיָ֑ה וְהָר֣וּחַ תָּשׁ֔וּב אֶל־הָאֱלֹהִ֖ים אֲשֶׁ֥ר נְתָנָֽהּ׃",
+            "english": "And the dust returns to the ground<br>As it was,<br>And the lifebreath returns to God<br>Who bestowed it."
+          }
+        },
+        {
+          "verse": 8,
+          "translations": {
+            "hebrew": "הֲבֵ֧ל הֲבָלִ֛ים אָמַ֥ר הַקּוֹהֶ֖לֶת הַכֹּ֥ל הָֽבֶל׃",
+            "english": "Utter futility—said Koheleth—<br>All is futile!<br>"
+          }
+        },
+        {
+          "verse": 9,
+          "translations": {
+            "hebrew": "וְיֹתֵ֕ר שֶׁהָיָ֥ה קֹהֶ֖לֶת חָכָ֑ם ע֗וֹד לִמַּד־דַּ֙עַת֙ אֶת־הָעָ֔ם וְאִזֵּ֣ן וְחִקֵּ֔ר תִּקֵּ֖ן מְשָׁלִ֥ים הַרְבֵּֽה׃",
+            "english": "A further word: Because Koheleth was a sage, he continued to instruct the people. He listened to and tested the soundness<sup class=\"footnote-marker\">m</sup><i class=\"footnote\">A noun, like dibber (Jer. 5.13), which occurs in such postbiblical phrases as shanim kethiq(qe)nan, “normal years” (lit. “years according to their propriety”).</i> of many maxims."
+          }
+        },
+        {
+          "verse": 10,
+          "translations": {
+            "hebrew": "בִּקֵּ֣שׁ קֹהֶ֔לֶת לִמְצֹ֖א דִּבְרֵי־חֵ֑פֶץ וְכָת֥וּב יֹ֖שֶׁר דִּבְרֵ֥י אֱמֶֽת׃",
+            "english": "Koheleth sought to discover useful sayings and recorded<sup class=\"footnote-marker\">n</sup><i class=\"footnote\">Wekhathub is equivalent to wekhathob, an infinitive employed as in Esth. 9.16 and elsewhere.</i> genuinely truthful sayings."
+          }
+        },
+        {
+          "verse": 11,
+          "translations": {
+            "hebrew": "דִּבְרֵ֤י חֲכָמִים֙ כַּדָּ֣רְבֹנ֔וֹת וּֽכְמַשְׂמְר֥וֹת נְטוּעִ֖ים בַּעֲלֵ֣י אֲסֻפּ֑וֹת נִתְּנ֖וּ מֵרֹעֶ֥ה אֶחָֽד׃",
+            "english": "The sayings of the wise are like goads, like nails fixed <sup class=\"footnote-marker\">o</sup><i class=\"footnote\">Meaning of Heb. uncertain. Others “are those that are composed in collections.”</i>in prodding sticks.<sup class=\"endFootnote\">-o</sup> <sup class=\"footnote-marker\">p</sup><i class=\"footnote\">Meaning of Heb. uncertain. Emendation yields “They are accounted as a sharp ox goad” (post-biblical mardea‘).</i>They were given by one Shepherd.<sup class=\"endFootnote\">-p</sup>"
+          }
+        },
+        {
+          "verse": 12,
+          "translations": {
+            "hebrew": "וְיֹתֵ֥ר מֵהֵ֖מָּה בְּנִ֣י הִזָּהֵ֑ר עֲשׂ֨וֹת סְפָרִ֤ים הַרְבֵּה֙ אֵ֣ין קֵ֔ץ וְלַ֥הַג הַרְבֵּ֖ה יְגִעַ֥ת בָּשָֽׂר׃",
+            "english": "A further word: <sup class=\"footnote-marker\">q</sup><i class=\"footnote\">Emendation yields “Slow, there!” Cf. Arabic mah and mah mah; so also mah (meh) in Prov. 31.2.</i>Against them,<sup class=\"endFootnote\">-q</sup> my son, be warned!<br>The making of many books is without limit<br>And much study<sup class=\"footnote-marker\">r</sup><i class=\"footnote\">Meaning of Heb. uncertain.</i> is a wearying of the flesh."
+          }
+        },
+        {
+          "verse": 13,
+          "translations": {
+            "hebrew": "<big>ס֥</big>וֹף דָּבָ֖ר הַכֹּ֣ל נִשְׁמָ֑ע אֶת־הָאֱלֹהִ֤ים יְרָא֙ וְאֶת־מִצְוֺתָ֣יו שְׁמ֔וֹר כִּי־זֶ֖ה כׇּל־הָאָדָֽם׃",
+            "english": "The sum of the matter, when all is said and done: Revere God and observe His commandments! For this applies to all mankind:"
+          }
+        },
+        {
+          "verse": 14,
+          "translations": {
+            "hebrew": "כִּ֚י אֶת־כׇּל־מַֽעֲשֶׂ֔ה הָאֱלֹהִ֛ים יָבִ֥א בְמִשְׁפָּ֖ט עַ֣ל כׇּל־נֶעְלָ֑ם אִם־ט֖וֹב וְאִם־רָֽע׃",
+            "english": "that God will call every creature to account for <sup class=\"footnote-marker\">s</sup><i class=\"footnote\">Emendation yields “all their conduct.”</i>everything unknown,<sup class=\"endFootnote\">-s</sup> be it good or bad.<br><br>The sum of the matter, when all is said and done: Revere God and observe His commandments! For this applies to all mankind."
+          }
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "imported": "2025-09-30T18:06:00.566Z",
+    "totalChapters": 12,
+    "totalVerses": 222,
+    "status": "imported_sefaria",
+    "notes": "Imported from Sefaria.org (Hebrew and English)."
+  }
+}
