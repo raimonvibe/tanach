@@ -1,6 +1,6 @@
 {
   "name": "tanach-nederlandse-vertaling",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Eigen Nederlandse vertaling van de Tanach (Joodse Bijbel)",
   "main": "index.js",
   "scripts": {
