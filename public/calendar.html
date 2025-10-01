@@ -414,10 +414,30 @@
 
         /* Dark mode support */
         @media (prefers-color-scheme: dark) {
-            .calendar-container,
+            .calendar-container {
+                background: #2d3748;
+                color: #e2e8f0;
+            }
+            
             .sidebar {
                 background: #2d3748;
                 color: #e2e8f0;
+            }
+            
+            .sidebar h3 {
+                color: #e2e8f0;
+            }
+            
+            .info-label {
+                color: #cbd5e0;
+            }
+            
+            .info-value {
+                color: #e2e8f0;
+            }
+            
+            .loading {
+                color: #cbd5e0;
             }
 
             .day-cell {
