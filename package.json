@@ -1,0 +1,26 @@
+{
+  "name": "tanach-nederlandse-vertaling",
+  "version": "1.0.1",
+  "description": "Eigen Nederlandse vertaling van de Tanach (Joodse Bijbel)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "sefaria": "node src/scripts/sefaria-importer.js",
+    "build": "echo 'No build step required'",
+    "test": "jest"
+  },
+  "keywords": [
+    "tanach",
+    "bijbel",
+    "nederlands",
+    "vertaling"
+  ],
+  "dependencies": {
+    "@hebcal/core": "^5.10.1",
+    "express": "^4.19.2",
+    "fs-extra": "^11.2.0",
+    "lunr": "^2.3.9",
+    "nodemon": "^3.1.1"
+  }
+}
