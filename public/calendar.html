@@ -181,7 +181,7 @@
         }
 
         .day-cell.other-month .day-number {
-            color: #666;
+            color: #667eea;
         }
 
         .day-cell.other-month .hebrew-date {
@@ -223,6 +223,7 @@
             font-weight: bold;
             font-size: 1rem;
             margin-bottom: 4px;
+            color: #667eea;
         }
 
         .hebrew-date {
@@ -347,6 +348,21 @@
             .header h1 {
                 font-size: 2rem;
             }
+            
+            .nav-links {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+            
+            .nav-links a {
+                margin: 0;
+                padding: 12px 20px;
+                font-size: 1rem;
+                min-width: 200px;
+                text-align: center;
+            }
 
             .calendar-container {
                 padding: 15px;
@@ -382,6 +398,7 @@
             .day-number {
                 font-size: 1rem;
                 font-weight: bold;
+                color: #667eea;
             }
 
             .hebrew-date {
@@ -402,6 +419,12 @@
         @media (max-width: 480px) {
             .container {
                 padding: 5px;
+            }
+            
+            .nav-links a {
+                min-width: 180px;
+                padding: 10px 16px;
+                font-size: 0.9rem;
             }
 
             .calendar-container {
@@ -429,6 +452,7 @@
             .day-number {
                 font-size: 0.9rem;
                 font-weight: bold;
+                color: #667eea;
             }
 
             .hebrew-date {
@@ -476,6 +500,7 @@
             .day-number {
                 font-size: 0.8rem;
                 font-weight: bold;
+                color: #667eea;
             }
 
             .hebrew-date {
@@ -534,6 +559,14 @@
             .day-cell.other-month {
                 background: #1a202c;
                 color: #718096;
+            }
+            
+            .day-number {
+                color: #667eea;
+            }
+            
+            .day-cell.other-month .day-number {
+                color: #667eea;
             }
 
             .info-item {
