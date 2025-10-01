@@ -341,7 +341,7 @@
         /* Responsive Design */
         @media (max-width: 768px) {
             .container {
-                padding: 15px;
+                padding: 10px;
             }
 
             .header h1 {
@@ -349,7 +349,8 @@
             }
 
             .calendar-container {
-                padding: 20px;
+                padding: 15px;
+                overflow-x: auto;
             }
 
             .calendar-header {
@@ -361,42 +362,20 @@
                 justify-content: center;
             }
 
-            .day-cell {
-                min-height: 80px;
-                padding: 6px;
-            }
-
-            .day-number {
-                font-size: 0.9rem;
-            }
-
-            .hebrew-date {
-                font-size: 0.7rem;
-            }
-
-            .day-events {
-                font-size: 0.6rem;
-            }
-
-            .event {
-                font-size: 0.55rem;
-                padding: 1px 4px;
-            }
-        }
-
-        @media (max-width: 480px) {
             .calendar-grid {
+                min-width: 100%;
                 gap: 0;
             }
 
             .day-header {
-                padding: 10px 5px;
-                font-size: 0.8rem;
+                padding: 8px 4px;
+                font-size: 0.75rem;
             }
 
             .day-cell {
-                min-height: 70px;
+                min-height: 60px;
                 padding: 4px;
+                font-size: 0.8rem;
             }
 
             .day-number {
@@ -404,11 +383,99 @@
             }
 
             .hebrew-date {
-                font-size: 0.65rem;
+                font-size: 0.6rem;
             }
 
             .day-events {
+                font-size: 0.5rem;
+            }
+
+            .event {
+                font-size: 0.45rem;
+                padding: 1px 3px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 5px;
+            }
+
+            .calendar-container {
+                padding: 10px;
+                overflow-x: auto;
+            }
+
+            .calendar-grid {
+                gap: 0;
+                min-width: 100%;
+            }
+
+            .day-header {
+                padding: 6px 2px;
+                font-size: 0.7rem;
+            }
+
+            .day-cell {
+                min-height: 50px;
+                padding: 3px;
+                font-size: 0.7rem;
+            }
+
+            .day-number {
+                font-size: 0.7rem;
+            }
+
+            .hebrew-date {
                 font-size: 0.55rem;
+            }
+
+            .day-events {
+                font-size: 0.45rem;
+            }
+
+            .event {
+                font-size: 0.4rem;
+                padding: 1px 2px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .container {
+                padding: 2px;
+            }
+
+            .calendar-container {
+                padding: 8px;
+                overflow-x: auto;
+            }
+
+            .day-header {
+                padding: 4px 1px;
+                font-size: 0.65rem;
+            }
+
+            .day-cell {
+                min-height: 45px;
+                padding: 2px;
+                font-size: 0.65rem;
+            }
+
+            .day-number {
+                font-size: 0.65rem;
+            }
+
+            .hebrew-date {
+                font-size: 0.5rem;
+            }
+
+            .day-events {
+                font-size: 0.4rem;
+            }
+
+            .event {
+                font-size: 0.35rem;
+                padding: 1px;
             }
         }
 
