@@ -178,6 +178,21 @@ app.get('/api/search', async (req, res) => {
 // Get Tanach structure
 app.get('/api/structure', async (req, res) => {
     try {
+        // Definieer de correcte volgorde van boeken per categorie
+        const bookOrder = {
+            torah: ['bereshit', 'shemot', 'vayikra', 'bamidbar', 'devarim'],
+            neviim: [
+                'yehoshua', 'shoftim', 'shmuel1', 'shmuel2', 'melachim1', 'melachim2',
+                'yeshayahu', 'yirmeyahu', 'yechezkel', 'hoshea', 'yoel', 'amos',
+                'ovadya', 'yona', 'michah', 'nachum', 'chavakuk', 'tzefanya',
+                'chagai', 'zecharya', 'malachi'
+            ],
+            ketuvim: [
+                'tehillim', 'mishlei', 'iyov', 'shir_hashirim', 'rut', 'eicha',
+                'kohelet', 'esther', 'daniel', 'ezra', 'nechemya', 'divrei_hayamim1', 'divrei_hayamim2'
+            ]
+        };
+
         const structure = {
             torah: {
                 name: 'Torah (תורה)',
@@ -201,17 +216,17 @@ app.get('/api/structure', async (req, res) => {
         for (const category of Object.keys(structure)) {
             const categoryDir = path.join(booksDir, category);
             if (await fs.pathExists(categoryDir)) {
-                const files = await fs.readdir(categoryDir);
-                const jsonFiles = files.filter(file => file.endsWith('.json'));
-
-                for (const file of jsonFiles) {
-                    const bookPath = path.join(categoryDir, file);
-                    const bookData = await fs.readJson(bookPath);
-                    structure[category].books.push({
-                        id: bookData.id,
-                        name: bookData.name,
-                        chapters: bookData.chapters.length
-                    });
+                // Laad boeken in de correcte volgorde
+                for (const bookId of bookOrder[category]) {
+                    const bookPath = path.join(categoryDir, `${bookId}.json`);
+                    if (await fs.pathExists(bookPath)) {
+                        const bookData = await fs.readJson(bookPath);
+                        structure[category].books.push({
+                            id: bookData.id,
+                            name: bookData.name,
+                            chapters: bookData.chapters.length
+                        });
+                    }
                 }
             }
         }
