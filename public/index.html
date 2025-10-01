@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanach Reader - Joodse Bijbel Online</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .category {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .category h3 {
+            color: #667eea;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .category p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .books-list {
+            list-style: none;
+        }
+
+        .books-list li {
+            margin-bottom: 8px;
+        }
+
+        .books-list a {
+            color: #333;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        .books-list a:hover {
+            background-color: #e9ecef;
+        }
+
+        .stats {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .stats h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-item {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .search-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .search-section h3 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 10px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #667eea;
+        }
+
+        .search-btn {
+            padding: 12px 25px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background: #5a6fd8;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            opacity: 0.8;
+            margin-top: 40px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .search-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📖 Tanach Reader</h1>
+            <p>Lees de Joodse Bijbel online in Hebreeuws en Engels</p>
+        </div>
+
+        <div class="main-content">
+            <div class="stats" id="stats">
+                <div class="loading">Laden van statistieken...</div>
+            </div>
+
+            <div class="search-section">
+                <h3>🔍 Zoek in de Tanach</h3>
+                <form class="search-form" id="searchForm">
+                    <input type="text" class="search-input" id="searchInput" placeholder="Zoek in Hebreeuws of Engels...">
+                    <button type="submit" class="search-btn">Zoeken</button>
+                </form>
+            </div>
+
+            <div class="categories" id="categories">
+                <div class="loading">Laden van boeken...</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2024 Tanach Reader - Authentieke Joodse teksten van Sefaria.org</p>
+        </div>
+    </div>
+
+    <script>
+        // Load statistics
+        async function loadStats() {
+            try {
+                const response = await fetch('/api/books');
+                const books = await response.json();
+                
+                const totalBooks = books.length;
+                const totalChapters = books.reduce((sum, book) => sum + book.chapters.length, 0);
+                const totalVerses = books.reduce((sum, book) => 
+                    sum + book.chapters.reduce((chSum, chapter) => chSum + chapter.verses.length, 0), 0);
+
+                document.getElementById('stats').innerHTML = `
+                    <h3>📊 Tanach Statistieken</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number">${totalBooks}</div>
+                            <div class="stat-label">Boeken</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">${totalChapters}</div>
+                            <div class="stat-label">Hoofdstukken</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">${totalVerses.toLocaleString()}</div>
+                            <div class="stat-label">Verzen</div>
+                        </div>
+                    </div>
+                `;
+            } catch (error) {
+                document.getElementById('stats').innerHTML = `
+                    <div class="error">Kon statistieken niet laden: ${error.message}</div>
+                `;
+            }
+        }
+
+        // Load categories and books
+        async function loadCategories() {
+            try {
+                const response = await fetch('/api/structure');
+                const structure = await response.json();
+                
+                let html = '';
+                for (const [categoryKey, category] of Object.entries(structure)) {
+                    html += `
+                        <div class="category">
+                            <h3>${category.name}</h3>
+                            <p>${category.description}</p>
+                            <ul class="books-list">
+                                ${category.books.map(book => `
+                                    <li>
+                                        <a href="/reader.html?book=${book.id}&category=${categoryKey}">
+                                            ${book.name} (${book.chapters} hoofdstukken)
+                                        </a>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                    `;
+                }
+                
+                document.getElementById('categories').innerHTML = html;
+            } catch (error) {
+                document.getElementById('categories').innerHTML = `
+                    <div class="error">Kon boeken niet laden: ${error.message}</div>
+                `;
+            }
+        }
+
+        // Search functionality
+        document.getElementById('searchForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const query = document.getElementById('searchInput').value.trim();
+            
+            if (!query) return;
+            
+            try {
+                const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+                const results = await response.json();
+                
+                if (results.length === 0) {
+                    alert('Geen resultaten gevonden.');
+                    return;
+                }
+                
+                // Show first result (you could create a results page)
+                const firstResult = results[0];
+                window.location.href = `/reader.html?book=${firstResult.book.id}&category=${firstResult.book.category}&chapter=${firstResult.chapter}&verse=${firstResult.verse}`;
+                
+            } catch (error) {
+                alert(`Zoeken gefaald: ${error.message}`);
+            }
+        });
+
+        // Load page
+        loadStats();
+        loadCategories();
+    </script>
+</body>
+</html>
+
