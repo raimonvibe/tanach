@@ -49,20 +49,34 @@ export function getWeeklyInfo(date = null) {
                     const leyning = getLeyningOnDate(ev.getDate(), false); // false = diaspora
                     if (leyning && leyning.haftara) {
                         const haftaraData = leyning.haftara;
-                        // Format: "Book chapter:verse-verse"
-                        if (Array.isArray(haftaraData)) {
+                        console.log('Haftarah data:', haftaraData); // Debug log
+
+                        if (typeof haftaraData === 'string') {
+                            // If it's already a string, use it
+                            haftarah = haftaraData;
+                        } else if (Array.isArray(haftaraData)) {
                             // Multiple haftarah readings
-                            haftarah = haftaraData.map(h => {
-                                const str = formatAliyahWithBook(h);
-                                return typeof str === 'string' ? str : `${h.k || ''} ${h.b || ''}:${h.e || ''}`;
-                            }).join(', ');
-                        } else {
+                            haftarah = haftaraData.map(h => formatAliyahWithBook(h)).filter(s => s).join(', ');
+                        } else if (haftaraData) {
+                            // Try formatAliyahWithBook first
                             const formatted = formatAliyahWithBook(haftaraData);
-                            if (typeof formatted === 'string' && formatted !== 'undefined undefined-undefined') {
+                            console.log('Formatted haftarah:', formatted); // Debug log
+
+                            if (formatted && formatted !== 'undefined undefined-undefined' && !formatted.includes('undefined')) {
                                 haftarah = formatted;
                             } else {
-                                // Fallback: construct from object properties
-                                haftarah = `${haftaraData.k || 'Unknown'} ${haftaraData.b || ''}:${haftaraData.e || ''}`;
+                                // Fallback: try to get book name and verses
+                                console.log('Haftarah object keys:', Object.keys(haftaraData)); // Debug log
+                                const book = haftaraData.book || haftaraData.k || '';
+                                const start = haftaraData.begin || haftaraData.b || '';
+                                const end = haftaraData.end || haftaraData.e || '';
+                                console.log('Book:', book, 'Start:', start, 'End:', end); // Debug log
+
+                                if (book && start) {
+                                    haftarah = end ? `${book} ${start}-${end}` : `${book} ${start}`;
+                                } else if (book) {
+                                    haftarah = book;
+                                }
                             }
                         }
                     }
