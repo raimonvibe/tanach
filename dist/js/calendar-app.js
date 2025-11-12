@@ -37,14 +37,17 @@ class JewishCalendar {
             const monthData = getCalendarData(this.currentYear, this.currentMonth + 1);
             this.calendarData[`${this.currentYear}-${this.currentMonth + 1}`] = monthData;
 
-            // Load weekly info
-            this.loadWeeklyInfo();
+            // Get the first day of the currently viewed month
+            const viewedDate = new Date(this.currentYear, this.currentMonth, 1);
 
-            // Load times info
-            this.loadTimesInfo();
+            // Load weekly info for the viewed month
+            this.loadWeeklyInfo(viewedDate);
 
-            // Load Hebrew date info
-            this.loadHebrewDateInfo();
+            // Load times info for the viewed month
+            this.loadTimesInfo(viewedDate);
+
+            // Load Hebrew date info for the viewed month
+            this.loadHebrewDateInfo(viewedDate);
 
         } catch (error) {
             console.error('Error loading calendar data:', error);
@@ -52,9 +55,9 @@ class JewishCalendar {
         }
     }
 
-    loadWeeklyInfo() {
+    loadWeeklyInfo(date) {
         try {
-            const data = getWeeklyInfo();
+            const data = getWeeklyInfo(date);
             this.renderWeeklyInfo(data);
         } catch (error) {
             console.error('Error loading weekly info:', error);
@@ -66,9 +69,9 @@ class JewishCalendar {
         }
     }
 
-    loadTimesInfo() {
+    loadTimesInfo(date) {
         try {
-            const data = getTimes();
+            const data = getTimes(date);
             this.renderTimesInfo(data);
         } catch (error) {
             console.error('Error loading times info:', error);
@@ -81,13 +84,13 @@ class JewishCalendar {
         }
     }
 
-    loadHebrewDateInfo() {
+    loadHebrewDateInfo(date) {
         try {
-            const today = new Date();
-            const hebrewDate = getHebrewDate(today);
+            const targetDate = date || new Date();
+            const hebrewDate = getHebrewDate(targetDate);
 
             const data = {
-                gregorian: today.toLocaleDateString('nl-NL'),
+                gregorian: targetDate.toLocaleDateString('nl-NL'),
                 hebrew: hebrewDate
             };
 

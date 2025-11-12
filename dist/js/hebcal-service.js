@@ -15,12 +15,12 @@ const AMSTERDAM = Location.lookup('Amsterdam') || new Location(
 /**
  * Get weekly Torah reading, Haftarah, and Rosh Chodesh info
  */
-export function getWeeklyInfo() {
+export function getWeeklyInfo(date = null) {
     try {
-        const today = new Date();
-        const hd = new HDate(today);
+        const targetDate = date || new Date();
+        const hd = new HDate(targetDate);
 
-        // Get the upcoming Shabbat
+        // Get the upcoming Shabbat from the target date
         const saturday = hd.onOrAfter(6); // 6 = Saturday
 
         // Get events for the upcoming Shabbat
@@ -48,10 +48,23 @@ export function getWeeklyInfo() {
                 try {
                     const leyning = getLeyningOnDate(ev.getDate(), false); // false = diaspora
                     if (leyning && leyning.haftara) {
-                        const formatted = formatAliyahWithBook(leyning.haftara);
-                        // formatAliyahWithBook returns a string like "Isaiah 1:1-27"
-                        haftarah = typeof formatted === 'string' ? formatted :
-                                   formatted ? String(formatted) : 'N/A';
+                        const haftaraData = leyning.haftara;
+                        // Format: "Book chapter:verse-verse"
+                        if (Array.isArray(haftaraData)) {
+                            // Multiple haftarah readings
+                            haftarah = haftaraData.map(h => {
+                                const str = formatAliyahWithBook(h);
+                                return typeof str === 'string' ? str : `${h.k || ''} ${h.b || ''}:${h.e || ''}`;
+                            }).join(', ');
+                        } else {
+                            const formatted = formatAliyahWithBook(haftaraData);
+                            if (typeof formatted === 'string' && formatted !== 'undefined undefined-undefined') {
+                                haftarah = formatted;
+                            } else {
+                                // Fallback: construct from object properties
+                                haftarah = `${haftaraData.k || 'Unknown'} ${haftaraData.b || ''}:${haftaraData.e || ''}`;
+                            }
+                        }
                     }
                 } catch (leyningError) {
                     console.warn('Could not get Haftarah:', leyningError);
@@ -61,8 +74,8 @@ export function getWeeklyInfo() {
 
         // Check for Rosh Chodesh
         const roshChodeshEvents = HebrewCalendar.calendar({
-            start: today,
-            end: new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000), // Next 30 days
+            start: targetDate,
+            end: new Date(targetDate.getTime() + 30 * 24 * 60 * 60 * 1000), // Next 30 days
             mask: Event.ROSH_CHODESH
         });
 
@@ -92,12 +105,12 @@ export function getWeeklyInfo() {
 /**
  * Get candle lighting, havdalah, sunrise, sunset times
  */
-export function getTimes() {
+export function getTimes(date = null) {
     try {
-        const today = new Date();
-        const hd = new HDate(today);
+        const targetDate = date || new Date();
+        const hd = new HDate(targetDate);
 
-        // Get the next Shabbat
+        // Get the next Shabbat from the target date
         const saturday = hd.onOrAfter(6); // 6 = Saturday
         const saturdayDate = saturday.greg();
 
@@ -131,8 +144,8 @@ export function getTimes() {
             }
         }
 
-        // Calculate sunrise and sunset for today
-        const zmanim = new Zmanim(AMSTERDAM, today, false);
+        // Calculate sunrise and sunset for target date
+        const zmanim = new Zmanim(AMSTERDAM, targetDate, false);
         const sunrise = zmanim.sunrise();
         const sunset = zmanim.sunset();
 
