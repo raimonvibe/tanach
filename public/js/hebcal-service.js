@@ -48,7 +48,10 @@ export function getWeeklyInfo() {
                 try {
                     const leyning = getLeyningOnDate(ev.getDate(), false); // false = diaspora
                     if (leyning && leyning.haftara) {
-                        haftarah = formatAliyahWithBook(leyning.haftara);
+                        const formatted = formatAliyahWithBook(leyning.haftara);
+                        // formatAliyahWithBook returns a string like "Isaiah 1:1-27"
+                        haftarah = typeof formatted === 'string' ? formatted :
+                                   formatted ? String(formatted) : 'N/A';
                     }
                 } catch (leyningError) {
                     console.warn('Could not get Haftarah:', leyningError);
