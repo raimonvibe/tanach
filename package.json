@@ -4,10 +4,11 @@
   "description": "Eigen Nederlandse vertaling van de Tanach (Joodse Bijbel)",
   "main": "index.js",
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "nodemon src/server.js",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "server": "node src/server.js",
     "sefaria": "node src/scripts/sefaria-importer.js",
-    "build": "echo 'No build step required'",
     "test": "jest"
   },
   "keywords": [
@@ -23,5 +24,8 @@
     "fs-extra": "^11.2.0",
     "lunr": "^2.3.9",
     "nodemon": "^3.1.1"
+  },
+  "devDependencies": {
+    "vite": "^7.2.2"
   }
 }

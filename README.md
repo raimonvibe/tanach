@@ -18,19 +18,42 @@ Tanach Reader is een online applicatie voor het lezen van de Joodse Bijbel (Tana
 
 ## Technologie
 
-- Pure HTML, CSS en JavaScript
-- Sefaria.org API voor authentieke Joodse teksten
-- Responsive design voor alle apparaten
+- **Fully Static Site** - No server required!
+- **Vite** - Modern build tool and dev server
+- **@hebcal/core & @hebcal/leyning** - Accurate Jewish calendar calculations
+- **Sefaria.org** API voor authentieke Joodse teksten
+- **Responsive Design** - Werkt op alle apparaten
 
 ## Gebruik
 
 Bezoek [https://tanach.vercel.app/](https://tanach.vercel.app/) om de applicatie te gebruiken.
 
-## Lokaal Draaien
+## Lokaal Ontwikkelen
 
-1. Clone deze repository
-2. Start een lokale webserver in de `public` directory
-3. Open de applicatie in je browser
+```bash
+# Installeer dependencies
+npm install
+
+# Start development server (http://localhost:3000)
+npm run dev
+
+# Build voor productie
+npm run build
+
+# Preview production build
+npm run preview
+```
+
+## Deployment
+
+De site is volledig statisch en kan gehost worden op:
+- **GitHub Pages**
+- **Netlify** - Automatische deployments
+- **Vercel** - Automatische deployments
+- Elke static hosting service
+
+Build command: `npm run build`
+Output directory: `dist/`
 
 ## Licentie
 
