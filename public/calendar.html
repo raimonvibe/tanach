@@ -943,19 +943,26 @@
                     }
                 }
                 
-                const gregorianTitle = `${monthNames[this.currentMonth]} ${this.currentYear}`;
-                const hebrewTitle = hebrewMonthName ? ` / ${hebrewMonthName}` : '';
-
                 // Get Hebrew year if available
                 let hebrewYear = '';
                 if (monthData && monthData.days && monthData.days.length > 0) {
                     const firstDay = monthData.days[0];
                     if (firstDay.hebrewDate && firstDay.hebrewDate.year) {
-                        hebrewYear = `<div style="font-size: 0.9em; opacity: 0.85; margin-bottom: 5px;">Joods Jaar: ${firstDay.hebrewDate.year}</div>`;
+                        hebrewYear = firstDay.hebrewDate.year;
                     }
                 }
 
-                title.innerHTML = `${hebrewYear}<div>${gregorianTitle}${hebrewTitle}</div>`;
+                // Build title: Jewish year, Jewish month / European month and year
+                let titleText = '';
+                if (hebrewYear && hebrewMonthName) {
+                    titleText = `${hebrewYear} ${hebrewMonthName} / ${monthNames[this.currentMonth]} ${this.currentYear}`;
+                } else if (hebrewMonthName) {
+                    titleText = `${hebrewMonthName} / ${monthNames[this.currentMonth]} ${this.currentYear}`;
+                } else {
+                    titleText = `${monthNames[this.currentMonth]} ${this.currentYear}`;
+                }
+
+                title.innerHTML = titleText;
                 
                 if (this.viewMode === 'month') {
                     container.innerHTML = this.renderMonthView();
