@@ -617,14 +617,15 @@
                 return;
             }
 
-            // Limit results to first 50 for performance
-            const displayResults = results.slice(0, 50);
-            const hasMore = results.length > 50;
+            // Limit results to first 100 for display
+            const displayResults = results.slice(0, 100);
+            const hasMore = results.length > 100;
 
             let html = `
                 <div class="results-count">
-                    ✅ ${results.length} resultaten gevonden voor "${query}"
-                    ${hasMore ? `<br><small style="color: #999;">(Eerste 50 worden weergegeven)</small>` : ''}
+                    ✅ ${results.length}${results.length >= 500 ? '+' : ''} resultaten gevonden voor "${query}"
+                    ${hasMore ? `<br><small style="color: #999;">(Eerste 100 worden weergegeven)</small>` : ''}
+                    ${results.length >= 500 ? `<br><small style="color: #999;">⚠️ Maximaal 500 resultaten - verfijn je zoekopdracht voor meer specifieke resultaten</small>` : ''}
                 </div>
             `;
 

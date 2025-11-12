@@ -132,6 +132,7 @@ app.get('/api/search', async (req, res) => {
         const booksDir = path.join(__dirname, 'data/books');
         const categories = ['torah', 'neviim', 'trei_asara', 'ketuvim'];
         const results = [];
+        const MAX_RESULTS = 500; // Limit total results to prevent overwhelming responses
 
         for (const category of categories) {
             const categoryDir = path.join(booksDir, category);
@@ -142,14 +143,25 @@ app.get('/api/search', async (req, res) => {
                 for (const file of jsonFiles) {
                     const bookPath = path.join(categoryDir, file);
                     const bookData = await fs.readJson(bookPath);
+                    const searchTerm = q.toLowerCase();
+                    const bookName = bookData.name.toLowerCase();
+                    const bookId = bookData.id.toLowerCase();
+
+                    // Check if searching for a book name
+                    const isBookNameSearch = bookName.includes(searchTerm) || bookId.includes(searchTerm);
 
                     for (const chapter of bookData.chapters) {
                         for (const verse of chapter.verses) {
+                            // Stop if we've reached max results
+                            if (results.length >= MAX_RESULTS) {
+                                break;
+                            }
+
                             const hebrewText = verse.translations.hebrew.toLowerCase();
                             const englishText = verse.translations.english.toLowerCase();
-                            const searchTerm = q.toLowerCase();
 
-                            if (hebrewText.includes(searchTerm) || englishText.includes(searchTerm)) {
+                            // Match if: book name matches, OR verse text matches
+                            if (isBookNameSearch || hebrewText.includes(searchTerm) || englishText.includes(searchTerm)) {
                                 results.push({
                                     book: {
                                         id: bookData.id,
@@ -165,8 +177,17 @@ app.get('/api/search', async (req, res) => {
                                 });
                             }
                         }
+                        if (results.length >= MAX_RESULTS) {
+                            break;
+                        }
+                    }
+                    if (results.length >= MAX_RESULTS) {
+                        break;
                     }
                 }
+            }
+            if (results.length >= MAX_RESULTS) {
+                break;
             }
         }
 
