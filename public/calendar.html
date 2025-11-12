@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joodse Kalender - Tanach Reader</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/jewish-bible.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="/jewish-bible.ico">
+
+    <!-- Apple Touch Icon for iOS home screen -->
+    <link rel="apple-touch-icon" href="/jewish-bible.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/jewish-bible.png">
+
+    <!-- Android/Chrome -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/jewish-bible.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/jewish-bible.png">
+
+    <!-- Open Graph meta tags for social sharing -->
+    <meta property="fb:app_id" content="1234567890">
+    <meta property="og:title" content="Tanach Reader - Joodse Bijbel Online">
+    <meta property="og:description" content="Lees de Joodse Bijbel online in Hebreeuws en Engels">
+    <meta property="og:image" content="https://tanach.vercel.app/jewish-bible.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="454">
+    <meta property="og:image:alt" content="Tanach Reader - Joodse Bijbel">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tanach.vercel.app">
+    <meta property="og:site_name" content="Tanach Reader">
+
+    <!-- Twitter Card meta tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tanach Reader - Joodse Bijbel Online">
+    <meta name="twitter:description" content="Lees de Joodse Bijbel online in Hebreeuws en Engels">
+    <meta name="twitter:image" content="https://tanach.vercel.app/jewish-bible.png">
+
+    <!-- Additional meta tags -->
+    <meta name="description" content="Lees de Joodse Bijbel online in Hebreeuws en Engels">
+    <meta name="theme-color" content="#667eea">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* Hebrew font support */
+        @font-face {
+            font-family: 'Noto Sans Hebrew';
+            src: url('https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@400;700&display=swap');
+        }
+
+        .hebrew-text {
+            font-family: 'Noto Sans Hebrew', 'David', 'Arial Hebrew', sans-serif;
+            direction: rtl;
+            text-align: right;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .nav-links {
+            margin-top: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.2);
+            transition: background 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .calendar-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .calendar-title {
+            font-size: 1.8rem;
+            color: #667eea;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        @media (max-width: 768px) {
+            .calendar-title {
+                font-size: 1.4rem;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .calendar-title {
+                font-size: 1.2rem;
+            }
+        }
+
+        .calendar-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: #5a6fd8;
+        }
+
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .view-toggle {
+            display: flex;
+            background: #f0f0f0;
+            border-radius: 8px;
+            padding: 4px;
+        }
+
+        .view-toggle button {
+            background: none;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .view-toggle button.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+
+        .day-cell {
+            background: white;
+            min-height: 120px;
+            padding: 8px;
+            border: 1px solid #f0f0f0;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .day-cell:hover {
+            background: #f8f9fa;
+        }
+
+        .day-cell.other-month {
+            background: #f8f9fa;
+            color: #666;
+        }
+
+        .day-cell.other-month .day-number {
+            color: #667eea;
+        }
+
+        .day-cell.other-month .hebrew-date {
+            color: #666;
+        }
+
+        .day-cell.other-month .hebrew-numeral {
+            color: #666;
+        }
+
+        .day-cell.other-month .hebrew-month {
+            color: #666;
+        }
+
+        .day-cell.other-month .hebrew-year {
+            color: #666;
+        }
+
+        .day-cell.other-month .day-events {
+            color: #666;
+        }
+
+        .day-cell.today {
+            background: #e3f2fd;
+            border: 2px solid #667eea;
+        }
+
+        .day-cell.holiday {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .day-cell.shabbat {
+            background: #f3e5f5;
+            border-left: 4px solid #9c27b0;
+        }
+
+        .day-number {
+            font-weight: bold;
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+            color: #667eea;
+            line-height: 1.3;
+        }
+
+        .hebrew-date {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 4px;
+            text-align: left;
+        }
+
+        .hebrew-numeral {
+            font-size: 0.9rem;
+            color: #667eea;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+
+        .hebrew-month {
+            font-size: 0.7rem;
+            color: #888;
+        }
+
+        .hebrew-year {
+            font-size: 0.6rem;
+            color: #999;
+        }
+
+        .day-events {
+            font-size: 0.7rem;
+            color: #333;
+        }
+
+        .event {
+            background: #667eea;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin: 1px 0;
+            font-size: 0.65rem;
+        }
+
+        .event.holiday {
+            background: #ff9800;
+        }
+
+        .event.shabbat {
+            background: #9c27b0;
+        }
+
+        .event.parashat {
+            background: #4caf50;
+        }
+
+        .event.roshChodesh {
+            background: #ff9800;
+            color: white;
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .sidebar h3 {
+            color: #333333;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: bold;
+            color: #666666;
+        }
+
+        .info-value {
+            color: #444444;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666666;
+            font-size: 1.1rem;
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #c62828;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            opacity: 0.8;
+            margin-top: 30px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+            
+            .nav-links a {
+                margin: 0;
+                padding: 12px 20px;
+                font-size: 1rem;
+                min-width: 200px;
+                text-align: center;
+            }
+
+            .calendar-container {
+                padding: 15px;
+            }
+
+            .calendar-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .calendar-controls {
+                justify-content: center;
+            }
+
+            .calendar-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2px;
+                min-width: 100%;
+            }
+
+
+            .day-cell {
+                min-height: 80px;
+                padding: 8px;
+                font-size: 0.9rem;
+            }
+
+            .day-number {
+                font-size: 0.85rem;
+                font-weight: bold;
+                color: #667eea;
+                line-height: 1.2;
+            }
+
+            .hebrew-date {
+                font-size: 0.7rem;
+            }
+
+            .hebrew-numeral {
+                font-size: 0.8rem;
+            }
+
+            .hebrew-month {
+                font-size: 0.65rem;
+            }
+
+            .day-events {
+                font-size: 0.65rem;
+            }
+
+            .event {
+                font-size: 0.6rem;
+                padding: 2px 4px;
+                margin: 1px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 5px;
+            }
+            
+            .nav-links a {
+                min-width: 180px;
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+
+            .calendar-container {
+                padding: 10px;
+            }
+
+            .calendar-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1px;
+                min-width: 100%;
+            }
+
+
+            .day-cell {
+                min-height: 70px;
+                padding: 6px;
+                font-size: 0.8rem;
+            }
+
+            .day-number {
+                font-size: 0.8rem;
+                font-weight: bold;
+                color: #667eea;
+                line-height: 1.2;
+            }
+
+            .hebrew-date {
+                font-size: 0.65rem;
+            }
+
+            .hebrew-numeral {
+                font-size: 0.75rem;
+            }
+
+            .hebrew-month {
+                font-size: 0.6rem;
+            }
+
+            .day-events {
+                font-size: 0.6rem;
+            }
+
+            .event {
+                font-size: 0.55rem;
+                padding: 1px 3px;
+                margin: 1px 0;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .container {
+                padding: 2px;
+            }
+
+            .calendar-container {
+                padding: 8px;
+            }
+
+            .calendar-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1px;
+                min-width: 100%;
+            }
+
+
+            .day-cell {
+                min-height: 60px;
+                padding: 4px;
+                font-size: 0.75rem;
+            }
+
+            .day-number {
+                font-size: 0.75rem;
+                font-weight: bold;
+                color: #667eea;
+                line-height: 1.2;
+            }
+
+            .hebrew-date {
+                font-size: 0.6rem;
+            }
+
+            .hebrew-numeral {
+                font-size: 0.7rem;
+            }
+
+            .hebrew-month {
+                font-size: 0.55rem;
+            }
+
+            .day-events {
+                font-size: 0.55rem;
+            }
+
+            .event {
+                font-size: 0.5rem;
+                padding: 1px 2px;
+                margin: 1px 0;
+            }
+        }
+
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            .calendar-container {
+                background: #2d3748;
+                color: #e2e8f0;
+            }
+            
+            .sidebar {
+                background: #2d3748;
+                color: #e2e8f0;
+            }
+            
+            .sidebar h3 {
+                color: #e2e8f0;
+            }
+            
+            .info-label {
+                color: #cbd5e0;
+            }
+            
+            .info-value {
+                color: #e2e8f0;
+            }
+            
+            .loading {
+                color: #cbd5e0;
+            }
+
+            .day-cell {
+                background: #4a5568;
+                color: #e2e8f0;
+                border-color: #718096;
+            }
+
+            .day-cell:hover {
+                background: #2d3748;
+            }
+
+            .day-cell.other-month {
+                background: #1a202c;
+                color: #718096;
+            }
+            
+            .day-number {
+                color: #667eea;
+            }
+            
+            .day-cell.other-month .day-number {
+                color: #667eea;
+            }
+
+            .info-item {
+                border-color: #4a5568;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📅 Joodse Kalender</h1>
+            <p>Ontdek de Joodse feestdagen, parasja en speciale dagen</p>
+            <div class="nav-links">
+                <a href="/">🏠 Home</a>
+                <a href="/reader.html">📖 Tanach Reader</a>
+            </div>
+        </div>
+
+        <div class="calendar-container">
+            <div class="calendar-header">
+                <div class="calendar-title" id="calendarTitle">
+                    Lading...
+                </div>
+                <div class="calendar-controls">
+                    <button class="nav-btn" id="prevMonth">‹ Vorige</button>
+                    <button class="nav-btn" id="todayBtn">Vandaag</button>
+                    <button class="nav-btn" id="nextMonth">Volgende ›</button>
+                </div>
+            </div>
+
+            <div id="calendarContent">
+                <div class="loading">Kalender wordt geladen...</div>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <h3>📚 Deze Week</h3>
+            <div id="weeklyInfo">
+                <div class="loading">Week informatie wordt geladen...</div>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <h3>📅 Joodse Datum</h3>
+            <div id="hebrewDateInfo">
+                <div class="loading">Joodse datum wordt geladen...</div>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <h3>🕯️ Tijden</h3>
+            <div id="timesInfo">
+                <div class="loading">Tijden worden geladen...</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2024 Tanach Reader - Joodse Kalender met data van HebCal.org</p>
+        </div>
+    </div>
+
+    <script>
+        class JewishCalendar {
+            constructor() {
+                this.currentDate = new Date();
+                this.currentMonth = this.currentDate.getMonth();
+                this.currentYear = this.currentDate.getFullYear();
+                this.viewMode = 'month';
+                this.calendarData = {};
+                
+                this.init();
+            }
+
+            async init() {
+                this.setupEventListeners();
+                await this.loadCalendarData();
+                this.renderCalendar();
+            }
+
+            setupEventListeners() {
+                document.getElementById('prevMonth').addEventListener('click', () => {
+                    this.navigateMonth(-1);
+                });
+
+                document.getElementById('nextMonth').addEventListener('click', () => {
+                    this.navigateMonth(1);
+                });
+
+                document.getElementById('todayBtn').addEventListener('click', () => {
+                    this.goToToday();
+                });
+
+
+            }
+
+            async loadCalendarData() {
+                try {
+                    // Load current month data
+                    const monthData = await this.fetchMonthData(this.currentYear, this.currentMonth + 1);
+                    this.calendarData[`${this.currentYear}-${this.currentMonth + 1}`] = monthData;
+                    
+                    // Load weekly info
+                    await this.loadWeeklyInfo();
+                    
+                    // Load times info
+                    await this.loadTimesInfo();
+                    
+                    // Load Hebrew date info
+                    await this.loadHebrewDateInfo();
+                    
+                } catch (error) {
+                    console.error('Error loading calendar data:', error);
+                    this.showError('Kon kalender data niet laden');
+                }
+            }
+
+            async fetchMonthData(year, month) {
+                try {
+                    const response = await fetch(`/api/calendar/${year}/${month}`);
+                    if (!response.ok) {
+                        throw new Error('API request failed');
+                    }
+                    return await response.json();
+                } catch (error) {
+                    console.error('Error fetching month data:', error);
+                    // Return mock data for development
+                    return this.getMockMonthData(year, month);
+                }
+            }
+
+            getMockMonthData(year, month) {
+                const daysInMonth = new Date(year, month, 0).getDate();
+                const monthData = {
+                    days: [],
+                    holidays: [],
+                    parashat: null
+                };
+
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const date = new Date(year, month - 1, day);
+                    const hebrewDate = this.getHebrewDate(date);
+                    
+                    monthData.days.push({
+                        day: day,
+                        date: date,
+                        hebrewDate: hebrewDate,
+                        isToday: this.isToday(date),
+                        isShabbat: date.getDay() === 6,
+                        events: []
+                    });
+                }
+
+                // Add some mock holidays
+                if (month === 1) {
+                    monthData.holidays.push({
+                        day: 1,
+                        name: 'Nieuwjaar',
+                        type: 'holiday'
+                    });
+                }
+
+                return monthData;
+            }
+
+            getHebrewDate(date) {
+                // This will be populated by the server API
+                // For now, return a placeholder
+                return {
+                    display: 'Laden...',
+                    hebrewDisplay: 'טוען...',
+                    day: 0,
+                    month: '',
+                    year: 0,
+                    dayNumeral: ''
+                };
+            }
+
+            isToday(date) {
+                const today = new Date();
+                return date.toDateString() === today.toDateString();
+            }
+
+            async loadWeeklyInfo() {
+                try {
+                    const response = await fetch('/api/calendar/weekly');
+                    if (!response.ok) {
+                        throw new Error('API request failed');
+                    }
+                    const data = await response.json();
+                    this.renderWeeklyInfo(data);
+                } catch (error) {
+                    console.error('Error loading weekly info:', error);
+                    this.renderWeeklyInfo({
+                        parashat: 'Bereshit',
+                        haftarah: 'Yeshayahu 42:5-43:10',
+                        roshChodesh: null
+                    });
+                }
+            }
+
+            async loadTimesInfo() {
+                try {
+                    const response = await fetch('/api/calendar/times');
+                    if (!response.ok) {
+                        throw new Error('API request failed');
+                    }
+                    const data = await response.json();
+                    this.renderTimesInfo(data);
+                } catch (error) {
+                    console.error('Error loading times info:', error);
+                    this.renderTimesInfo({
+                        candleLighting: '18:30',
+                        havdalah: '19:30',
+                        sunrise: '07:15',
+                        sunset: '17:45'
+                    });
+                }
+            }
+
+            async loadHebrewDateInfo() {
+                try {
+                    const today = new Date();
+                    const response = await fetch(`/api/calendar/hebrew-date/${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`);
+                    if (!response.ok) {
+                        throw new Error('API request failed');
+                    }
+                    const data = await response.json();
+                    this.renderHebrewDateInfo(data);
+                } catch (error) {
+                    console.error('Error loading Hebrew date info:', error);
+                    // Use mock data
+                    const today = new Date();
+                    this.renderHebrewDateInfo({
+                        gregorian: today.toLocaleDateString('nl-NL'),
+                        hebrew: {
+                            display: 'טוען...',
+                            hebrewDisplay: 'טוען...',
+                            day: 0,
+                            month: '',
+                            year: 0
+                        }
+                    });
+                }
+            }
+
+            renderWeeklyInfo(data) {
+                const container = document.getElementById('weeklyInfo');
+                container.innerHTML = `
+                    <div class="info-item">
+                        <span class="info-label">Parashat:</span>
+                        <span class="info-value">${data.parashat || 'N/A'}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Haftarah:</span>
+                        <span class="info-value">${data.haftarah || 'N/A'}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Rosh Chodesh:</span>
+                        <span class="info-value">${data.roshChodesh || 'N/A'}</span>
+                    </div>
+                `;
+            }
+
+            renderTimesInfo(data) {
+                const container = document.getElementById('timesInfo');
+                container.innerHTML = `
+                    <div class="info-item">
+                        <span class="info-label">Candle Lighting:</span>
+                        <span class="info-value">${data.candleLighting || 'N/A'}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Havdalah:</span>
+                        <span class="info-value">${data.havdalah || 'N/A'}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Zonsopgang:</span>
+                        <span class="info-value">${data.sunrise || 'N/A'}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Zonsondergang:</span>
+                        <span class="info-value">${data.sunset || 'N/A'}</span>
+                    </div>
+                `;
+            }
+
+            renderHebrewDateInfo(data) {
+                const container = document.getElementById('hebrewDateInfo');
+                container.innerHTML = `
+                    <div class="info-item">
+                        <span class="info-label">Gregoriaans:</span>
+                        <span class="info-value">${data.gregorian || 'N/A'}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Joods (Latijns):</span>
+                        <span class="info-value" style="font-size: 1.1rem; font-weight: bold; color: #667eea;">${data.hebrew.display || 'N/A'}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Joods Jaar:</span>
+                        <span class="info-value">${data.hebrew.year || 'N/A'}</span>
+                    </div>
+                `;
+            }
+
+            renderCalendar() {
+                const container = document.getElementById('calendarContent');
+                const title = document.getElementById('calendarTitle');
+                
+                const monthNames = [
+                    'Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni',
+                    'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December'
+                ];
+                
+                // Get Hebrew month name if available
+                const monthData = this.calendarData[`${this.currentYear}-${this.currentMonth + 1}`];
+                let hebrewMonthName = '';
+                if (monthData && monthData.days && monthData.days.length > 0) {
+                    const firstDay = monthData.days[0];
+                    if (firstDay.hebrewDate && firstDay.hebrewDate.month) {
+                        hebrewMonthName = firstDay.hebrewDate.month;
+                    }
+                }
+                
+                const gregorianTitle = `${monthNames[this.currentMonth]} ${this.currentYear}`;
+                const hebrewTitle = hebrewMonthName ? ` / ${hebrewMonthName}` : '';
+
+                // Get Hebrew year if available
+                let hebrewYear = '';
+                if (monthData && monthData.days && monthData.days.length > 0) {
+                    const firstDay = monthData.days[0];
+                    if (firstDay.hebrewDate && firstDay.hebrewDate.year) {
+                        hebrewYear = `<div style="font-size: 0.9em; opacity: 0.85; margin-bottom: 5px;">Joods Jaar: ${firstDay.hebrewDate.year}</div>`;
+                    }
+                }
+
+                title.innerHTML = `${hebrewYear}<div>${gregorianTitle}${hebrewTitle}</div>`;
+                
+                if (this.viewMode === 'month') {
+                    container.innerHTML = this.renderMonthView();
+                } else {
+                    container.innerHTML = this.renderYearView();
+                }
+            }
+
+            renderMonthView() {
+                const monthData = this.calendarData[`${this.currentYear}-${this.currentMonth + 1}`];
+                if (!monthData) {
+                    return '<div class="error">Geen data beschikbaar voor deze maand</div>';
+                }
+
+                const firstDay = new Date(this.currentYear, this.currentMonth, 1);
+                const lastDay = new Date(this.currentYear, this.currentMonth + 1, 0);
+                const startDate = new Date(firstDay);
+                startDate.setDate(startDate.getDate() - firstDay.getDay());
+                
+                let html = '<div class="calendar-grid">';
+                
+                // Calendar days
+                const currentDate = new Date(startDate);
+                for (let week = 0; week < 6; week++) {
+                    for (let day = 0; day < 7; day++) {
+                        const isCurrentMonth = currentDate.getMonth() === this.currentMonth;
+                        const dayNumber = currentDate.getDate();
+                        const isToday = this.isToday(currentDate);
+                        const isShabbat = currentDate.getDay() === 6;
+                        
+                        // Get Hebrew date from server data if available
+                        let hebrewDateInfo = null;
+                        if (monthData && monthData.days) {
+                            const dayData = monthData.days.find(d => d.day === dayNumber && isCurrentMonth);
+                            if (dayData && dayData.hebrewDate) {
+                                hebrewDateInfo = dayData.hebrewDate;
+                            }
+                        }
+                        
+                        // Fallback to client-side calculation
+                        if (!hebrewDateInfo) {
+                            hebrewDateInfo = this.getHebrewDate(currentDate);
+                        }
+                        
+                        // For other months, show no Hebrew date
+                        if (!isCurrentMonth) {
+                            hebrewDateInfo = {
+                                display: '',
+                                hebrewDisplay: '',
+                                month: '',
+                                year: ''
+                            };
+                        }
+                        
+                        let cellClass = 'day-cell';
+                        if (!isCurrentMonth) cellClass += ' other-month';
+                        if (isToday) cellClass += ' today';
+                        if (isShabbat) cellClass += ' shabbat';
+                        
+                        // Get events for this day
+                        let dayEvents = '';
+                        if (monthData && monthData.days) {
+                            const dayData = monthData.days.find(d => d.day === dayNumber && isCurrentMonth);
+                            if (dayData && dayData.events) {
+                                dayEvents = dayData.events.map(event => {
+                                    let eventClass = 'event';
+                                    if (event.type === 'shabbat') eventClass += ' shabbat';
+                                    else if (event.type === 'holiday') eventClass += ' holiday';
+                                    else if (event.type === 'roshChodesh') eventClass += ' roshChodesh';
+                                    
+                                    return `<div class="${eventClass}">${event.name}</div>`;
+                                }).join('');
+                            }
+                        }
+                        
+                        // Fallback for Shabbat if no data
+                        if (!dayEvents && isShabbat) {
+                            dayEvents = '<div class="event shabbat">Sjabbat</div>';
+                        }
+                        
+                        // Get month names
+                        const monthNames = ['Jan', 'Feb', 'Mrt', 'Apr', 'Mei', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'];
+                        const europeanMonth = monthNames[currentDate.getMonth()];
+
+                        // Extract just the day number from hebrewDateInfo.display (remove the month name if present)
+                        let hebrewDayOnly = hebrewDateInfo.display || '';
+                        if (hebrewDayOnly && hebrewDateInfo.month) {
+                            // Remove month name from display to avoid duplication
+                            hebrewDayOnly = hebrewDayOnly.replace(hebrewDateInfo.month, '').trim();
+                        }
+
+                        html += `
+                            <div class="${cellClass}" data-date="${currentDate.toISOString().split('T')[0]}">
+                                <div class="day-number">${dayNumber} ${europeanMonth}</div>
+                                <div class="hebrew-date">
+                                    <div class="hebrew-numeral">${hebrewDayOnly}</div>
+                                    <div class="hebrew-month">${hebrewDateInfo.month || ''}</div>
+                                </div>
+                                <div class="day-events">
+                                    ${dayEvents}
+                                </div>
+                            </div>
+                        `;
+                        
+                        currentDate.setDate(currentDate.getDate() + 1);
+                    }
+                }
+                
+                html += '</div>';
+                return html;
+            }
+
+
+            navigateMonth(direction) {
+                this.currentMonth += direction;
+                if (this.currentMonth < 0) {
+                    this.currentMonth = 11;
+                    this.currentYear--;
+                } else if (this.currentMonth > 11) {
+                    this.currentMonth = 0;
+                    this.currentYear++;
+                }
+                
+                this.loadCalendarData().then(() => {
+                    this.renderCalendar();
+                });
+            }
+
+            goToToday() {
+                const today = new Date();
+                this.currentMonth = today.getMonth();
+                this.currentYear = today.getFullYear();
+                
+                this.loadCalendarData().then(() => {
+                    this.renderCalendar();
+                });
+            }
+
+            setViewMode(mode) {
+                this.viewMode = mode;
+                
+                // Update button states
+                document.getElementById('monthView').classList.toggle('active', mode === 'month');
+                
+                this.renderCalendar();
+            }
+
+            showError(message) {
+                const container = document.getElementById('calendarContent');
+                container.innerHTML = `<div class="error">${message}</div>`;
+            }
+        }
+
+        // Initialize calendar when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new JewishCalendar();
+        });
+    </script>
+</body>
+</html>
