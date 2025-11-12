@@ -1,10 +1,22 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs-extra');
-const { HebrewDate, HDate } = require('@hebcal/core');
+const { HebrewDate, HDate, Location, HebrewCalendar, Event, Zmanim } = require('@hebcal/core');
+const { Leyning, formatAliyahWithBook } = require('@hebcal/leyning');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Configure location for Amsterdam
+const AMSTERDAM = Location.lookup('Amsterdam') || new Location(
+    52.3676,            // latitude
+    4.9041,             // longitude
+    false,              // isIsrael
+    'Europe/Amsterdam', // timezone
+    'Amsterdam',        // city name
+    'NL',               // country code
+    'nl'                // geo ID
+);
 
 // Middleware
 app.use(express.json());
@@ -293,16 +305,67 @@ app.get('/api/calendar/:year/:month', async (req, res) => {
 // Get weekly Torah reading information
 app.get('/api/calendar/weekly', async (req, res) => {
     try {
-        // Mock data for weekly Torah reading
+        const today = new Date();
+        const hd = new HDate(today);
+
+        // Get the upcoming Shabbat
+        const saturday = hd.onOrAfter(6); // 6 = Saturday
+
+        // Get events for the upcoming Shabbat
+        const events = HebrewCalendar.calendar({
+            start: saturday,
+            end: saturday,
+            sedrot: true, // Include Torah readings
+            il: false,    // Diaspora calendar
+        });
+
+        let parashat = null;
+        let haftarah = null;
+        let roshChodesh = null;
+
+        // Find the Torah reading event
+        for (const ev of events) {
+            const desc = ev.getDesc();
+            const render = ev.render('en');
+
+            // Check if it's a Torah reading event (starts with "Parashat")
+            if (desc === 'Parashat HaShavua' || render.startsWith('Parashat ')) {
+                parashat = render;
+
+                // Get the Haftarah reading
+                try {
+                    const leyning = Leyning.lookup(ev.getDate(), false); // false = diaspora
+                    if (leyning && leyning.haftara) {
+                        haftarah = formatAliyahWithBook(leyning.haftara);
+                    }
+                } catch (leyningError) {
+                    console.warn('Could not get Haftarah:', leyningError);
+                }
+            }
+        }
+
+        // Check for Rosh Chodesh
+        const roshChodeshEvents = HebrewCalendar.calendar({
+            start: today,
+            end: new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000), // Next 30 days
+            mask: Event.ROSH_CHODESH
+        });
+
+        if (roshChodeshEvents.length > 0) {
+            const nextRoshChodesh = roshChodeshEvents[0];
+            roshChodesh = nextRoshChodesh.render('en') + ' - ' +
+                         nextRoshChodesh.getDate().greg().toLocaleDateString('nl-NL');
+        }
+
         const weeklyData = {
-            parashat: 'Bereshit',
-            haftarah: 'Yeshayahu 42:5-43:10',
-            roshChodesh: null,
+            parashat: parashat || 'N/A',
+            haftarah: haftarah || 'N/A',
+            roshChodesh: roshChodesh,
             specialShabbat: null
         };
-        
+
         res.json(weeklyData);
-        
+
     } catch (error) {
         console.error('Weekly API error:', error);
         res.status(500).json({ error: 'Kon week informatie niet laden' });
@@ -312,18 +375,65 @@ app.get('/api/calendar/weekly', async (req, res) => {
 // Get candle lighting and other times
 app.get('/api/calendar/times', async (req, res) => {
     try {
-        // Mock data for times
-        // In production, you would calculate these based on location and date
+        const today = new Date();
+        const hd = new HDate(today);
+
+        // Get the next Shabbat
+        const saturday = hd.onOrAfter(6); // 6 = Saturday
+        const saturdayDate = saturday.greg();
+
+        // Get Shabbat candle lighting and havdalah times
+        const events = HebrewCalendar.calendar({
+            start: saturday,
+            end: saturday,
+            location: AMSTERDAM,
+            candlelighting: true,
+            havdalah: true,
+            il: false
+        });
+
+        let candleLighting = null;
+        let havdalah = null;
+
+        for (const ev of events) {
+            const desc = ev.getDesc();
+            if (desc === 'Candle lighting') {
+                const eventTime = ev.eventTime;
+                candleLighting = eventTime.toLocaleTimeString('nl-NL', {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            } else if (desc === 'Havdalah') {
+                const eventTime = ev.eventTime;
+                havdalah = eventTime.toLocaleTimeString('nl-NL', {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            }
+        }
+
+        // Calculate sunrise and sunset for today
+        const zmanim = new Zmanim(AMSTERDAM, today, false);
+        const sunrise = zmanim.sunrise();
+        const sunset = zmanim.sunset();
+
         const timesData = {
-            candleLighting: '18:30',
-            havdalah: '19:30',
-            sunrise: '07:15',
-            sunset: '17:45',
-            location: 'Amsterdam, Nederland'
+            candleLighting: candleLighting || 'N/A',
+            havdalah: havdalah || 'N/A',
+            sunrise: sunrise ? sunrise.toLocaleTimeString('nl-NL', {
+                hour: '2-digit',
+                minute: '2-digit'
+            }) : 'N/A',
+            sunset: sunset ? sunset.toLocaleTimeString('nl-NL', {
+                hour: '2-digit',
+                minute: '2-digit'
+            }) : 'N/A',
+            location: 'Amsterdam, Nederland',
+            nextShabbat: saturdayDate.toLocaleDateString('nl-NL')
         };
-        
+
         res.json(timesData);
-        
+
     } catch (error) {
         console.error('Times API error:', error);
         res.status(500).json({ error: 'Kon tijden niet laden' });
@@ -363,41 +473,42 @@ async function getCalendarData(year, month) {
     const daysInMonth = new Date(year, month, 0).getDate();
     const firstDay = new Date(year, month - 1, 1);
     const lastDay = new Date(year, month - 1, daysInMonth);
-    
+
+    // Get all events for the month from Hebcal
+    const monthEvents = HebrewCalendar.calendar({
+        start: firstDay,
+        end: lastDay,
+        location: AMSTERDAM,
+        candlelighting: true,
+        havdalah: true,
+        sedrot: true,
+        il: false
+    });
+
     const days = [];
-    const holidays = [];
-    
+
     // Generate days for the month
     for (let day = 1; day <= daysInMonth; day++) {
         const date = new Date(year, month - 1, day);
         const hebrewDate = getHebrewDate(date);
-        
+
+        // Get events for this specific day
+        const dayEvents = getDayEventsFromHebcal(date, monthEvents);
+
         days.push({
             day: day,
             date: date.toISOString().split('T')[0],
             hebrewDate: hebrewDate,
             isToday: isToday(date),
             isShabbat: date.getDay() === 6,
-            events: getDayEvents(date)
+            events: dayEvents
         });
     }
-    
-    // Add some mock holidays based on month
-    if (month === 1) {
-        holidays.push({
-            day: 1,
-            name: 'Nieuwjaar',
-            type: 'holiday',
-            description: 'Gregoriaans nieuwjaar'
-        });
-    }
-    
+
     return {
         year: year,
         month: month,
-        days: days,
-        holidays: holidays,
-        parashat: getWeeklyParashat(year, month)
+        days: days
     };
 }
 
@@ -481,10 +592,64 @@ function isToday(date) {
     return date.toDateString() === today.toDateString();
 }
 
-// Helper function to get events for a specific day
+// Helper function to get events for a specific day from Hebcal data
+function getDayEventsFromHebcal(date, allEvents) {
+    const events = [];
+    const dateString = date.toISOString().split('T')[0];
+
+    for (const ev of allEvents) {
+        const evDate = ev.getDate().greg();
+        const evDateString = evDate.toISOString().split('T')[0];
+
+        if (evDateString === dateString) {
+            const desc = ev.getDesc();
+            const render = ev.render('en');
+            let eventType = 'other';
+
+            if (desc === 'Candle lighting') {
+                eventType = 'candleLighting';
+            } else if (desc === 'Havdalah') {
+                eventType = 'havdalah';
+            } else if (desc === 'Parashat HaShavua') {
+                eventType = 'parashat';
+            } else if (render.includes('Rosh Chodesh')) {
+                eventType = 'roshChodesh';
+            } else if (date.getDay() === 6 && render === 'Shabbat') {
+                eventType = 'shabbat';
+            } else {
+                // Check if it's a holiday by flags
+                const flags = ev.getFlags();
+                if (flags & Event.MAJOR_HOLIDAY || flags & Event.MINOR_HOLIDAY || flags & Event.MINOR_FAST || flags & Event.MAJOR_FAST) {
+                    eventType = 'holiday';
+                }
+            }
+
+            events.push({
+                name: render,
+                type: eventType,
+                time: ev.eventTime ? ev.eventTime.toLocaleTimeString('nl-NL', {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                }) : null
+            });
+        }
+    }
+
+    // Add Shabbat if it's Saturday and not already added
+    if (date.getDay() === 6 && !events.some(e => e.type === 'shabbat')) {
+        events.push({
+            name: 'Sjabbat',
+            type: 'shabbat'
+        });
+    }
+
+    return events;
+}
+
+// Old helper function - kept for backward compatibility but no longer used
 function getDayEvents(date) {
     const events = [];
-    
+
     // Add Shabbat
     if (date.getDay() === 6) {
         events.push({
@@ -493,10 +658,10 @@ function getDayEvents(date) {
             description: 'Dag van rust'
         });
     }
-    
+
     // Get Hebrew date to check for Jewish holidays
     const hebrewDate = getHebrewDate(date);
-    
+
     // Add Rosh Chodesh (first day of Hebrew month)
     if (hebrewDate.day === 1) {
         events.push({
@@ -505,11 +670,11 @@ function getDayEvents(date) {
             description: 'Nieuwe maan'
         });
     }
-    
+
     // Add major Jewish holidays
     const holidays = getJewishHolidays(hebrewDate);
     events.push(...holidays);
-    
+
     return events;
 }
 
@@ -586,29 +751,6 @@ function getJewishHolidays(hebrewDate) {
     }
     
     return holidays;
-}
-
-// Helper function to get weekly parashat
-function getWeeklyParashat(year, month) {
-    const parashatList = [
-        'Bereshit', 'Noach', 'Lech Lecha', 'Vayera', 'Chayei Sarah',
-        'Toldot', 'Vayetzei', 'Vayishlach', 'Vayeshev', 'Miketz',
-        'Vayigash', 'Vayechi', 'Shemot', 'Vaera', 'Bo',
-        'Beshalach', 'Yitro', 'Mishpatim', 'Terumah', 'Tetzaveh',
-        'Ki Tisa', 'Vayakhel', 'Pekudei', 'Vayikra', 'Tzav',
-        'Shemini', 'Tazria', 'Metzora', 'Acharei Mot', 'Kedoshim',
-        'Emor', 'Behar', 'Bechukotai', 'Bamidbar', 'Naso',
-        'Behaalotecha', 'Shlach', 'Korach', 'Chukat', 'Balak',
-        'Pinchas', 'Matot', 'Masei', 'Devarim', 'Vaetchanan',
-        'Eikev', 'Reeh', 'Shoftim', 'Ki Teitzei', 'Ki Tavo',
-        'Nitzavim', 'Vayelech', 'Haazinu', 'Vezot Haberacha'
-    ];
-    
-    // Simple calculation - in reality this would be more complex
-    const weekOfYear = Math.floor((new Date(year, month - 1, 1) - new Date(year, 0, 1)) / (7 * 24 * 60 * 60 * 1000));
-    const parashatIndex = weekOfYear % parashatList.length;
-    
-    return parashatList[parashatIndex];
 }
 
 // Start server
