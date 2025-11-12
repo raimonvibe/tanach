@@ -647,6 +647,12 @@
             }
         }
 
+        // Make functions globally accessible for onclick handlers
+        window.switchTab = switchTab;
+        window.changeChapter = changeChapter;
+        window.changeBook = changeBook;
+        window.toggleVerseNumbers = toggleVerseNumbers;
+
         // Initialize on load
         init();
     </script>
