@@ -1,0 +1,167 @@
+{
+  "id": "ovadya",
+  "name": "Obadja",
+  "description": "",
+  "sefariaRef": "Obadiah",
+  "chapters": [
+    {
+      "chapter": 1,
+      "verses": [
+        {
+          "verse": 1,
+          "translations": {
+            "hebrew": "חֲז֖וֹן עֹֽבַדְיָ֑ה כֹּֽה־אָמַר֩ אֲדֹנָ֨י יֱהֹוִ֜ה לֶאֱד֗וֹם שְׁמוּעָ֨ה שָׁמַ֜עְנוּ מֵאֵ֤ת יְהֹוָה֙ וְצִיר֙ בַּגּוֹיִ֣ם שֻׁלָּ֔ח ק֛וּמוּ וְנָק֥וּמָה עָלֶ֖יהָ לַמִּלְחָמָֽה׃",
+            "english": "The prophecy of Obadiah.<br><span class=\"poetry indentAll\">We have received tidings from </span> G<small>OD</small>,<br><span class=\"poetry indentAll\">And an envoy has been sent out among the nations:</span><br><span class=\"poetry indentAll\">“Up! Let us rise up against her for battle.”</span><br><span class=\"poetry indentAll\">Thus said the Sovereign </span> G<small>OD</small> concerning Edom:"
+          }
+        },
+        {
+          "verse": 2,
+          "translations": {
+            "hebrew": "הִנֵּ֥ה קָטֹ֛ן נְתַתִּ֖יךָ בַּגּוֹיִ֑ם בָּז֥וּי אַתָּ֖ה מְאֹֽד׃",
+            "english": "<span class=\"poetry indentAll\">I will make you least among nations,</span><br><span class=\"poetry indentAll\">You shall be most despised.</span>"
+          }
+        },
+        {
+          "verse": 3,
+          "translations": {
+            "hebrew": "זְד֤וֹן לִבְּךָ֙ הִשִּׁיאֶ֔ךָ שֹׁכְנִ֥י בְחַגְוֵי־סֶ֖לַע מְר֣וֹם שִׁבְתּ֑וֹ אֹמֵ֣ר בְּלִבּ֔וֹ מִ֥י יוֹרִדֵ֖נִי אָֽרֶץ׃",
+            "english": "<span class=\"poetry indentAll\">Your arrogant heart has seduced you,</span><br><span class=\"poetry indentAll\">You who dwell in clefts of the rock,</span><br><span class=\"poetry indentAll\">In your lofty abode.</span><br><span class=\"poetry indentAll\">You think in your heart,</span><br><span class=\"poetry indentAll\">“Who can pull me down to earth?”</span>"
+          }
+        },
+        {
+          "verse": 4,
+          "translations": {
+            "hebrew": "אִם־תַּגְבִּ֣יהַּ כַּנֶּ֔שֶׁר וְאִם־בֵּ֥ין כּֽוֹכָבִ֖ים שִׂ֣ים קִנֶּ֑ךָ מִשָּׁ֥ם אוֹרִֽידְךָ֖ נְאֻם־יְהֹוָֽה׃",
+            "english": "<span class=\"poetry indentAll\">Should you nest as high as the eagle,</span><br><span class=\"poetry indentAll\">Should your eyrie be lodged ’mong the stars,</span><br><span class=\"poetry indentAll\">Even from there I will pull you down</span><br><span class=\"poetry indentAllDouble\">—declares </span> G<small>OD</small>."
+          }
+        },
+        {
+          "verse": 5,
+          "translations": {
+            "hebrew": "אִם־גַּנָּבִ֤ים בָּאֽוּ־לְךָ֙ אִם־שׁ֣וֹדְדֵי לַ֔יְלָה אֵ֣יךְ נִדְמֵ֔יתָה הֲל֥וֹא יִגְנְב֖וּ דַּיָּ֑ם אִם־בֹּֽצְרִים֙ בָּ֣אוּ לָ֔ךְ הֲל֖וֹא יַשְׁאִ֥ירוּ עֹלֵלֽוֹת׃",
+            "english": "<span class=\"poetry indentAll\">If thieves were to come to you,</span><br><span class=\"poetry indentAll\">Marauders by night,</span><br><span class=\"poetry indentAll\">They would steal no more than they needed.</span><br><span class=\"poetry indentAll\">If vintagers came to you,</span><br><span class=\"poetry indentAll\">They would surely leave some gleanings.</span><br><span class=\"poetry indentAll\">How utterly you are destroyed!</span>"
+          }
+        },
+        {
+          "verse": 6,
+          "translations": {
+            "hebrew": "אֵ֚יךְ נֶחְפְּשׂ֣וּ עֵשָׂ֔ו נִבְע֖וּ מַצְפֻּנָֽיו׃",
+            "english": "<span class=\"poetry indentAll\">How thoroughly rifled is Esau,</span><sup class=\"footnote-marker\">a</sup><i class=\"footnote\"><b>Esau </b>I.e., the Edomites, descendants of Jacob’s twin brother; cf. Gen. 36.1.</i> <br><span class=\"poetry indentAll\">How ransacked his hoards!</span>"
+          }
+        },
+        {
+          "verse": 7,
+          "translations": {
+            "hebrew": "עַֽד־הַגְּב֣וּל שִׁלְּח֗וּךָ כֹּ֚ל אַנְשֵׁ֣י בְרִיתֶ֔ךָ הִשִּׁיא֛וּךָ יָכְל֥וּ לְךָ֖ אַנְשֵׁ֣י שְׁלֹמֶ֑ךָ לַחְמְךָ֗ יָשִׂ֤ימוּ מָזוֹר֙ תַּחְתֶּ֔יךָ אֵ֥ין תְּבוּנָ֖ה בּֽוֹ׃",
+            "english": "<span class=\"poetry indentAll\">All your allies turned you back</span><br><span class=\"poetry indentAll\">At the frontier;</span><br><span class=\"poetry indentAll\">Your own confederates</span><br><span class=\"poetry indentAll\">Have duped and overcome you;</span><br><span class=\"poetry indentAll\">[Those who ate] your bread</span><br><span class=\"poetry indentAll\">Have planted snares under you.</span><br><span class=\"poetry indentAll\">He is bereft of understanding.</span>"
+          }
+        },
+        {
+          "verse": 8,
+          "translations": {
+            "hebrew": "הֲל֛וֹא בַּיּ֥וֹם הַה֖וּא נְאֻם־יְהֹוָ֑ה וְהַאֲבַדְתִּ֤י חֲכָמִים֙ מֵֽאֱד֔וֹם וּתְבוּנָ֖ה מֵהַ֥ר עֵשָֽׂו׃",
+            "english": "<span class=\"poetry indentAll\">In that day</span><br><span class=\"poetry indentAllDouble\">—declares </span> G<small>OD</small>—<br><span class=\"poetry indentAll\">I will make the wise vanish from Edom,</span><br><span class=\"poetry indentAll\">Understanding from Esau’s mount.</span>"
+          }
+        },
+        {
+          "verse": 9,
+          "translations": {
+            "hebrew": "וְחַתּ֥וּ גִבּוֹרֶ֖יךָ תֵּימָ֑ן לְמַ֧עַן יִכָּֽרֶת־אִ֛ישׁ מֵהַ֥ר עֵשָׂ֖ו מִקָּֽטֶל׃",
+            "english": "<span class=\"poetry indentAll\">Your warriors shall lose heart, O Teman,</span><br><span class=\"poetry indentAll\">And no one on Esau’s mount</span><br><span class=\"poetry indentAll\">Shall survive the slaughter.</span>"
+          }
+        },
+        {
+          "verse": 10,
+          "translations": {
+            "hebrew": "מֵחֲמַ֛ס אָחִ֥יךָ יַעֲקֹ֖ב תְּכַסְּךָ֣ בוּשָׁ֑ה וְנִכְרַ֖תָּ לְעוֹלָֽם׃",
+            "english": "<span class=\"poetry indentAll\">For the outrage to your brother Jacob,</span><br><span class=\"poetry indentAll\">Disgrace shall engulf you,</span><br><span class=\"poetry indentAll\">And you shall perish forever.</span>"
+          }
+        },
+        {
+          "verse": 11,
+          "translations": {
+            "hebrew": "בְּיוֹם֙ עֲמׇֽדְךָ֣ מִנֶּ֔גֶד בְּי֛וֹם שְׁב֥וֹת זָרִ֖ים חֵיל֑וֹ וְנׇכְרִ֞ים בָּ֣אוּ <span class=\"mam-kq-trivial\">שְׁעָרָ֗ו</span> וְעַל־יְרוּשָׁלַ֙͏ִם֙ יַדּ֣וּ גוֹרָ֔ל גַּם־אַתָּ֖ה כְּאַחַ֥ד מֵהֶֽם׃",
+            "english": "<span class=\"poetry indentAll\">On that day when you stood aloof,</span><br><span class=\"poetry indentAll\">When aliens carried off his goods,</span><br><span class=\"poetry indentAll\">When foreigners entered his gates</span><br><span class=\"poetry indentAll\">And cast lots for Jerusalem,</span><br><span class=\"poetry indentAll\">You were as one of them.</span>"
+          }
+        },
+        {
+          "verse": 12,
+          "translations": {
+            "hebrew": "וְאַל־תֵּ֤רֶא בְיוֹם־אָחִ֙יךָ֙ בְּי֣וֹם נׇכְר֔וֹ וְאַל־תִּשְׂמַ֥ח לִבְנֵֽי־יְהוּדָ֖ה בְּי֣וֹם אׇבְדָ֑ם וְאַל־תַּגְדֵּ֥ל פִּ֖יךָ בְּי֥וֹם צָרָֽה׃",
+            "english": "<span class=\"poetry indentAll\">How could you</span><sup class=\"footnote-marker\">b</sup><i class=\"footnote\"><b>How could you </b>Lit. “Do not,” and so through v. 14.</i> gaze with glee<br><span class=\"poetry indentAll\">On your brother that day,</span><br><span class=\"poetry indentAll\">On his day of calamity!</span><br><span class=\"poetry indentAll\">How could you gloat</span><br><span class=\"poetry indentAll\">Over the people of Judah</span><br><span class=\"poetry indentAll\">On that day of ruin!</span><br><span class=\"poetry indentAll\">How could you loudly jeer</span><br><span class=\"poetry indentAll\">On a day of anguish!</span>"
+          }
+        },
+        {
+          "verse": 13,
+          "translations": {
+            "hebrew": "אַל־תָּב֤וֹא בְשַֽׁעַר־עַמִּי֙ בְּי֣וֹם אֵידָ֔ם אַל־תֵּ֧רֶא גַם־אַתָּ֛ה בְּרָעָת֖וֹ בְּי֣וֹם אֵיד֑וֹ וְאַל־תִּשְׁלַ֥חְנָה בְחֵיל֖וֹ בְּי֥וֹם אֵידֽוֹ׃",
+            "english": "<span class=\"poetry indentAll\">How could you enter the gate of My people</span><br><span class=\"poetry indentAll\">On its day of disaster,</span><br><span class=\"poetry indentAll\">Gaze in glee with the others</span><br><span class=\"poetry indentAll\">On its misfortune</span><br><span class=\"poetry indentAll\">On its day of disaster,</span><br><span class=\"poetry indentAll\">And lay hands on its wealth</span><br><span class=\"poetry indentAll\">On its day of disaster!</span>"
+          }
+        },
+        {
+          "verse": 14,
+          "translations": {
+            "hebrew": "וְאַֽל־תַּעֲמֹד֙ עַל־הַפֶּ֔רֶק לְהַכְרִ֖ית אֶת־פְּלִיטָ֑יו וְאַל־תַּסְגֵּ֥ר שְׂרִידָ֖יו בְּי֥וֹם צָרָֽה׃",
+            "english": "<span class=\"poetry indentAll\">How could you stand at the passes</span><sup class=\"footnote-marker\">c</sup><i class=\"footnote\"><b>passes </b>Meaning of Heb. uncertain.</i> <br><span class=\"poetry indentAll\">To cut down its fugitives!</span><br><span class=\"poetry indentAll\">How could you betray those who fled</span><br><span class=\"poetry indentAll\">On that day of anguish!</span>"
+          }
+        },
+        {
+          "verse": 15,
+          "translations": {
+            "hebrew": "כִּֽי־קָר֥וֹב יוֹם־יְהֹוָ֖ה עַל־כׇּל־הַגּוֹיִ֑ם כַּאֲשֶׁ֤ר עָשִׂ֙יתָ֙ יֵעָ֣שֶׂה לָּ֔ךְ גְּמֻלְךָ֖ יָשׁ֥וּב בְּרֹאשֶֽׁךָ׃",
+            "english": "<span class=\"poetry indentAll\">As you did, so shall it be done to you;</span><br><span class=\"poetry indentAll\">Your conduct shall be requited.</span><br><span class=\"poetry indentAll\">Yea, against all nations</span><br><span class=\"poetry indentAll\">The day of </span> G<small>OD</small> is at hand."
+          }
+        },
+        {
+          "verse": 16,
+          "translations": {
+            "hebrew": "כִּ֗י כַּֽאֲשֶׁ֤ר שְׁתִיתֶם֙ עַל־הַ֣ר קׇדְשִׁ֔י יִשְׁתּ֥וּ כׇֽל־הַגּוֹיִ֖ם תָּמִ֑יד וְשָׁת֣וּ וְלָע֔וּ וְהָי֖וּ כְּל֥וֹא הָיֽוּ׃",
+            "english": "<span class=\"poetry indentAll\">That same cup that you</span><sup class=\"footnote-marker\">d</sup><i class=\"footnote\"><b>you </b>I.e., the Israelites.</i> drank on My Holy Mount<br><span class=\"poetry indentAll\">Shall all nations drink evermore,</span><sup class=\"footnote-marker\">e</sup><i class=\"footnote\"><b>evermore </b>Emendation yields “at My hand,” cf. Isa. 51.17; Jer. 25.15; Ps. 75.9.</i> <br><span class=\"poetry indentAll\">Drink till their speech grows thick,</span><br><span class=\"poetry indentAll\">And they become as though they had never been.</span>"
+          }
+        },
+        {
+          "verse": 17,
+          "translations": {
+            "hebrew": "וּבְהַ֥ר צִיּ֛וֹן תִּהְיֶ֥ה פְלֵיטָ֖ה וְהָ֣יָה קֹ֑דֶשׁ וְיָֽרְשׁוּ֙ בֵּ֣ית יַֽעֲקֹ֔ב אֵ֖ת מוֹרָֽשֵׁיהֶֽם׃",
+            "english": "<span class=\"poetry indentAll\">But on Zion’s mount a remnant shall survive,</span><br><span class=\"poetry indentAll\">And it shall be holy.</span><sup class=\"footnote-marker\">f</sup><i class=\"footnote\"><b>holy </b>I.e., inviolate; cf. Jer. 2.3.</i> <br><span class=\"poetry indentAll\">The House of Jacob shall dispossess</span><br><span class=\"poetry indentAll\">Those who dispossessed them.</span>"
+          }
+        },
+        {
+          "verse": 18,
+          "translations": {
+            "hebrew": "וְהָיָה֩ בֵית־יַעֲקֹ֨ב אֵ֜שׁ וּבֵ֧ית יוֹסֵ֣ף לֶהָבָ֗ה וּבֵ֤ית עֵשָׂו֙ לְקַ֔שׁ וְדָלְק֥וּ בָהֶ֖ם וַאֲכָל֑וּם וְלֹֽא־יִֽהְיֶ֤ה שָׂרִיד֙ לְבֵ֣ית עֵשָׂ֔ו כִּ֥י יְהֹוָ֖ה דִּבֵּֽר׃",
+            "english": "<span class=\"poetry indentAll\">The House of Jacob shall be fire,</span><br><span class=\"poetry indentAll\">And the House of Joseph flame,</span><br><span class=\"poetry indentAll\">And the House of Esau shall be straw;</span><br><span class=\"poetry indentAll\">They shall burn it and devour it,</span><br><span class=\"poetry indentAll\">And no survivor shall be left of the House of Esau</span><br><span class=\"poetry indentAllDouble\">—for </span> G<small>OD</small> has spoken."
+          }
+        },
+        {
+          "verse": 19,
+          "translations": {
+            "hebrew": "וְיָרְשׁ֨וּ הַנֶּ֜גֶב אֶת־הַ֣ר עֵשָׂ֗ו וְהַשְּׁפֵלָה֙ אֶת־פְּלִשְׁתִּ֔ים וְיָרְשׁוּ֙ אֶת־שְׂדֵ֣ה אֶפְרַ֔יִם וְאֵ֖ת שְׂדֵ֣ה שֹׁמְר֑וֹן וּבִנְיָמִ֖ן אֶת־הַגִּלְעָֽד׃",
+            "english": "<sup class=\"footnote-marker\">g</sup><i class=\"footnote\">Meaning of parts of vv. 19–21 uncertain.</i> Thus they shall possess the Negeb and Mount Esau as well, the Shephelah and Philistia. They shall possess the Ephraimite country and the district of Samaria,<sup class=\"footnote-marker\">h</sup><i class=\"footnote\"><b>district of Samaria </b>After the exile of the northern tribes, the city and district of Samaria were occupied mainly by non-Israelites.</i> and Benjamin<sup class=\"footnote-marker\">i</sup><i class=\"footnote\"><b>Benjamin </b>Emendation yields “the land of the Ammonites.”</i> along with Gilead. "
+          }
+        },
+        {
+          "verse": 20,
+          "translations": {
+            "hebrew": "וְגָלֻ֣ת הַֽחֵל־הַ֠זֶּ֠ה לִבְנֵ֨י יִשְׂרָאֵ֤ל אֲשֶֽׁר־כְּנַעֲנִים֙ עַד־צָ֣רְפַ֔ת וְגָלֻ֥ת יְרוּשָׁלַ֖͏ִם אֲשֶׁ֣ר בִּסְפָרַ֑ד יִֽרְשׁ֕וּ אֵ֖ת עָרֵ֥י הַנֶּֽגֶב׃",
+            "english": "And that exiled force of Israelites [shall possess] what belongs to the Phoenicians as far as Zarephath,<sup class=\"footnote-marker\">j</sup><i class=\"footnote\"><b>Zarephath </b>A town in southern Phoenicia; see 1 Kings 17.9.</i> while the Jerusalemite exile community of Sepharad<sup class=\"footnote-marker\">k</sup><i class=\"footnote\"><b>Sepharad </b>Probably Asia Minor, called Saparda in Persian cuneiform inscriptions.</i> shall possess the towns of the Negeb. "
+          }
+        },
+        {
+          "verse": 21,
+          "translations": {
+            "hebrew": "וְעָל֤וּ מֽוֹשִׁעִים֙ בְּהַ֣ר צִיּ֔וֹן לִשְׁפֹּ֖ט אֶת־הַ֣ר עֵשָׂ֑ו וְהָיְתָ֥ה לַֽיהֹוָ֖ה הַמְּלוּכָֽה׃",
+            "english": "For liberators shall march up<sup class=\"footnote-marker\">l</sup><i class=\"footnote\"><b>liberators shall march up </b>Several ancient versions read “they [the exiles from Jerusalem named in the preceding verse] shall march up victorious.”</i> on Mount Zion to wreak judgment on Mount Esau; and dominion shall be G<small>OD</small>’s."
+          }
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "imported": "2025-09-30T18:05:06.647Z",
+    "totalChapters": 1,
+    "totalVerses": 21,
+    "status": "imported_sefaria",
+    "notes": "Imported from Sefaria.org (Hebrew and English)."
+  }
+}
