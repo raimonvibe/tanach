@@ -598,7 +598,79 @@
                     }
                 }
 
-                // If still no internal link, it's likely Talmud/Mishnah/Rambam (not in our collection)
+                // Check if it's Talmud, Mishnah, or Rambam
+                const jewishTextLink = this.getJewishTextLink(displayText, sefariaUrl);
+                if (jewishTextLink) {
+                    return jewishTextLink;
+                }
+
+                // If still no internal link, it's not in our collection
+                return '';
+            }
+
+            /**
+             * Get link for Jewish texts (Talmud, Mishnah, Rambam)
+             */
+            getJewishTextLink(displayText, sefariaUrl) {
+                // Talmud - format: "Berakhot 35" or "Shabbat 12a"
+                const talmudMatch = displayText.match(/^([A-Za-z\s]+)\s+(\d+)([ab])?$/i);
+                if (talmudMatch) {
+                    const tractate = talmudMatch[1].trim().toLowerCase().replace(/ /g, '_');
+                    const pageNum = talmudMatch[2];
+                    const side = talmudMatch[3] || 'a';
+                    return `<a href="/talmud.html?tractate=${tractate}&page=${pageNum}${side}" class="reading-link">Lees in onze Talmud →</a>`;
+                }
+
+                // Mishnah - format: "Berakhot 2:3" or "Mishna Berakhot 2:3"
+                const mishnahMatch = displayText.match(/^(?:Mishna?\s+)?([A-Za-z\s]+)\s+(\d+):(\d+)$/i);
+                if (mishnahMatch) {
+                    const tractate = mishnahMatch[1].trim().toLowerCase().replace(/ /g, '_');
+                    const chapter = mishnahMatch[2];
+                    return `<a href="/mishnah.html?tractate=${tractate}&chapter=${chapter}" class="reading-link">Lees in onze Mishnah →</a>`;
+                }
+
+                // Rambam - format: "Foundations of the Torah 5:1-3"
+                const rambamMatch = displayText.match(/^(.+?)\s+(\d+)(?::\d+)?(?:-\d+)?$/);
+                if (rambamMatch && (displayText.includes('Torah') || displayText.includes('Mishneh'))) {
+                    let bookName = rambamMatch[1].trim().replace(/^Mishneh Torah,?\s*/i, '');
+                    const chapter = rambamMatch[2];
+                    const bookId = bookName.toLowerCase().replace(/ /g, '_').replace(/'/g, '');
+                    return `<a href="/rambam.html?book=${bookId}&chapter=${chapter}" class="reading-link">Lees in onze Rambam →</a>`;
+                }
+
+                // Try to parse from Sefaria URL
+                if (sefariaUrl) {
+                    // Talmud URL: /Berakhot.35a
+                    if (sefariaUrl.match(/\/[A-Za-z_]+\.\d+[ab]/)) {
+                        const match = sefariaUrl.match(/\/([A-Za-z_]+)\.(\d+[ab])/);
+                        if (match) {
+                            const tractate = match[1].toLowerCase();
+                            const page = match[2];
+                            return `<a href="/talmud.html?tractate=${tractate}&page=${page}" class="reading-link">Lees in onze Talmud →</a>`;
+                        }
+                    }
+
+                    // Mishnah URL: /Mishnah_Berakhot.2.3
+                    if (sefariaUrl.includes('Mishnah_')) {
+                        const match = sefariaUrl.match(/\/Mishnah_([A-Za-z_]+)\.(\d+)\.(\d+)/);
+                        if (match) {
+                            const tractate = match[1].toLowerCase();
+                            const chapter = match[2];
+                            return `<a href="/mishnah.html?tractate=${tractate}&chapter=${chapter}" class="reading-link">Lees in onze Mishnah →</a>`;
+                        }
+                    }
+
+                    // Rambam URL: /Mishneh_Torah,_Foundations_of_the_Torah.5.1
+                    if (sefariaUrl.includes('Mishneh_Torah')) {
+                        const match = sefariaUrl.match(/\/Mishneh_Torah,_([A-Za-z_]+)\.(\d+)/);
+                        if (match) {
+                            const book = match[1].toLowerCase();
+                            const chapter = match[2];
+                            return `<a href="/rambam.html?book=${book}&chapter=${chapter}" class="reading-link">Lees in onze Rambam →</a>`;
+                        }
+                    }
+                }
+
                 return '';
             }
 

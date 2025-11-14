@@ -9,6 +9,12 @@
     "preview": "vite preview",
     "server": "node src/server.js",
     "sefaria": "node src/scripts/sefaria-importer.js",
+    "import:talmud": "node src/scripts/jewish-texts-importer.js talmud",
+    "import:mishnah": "node src/scripts/jewish-texts-importer.js mishnah",
+    "import:rambam": "node src/scripts/jewish-texts-importer.js rambam",
+    "import:all-texts": "node src/scripts/jewish-texts-importer.js all",
+    "import:readings": "node src/scripts/import-readings-content.js",
+    "fix:missing": "node src/scripts/fix-missing-content.js",
     "test": "jest"
   },
   "keywords": [
