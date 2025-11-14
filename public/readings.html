@@ -577,12 +577,18 @@
 
                 // If no internal link, try to extract the reference from Sefaria URL
                 if (!internalUrl && sefariaUrl) {
-                    // Extract reference from URL format: /Genesis.5 or /Judges.13 or /I_Kings.1.1
-                    const urlMatch = sefariaUrl.match(/\/([^/]+?)(?:\.(\d+)(?:\.(\d+))?)?$/);
+                    // Extract reference from URL format:
+                    // - Genesis.5 (chapter only)
+                    // - I_Kings.1.1 (chapter.verse)
+                    // - I_Kings.1.1-31 (chapter.verse-verse)
+                    // - Judges.19.20-20.26 (chapter.verse-chapter.verse)
+                    const urlMatch = sefariaUrl.match(/^([^.\/]+)\.(\d+)(?:\.(\d+)(?:-(?:(\d+)\.)?(\d+))?)?$/);
                     if (urlMatch) {
                         const book = urlMatch[1].replace(/_/g, ' ');
                         const chapter = urlMatch[2];
                         const verse = urlMatch[3];
+                        // urlMatch[4] is ending chapter (if cross-chapter range)
+                        // urlMatch[5] is ending verse (for any range)
 
                         if (chapter) {
                             let reference = `${book} ${chapter}`;
