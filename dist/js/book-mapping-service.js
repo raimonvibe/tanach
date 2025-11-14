@@ -56,7 +56,9 @@ const BOOK_MAPPING = {
 // Add alternate spellings and variations
 const ALTERNATE_NAMES = {
     'Bereshit': 'Genesis',
+    'Bereishit': 'Genesis',
     'Shemot': 'Exodus',
+    'Shmot': 'Exodus',
     'Vayikra': 'Leviticus',
     'Bamidbar': 'Numbers',
     'Devarim': 'Deuteronomy',
@@ -91,6 +93,64 @@ const ALTERNATE_NAMES = {
     'Nechemya': 'Nehemiah',
 };
 
+// Parashat name to Torah portion mapping (approximate chapters)
+const PARASHAT_MAPPING = {
+    'Bereshit': { book: 'Genesis', chapter: 1 },
+    'Noach': { book: 'Genesis', chapter: 6 },
+    'Lech-Lecha': { book: 'Genesis', chapter: 12 },
+    'Vayera': { book: 'Genesis', chapter: 18 },
+    'Chayei Sara': { book: 'Genesis', chapter: 23 },
+    'Toldot': { book: 'Genesis', chapter: 25 },
+    'Vayetzei': { book: 'Genesis', chapter: 28 },
+    'Vayishlach': { book: 'Genesis', chapter: 32 },
+    'Vayeshev': { book: 'Genesis', chapter: 37 },
+    'Miketz': { book: 'Genesis', chapter: 41 },
+    'Vayigash': { book: 'Genesis', chapter: 44 },
+    'Vayechi': { book: 'Genesis', chapter: 47 },
+    'Shemot': { book: 'Exodus', chapter: 1 },
+    'Vaera': { book: 'Exodus', chapter: 6 },
+    'Bo': { book: 'Exodus', chapter: 10 },
+    'Beshalach': { book: 'Exodus', chapter: 13 },
+    'Yitro': { book: 'Exodus', chapter: 18 },
+    'Mishpatim': { book: 'Exodus', chapter: 21 },
+    'Terumah': { book: 'Exodus', chapter: 25 },
+    'Tetzaveh': { book: 'Exodus', chapter: 27 },
+    'Ki Tisa': { book: 'Exodus', chapter: 30 },
+    'Vayakhel': { book: 'Exodus', chapter: 35 },
+    'Pekudei': { book: 'Exodus', chapter: 38 },
+    'Vayikra': { book: 'Leviticus', chapter: 1 },
+    'Tzav': { book: 'Leviticus', chapter: 6 },
+    'Shmini': { book: 'Leviticus', chapter: 9 },
+    'Tazria': { book: 'Leviticus', chapter: 12 },
+    'Metzora': { book: 'Leviticus', chapter: 14 },
+    'Achrei Mot': { book: 'Leviticus', chapter: 16 },
+    'Kedoshim': { book: 'Leviticus', chapter: 19 },
+    'Emor': { book: 'Leviticus', chapter: 21 },
+    'Behar': { book: 'Leviticus', chapter: 25 },
+    'Bechukotai': { book: 'Leviticus', chapter: 26 },
+    'Bamidbar': { book: 'Numbers', chapter: 1 },
+    'Nasso': { book: 'Numbers', chapter: 4 },
+    'Beha\'alotcha': { book: 'Numbers', chapter: 8 },
+    'Sh\'lach': { book: 'Numbers', chapter: 13 },
+    'Korach': { book: 'Numbers', chapter: 16 },
+    'Chukat': { book: 'Numbers', chapter: 19 },
+    'Balak': { book: 'Numbers', chapter: 22 },
+    'Pinchas': { book: 'Numbers', chapter: 25 },
+    'Matot': { book: 'Numbers', chapter: 30 },
+    'Masei': { book: 'Numbers', chapter: 33 },
+    'Devarim': { book: 'Deuteronomy', chapter: 1 },
+    'Vaetchanan': { book: 'Deuteronomy', chapter: 3 },
+    'Eikev': { book: 'Deuteronomy', chapter: 7 },
+    'Re\'eh': { book: 'Deuteronomy', chapter: 11 },
+    'Shoftim': { book: 'Deuteronomy', chapter: 16 },
+    'Ki Teitzei': { book: 'Deuteronomy', chapter: 21 },
+    'Ki Tavo': { book: 'Deuteronomy', chapter: 26 },
+    'Nitzavim': { book: 'Deuteronomy', chapter: 29 },
+    'Vayeilech': { book: 'Deuteronomy', chapter: 31 },
+    'Ha\'Azinu': { book: 'Deuteronomy', chapter: 32 },
+    'V\'Zot HaBerachah': { book: 'Deuteronomy', chapter: 33 },
+};
+
 /**
  * Get book info from Sefaria book name
  */
@@ -107,6 +167,33 @@ export function getBookInfo(sefariaName) {
 }
 
 /**
+ * Get Torah portion info from parashat name
+ * @param {string} parashatName - Name like "Chayei Sara" or "Parashat Vayera"
+ * @returns {object|null} - { book, chapter } or null
+ */
+export function getParashatInfo(parashatName) {
+    if (!parashatName) return null;
+
+    // Remove "Parashat" prefix if present
+    let cleanName = parashatName.replace(/^Parashat\s+/i, '').trim();
+
+    // Direct lookup
+    if (PARASHAT_MAPPING[cleanName]) {
+        return PARASHAT_MAPPING[cleanName];
+    }
+
+    // Try case-insensitive lookup
+    const lowerName = cleanName.toLowerCase();
+    for (const [key, value] of Object.entries(PARASHAT_MAPPING)) {
+        if (key.toLowerCase() === lowerName) {
+            return value;
+        }
+    }
+
+    return null;
+}
+
+/**
  * Parse a Sefaria reference like "Genesis 1:1-5" or "Exodus 12:1"
  * Returns { book, chapter, verseStart, verseEnd }
  */
@@ -120,8 +207,8 @@ export function parseReference(reference) {
     const match = reference.match(/^(.+?)\s+(\d+):(\d+)(?:-(\d+))?$/);
 
     if (!match) {
-        // Try pattern: "Book Chapter" (no verse)
-        const chapterMatch = reference.match(/^(.+?)\s+(\d+)$/);
+        // Try pattern: "Book Chapter" (no verse) - e.g., "Exodus 5"
+        const chapterMatch = reference.match(/^(.+?)\s+(\d+)(?:\s+\(\d+\))?$/);
         if (chapterMatch) {
             return {
                 book: chapterMatch[1],
@@ -130,6 +217,19 @@ export function parseReference(reference) {
                 verseEnd: null
             };
         }
+
+        // Try pattern: "Book Seder X" - e.g., "Judges Seder 13"
+        const sederMatch = reference.match(/^(.+?)\s+Seder\s+(\d+)$/i);
+        if (sederMatch) {
+            // Approximate: each seder is roughly a chapter or portion
+            return {
+                book: sederMatch[1],
+                chapter: parseInt(sederMatch[2]),
+                verseStart: 1,
+                verseEnd: null
+            };
+        }
+
         return null;
     }
 

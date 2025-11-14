@@ -379,7 +379,7 @@
 
     <script type="module">
         import { getWeeklyInfo, getHebrewDate } from './js/hebcal-service.js';
-        import { generateReaderLink, parseReference, getBookInfo } from './js/book-mapping-service.js';
+        import { generateReaderLink, parseReference, getBookInfo, getParashatInfo } from './js/book-mapping-service.js';
 
         class ReadingsApp {
             constructor() {
@@ -586,14 +586,19 @@
             getTorahLink(parashatText) {
                 if (!parashatText || parashatText === 'N/A') return '';
 
-                // Extract book and verses if present
-                // Example: "Parashat Vayeitzei" or "Genesis 28:10-32:3"
-                const match = parashatText.match(/([A-Za-z]+)\s+(\d+):(\d+)/);
+                // Try to parse as a direct reference first (e.g., "Genesis 28:10-32:3")
+                const directUrl = generateReaderLink(parashatText);
+                if (directUrl) {
+                    return `<a href="${directUrl}" class="reading-link">Read in our Tanach →</a>`;
+                }
 
-                if (match) {
-                    const internalUrl = generateReaderLink(parashatText);
-                    if (internalUrl) {
-                        return `<a href="${internalUrl}" class="reading-link">Read in our Tanach →</a>`;
+                // Try to parse as parashat name (e.g., "Parashat Chayei Sara")
+                const parashatInfo = getParashatInfo(parashatText);
+                if (parashatInfo) {
+                    const bookInfo = getBookInfo(parashatInfo.book);
+                    if (bookInfo) {
+                        const url = `/reader.html?book=${bookInfo.id}&category=${bookInfo.category}&chapter=${parashatInfo.chapter}`;
+                        return `<a href="${url}" class="reading-link">Read in our Tanach →</a>`;
                     }
                 }
 
@@ -629,12 +634,20 @@
                 `;
 
                 dailyItems.forEach(item => {
-                    const internalLink = this.getInternalLink(item.displayValue.en, item.url);
+                    let linkHtml = '';
+
+                    // Special handling for Chok LeYisrael - it's usually a parashat name
+                    if (item.title.en === 'Chok LeYisrael') {
+                        linkHtml = this.getTorahLink(item.displayValue.en);
+                    } else {
+                        linkHtml = this.getInternalLink(item.displayValue.en, item.url);
+                    }
+
                     html += `
                         <div class="reading-item">
                             <div class="reading-label">${item.title.en}</div>
                             <div class="reading-text">${item.displayValue.en}</div>
-                            ${internalLink}
+                            ${linkHtml}
                         </div>
                     `;
                 });
