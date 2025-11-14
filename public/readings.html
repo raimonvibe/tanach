@@ -568,43 +568,37 @@
              * Get internal link for a reading reference
              */
             getInternalLink(displayText, sefariaUrl) {
-                console.log('getInternalLink called with:', displayText);
-
-                // Try to generate internal link
+                // Try to generate internal link from display text
                 let internalUrl = generateReaderLink(displayText);
-                console.log('Generated URL:', internalUrl);
 
                 if (internalUrl) {
                     return `<a href="${internalUrl}" class="reading-link">Read in our Tanach →</a>`;
                 }
 
-                // If no internal link but we have a Sefaria URL, try to extract the reference from it
+                // If no internal link, try to extract the reference from Sefaria URL
                 if (!internalUrl && sefariaUrl) {
-                    // Try extracting reference from Sefaria URL
-                    // Format: /Genesis.5 or /Judges.13
-                    const urlMatch = sefariaUrl.match(/\/([^/.]+)\.(\d+)(?:\.(\d+))?/);
+                    // Extract reference from URL format: /Genesis.5 or /Judges.13 or /I_Kings.1.1
+                    const urlMatch = sefariaUrl.match(/\/([^/]+?)(?:\.(\d+)(?:\.(\d+))?)?$/);
                     if (urlMatch) {
                         const book = urlMatch[1].replace(/_/g, ' ');
                         const chapter = urlMatch[2];
                         const verse = urlMatch[3];
 
-                        let reference = `${book} ${chapter}`;
-                        if (verse) {
-                            reference += `:${verse}`;
-                        }
+                        if (chapter) {
+                            let reference = `${book} ${chapter}`;
+                            if (verse) {
+                                reference += `:${verse}`;
+                            }
 
-                        console.log('Extracted reference from URL:', reference);
-                        internalUrl = generateReaderLink(reference);
-                        console.log('Generated URL from extracted reference:', internalUrl);
+                            internalUrl = generateReaderLink(reference);
+                            if (internalUrl) {
+                                return `<a href="${internalUrl}" class="reading-link">Read in our Tanach →</a>`;
+                            }
+                        }
                     }
                 }
 
-                if (internalUrl) {
-                    return `<a href="${internalUrl}" class="reading-link">Read in our Tanach →</a>`;
-                } else if (sefariaUrl) {
-                    return `<a href="https://www.sefaria.org${sefariaUrl}" target="_blank" class="reading-link">Read on Sefaria →</a>`;
-                }
-
+                // If still no internal link, it's likely Talmud/Mishnah/Rambam (not in our collection)
                 return '';
             }
 
@@ -612,31 +606,24 @@
              * Get link for Torah reading (parashat)
              */
             getTorahLink(parashatText) {
-                console.log('getTorahLink called with:', parashatText);
-
                 if (!parashatText || parashatText === 'N/A') return '';
 
                 // Try to parse as a direct reference first (e.g., "Genesis 28:10-32:3")
                 const directUrl = generateReaderLink(parashatText);
-                console.log('Direct URL:', directUrl);
                 if (directUrl) {
                     return `<a href="${directUrl}" class="reading-link">Read in our Tanach →</a>`;
                 }
 
-                // Try to parse as parashat name (e.g., "Parashat Chayei Sara")
+                // Try to parse as parashat name (e.g., "Parashat Chayei Sara" or just "Chayei Sara")
                 const parashatInfo = getParashatInfo(parashatText);
-                console.log('Parashat info:', parashatInfo);
                 if (parashatInfo) {
                     const bookInfo = getBookInfo(parashatInfo.book);
-                    console.log('Book info:', bookInfo);
                     if (bookInfo) {
                         const url = `/reader.html?book=${bookInfo.id}&category=${bookInfo.category}&chapter=${parashatInfo.chapter}`;
-                        console.log('Generated parashat URL:', url);
                         return `<a href="${url}" class="reading-link">Read in our Tanach →</a>`;
                     }
                 }
 
-                console.log('No link generated for:', parashatText);
                 return '';
             }
 
