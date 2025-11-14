@@ -640,19 +640,20 @@
 
                 // Try to parse from Sefaria URL
                 if (sefariaUrl) {
-                    // Talmud URL: /Berakhot.35a
-                    if (sefariaUrl.match(/\/[A-Za-z_]+\.\d+[ab]/)) {
-                        const match = sefariaUrl.match(/\/([A-Za-z_]+)\.(\d+[ab])/);
+                    // Talmud URL: Berakhot.35a or Zevachim.61
+                    if (sefariaUrl.match(/^[A-Za-z_]+\.\d+[ab]?$/)) {
+                        const match = sefariaUrl.match(/^([A-Za-z_]+)\.(\d+)([ab])?$/);
                         if (match) {
                             const tractate = match[1].toLowerCase();
-                            const page = match[2];
-                            return `<a href="/talmud.html?tractate=${tractate}&page=${page}" class="reading-link">Lees in onze Talmud →</a>`;
+                            const pageNum = match[2];
+                            const side = match[3] || 'a'; // Default to 'a' if not specified
+                            return `<a href="/talmud.html?tractate=${tractate}&page=${pageNum}${side}" class="reading-link">Lees in onze Talmud →</a>`;
                         }
                     }
 
-                    // Mishnah URL: /Mishnah_Berakhot.2.3 or /Mishnah_Chullin.7.5-6
+                    // Mishnah URL: Mishnah_Berakhot.2.3 or Mishnah_Chullin.7.5-6
                     if (sefariaUrl.includes('Mishnah_')) {
-                        const match = sefariaUrl.match(/\/Mishnah_([A-Za-z_]+)\.(\d+)\.(\d+)(?:-\d+)?/);
+                        const match = sefariaUrl.match(/Mishnah_([A-Za-z_]+)\.(\d+)\.(\d+)(?:-\d+)?/);
                         if (match) {
                             const tractate = match[1].toLowerCase();
                             const chapter = match[2];
@@ -660,9 +661,9 @@
                         }
                     }
 
-                    // Rambam URL: /Mishneh_Torah,_Foundations_of_the_Torah.5.1
+                    // Rambam URL: Mishneh_Torah,_Foundations_of_the_Torah.5 or Mishneh_Torah,_Murderer_and_the_Preservation_of_Life.2-4
                     if (sefariaUrl.includes('Mishneh_Torah')) {
-                        const match = sefariaUrl.match(/\/Mishneh_Torah,_([A-Za-z_]+)\.(\d+)/);
+                        const match = sefariaUrl.match(/Mishneh_Torah,_([A-Za-z_]+)\.(\d+)(?:[-\.]?\d+)?/);
                         if (match) {
                             const book = match[1].toLowerCase();
                             const chapter = match[2];
