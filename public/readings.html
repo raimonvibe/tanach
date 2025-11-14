@@ -621,8 +621,8 @@
                     return `<a href="/talmud.html?tractate=${tractate}&page=${pageNum}${side}" class="reading-link">Lees in onze Talmud →</a>`;
                 }
 
-                // Mishnah - format: "Berakhot 2:3" or "Mishna Berakhot 2:3"
-                const mishnahMatch = displayText.match(/^(?:Mishna?\s+)?([A-Za-z\s]+)\s+(\d+):(\d+)$/i);
+                // Mishnah - format: "Berakhot 2:3" or "Mishna Berakhot 2:3" or "Chullin 7:5-6"
+                const mishnahMatch = displayText.match(/^(?:Mishna?\s+)?([A-Za-z\s]+)\s+(\d+):(\d+)(?:-\d+)?$/i);
                 if (mishnahMatch) {
                     const tractate = mishnahMatch[1].trim().toLowerCase().replace(/ /g, '_');
                     const chapter = mishnahMatch[2];
@@ -650,9 +650,9 @@
                         }
                     }
 
-                    // Mishnah URL: /Mishnah_Berakhot.2.3
+                    // Mishnah URL: /Mishnah_Berakhot.2.3 or /Mishnah_Chullin.7.5-6
                     if (sefariaUrl.includes('Mishnah_')) {
-                        const match = sefariaUrl.match(/\/Mishnah_([A-Za-z_]+)\.(\d+)\.(\d+)/);
+                        const match = sefariaUrl.match(/\/Mishnah_([A-Za-z_]+)\.(\d+)\.(\d+)(?:-\d+)?/);
                         if (match) {
                             const tractate = match[1].toLowerCase();
                             const chapter = match[2];
