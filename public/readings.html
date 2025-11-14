@@ -622,7 +622,9 @@
                 }
 
                 // Mishnah - format: "Berakhot 2:3" or "Mishna Berakhot 2:3" or "Chullin 7:5-6"
-                const mishnahMatch = displayText.match(/^(?:Mishna?\s+)?([A-Za-z\s]+)\s+(\d+):(\d+)(?:-\d+)?$/i);
+                // First remove "Mishnah " or "Mishna " prefix if present
+                let mishnahText = displayText.replace(/^Mishnah?\s+/i, '');
+                const mishnahMatch = mishnahText.match(/^([A-Za-z\s]+)\s+(\d+):(\d+)(?:-\d+)?$/i);
                 if (mishnahMatch) {
                     const tractate = mishnahMatch[1].trim().toLowerCase().replace(/ /g, '_');
                     const chapter = mishnahMatch[2];
