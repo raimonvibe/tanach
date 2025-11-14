@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joodse Leesrooster - Tanach Reader</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/jewish-bible.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="/jewish-bible.ico">
+
+    <!-- Apple Touch Icon for iOS home screen -->
+    <link rel="apple-touch-icon" href="/jewish-bible.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/jewish-bible.png">
+
+    <!-- Android/Chrome -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/jewish-bible.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/jewish-bible.png">
+
+    <!-- Open Graph meta tags for social sharing -->
+    <meta property="fb:app_id" content="1234567890">
+    <meta property="og:title" content="Joodse Leesrooster - Tanach Reader">
+    <meta property="og:description" content="Dagelijkse, wekelijkse en jaarlijkse Joodse lezingen">
+    <meta property="og:image" content="https://tanach.vercel.app/jewish-bible.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="454">
+    <meta property="og:image:alt" content="Tanach Reader">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tanach.vercel.app">
+    <meta property="og:site_name" content="Tanach Reader">
+
+    <!-- Additional meta tags -->
+    <meta name="description" content="Dagelijkse, wekelijkse en jaarlijkse Joodse lezingen en studie programma's">
+    <meta name="theme-color" content="#667eea">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .nav-links {
+            margin-top: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.2);
+            transition: background 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .date-selector {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .date-selector label {
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .date-selector input[type="date"] {
+            padding: 10px 15px;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .date-selector button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .date-selector button:hover {
+            background: #5a6fd8;
+        }
+
+        .readings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .reading-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .reading-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+
+        .reading-card.weekly {
+            border-left-color: #9c27b0;
+        }
+
+        .reading-card.daily {
+            border-left-color: #4caf50;
+        }
+
+        .reading-card.yearly {
+            border-left-color: #ff9800;
+        }
+
+        .reading-card h3 {
+            color: #667eea;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .reading-card.weekly h3 {
+            color: #9c27b0;
+        }
+
+        .reading-card.daily h3 {
+            color: #4caf50;
+        }
+
+        .reading-card.yearly h3 {
+            color: #ff9800;
+        }
+
+        .reading-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+
+        .reading-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .reading-label {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .reading-text {
+            color: #333;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .reading-link {
+            display: inline-block;
+            margin-top: 8px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .reading-link:hover {
+            color: #5a6fd8;
+            text-decoration: underline;
+        }
+
+        .hebrew-date-display {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .hebrew-date-display h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .hebrew-date-display p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #c62828;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            opacity: 0.8;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+
+            .nav-links a {
+                margin: 0;
+                padding: 12px 20px;
+                font-size: 1rem;
+                min-width: 200px;
+                text-align: center;
+            }
+
+            .readings-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .reading-card {
+                padding: 20px;
+            }
+
+            .date-selector {
+                flex-direction: column;
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .nav-links a {
+                min-width: 180px;
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+
+            .reading-card {
+                padding: 15px;
+            }
+
+            .reading-card h3 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+  <script type="module" crossorigin src="/assets/readings-CV9qFwlw.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
+  <link rel="modulepreload" crossorigin href="/assets/hebcal-service-Bq1V8CQV.js">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Joodse Leesrooster</h1>
+            <p>Dagelijkse, wekelijkse en jaarlijkse lezingen en studie programma's</p>
+            <div class="nav-links">
+                <a href="/">🏠 Home</a>
+                <a href="/reader.html">📖 Tanach Reader</a>
+                <a href="/calendar.html">📅 Kalender</a>
+            </div>
+        </div>
+
+        <div class="date-selector">
+            <label for="readingDate">📅 Selecteer Datum:</label>
+            <input type="date" id="readingDate">
+            <button id="todayBtn">Vandaag</button>
+            <button id="loadReadingsBtn">Laad Lezingen</button>
+        </div>
+
+        <div class="hebrew-date-display" id="hebrewDateDisplay">
+            <div class="loading">
+                <div class="spinner"></div>
+                Datum wordt geladen...
+            </div>
+        </div>
+
+        <div class="readings-grid" id="readingsContainer">
+            <div class="loading">
+                <div class="spinner"></div>
+                Lezingen worden geladen...
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2024 Tanach Reader - Data van HebCal.org en Sefaria.org</p>
+        </div>
+    </div>
+
+</body>
+</html>

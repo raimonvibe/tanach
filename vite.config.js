@@ -13,6 +13,7 @@ export default defineConfig({
         main: resolve(__dirname, 'public/index.html'),
         reader: resolve(__dirname, 'public/reader.html'),
         calendar: resolve(__dirname, 'public/calendar.html'),
+        readings: resolve(__dirname, 'public/readings.html'),
       },
     },
   },
