@@ -379,6 +379,7 @@
 
     <script type="module">
         import { getWeeklyInfo, getHebrewDate } from './js/hebcal-service.js';
+        import { generateReaderLink, parseReference, getBookInfo } from './js/book-mapping-service.js';
 
         class ReadingsApp {
             constructor() {
@@ -532,16 +533,26 @@
             }
 
             renderWeeklyCard(weeklyInfo) {
+                // Extract parashat name and generate link
+                const parashatText = weeklyInfo.parashat || 'N/A';
+                const parashatLink = this.getTorahLink(parashatText);
+
+                // Extract haftarah reference and generate link
+                const haftarahText = weeklyInfo.haftarah || 'N/A';
+                const haftarahLink = this.getHaftarahLink(haftarahText);
+
                 return `
                     <div class="reading-card weekly">
                         <h3>🕯️ Wekelijkse Lezingen</h3>
                         <div class="reading-item">
-                            <div class="reading-label">Parashat HaShavua (Thora Portie)</div>
-                            <div class="reading-text">${weeklyInfo.parashat || 'N/A'}</div>
+                            <div class="reading-label">Parashat HaShavua (Torah Portion)</div>
+                            <div class="reading-text">${parashatText}</div>
+                            ${parashatLink}
                         </div>
                         <div class="reading-item">
-                            <div class="reading-label">Haftarah (Profeten)</div>
-                            <div class="reading-text">${weeklyInfo.haftarah || 'N/A'}</div>
+                            <div class="reading-label">Haftarah (Prophets)</div>
+                            <div class="reading-text">${haftarahText}</div>
+                            ${haftarahLink}
                         </div>
                         ${weeklyInfo.roshChodesh ? `
                             <div class="reading-item">
@@ -551,6 +562,58 @@
                         ` : ''}
                     </div>
                 `;
+            }
+
+            /**
+             * Get internal link for a reading reference
+             */
+            getInternalLink(displayText, sefariaUrl) {
+                // Try to generate internal link
+                const internalUrl = generateReaderLink(displayText);
+
+                if (internalUrl) {
+                    return `<a href="${internalUrl}" class="reading-link">Read in our Tanach →</a>`;
+                } else if (sefariaUrl) {
+                    return `<a href="https://www.sefaria.org${sefariaUrl}" target="_blank" class="reading-link">Read on Sefaria →</a>`;
+                }
+
+                return '';
+            }
+
+            /**
+             * Get link for Torah reading (parashat)
+             */
+            getTorahLink(parashatText) {
+                if (!parashatText || parashatText === 'N/A') return '';
+
+                // Extract book and verses if present
+                // Example: "Parashat Vayeitzei" or "Genesis 28:10-32:3"
+                const match = parashatText.match(/([A-Za-z]+)\s+(\d+):(\d+)/);
+
+                if (match) {
+                    const internalUrl = generateReaderLink(parashatText);
+                    if (internalUrl) {
+                        return `<a href="${internalUrl}" class="reading-link">Read in our Tanach →</a>`;
+                    }
+                }
+
+                return '';
+            }
+
+            /**
+             * Get link for Haftarah reading
+             */
+            getHaftarahLink(haftarahText) {
+                if (!haftarahText || haftarahText === 'N/A') return '';
+
+                // Try to parse the reference
+                const internalUrl = generateReaderLink(haftarahText);
+
+                if (internalUrl) {
+                    return `<a href="${internalUrl}" class="reading-link">Read in our Tanach →</a>`;
+                }
+
+                return '';
             }
 
             renderDailyReadings(calendarItems) {
@@ -566,11 +629,12 @@
                 `;
 
                 dailyItems.forEach(item => {
+                    const internalLink = this.getInternalLink(item.displayValue.en, item.url);
                     html += `
                         <div class="reading-item">
                             <div class="reading-label">${item.title.en}</div>
                             <div class="reading-text">${item.displayValue.en}</div>
-                            ${item.url ? `<a href="https://www.sefaria.org${item.url}" target="_blank" class="reading-link">Lees op Sefaria →</a>` : ''}
+                            ${internalLink}
                         </div>
                     `;
                 });
@@ -592,11 +656,12 @@
                 `;
 
                 yearlyItems.forEach(item => {
+                    const internalLink = this.getInternalLink(item.displayValue.en, item.url);
                     html += `
                         <div class="reading-item">
                             <div class="reading-label">${item.title.en}</div>
                             <div class="reading-text">${item.displayValue.en}</div>
-                            ${item.url ? `<a href="https://www.sefaria.org${item.url}" target="_blank" class="reading-link">Lees op Sefaria →</a>` : ''}
+                            ${internalLink}
                         </div>
                     `;
                 });
