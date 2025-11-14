@@ -3,6 +3,17 @@
 ## Overview
 This document outlines the plan to expand our Tanach Reader website to include three major Jewish texts that are currently missing from our collection: Talmud, Mishnah, and Rambam (Mishneh Torah).
 
+### Current Gap in Daily Readings
+Our readings page shows daily study programs, but many texts have no internal links:
+
+**Example from Today's Readings:**
+- ✅ **Tanakh Yomi**: "Judges Seder 13" → Links to our Judges book
+- ❌ **Daf Yomi**: "Zevachim 61" → No link (Talmud not available)
+- ❌ **Daily Mishnah**: "Mishnah Chullin 7:5-6" → No link (Mishnah not available)
+- ❌ **Daily Rambam**: "The Sanhedrin and the Penalties within Their Jurisdiction 1" → No link (Rambam not available)
+
+This plan addresses filling these gaps so users can study all daily readings on our site.
+
 ---
 
 ## Current Status
@@ -18,8 +29,16 @@ This document outlines the plan to expand our Tanach Reader website to include t
 
 ### ❌ What We're Missing
 1. **Talmud** (for Daf Yomi daily study)
+   - Example: "Zevachim 61" currently has no link
+   - 63 tractates needed
 2. **Mishnah** (for Daily Mishnah study)
+   - Example: "Mishnah Chullin 7:5-6" currently has no link
+   - 63 tractates needed
 3. **Rambam/Mishneh Torah** (for Daily Rambam study)
+   - Example: "The Sanhedrin and the Penalties within Their Jurisdiction 1" currently has no link
+   - 83 sections needed
+
+**Note:** Tanakh Yomi readings like "Judges Seder 13" DO link to our internal Tanach reader ✅
 
 ---
 
@@ -36,6 +55,10 @@ This document outlines the plan to expand our Tanach Reader website to include t
 - Each tractate contains multiple chapters and pages (daf)
 - Total: ~2,711 pages (double-sided folios)
 - Languages needed: Hebrew, Aramaic, English translation
+
+**Example Tractate Needed:**
+- Zevachim (in Kodashim order) - 120 pages
+  - Currently referenced in Daf Yomi: "Zevachim 61"
 
 **Daf Yomi Program:**
 - Daily page (daf) study cycle
@@ -61,10 +84,14 @@ This document outlines the plan to expand our Tanach Reader website to include t
   2. Moed (Festivals) - 12 tractates
   3. Nashim (Women) - 7 tractates
   4. Nezikin (Damages) - 10 tractates
-  5. Kodashim (Holy Things) - 11 tractates
+  5. Kodashim (Holy Things) - 11 tractates (includes Chullin)
   6. Tahorot (Purities) - 12 tractates
 - Total: 63 tractates, 523 chapters
 - Languages: Hebrew, English translation
+
+**Example Tractate Needed:**
+- Chullin (in Kodashim order) - 12 chapters
+  - Currently referenced in Daily Mishnah: "Mishnah Chullin 7:5-6"
 
 **Daily Mishnah Program:**
 - Study 2 chapters per day
@@ -96,12 +123,16 @@ This document outlines the plan to expand our Tanach Reader website to include t
   8. Sefer Avodah (Service)
   9. Sefer Korbanot (Offerings)
   10. Sefer Taharah (Purity)
-  11. Sefer Nezikin (Torts)
+  11. Sefer Nezikin (Torts) - includes Laws of Sanhedrin
   12. Sefer Kinyan (Acquisition)
   13. Sefer Mishpatim (Judgments)
   14. Sefer Shoftim (Judges)
 - Total: 83 sections, 1,000 chapters
 - Languages: Hebrew, English translation
+
+**Example Section Needed:**
+- "The Sanhedrin and the Penalties within Their Jurisdiction" (in Sefer Nezikin)
+  - Currently referenced in Daily Rambam: "...Sanhedrin...Jurisdiction 1"
 
 **Daily Rambam Program:**
 - Three study options:
