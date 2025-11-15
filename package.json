@@ -15,6 +15,7 @@
     "import:all-texts": "node src/scripts/jewish-texts-importer.js all",
     "import:readings": "node src/scripts/import-readings-content.js",
     "fix:missing": "node src/scripts/fix-missing-content.js",
+    "clean:invalid": "node src/scripts/clean-invalid-pages.js",
     "test": "jest"
   },
   "keywords": [
