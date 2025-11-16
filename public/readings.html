@@ -637,12 +637,14 @@
                     return `<a href="/mishnah.html?tractate=${tractate}&chapter=${chapter}" class="reading-link">Lees in onze Mishnah →</a>`;
                 }
 
-                // Rambam - format: "Foundations of the Torah 5:1-3"
+                // Rambam - format: "Foundations of the Torah 5:1-3" or "The Sanhedrin... 3"
+                // Check if URL indicates Rambam content or if text contains Rambam keywords
+                const isRambam = sefariaUrl && sefariaUrl.includes('Mishneh_Torah');
                 const rambamMatch = displayText.match(/^(.+?)\s+(\d+)(?::\d+)?(?:-\d+)?$/);
-                if (rambamMatch && (displayText.includes('Torah') || displayText.includes('Mishneh'))) {
+                if (rambamMatch && (isRambam || displayText.includes('Torah') || displayText.includes('Mishneh'))) {
                     let bookName = rambamMatch[1].trim().replace(/^Mishneh Torah,?\s*/i, '');
                     const chapter = rambamMatch[2];
-                    const bookId = bookName.toLowerCase().replace(/ /g, '_').replace(/'/g, '');
+                    const bookId = bookName.toLowerCase().replace(/ /g, '_').replace(/'/g, '').replace(/,/g, '');
                     return `<a href="/rambam.html?book=${bookId}&chapter=${chapter}" class="reading-link">Lees in onze Rambam →</a>`;
                 }
 
@@ -742,6 +744,9 @@
                     // Special handling for Chok LeYisrael - it's usually a parashat name
                     if (item.title.en === 'Chok LeYisrael') {
                         linkHtml = this.getTorahLink(item.displayValue.en);
+                    } else if (['Daf Yomi', 'Daily Mishnah', 'Daily Rambam'].includes(item.title.en)) {
+                        // Use Jewish text link handler for Talmud, Mishnah, and Rambam
+                        linkHtml = this.getJewishTextLink(item.displayValue.en, item.url);
                     } else {
                         linkHtml = this.getInternalLink(item.displayValue.en, item.url);
                     }
