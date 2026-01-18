@@ -316,21 +316,22 @@
                 this.renderChapter();
             }
 
-            async loadTractate(tractateName) {
-                try {
-                    const fileName = tractateName.toLowerCase().replace(/ /g, '_');
-                    const response = await fetch(`/data/mishnah/${tractaat.toLowerCase()}.json`);
-                    if (!response.ok) {
-                        throw new Error(`Tractaat "${tractateName}" niet gevonden`);
+                async loadTractate(tractateName) {
+                    try {
+                        const fileName = tractateName.toLowerCase().replace(/ /g, '_');
+                        const response = await fetch(`/data/mishnah/${fileName}.json`);  // ← HIER WAS DE FOUT
+                        
+                        if (!response.ok) {
+                            throw new Error(`Tractaat "${tractateName}" niet gevonden`);
+                        }
+                
+                        this.tractateData = await response.json();
+                        this.renderTractateInfo();
+                
+                    } catch (error) {
+                        this.showError(`Fout bij het laden van tractaat: ${error.message}`);
                     }
-
-                    this.tractateData = await response.json();
-                    this.renderTractateInfo();
-
-                } catch (error) {
-                    this.showError(`Fout bij het laden van tractaat: ${error.message}`);
                 }
-            }
 
             renderTractateInfo() {
                 if (!this.tractateData) return;
