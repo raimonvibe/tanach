@@ -319,8 +319,7 @@
             async loadTractate(tractateName) {
                 try {
                     const fileName = tractateName.toLowerCase().replace(/ /g, '_');
-                    const response = await fetch(`/data/mishnah/${fileName}.json`);
-
+                    const response = await fetch(`/data/mishnah/${tractaat.toLowerCase()}.json`);
                     if (!response.ok) {
                         throw new Error(`Tractaat "${tractateName}" niet gevonden`);
                     }
