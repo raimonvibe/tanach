@@ -426,7 +426,6 @@
 
             async loadReadings() {
                 try {
-                    // Show loading state
                     document.getElementById('readingsContainer').innerHTML = `
                         <div class="loading">
                             <div class="spinner"></div>
@@ -434,16 +433,13 @@
                         </div>
                     `;
 
-                    // Load Hebrew date
                     await this.loadHebrewDate();
 
-                    // Load readings in parallel
                     const [weeklyInfo, sefariaCalendar] = await Promise.all([
                         this.loadWeeklyReadings(),
                         this.loadSefariaCalendar()
                     ]);
 
-                    // Render all readings
                     this.renderReadings(weeklyInfo, sefariaCalendar);
 
                 } catch (error) {
@@ -501,8 +497,7 @@
                         throw new Error(`Sefaria API error: ${response.status}`);
                     }
 
-                    const data = await response.json();
-                    return data;
+                    return await response.json();
                 } catch (error) {
                     console.error('Error loading Sefaria calendar:', error);
                     return null;
@@ -512,18 +507,12 @@
             renderReadings(weeklyInfo, sefariaCalendar) {
                 let html = '';
 
-                // Weekly Readings (from HebCal)
                 if (weeklyInfo) {
                     html += this.renderWeeklyCard(weeklyInfo);
                 }
 
-                // Daily Readings (from Sefaria)
                 if (sefariaCalendar && sefariaCalendar.calendar_items) {
                     html += this.renderDailyReadings(sefariaCalendar.calendar_items);
-                }
-
-                // Yearly Cycles (from Sefaria)
-                if (sefariaCalendar && sefariaCalendar.calendar_items) {
                     html += this.renderYearlyReadings(sefariaCalendar.calendar_items);
                 }
 
@@ -533,11 +522,8 @@
             }
 
             renderWeeklyCard(weeklyInfo) {
-                // Extract parashat name and generate link
                 const parashatText = weeklyInfo.parashat || 'N/A';
                 const parashatLink = this.getTorahLink(parashatText);
-
-                // Extract haftarah reference and generate link
                 const haftarahText = weeklyInfo.haftarah || 'N/A';
                 const haftarahLink = this.getHaftarahLink(haftarahText);
 
@@ -564,31 +550,19 @@
                 `;
             }
 
-            /**
-             * Get internal link for a reading reference
-             */
             getInternalLink(displayText, sefariaUrl) {
-                // Try to generate internal link from display text
                 let internalUrl = generateReaderLink(displayText);
 
                 if (internalUrl) {
                     return `<a href="${internalUrl}" class="reading-link">Read in our Tanach →</a>`;
                 }
 
-                // If no internal link, try to extract the reference from Sefaria URL
                 if (!internalUrl && sefariaUrl) {
-                    // Extract reference from URL format:
-                    // - Genesis.5 (chapter only)
-                    // - I_Kings.1.1 (chapter.verse)
-                    // - I_Kings.1.1-31 (chapter.verse-verse)
-                    // - Judges.19.20-20.26 (chapter.verse-chapter.verse)
                     const urlMatch = sefariaUrl.match(/^([^.\/]+)\.(\d+)(?:\.(\d+)(?:-(?:(\d+)\.)?(\d+))?)?$/);
                     if (urlMatch) {
                         const book = urlMatch[1].replace(/_/g, ' ');
                         const chapter = urlMatch[2];
                         const verse = urlMatch[3];
-                        // urlMatch[4] is ending chapter (if cross-chapter range)
-                        // urlMatch[5] is ending verse (for any range)
 
                         if (chapter) {
                             let reference = `${book} ${chapter}`;
@@ -604,23 +578,16 @@
                     }
                 }
 
-                // Check if it's Talmud, Mishnah, or Rambam
                 const jewishTextLink = this.getJewishTextLink(displayText, sefariaUrl);
                 if (jewishTextLink) {
                     return jewishTextLink;
                 }
 
-                // If still no internal link, it's not in our collection
                 return '';
             }
 
-            /**
-             * Get link for Jewish texts (Talmud, Mishnah, Rambam)
-             */
             getJewishTextLink(displayText, sefariaUrl) {
-                // PRIORITY 1: Check Sefaria URL first to determine content type
                 if (sefariaUrl) {
-                    // Rambam URL: Mishneh_Torah,_Foundations_of_the_Torah.5 or Mishneh_Torah,_The_Sanhedrin...3
                     if (sefariaUrl.includes('Mishneh_Torah')) {
                         const match = sefariaUrl.match(/Mishneh_Torah,_([A-Za-z_,]+)\.(\d+)(?:[-\.]?\d+)?/);
                         if (match) {
@@ -628,17 +595,8 @@
                             const chapter = match[2];
                             return `<a href="/rambam.html?book=${book}&chapter=${chapter}" class="reading-link">Lees in onze Rambam →</a>`;
                         }
-                        // Fallback: extract from display text if URL match fails
-                        const rambamMatch = displayText.match(/^(.+?)\s+(\d+)(?::\d+)?(?:-\d+)?$/);
-                        if (rambamMatch) {
-                            let bookName = rambamMatch[1].trim().replace(/^Mishneh Torah,?\s*/i, '');
-                            const chapter = rambamMatch[2];
-                            const bookId = bookName.toLowerCase().replace(/ /g, '_').replace(/'/g, '').replace(/,/g, '');
-                            return `<a href="/rambam.html?book=${bookId}&chapter=${chapter}" class="reading-link">Lees in onze Rambam →</a>`;
-                        }
                     }
 
-                    // Mishnah URL: Mishnah_Berakhot.2.3 or Mishnah_Chullin.7.5-6
                     if (sefariaUrl.includes('Mishnah_')) {
                         const match = sefariaUrl.match(/Mishnah_([A-Za-z_]+)\.(\d+)\.(\d+)(?:-\d+)?/);
                         if (match) {
@@ -648,7 +606,6 @@
                         }
                     }
 
-                    // Talmud URL: Berakhot.35a or Zevachim.61
                     if (sefariaUrl.match(/^[A-Za-z_]+\.\d+[ab]?$/)) {
                         const match = sefariaUrl.match(/^([A-Za-z_]+)\.(\d+)([ab])?$/);
                         if (match) {
@@ -660,9 +617,6 @@
                     }
                 }
 
-                // PRIORITY 2: Pattern matching on display text (when no URL or URL didn't match)
-
-                // Mishnah - format: "Berakhot 2:3" or "Mishna Berakhot 2:3" or "Chullin 7:5-6"
                 let mishnahText = displayText.replace(/^Mishnah?\s+/i, '');
                 const mishnahMatch = mishnahText.match(/^([A-Za-z\s]+)\s+(\d+):(\d+)(?:-\d+)?$/i);
                 if (mishnahMatch) {
@@ -671,7 +625,6 @@
                     return `<a href="/mishnah.html?tractate=${tractate}&chapter=${chapter}" class="reading-link">Lees in onze Mishnah →</a>`;
                 }
 
-                // Rambam - format: "Foundations of the Torah 5" (contains Torah/Mishneh keywords)
                 if (displayText.includes('Torah') || displayText.includes('Mishneh')) {
                     const rambamMatch = displayText.match(/^(.+?)\s+(\d+)(?::\d+)?(?:-\d+)?$/);
                     if (rambamMatch) {
@@ -682,7 +635,6 @@
                     }
                 }
 
-                // Talmud - format: "Berakhot 35" or "Shabbat 12a" (short tractate names)
                 const talmudMatch = displayText.match(/^([A-Za-z\s]+)\s+(\d+)([ab])?$/i);
                 if (talmudMatch) {
                     const tractate = talmudMatch[1].trim().toLowerCase().replace(/ /g, '_');
@@ -694,19 +646,14 @@
                 return '';
             }
 
-            /**
-             * Get link for Torah reading (parashat)
-             */
             getTorahLink(parashatText) {
                 if (!parashatText || parashatText === 'N/A') return '';
 
-                // Try to parse as a direct reference first (e.g., "Genesis 28:10-32:3")
                 const directUrl = generateReaderLink(parashatText);
                 if (directUrl) {
                     return `<a href="${directUrl}" class="reading-link">Read in our Tanach →</a>`;
                 }
 
-                // Try to parse as parashat name (e.g., "Parashat Chayei Sara" or just "Chayei Sara")
                 const parashatInfo = getParashatInfo(parashatText);
                 if (parashatInfo) {
                     const bookInfo = getBookInfo(parashatInfo.book);
@@ -719,13 +666,9 @@
                 return '';
             }
 
-            /**
-             * Get link for Haftarah reading
-             */
             getHaftarahLink(haftarahText) {
                 if (!haftarahText || haftarahText === 'N/A') return '';
 
-                // Try to parse the reference
                 const internalUrl = generateReaderLink(haftarahText);
 
                 if (internalUrl) {
@@ -750,11 +693,9 @@
                 dailyItems.forEach(item => {
                     let linkHtml = '';
 
-                    // Special handling for Chok LeYisrael - it's usually a parashat name
                     if (item.title.en === 'Chok LeYisrael') {
                         linkHtml = this.getTorahLink(item.displayValue.en);
                     } else if (['Daf Yomi', 'Daily Mishnah', 'Daily Rambam'].includes(item.title.en)) {
-                        // Use Jewish text link handler for Talmud, Mishnah, and Rambam
                         linkHtml = this.getJewishTextLink(item.displayValue.en, item.url);
                     } else {
                         linkHtml = this.getInternalLink(item.displayValue.en, item.url);
@@ -801,7 +742,6 @@
             }
         }
 
-        // Initialize app when page loads
         document.addEventListener('DOMContentLoaded', () => {
             new ReadingsApp();
         });
