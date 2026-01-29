@@ -362,11 +362,11 @@ function renderVerses(verses) {
     
     // Force visibility of tab content BEFORE switchTab
     const bothContent = document.getElementById('both-content');
-    const tabContent = document.getElementById('tabContent');
+    const tabContentContainer = document.getElementById('tabContent');
     
-    console.log('[Reader] tabContent element:', tabContent);
-    console.log('[Reader] tabContent style.display:', tabContent?.style.display);
-    console.log('[Reader] tabContent computed display:', window.getComputedStyle(tabContent || document.body).display);
+    console.log('[Reader] tabContentContainer element:', tabContentContainer);
+    console.log('[Reader] tabContentContainer style.display:', tabContentContainer?.style.display);
+    console.log('[Reader] tabContentContainer computed display:', window.getComputedStyle(tabContentContainer || document.body).display);
     
     if (bothContent) {
         bothContent.style.display = 'block';
@@ -378,10 +378,10 @@ function renderVerses(verses) {
         console.log('[Reader] both-content computed visibility:', window.getComputedStyle(bothContent).visibility);
     }
     
-    if (tabContent) {
-        tabContent.style.display = 'block';
-        tabContent.style.visibility = 'visible';
-        console.log('[Reader] Forced tabContent to be visible');
+    if (tabContentContainer) {
+        tabContentContainer.style.display = 'block';
+        tabContentContainer.style.visibility = 'visible';
+        console.log('[Reader] Forced tabContentContainer to be visible');
     }
     
     switchTab('both');
