@@ -598,10 +598,23 @@
                 // Debug: Log method call
                 console.log('[getInternalLink] Called with:', { displayText, sefariaUrl });
                 
-                // Try to generate internal link from display text
+                // Clean display text - remove HTML tags, normalize whitespace
+                let cleanText = displayText;
+                if (cleanText) {
+                    // Remove HTML tags
+                    cleanText = cleanText.replace(/<[^>]+>/g, ' ');
+                    // Decode HTML entities
+                    const textarea = document.createElement('textarea');
+                    textarea.innerHTML = cleanText;
+                    cleanText = textarea.value;
+                    // Normalize whitespace
+                    cleanText = cleanText.replace(/\s+/g, ' ').trim();
+                }
+                
+                // Try to generate internal link from cleaned display text
                 let internalUrl = null;
                 try {
-                    internalUrl = generateReaderLink(displayText);
+                    internalUrl = generateReaderLink(cleanText);
                     console.log('[getInternalLink] generateReaderLink result:', internalUrl);
                 } catch (error) {
                     console.error('[getInternalLink] Error calling generateReaderLink:', error);

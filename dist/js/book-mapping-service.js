@@ -200,18 +200,55 @@ export function getParashatInfo(parashatName) {
 export function parseReference(reference) {
     if (!reference) return null;
 
-    // Clean up the reference
-    reference = reference.trim();
+    // Clean up the reference - handle whitespace, HTML entities, and special characters
+    reference = reference.trim()
+        .replace(/\s+/g, ' ')  // Normalize multiple spaces to single space
+        .replace(/\t/g, ' ')   // Replace tabs with spaces
+        .replace(/\n/g, ' ')   // Replace newlines with spaces
+        .replace(/&nbsp;/g, ' ') // Replace HTML entities
+        .replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .trim();
+    
+    // Check for empty string after cleanup
+    if (!reference || reference.length === 0) {
+        return null;
+    }
+    
+    // Check for obviously invalid patterns
+    if (reference.match(/^[:\d\s-]+$/) || reference.match(/^[\d\s-:]+$/)) {
+        // Only numbers, colons, dashes, spaces - no book name
+        console.warn(`[BookMapping] Invalid reference (no book name): "${reference}"`);
+        return null;
+    }
 
     // Pattern: "Book Chapter:Verse-Chapter:Verse" (cross-chapter range) - e.g., "Judges 4:4-5:31"
     const crossChapterMatch = reference.match(/^(.+?)\s+(\d+):(\d+)-(\d+):(\d+)$/);
     if (crossChapterMatch) {
+        const startChapter = parseInt(crossChapterMatch[2]);
+        const startVerse = parseInt(crossChapterMatch[3]);
+        const endChapter = parseInt(crossChapterMatch[4]);
+        const endVerse = parseInt(crossChapterMatch[5]);
+        
+        // Validate numbers are positive
+        if (startChapter < 1 || startVerse < 1 || endChapter < 1 || endVerse < 1) {
+            console.warn(`[BookMapping] Invalid cross-chapter range (negative or zero): "${reference}"`);
+            return null;
+        }
+        
+        // Validate range is logical (end >= start)
+        if (endChapter < startChapter || (endChapter === startChapter && endVerse < startVerse)) {
+            console.warn(`[BookMapping] Invalid cross-chapter range (reversed): "${reference}"`);
+            return null;
+        }
+        
         // For cross-chapter ranges, use the start chapter and verse
         return {
-            book: crossChapterMatch[1],
-            chapter: parseInt(crossChapterMatch[2]),
-            verseStart: parseInt(crossChapterMatch[3]),
-            verseEnd: parseInt(crossChapterMatch[5])
+            book: crossChapterMatch[1].trim(),
+            chapter: startChapter,
+            verseStart: startVerse,
+            verseEnd: endVerse
         };
     }
 
@@ -368,11 +405,33 @@ export function parseReference(reference) {
         return null;
     }
 
+    const chapterNum = parseInt(match[2]);
+    const verseStart = parseInt(match[3]);
+    const verseEnd = match[4] ? parseInt(match[4]) : null;
+    
+    // Validate numbers are positive
+    if (chapterNum < 1 || verseStart < 1) {
+        console.warn(`[BookMapping] Invalid chapter or verse number (must be >= 1): "${reference}"`);
+        return null;
+    }
+    
+    // Validate verse range if present
+    if (verseEnd !== null) {
+        if (verseEnd < 1) {
+            console.warn(`[BookMapping] Invalid verse end (must be >= 1): "${reference}"`);
+            return null;
+        }
+        if (verseEnd < verseStart) {
+            console.warn(`[BookMapping] Invalid verse range (reversed): "${reference}"`);
+            return null;
+        }
+    }
+    
     return {
-        book: match[1],
-        chapter: parseInt(match[2]),
-        verseStart: parseInt(match[3]),
-        verseEnd: match[4] ? parseInt(match[4]) : null
+        book: match[1].trim(),
+        chapter: chapterNum,
+        verseStart: verseStart,
+        verseEnd: verseEnd
     };
 }
 
