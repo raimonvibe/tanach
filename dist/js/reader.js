@@ -16,31 +16,45 @@ let showVerseNumbers = false;
  * Initialize the reader on page load
  */
 async function init() {
+    console.log('[Reader] init() called');
+    console.log('[Reader] Current URL:', window.location.href);
+    
     const params = new URLSearchParams(window.location.search);
     const book = params.get('book');
     const category = params.get('category');
     const chapter = params.get('chapter');
     const verse = params.get('verse');
+    
+    console.log('[Reader] URL parameters:', { book, category, chapter, verse });
 
     if (book && category) {
+        console.log('[Reader] Loading book:', book, 'category:', category);
         await loadBook(book, category);
         if (chapter) {
             currentChapter = parseInt(chapter);
+            console.log('[Reader] Loading chapter:', currentChapter);
             await loadChapter(currentChapter);
             // Scroll to verse if specified
             if (verse) {
+                console.log('[Reader] Scrolling to verse:', verse);
                 setTimeout(() => {
                     const verseElement = document.querySelector(`[data-verse="${verse}"]`);
                     if (verseElement) {
+                        console.log('[Reader] Verse element found, scrolling');
                         verseElement.scrollIntoView({ behavior: 'smooth' });
                         verseElement.style.backgroundColor = '#fff3cd';
+                    } else {
+                        console.warn('[Reader] Verse element not found:', verse);
                     }
                 }, 500);
             }
         }
     } else {
+        console.log('[Reader] No book/category in URL, loading book selector');
         await loadBookSelector();
     }
+    
+    console.log('[Reader] init() completed');
 
     // Handle browser back/forward buttons
     window.addEventListener('popstate', async (event) => {
