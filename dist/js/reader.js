@@ -171,16 +171,32 @@ async function loadChapter(chapterNum) {
         });
 
         // Update navigation buttons
-        document.getElementById('prevChapter').disabled = chapterNum <= 1;
-        document.getElementById('nextChapter').disabled = chapterNum >= currentBook.chapters.length;
+        const prevBtn = document.getElementById('prevChapter');
+        const nextBtn = document.getElementById('nextChapter');
+        if (prevBtn) prevBtn.disabled = chapterNum <= 1;
+        if (nextBtn) nextBtn.disabled = chapterNum >= currentBook.chapters.length;
 
         // Render verses
-        renderVerses(chapterData.chapter.verses);
+        console.log('[Reader] Rendering verses, count:', chapterData.chapter.verses ? chapterData.chapter.verses.length : 0);
+        if (chapterData.chapter.verses && chapterData.chapter.verses.length > 0) {
+            renderVerses(chapterData.chapter.verses);
+        } else {
+            console.warn('[Reader] No verses found in chapter data');
+            const tabContent = document.getElementById('tabContent');
+            if (tabContent) {
+                tabContent.innerHTML = '<div class="error">Geen verzen gevonden in dit hoofdstuk</div>';
+            }
+        }
 
         // Update URL without reloading
         updateURL(chapterNum);
+        console.log('[Reader] loadChapter() completed successfully');
     } catch (error) {
-        console.error('Error loading chapter:', error);
+        console.error('[Reader] Error loading chapter:', error);
+        const tabContent = document.getElementById('tabContent');
+        if (tabContent) {
+            tabContent.innerHTML = `<div class="error">Fout bij laden hoofdstuk: ${error.message}</div>`;
+        }
     }
 }
 
@@ -196,7 +212,16 @@ function renderVerses(verses) {
     englishVerses.innerHTML = '';
     bothVerses.innerHTML = '';
 
-    verses.forEach(verse => {
+    if (!verses || verses.length === 0) {
+        console.warn('[Reader] No verses to render');
+        hebrewVerses.innerHTML = '<div class="loading">Geen verzen gevonden</div>';
+        englishVerses.innerHTML = '<div class="loading">Geen verzen gevonden</div>';
+        bothVerses.innerHTML = '<div class="loading">Geen verzen gevonden</div>';
+        return;
+    }
+    
+    verses.forEach((verse, index) => {
+        console.log(`[Reader] Rendering verse ${index + 1}/${verses.length}:`, verse.verse);
         const verseNumberClass = showVerseNumbers ? '' : 'hidden';
 
         // Hebrew tab
@@ -205,7 +230,7 @@ function renderVerses(verses) {
         hebrewDiv.setAttribute('data-verse', verse.verse);
         hebrewDiv.innerHTML = `
             <span class="verse-number ${verseNumberClass}">${verse.verse}</span>
-            <span class="hebrew-text">${verse.translations.hebrew}</span>
+            <span class="hebrew-text">${verse.translations?.hebrew || verse.hebrew || ''}</span>
         `;
         hebrewVerses.appendChild(hebrewDiv);
 
@@ -215,7 +240,7 @@ function renderVerses(verses) {
         englishDiv.setAttribute('data-verse', verse.verse);
         englishDiv.innerHTML = `
             <span class="verse-number ${verseNumberClass}">${verse.verse}</span>
-            <span class="english-text">${verse.translations.english}</span>
+            <span class="english-text">${verse.translations?.english || verse.english || ''}</span>
         `;
         englishVerses.appendChild(englishDiv);
 
@@ -226,14 +251,18 @@ function renderVerses(verses) {
         bothDiv.innerHTML = `
             <div style="margin-bottom: 10px;">
                 <span class="verse-number ${verseNumberClass}">${verse.verse}</span>
-                <span class="hebrew-text">${verse.translations.hebrew}</span>
+                <span class="hebrew-text">${verse.translations?.hebrew || verse.hebrew || ''}</span>
             </div>
             <div>
-                <span class="english-text">${verse.translations.english}</span>
+                <span class="english-text">${verse.translations?.english || verse.english || ''}</span>
             </div>
         `;
         bothVerses.appendChild(bothDiv);
     });
+    
+    // Set default tab to "both"
+    switchTab('both');
+    console.log('[Reader] renderVerses() completed, rendered', verses.length, 'verses');
 }
 
 /**

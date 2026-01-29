@@ -157,12 +157,63 @@
 
         <div id="contentArea" class="content-area" style="display: none;">
             <div class="language-tabs">
-                <button class="tab active" data-tab="hebrew">Hebreeuws</button>
-                <button class="tab active" data-tab="english">Engels</button>
-                <button class="tab active" data-tab="both">Beide</button>
+                <button class="tab active" data-tab="hebrew" onclick="switchTab('hebrew')">Hebreeuws</button>
+                <button class="tab active" data-tab="english" onclick="switchTab('english')">Engels</button>
+                <button class="tab active" data-tab="both" onclick="switchTab('both')">Beide</button>
             </div>
             <div id="tabContent" class="tab-content active"></div>
         </div>
     </div>
+    <script>
+        // Add event listeners after DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('[Reader HTML] DOM loaded, setting up event listeners');
+            
+            // Book selector change event
+            const bookSelector = document.getElementById('bookSelector');
+            if (bookSelector) {
+                bookSelector.addEventListener('change', () => {
+                    console.log('[Reader HTML] Book selector changed');
+                    if (window.changeBook) {
+                        window.changeBook();
+                    }
+                });
+            }
+            
+            // Previous/Next chapter buttons
+            const prevBtn = document.getElementById('prevChapter');
+            if (prevBtn) {
+                prevBtn.addEventListener('click', () => {
+                    console.log('[Reader HTML] Previous chapter clicked');
+                    if (window.changeChapter) {
+                        window.changeChapter(-1);
+                    }
+                });
+            }
+            
+            const nextBtn = document.getElementById('nextChapter');
+            if (nextBtn) {
+                nextBtn.addEventListener('click', () => {
+                    console.log('[Reader HTML] Next chapter clicked');
+                    if (window.changeChapter) {
+                        window.changeChapter(1);
+                    }
+                });
+            }
+            
+            // Toggle verse numbers button
+            const toggleBtn = document.getElementById('toggleVerseNumbers');
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', () => {
+                    console.log('[Reader HTML] Toggle verse numbers clicked');
+                    if (window.toggleVerseNumbers) {
+                        window.toggleVerseNumbers();
+                    }
+                });
+            }
+            
+            console.log('[Reader HTML] Event listeners setup complete');
+        });
+    </script>
 </body>
 </html>
