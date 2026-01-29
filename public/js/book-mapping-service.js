@@ -224,21 +224,76 @@ export function parseReference(reference) {
         if (sederMatch) {
             // Approximate: each seder is roughly a chapter or portion
             let bookName = sederMatch[1].trim();
-            // Handle "Kings" -> "I Kings" (default to I Kings for Tanakh Yomi)
+            const sederNum = parseInt(sederMatch[2]);
+            
+            // Handle "Kings" - Seder numbers span across I Kings (22 chapters) and II Kings (25 chapters)
             if (bookName === 'Kings') {
-                bookName = 'I Kings';
+                // I Kings has 22 chapters, so Seder 1-22 are I Kings, Seder 23+ are II Kings
+                if (sederNum <= 22) {
+                    bookName = 'I Kings';
+                    return {
+                        book: bookName,
+                        chapter: sederNum,
+                        verseStart: 1,
+                        verseEnd: null
+                    };
+                } else {
+                    bookName = 'II Kings';
+                    return {
+                        book: bookName,
+                        chapter: sederNum - 22, // Seder 23 = II Kings chapter 1, Seder 30 = II Kings chapter 8
+                        verseStart: 1,
+                        verseEnd: null
+                    };
+                }
             }
-            // Handle "Samuel" -> "I Samuel" (default to I Samuel for Tanakh Yomi)
+            
+            // Handle "Samuel" - I Samuel has 31 chapters, II Samuel has 24 chapters
             if (bookName === 'Samuel') {
-                bookName = 'I Samuel';
+                if (sederNum <= 31) {
+                    bookName = 'I Samuel';
+                    return {
+                        book: bookName,
+                        chapter: sederNum,
+                        verseStart: 1,
+                        verseEnd: null
+                    };
+                } else {
+                    bookName = 'II Samuel';
+                    return {
+                        book: bookName,
+                        chapter: sederNum - 31, // Seder 32 = II Samuel chapter 1
+                        verseStart: 1,
+                        verseEnd: null
+                    };
+                }
             }
-            // Handle "Chronicles" -> "I Chronicles" (default to I Chronicles for Tanakh Yomi)
+            
+            // Handle "Chronicles" - I Chronicles has 29 chapters, II Chronicles has 36 chapters
             if (bookName === 'Chronicles') {
-                bookName = 'I Chronicles';
+                if (sederNum <= 29) {
+                    bookName = 'I Chronicles';
+                    return {
+                        book: bookName,
+                        chapter: sederNum,
+                        verseStart: 1,
+                        verseEnd: null
+                    };
+                } else {
+                    bookName = 'II Chronicles';
+                    return {
+                        book: bookName,
+                        chapter: sederNum - 29, // Seder 30 = II Chronicles chapter 1
+                        verseStart: 1,
+                        verseEnd: null
+                    };
+                }
             }
+            
+            // Default: treat seder as chapter number
             return {
                 book: bookName,
-                chapter: parseInt(sederMatch[2]),
+                chapter: sederNum,
                 verseStart: 1,
                 verseEnd: null
             };
