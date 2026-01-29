@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Tanach Links</title>
+</head>
+<body>
+    <h1>Test Tanach Links</h1>
+    <div id="test-results"></div>
+    <script type="module">
+        import { generateReaderLink, getParashatInfo, getBookInfo } from './dist/js/book-mapping-service.js';
+        
+        const tests = [
+            'Judges 4:4-5:31',
+            'Kings Seder 30',
+            'Beshalach',
+            'Song of Songs',
+            'Leviticus 20 (110)'
+        ];
+        
+        const results = document.getElementById('test-results');
+        let html = '<ul>';
+        
+        tests.forEach(test => {
+            let link = null;
+            if (test === 'Beshalach') {
+                const parashatInfo = getParashatInfo(test);
+                if (parashatInfo) {
+                    const bookInfo = getBookInfo(parashatInfo.book);
+                    if (bookInfo) {
+                        link = `/reader.html?book=${bookInfo.id}&category=${bookInfo.category}&chapter=${parashatInfo.chapter}`;
+                    }
+                }
+            } else {
+                link = generateReaderLink(test);
+            }
+            
+            html += `<li><strong>${test}</strong>: ${link || 'NULL'}`;
+            if (link) {
+                html += ` <a href="${link}" target="_blank">Test Link</a>`;
+            }
+            html += '</li>';
+        });
+        
+        html += '</ul>';
+        results.innerHTML = html;
+    </script>
+</body>
+</html>

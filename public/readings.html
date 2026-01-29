@@ -570,6 +570,11 @@
             getInternalLink(displayText, sefariaUrl) {
                 // Try to generate internal link from display text
                 let internalUrl = generateReaderLink(displayText);
+                
+                // Debug logging
+                if (!internalUrl && displayText) {
+                    console.log('[getInternalLink] Failed to generate link for:', displayText);
+                }
 
                 if (internalUrl) {
                     return `<a href="${internalUrl}" class="reading-link">Read in our Tanach →</a>`;
@@ -727,6 +732,11 @@
 
                 // Try to parse the reference
                 const internalUrl = generateReaderLink(haftarahText);
+                
+                // Debug logging
+                if (!internalUrl && haftarahText) {
+                    console.log('[getHaftarahLink] Failed to generate link for:', haftarahText);
+                }
 
                 if (internalUrl) {
                     return `<a href="${internalUrl}" class="reading-link">Read in our Tanach →</a>`;
