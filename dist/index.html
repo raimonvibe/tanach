@@ -479,9 +479,6 @@
             }
         }
     </style>
-  <script type="module" crossorigin src="/assets/main-rLNTj5bA.js"></script>
-  <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
-  <link rel="modulepreload" crossorigin href="/assets/books-service-vJX1l1bK.js">
 </head>
 <body>
     <div class="container">
@@ -519,6 +516,243 @@
         </div>
     </div>
 
+    <script type="module">
+        import { getAllBooks, searchBooks } from './js/books-service.js';
+
+        // Load statistics
+        async function loadStats() {
+            try {
+                const books = await getAllBooks();
+
+                const totalBooks = books.length;
+                const totalChapters = books.reduce((sum, book) => sum + book.chapters.length, 0);
+                const totalVerses = books.reduce((sum, book) =>
+                    sum + book.chapters.reduce((chSum, chapter) => chSum + chapter.verses.length, 0), 0);
+
+                document.getElementById('stats').innerHTML = `
+                    <h3>📊 Tanach Statistieken</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number">${totalBooks}</div>
+                            <div class="stat-label">Boeken</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">${totalChapters}</div>
+                            <div class="stat-label">Hoofdstukken</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">${totalVerses.toLocaleString()}</div>
+                            <div class="stat-label">Verzen</div>
+                        </div>
+                    </div>
+                `;
+            } catch (error) {
+                document.getElementById('stats').innerHTML = `
+                    <div class="error">Kon statistieken niet laden: ${error.message}</div>
+                `;
+            }
+        }
+
+        // Load categories and books
+        async function loadCategories() {
+            try {
+                const books = await getAllBooks();
+
+                // Group books by category
+                const structure = {
+                    torah: {
+                        name: 'Torah (De Vijf Boeken van Mozes)',
+                        description: 'De eerste vijf boeken van de Tanach',
+                        books: []
+                    },
+                    neviim: {
+                        name: 'Nevi\'im (De Profeten)',
+                        description: 'De historische en profetische boeken',
+                        books: []
+                    },
+                    trei_asara: {
+                        name: 'Trei Asar (De Twaalf Kleine Profeten)',
+                        description: 'De twaalf kleine profeten',
+                        books: []
+                    },
+                    ketuvim: {
+                        name: 'Ketuvim (De Geschriften)',
+                        description: 'De wijsheid, poëzie en historische boeken',
+                        books: []
+                    }
+                };
+
+                // Group books by their category
+                books.forEach(book => {
+                    if (structure[book.category]) {
+                        structure[book.category].books.push({
+                            id: book.id,
+                            name: book.name,
+                            chapters: book.chapters.length
+                        });
+                    }
+                });
+
+                let html = '';
+                for (const [categoryKey, category] of Object.entries(structure)) {
+                    if (category.books.length > 0) {
+                        html += `
+                            <div class="category">
+                                <h3>${category.name}</h3>
+                                <p>${category.description}</p>
+                                <ul class="books-list">
+                                    ${category.books.map(book => `
+                                        <li>
+                                            <a href="/reader.html?book=${book.id}&category=${categoryKey}">
+                                                ${book.name} (${book.chapters} hoofdstukken)
+                                            </a>
+                                        </li>
+                                    `).join('')}
+                                </ul>
+                            </div>
+                        `;
+                    }
+                }
+
+                document.getElementById('categories').innerHTML = html;
+            } catch (error) {
+                document.getElementById('categories').innerHTML = `
+                    <div class="error">Kon boeken niet laden: ${error.message}</div>
+                `;
+            }
+        }
+
+        // Function to highlight search term in text
+        function highlightText(text, searchTerm) {
+            if (!searchTerm) return text;
+            const regex = new RegExp(`(${searchTerm})`, 'gi');
+            return text.replace(regex, '<span class="highlight">$1</span>');
+        }
+
+        // Function to show loading state
+        function showLoading() {
+            const resultsDiv = document.getElementById('searchResults');
+            resultsDiv.innerHTML = `
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p style="margin-top: 15px; color: #666;">Aan het zoeken...</p>
+                </div>
+            `;
+        }
+
+        // Function to show search results
+        function displayResults(results, query) {
+            const resultsDiv = document.getElementById('searchResults');
+
+            if (results.length === 0) {
+                resultsDiv.innerHTML = `
+                    <div class="search-message error">
+                        <h3>❌ Geen resultaten gevonden</h3>
+                        <p>We konden geen verzen vinden die overeenkomen met "${query}".</p>
+                        <p style="margin-top: 10px; font-size: 0.9rem;">Tip: Probeer verschillende spellingen of kortere zoektermen.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Limit results to first 100 for display
+            const displayResults = results.slice(0, 100);
+            const hasMore = results.length > 100;
+
+            let html = `
+                <div class="results-count">
+                    ✅ ${results.length}${results.length >= 500 ? '+' : ''} resultaten gevonden voor "${query}"
+                    ${hasMore ? `<br><small style="color: #999;">(Eerste 100 worden weergegeven)</small>` : ''}
+                    ${results.length >= 500 ? `<br><small style="color: #999;">⚠️ Maximaal 500 resultaten - verfijn je zoekopdracht voor meer specifieke resultaten</small>` : ''}
+                </div>
+            `;
+
+            displayResults.forEach(result => {
+                const hebrewHighlighted = highlightText(result.text.hebrew, query);
+                const englishHighlighted = highlightText(result.text.english, query);
+
+                html += `
+                    <div class="result-item" onclick="goToVerse('${result.book.id}', '${result.book.category}', ${result.chapter}, ${result.verse})">
+                        <div class="result-header">
+                            <span class="result-book">${result.book.name}</span>
+                            <span class="result-location">Hoofdstuk ${result.chapter}, Vers ${result.verse}</span>
+                        </div>
+                        <div class="result-text">
+                            <div class="result-hebrew">${hebrewHighlighted}</div>
+                            <div class="result-english">${englishHighlighted}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            resultsDiv.innerHTML = html;
+
+            // Scroll to results
+            resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Function to navigate to a specific verse
+        function goToVerse(bookId, category, chapter, verse) {
+            window.location.href = `/reader.html?book=${bookId}&category=${category}&chapter=${chapter}&verse=${verse}`;
+        }
+
+        // Search functionality
+        document.getElementById('searchForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const query = document.getElementById('searchInput').value.trim();
+            const searchBtn = document.getElementById('searchBtn');
+            const resultsDiv = document.getElementById('searchResults');
+
+            if (!query) {
+                resultsDiv.innerHTML = `
+                    <div class="search-message info">
+                        <p>💡 Voer een zoekterm in om te beginnen met zoeken.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            try {
+                // Disable button and show loading
+                searchBtn.disabled = true;
+                searchBtn.textContent = 'Zoeken...';
+                showLoading();
+
+                const results = await searchBooks(query);
+
+                // Convert results to match the display format
+                const formattedResults = results.map(result => ({
+                    book: { id: result.bookId, name: result.book, category: result.category },
+                    chapter: result.chapter,
+                    verse: result.verse,
+                    text: { hebrew: result.hebrew, english: result.english }
+                }));
+
+                displayResults(formattedResults, query);
+
+            } catch (error) {
+                const resultsDiv = document.getElementById('searchResults');
+                resultsDiv.innerHTML = `
+                    <div class="search-message error">
+                        <h3>⚠️ Er is een fout opgetreden</h3>
+                        <p>${error.message}</p>
+                        <p style="margin-top: 10px; font-size: 0.9rem;">Probeer het opnieuw of neem contact op als het probleem aanhoudt.</p>
+                    </div>
+                `;
+            } finally {
+                // Re-enable button
+                searchBtn.disabled = false;
+                searchBtn.textContent = 'Zoeken';
+            }
+        });
+
+        // Make functions globally accessible for onclick handlers
+        window.goToVerse = goToVerse;
+
+        // Load page
+        loadStats();
+        loadCategories();
+    </script>
 </body>
 </html>
 
