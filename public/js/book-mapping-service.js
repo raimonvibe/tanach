@@ -3,6 +3,8 @@
  * Maps Sefaria book names to internal book IDs and provides link generation
  */
 
+import { getBook, getChapter } from './books-service.js';
+
 // Comprehensive mapping of Sefaria book names to internal book structure
 const BOOK_MAPPING = {
     // Torah

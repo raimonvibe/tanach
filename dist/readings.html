@@ -614,7 +614,8 @@
                 // Try to generate internal link from cleaned display text
                 let internalUrl = null;
                 try {
-                    internalUrl = generateReaderLink(cleanText);
+                    // generateReaderLink is now async, so we need to await it
+                    internalUrl = await generateReaderLink(cleanText);
                     console.log('[getInternalLink] generateReaderLink result:', internalUrl);
                 } catch (error) {
                     console.error('[getInternalLink] Error calling generateReaderLink:', error);
@@ -770,11 +771,11 @@
             /**
              * Get link for Torah reading (parashat)
              */
-            getTorahLink(parashatText) {
+            async getTorahLink(parashatText) {
                 if (!parashatText || parashatText === 'N/A') return '';
 
                 // Try to parse as a direct reference first (e.g., "Genesis 28:10-32:3")
-                const directUrl = generateReaderLink(parashatText);
+                const directUrl = await generateReaderLink(parashatText);
                 if (directUrl) {
                     return `<a href="${directUrl}" class="reading-link">Read in our Tanach →</a>`;
                 }
@@ -795,11 +796,11 @@
             /**
              * Get link for Haftarah reading
              */
-            getHaftarahLink(haftarahText) {
+            async getHaftarahLink(haftarahText) {
                 if (!haftarahText || haftarahText === 'N/A') return '';
 
                 // Try to parse the reference
-                const internalUrl = generateReaderLink(haftarahText);
+                const internalUrl = await generateReaderLink(haftarahText);
                 
                 // Debug logging
                 if (!internalUrl && haftarahText) {
@@ -872,7 +873,7 @@
                             ${internalLink}
                         </div>
                     `;
-                });
+                }
 
                 html += `</div>`;
                 return html;
