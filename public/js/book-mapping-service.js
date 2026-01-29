@@ -203,7 +203,19 @@ export function parseReference(reference) {
     // Clean up the reference
     reference = reference.trim();
 
-    // Pattern: "Book Chapter:Verse" or "Book Chapter:Verse-Verse"
+    // Pattern: "Book Chapter:Verse-Chapter:Verse" (cross-chapter range) - e.g., "Judges 4:4-5:31"
+    const crossChapterMatch = reference.match(/^(.+?)\s+(\d+):(\d+)-(\d+):(\d+)$/);
+    if (crossChapterMatch) {
+        // For cross-chapter ranges, use the start chapter and verse
+        return {
+            book: crossChapterMatch[1],
+            chapter: parseInt(crossChapterMatch[2]),
+            verseStart: parseInt(crossChapterMatch[3]),
+            verseEnd: parseInt(crossChapterMatch[5])
+        };
+    }
+
+    // Pattern: "Book Chapter:Verse" or "Book Chapter:Verse-Verse" (same chapter)
     const match = reference.match(/^(.+?)\s+(\d+):(\d+)(?:-(\d+))?$/);
 
     if (!match) {
