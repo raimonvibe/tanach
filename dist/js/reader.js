@@ -456,9 +456,18 @@ window.toggleVerseNumbers = toggleVerseNumbers;
 window.switchTab = switchTab;
 
 // Initialize when DOM is ready
+console.log('[Reader] Script loaded, readyState:', document.readyState);
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+    console.log('[Reader] Adding DOMContentLoaded listener');
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('[Reader] DOMContentLoaded fired, calling init()');
+        init();
+    });
 } else {
-    init();
+    console.log('[Reader] DOM already ready, calling init() immediately');
+    // Use setTimeout to ensure all scripts are loaded
+    setTimeout(() => {
+        init();
+    }, 0);
 }
 
