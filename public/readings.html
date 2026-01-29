@@ -538,22 +538,22 @@
                 }
             }
 
-            renderReadings(weeklyInfo, sefariaCalendar) {
+            async renderReadings(weeklyInfo, sefariaCalendar) {
                 let html = '';
 
                 // Weekly Readings (from HebCal)
                 if (weeklyInfo) {
-                    html += this.renderWeeklyCard(weeklyInfo);
+                    html += await this.renderWeeklyCard(weeklyInfo);
                 }
 
                 // Daily Readings (from Sefaria)
                 if (sefariaCalendar && sefariaCalendar.calendar_items) {
-                    html += this.renderDailyReadings(sefariaCalendar.calendar_items);
+                    html += await this.renderDailyReadings(sefariaCalendar.calendar_items);
                 }
 
                 // Yearly Cycles (from Sefaria)
                 if (sefariaCalendar && sefariaCalendar.calendar_items) {
-                    html += this.renderYearlyReadings(sefariaCalendar.calendar_items);
+                    html += await this.renderYearlyReadings(sefariaCalendar.calendar_items);
                 }
 
                 document.getElementById('readingsContainer').innerHTML = html || `
