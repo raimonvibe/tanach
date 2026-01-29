@@ -204,13 +204,53 @@ async function loadChapter(chapterNum) {
  * Render verses in all three tabs
  */
 function renderVerses(verses) {
-    const hebrewVerses = document.getElementById('hebrewVerses');
-    const englishVerses = document.getElementById('englishVerses');
-    const bothVerses = document.getElementById('bothVerses');
+    console.log('[Reader] renderVerses() called with', verses ? verses.length : 0, 'verses');
+    
+    // Get or create tab content divs
+    const tabContent = document.getElementById('tabContent');
+    if (!tabContent) {
+        console.error('[Reader] tabContent element not found!');
+        return;
+    }
+    
+    let hebrewVerses = document.getElementById('hebrew-content');
+    let englishVerses = document.getElementById('english-content');
+    let bothVerses = document.getElementById('both-content');
+    
+    // Create tab content divs if they don't exist
+    if (!hebrewVerses) {
+        hebrewVerses = document.createElement('div');
+        hebrewVerses.id = 'hebrew-content';
+        hebrewVerses.className = 'tab-content';
+        tabContent.appendChild(hebrewVerses);
+    }
+    
+    if (!englishVerses) {
+        englishVerses = document.createElement('div');
+        englishVerses.id = 'english-content';
+        englishVerses.className = 'tab-content';
+        tabContent.appendChild(englishVerses);
+    }
+    
+    if (!bothVerses) {
+        bothVerses = document.createElement('div');
+        bothVerses.id = 'both-content';
+        bothVerses.className = 'tab-content';
+        tabContent.appendChild(bothVerses);
+    }
 
+    // Clear existing content
     hebrewVerses.innerHTML = '';
     englishVerses.innerHTML = '';
     bothVerses.innerHTML = '';
+    
+    if (!verses || verses.length === 0) {
+        console.warn('[Reader] No verses to render');
+        hebrewVerses.innerHTML = '<div class="loading">Geen verzen gevonden</div>';
+        englishVerses.innerHTML = '<div class="loading">Geen verzen gevonden</div>';
+        bothVerses.innerHTML = '<div class="loading">Geen verzen gevonden</div>';
+        return;
+    }
 
     if (!verses || verses.length === 0) {
         console.warn('[Reader] No verses to render');
