@@ -251,14 +251,6 @@ function renderVerses(verses) {
         bothVerses.innerHTML = '<div class="loading">Geen verzen gevonden</div>';
         return;
     }
-
-    if (!verses || verses.length === 0) {
-        console.warn('[Reader] No verses to render');
-        hebrewVerses.innerHTML = '<div class="loading">Geen verzen gevonden</div>';
-        englishVerses.innerHTML = '<div class="loading">Geen verzen gevonden</div>';
-        bothVerses.innerHTML = '<div class="loading">Geen verzen gevonden</div>';
-        return;
-    }
     
     verses.forEach((verse, index) => {
         console.log(`[Reader] Rendering verse ${index + 1}/${verses.length}:`, verse.verse);
