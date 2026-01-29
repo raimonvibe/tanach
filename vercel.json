@@ -14,6 +14,10 @@
     {
       "source": "/calendar",
       "destination": "/calendar.html"
+    },
+    {
+      "source": "/readings",
+      "destination": "/readings.html"
     }
   ]
 }
