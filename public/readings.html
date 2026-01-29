@@ -378,8 +378,19 @@
     </div>
 
     <script type="module">
+        // Debug: Log that script is loading
+        console.log('[ReadingsApp] Script loading...');
+        
         import { getWeeklyInfo, getHebrewDate } from './js/hebcal-service.js';
         import { generateReaderLink, parseReference, getBookInfo, getParashatInfo } from './js/book-mapping-service.js';
+        
+        // Debug: Log that imports succeeded
+        console.log('[ReadingsApp] Imports loaded:', {
+            generateReaderLink: typeof generateReaderLink,
+            parseReference: typeof parseReference,
+            getBookInfo: typeof getBookInfo,
+            getParashatInfo: typeof getParashatInfo
+        });
 
         class ReadingsApp {
             constructor() {
@@ -568,8 +579,17 @@
              * Get internal link for a reading reference
              */
             getInternalLink(displayText, sefariaUrl) {
+                // Debug: Log method call
+                console.log('[getInternalLink] Called with:', { displayText, sefariaUrl });
+                
                 // Try to generate internal link from display text
-                let internalUrl = generateReaderLink(displayText);
+                let internalUrl = null;
+                try {
+                    internalUrl = generateReaderLink(displayText);
+                    console.log('[getInternalLink] generateReaderLink result:', internalUrl);
+                } catch (error) {
+                    console.error('[getInternalLink] Error calling generateReaderLink:', error);
+                }
                 
                 // Debug logging
                 if (!internalUrl && displayText) {
