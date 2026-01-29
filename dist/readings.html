@@ -596,7 +596,7 @@
             /**
              * Get internal link for a reading reference
              */
-            getInternalLink(displayText, sefariaUrl) {
+            async getInternalLink(displayText, sefariaUrl) {
                 // Debug: Log method call
                 console.log('[getInternalLink] Called with:', { displayText, sefariaUrl });
                 
@@ -669,7 +669,7 @@
                                     }
                                 }
                                 
-                                internalUrl = generateReaderLink(reference);
+                                internalUrl = await generateReaderLink(reference);
                                 if (internalUrl) {
                                     return `<a href="${internalUrl}" class="reading-link">Read in our Tanach →</a>`;
                                 }
