@@ -437,25 +437,116 @@ export function parseReference(reference) {
     };
 }
 
+// Book chapter limits for validation
+const BOOK_CHAPTER_LIMITS = {
+    'bereshit': 50,
+    'shemot': 40,
+    'vayikra': 27,
+    'bamidbar': 36,
+    'devarim': 34,
+    'yehoshua': 24,
+    'shoftim': 21,
+    'shmuel1': 31,
+    'shmuel2': 24,
+    'melachim1': 22,
+    'melachim2': 25,
+    'yeshayahu': 66,
+    'yirmeyahu': 52,
+    'yechezkel': 48,
+    'hoshea': 14,
+    'yoel': 4,
+    'amos': 9,
+    'ovadya': 1,
+    'yona': 4,
+    'michah': 7,
+    'nachum': 3,
+    'chavakuk': 3,
+    'tzefanya': 3,
+    'chagai': 2,
+    'zecharya': 14,
+    'malachi': 3,
+    'tehillim': 150,
+    'mishlei': 31,
+    'iyov': 42,
+    'shir_hashirim': 8,
+    'rut': 4,
+    'eicha': 5,
+    'kohelet': 12,
+    'esther': 10,
+    'daniel': 12,
+    'ezra': 10,
+    'nechemya': 13,
+    'divrei_hayamim1': 29,
+    'divrei_hayamim2': 36
+};
+
 /**
  * Generate internal reader link from Sefaria reference
  * @param {string} reference - Sefaria style reference like "Genesis 1:1" or "Exodus 12:1-10"
- * @returns {string|null} - Internal link URL or null if not found
+ * @returns {Promise<string|null>} - Internal link URL or null if not found
  */
-export function generateReaderLink(reference) {
+export async function generateReaderLink(reference) {
     const parsed = parseReference(reference);
     if (!parsed) return null;
 
     const bookInfo = getBookInfo(parsed.book);
     if (!bookInfo) return null;
 
-    // Build the URL
-    let url = `/reader.html?book=${bookInfo.id}&category=${bookInfo.category}`;
+    // Validate chapter number
+    if (parsed.chapter) {
+        const maxChapters = BOOK_CHAPTER_LIMITS[bookInfo.id];
+        if (maxChapters && (parsed.chapter < 1 || parsed.chapter > maxChapters)) {
+            console.warn(`[BookMapping] Chapter ${parsed.chapter} is out of range for ${bookInfo.name} (1-${maxChapters})`);
+            return null; // Invalid chapter number
+        }
+    }
+    
+    // Validate verse numbers if present (basic check)
+    if (parsed.verseStart && parsed.verseStart < 1) {
+        console.warn(`[BookMapping] Verse start ${parsed.verseStart} is invalid (must be >= 1)`);
+        return null;
+    }
+    if (parsed.verseEnd && parsed.verseEnd < 1) {
+        console.warn(`[BookMapping] Verse end ${parsed.verseEnd} is invalid (must be >= 1)`);
+        return null;
+    }
+    if (parsed.verseStart && parsed.verseEnd && parsed.verseEnd < parsed.verseStart) {
+        console.warn(`[BookMapping] Verse range is reversed: ${parsed.verseStart}-${parsed.verseEnd}`);
+        return null;
+    }
+    
+    // Validate verse numbers against actual book data if chapter and verses are specified
+    if (parsed.chapter && parsed.verseStart) {
+        try {
+            const chapterData = await getChapter(bookInfo.category, bookInfo.id, parsed.chapter);
+            if (chapterData && chapterData.chapter && chapterData.chapter.verses) {
+                const verses = chapterData.chapter.verses;
+                const maxVerse = verses.length > 0 ? verses[verses.length - 1].verse : 0;
+                
+                // Validate verse start
+                if (parsed.verseStart > maxVerse) {
+                    console.warn(`[BookMapping] Verse ${parsed.verseStart} is out of range for ${bookInfo.name} chapter ${parsed.chapter} (max: ${maxVerse})`);
+                    return null;
+                }
+                
+                // Validate verse end if present (same chapter)
+                if (parsed.verseEnd && parsed.verseEnd > maxVerse) {
+                    console.warn(`[BookMapping] Verse end ${parsed.verseEnd} is out of range for ${bookInfo.name} chapter ${parsed.chapter} (max: ${maxVerse})`);
+                    return null;
+                }
+            }
+        } catch (error) {
+            // If we can't load the chapter data, continue anyway (might be network issue)
+            console.warn(`[BookMapping] Could not validate verses against book data:`, error);
+            // Don't fail the link generation, just skip verse validation
+        }
+    }
 
+    // Build the URL - encode to handle special characters
+    let url = `/reader.html?book=${encodeURIComponent(bookInfo.id)}&category=${encodeURIComponent(bookInfo.category)}`;
     if (parsed.chapter) {
         url += `&chapter=${parsed.chapter}`;
     }
-
     if (parsed.verseStart) {
         url += `&verse=${parsed.verseStart}`;
     }
