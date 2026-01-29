@@ -190,8 +190,11 @@ async function loadBook(bookId, category) {
             contentArea.style.display = 'block';
         }
 
-        // Load first chapter if no chapter specified
-        if (!currentChapter || currentChapter < 1) {
+        // Load chapter - either from URL or first chapter
+        if (currentChapter && currentChapter >= 1 && currentChapter <= currentBook.chapters.length) {
+            console.log('[Reader] Loading chapter from URL or previous selection:', currentChapter);
+            await loadChapter(currentChapter);
+        } else {
             currentChapter = 1;
             console.log('[Reader] Loading first chapter automatically');
             await loadChapter(1);
@@ -233,14 +236,20 @@ async function loadChapter(chapterNum) {
         if (nextBtn) nextBtn.disabled = chapterNum >= currentBook.chapters.length;
 
         // Render verses
-        console.log('[Reader] Rendering verses, count:', chapterData.chapter.verses ? chapterData.chapter.verses.length : 0);
-        if (chapterData.chapter.verses && chapterData.chapter.verses.length > 0) {
+        console.log('[Reader] About to render verses...');
+        console.log('[Reader] Chapter data:', chapterData);
+        console.log('[Reader] Chapter.verses:', chapterData.chapter?.verses);
+        console.log('[Reader] Verse count:', chapterData.chapter?.verses?.length || 0);
+        
+        if (chapterData.chapter && chapterData.chapter.verses && chapterData.chapter.verses.length > 0) {
+            console.log('[Reader] Calling renderVerses() with', chapterData.chapter.verses.length, 'verses');
             renderVerses(chapterData.chapter.verses);
         } else {
-            console.warn('[Reader] No verses found in chapter data');
+            console.error('[Reader] No verses found in chapter data!');
+            console.error('[Reader] Chapter data structure:', JSON.stringify(chapterData, null, 2));
             const tabContent = document.getElementById('tabContent');
             if (tabContent) {
-                tabContent.innerHTML = '<div class="error">Geen verzen gevonden in dit hoofdstuk</div>';
+                tabContent.innerHTML = '<div class="error">Geen verzen gevonden in dit hoofdstuk. Debug info in console.</div>';
             }
         }
 
