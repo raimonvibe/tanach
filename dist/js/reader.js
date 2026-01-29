@@ -359,15 +359,32 @@ function renderVerses(verses) {
     
     // Set default tab to "both"
     console.log('[Reader] About to call switchTab("both")');
-    switchTab('both');
     
-    // Force visibility of tab content
+    // Force visibility of tab content BEFORE switchTab
     const bothContent = document.getElementById('both-content');
+    const tabContent = document.getElementById('tabContent');
+    
+    console.log('[Reader] tabContent element:', tabContent);
+    console.log('[Reader] tabContent style.display:', tabContent?.style.display);
+    console.log('[Reader] tabContent computed display:', window.getComputedStyle(tabContent || document.body).display);
+    
     if (bothContent) {
         bothContent.style.display = 'block';
+        bothContent.style.visibility = 'visible';
+        bothContent.style.opacity = '1';
         bothContent.classList.add('active');
         console.log('[Reader] Forced both-content to be visible');
+        console.log('[Reader] both-content computed display:', window.getComputedStyle(bothContent).display);
+        console.log('[Reader] both-content computed visibility:', window.getComputedStyle(bothContent).visibility);
     }
+    
+    if (tabContent) {
+        tabContent.style.display = 'block';
+        tabContent.style.visibility = 'visible';
+        console.log('[Reader] Forced tabContent to be visible');
+    }
+    
+    switchTab('both');
     
     console.log('[Reader] renderVerses() completed, rendered', verses.length, 'verses');
     console.log('[Reader] Hebrew verses element:', hebrewVerses);

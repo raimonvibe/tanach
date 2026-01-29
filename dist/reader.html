@@ -92,10 +92,21 @@
             border-bottom-color: #667eea;
         }
         .tab-content { 
-            display: none; 
+            display: none !important; 
         }
         .tab-content.active { 
             display: block !important; 
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+        #tabContent {
+            min-height: 200px;
+        }
+        #both-content.active,
+        #hebrew-content.active,
+        #english-content.active {
+            display: block !important;
+            visibility: visible !important;
         }
         .verses { font-size: 1.1rem; line-height: 1.8; }
         .verse {
