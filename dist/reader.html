@@ -112,11 +112,64 @@
             direction: rtl;
             text-align: right;
         }
+        .chapter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .chapter-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            min-width: 45px;
+        }
+        .chapter-btn:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+        }
+        .chapter-btn.active {
+            background: #764ba2;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .nav-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+        }
+        .nav-btn:hover:not(:disabled) {
+            background: #5a6fd8;
+        }
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
         .loading {
             text-align: center;
             padding: 40px;
             color: #666;
             font-size: 1.1rem;
+        }
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #c62828;
         }
     </style>
     <script type="module" src="/js/reader.js"></script>

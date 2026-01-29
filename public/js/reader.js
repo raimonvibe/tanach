@@ -16,45 +16,68 @@ let showVerseNumbers = false;
  * Initialize the reader on page load
  */
 async function init() {
-    console.log('[Reader] init() called');
-    console.log('[Reader] Current URL:', window.location.href);
-    
-    const params = new URLSearchParams(window.location.search);
-    const book = params.get('book');
-    const category = params.get('category');
-    const chapter = params.get('chapter');
-    const verse = params.get('verse');
-    
-    console.log('[Reader] URL parameters:', { book, category, chapter, verse });
-
-    if (book && category) {
-        console.log('[Reader] Loading book:', book, 'category:', category);
-        await loadBook(book, category);
-        if (chapter) {
-            currentChapter = parseInt(chapter);
-            console.log('[Reader] Loading chapter:', currentChapter);
-            await loadChapter(currentChapter);
-            // Scroll to verse if specified
-            if (verse) {
-                console.log('[Reader] Scrolling to verse:', verse);
-                setTimeout(() => {
-                    const verseElement = document.querySelector(`[data-verse="${verse}"]`);
-                    if (verseElement) {
-                        console.log('[Reader] Verse element found, scrolling');
-                        verseElement.scrollIntoView({ behavior: 'smooth' });
-                        verseElement.style.backgroundColor = '#fff3cd';
-                    } else {
-                        console.warn('[Reader] Verse element not found:', verse);
-                    }
-                }, 500);
-            }
+    try {
+        console.log('[Reader] ===== INIT START =====');
+        console.log('[Reader] init() called');
+        console.log('[Reader] Current URL:', window.location.href);
+        console.log('[Reader] Document ready state:', document.readyState);
+        
+        // Wait a bit to ensure DOM is fully ready
+        if (document.readyState === 'loading') {
+            console.log('[Reader] Waiting for DOM to be ready...');
+            await new Promise(resolve => {
+                if (document.readyState === 'complete') {
+                    resolve();
+                } else {
+                    document.addEventListener('DOMContentLoaded', resolve);
+                }
+            });
         }
-    } else {
-        console.log('[Reader] No book/category in URL, loading book selector');
-        await loadBookSelector();
+        
+        const params = new URLSearchParams(window.location.search);
+        const book = params.get('book');
+        const category = params.get('category');
+        const chapter = params.get('chapter');
+        const verse = params.get('verse');
+        
+        console.log('[Reader] URL parameters:', { book, category, chapter, verse });
+
+        if (book && category) {
+            console.log('[Reader] Loading book:', book, 'category:', category);
+            await loadBook(book, category);
+            if (chapter) {
+                currentChapter = parseInt(chapter);
+                console.log('[Reader] Loading chapter:', currentChapter);
+                await loadChapter(currentChapter);
+                // Scroll to verse if specified
+                if (verse) {
+                    console.log('[Reader] Scrolling to verse:', verse);
+                    setTimeout(() => {
+                        const verseElement = document.querySelector(`[data-verse="${verse}"]`);
+                        if (verseElement) {
+                            console.log('[Reader] Verse element found, scrolling');
+                            verseElement.scrollIntoView({ behavior: 'smooth' });
+                            verseElement.style.backgroundColor = '#fff3cd';
+                        } else {
+                            console.warn('[Reader] Verse element not found:', verse);
+                        }
+                    }, 500);
+                }
+            }
+        } else {
+            console.log('[Reader] No book/category in URL, loading book selector');
+            await loadBookSelector();
+        }
+        
+        console.log('[Reader] ===== INIT COMPLETED =====');
+    } catch (error) {
+        console.error('[Reader] ===== INIT ERROR =====', error);
+        console.error('[Reader] Error stack:', error.stack);
+        const bookInfo = document.getElementById('bookInfo');
+        if (bookInfo) {
+            bookInfo.innerHTML = `<div class="error">Fout bij initialiseren: ${error.message}</div>`;
+        }
     }
-    
-    console.log('[Reader] init() completed');
 
     // Handle browser back/forward buttons
     window.addEventListener('popstate', async (event) => {
