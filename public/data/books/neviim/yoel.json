@@ -1,0 +1,546 @@
+{
+  "id": "yoel",
+  "name": "Joel",
+  "description": "",
+  "sefariaRef": "Joel",
+  "chapters": [
+    {
+      "chapter": 1,
+      "verses": [
+        {
+          "verse": 1,
+          "translations": {
+            "hebrew": "דְּבַר־יְהֹוָה֙ אֲשֶׁ֣ר הָיָ֔ה אֶל־יוֹאֵ֖ל בֶּן־פְּתוּאֵֽל׃",
+            "english": "The word of G<small>OD</small> that came to Joel son of Pethuel."
+          }
+        },
+        {
+          "verse": 2,
+          "translations": {
+            "hebrew": "שִׁמְעוּ־זֹאת֙ הַזְּקֵנִ֔ים וְהַֽאֲזִ֔ינוּ כֹּ֖ל יוֹשְׁבֵ֣י הָאָ֑רֶץ הֶהָ֤יְתָה זֹּאת֙ בִּֽימֵיכֶ֔ם וְאִ֖ם בִּימֵ֥י אֲבֹתֵיכֶֽם׃",
+            "english": "<span class=\"poetry indentAll\">Listen to this, O elders,</span><br><span class=\"poetry indentAll\">Give ear, all inhabitants of the land.</span><br><span class=\"poetry indentAll\">Has the like of this happened in your days</span><br><span class=\"poetry indentAll\">Or in the days of your ancestors?</span>"
+          }
+        },
+        {
+          "verse": 3,
+          "translations": {
+            "hebrew": "עָלֶ֖יהָ לִבְנֵיכֶ֣ם סַפֵּ֑רוּ וּבְנֵיכֶם֙ לִבְנֵיהֶ֔ם וּבְנֵיהֶ֖ם לְד֥וֹר אַחֵֽר׃",
+            "english": "<span class=\"poetry indentAll\">Tell your children about it,</span><br><span class=\"poetry indentAll\">And let your children tell theirs,</span><br><span class=\"poetry indentAll\">And their children the next generation!</span>"
+          }
+        },
+        {
+          "verse": 4,
+          "translations": {
+            "hebrew": "יֶ֤תֶר הַגָּזָם֙ אָכַ֣ל הָאַרְבֶּ֔ה וְיֶ֥תֶר הָאַרְבֶּ֖ה אָכַ֣ל הַיָּ֑לֶק וְיֶ֣תֶר הַיֶּ֔לֶק אָכַ֖ל הֶחָסִֽיל׃",
+            "english": "<span class=\"poetry indentAll\">What the cutter has left, the locust has devoured;</span><br><span class=\"poetry indentAll\">What the locust has left, the grub has devoured;</span><br><span class=\"poetry indentAll\">And what the grub has left, the hopper has devoured.</span><sup class=\"footnote-marker\">a</sup><i class=\"footnote\"><b>cutter…locust…grub…hopper </b>The meaning of the corresponding Heb. terms is uncertain; they probably designate stages in the locust’s development.</i> "
+          }
+        },
+        {
+          "verse": 5,
+          "translations": {
+            "hebrew": "הָקִ֤יצוּ שִׁכּוֹרִים֙ וּבְכ֔וּ וְהֵילִ֖לוּ כׇּל־שֹׁ֣תֵי יָ֑יִן עַל־עָסִ֕יס כִּ֥י נִכְרַ֖ת מִפִּיכֶֽם׃",
+            "english": "<span class=\"poetry indentAll\">Wake up, you drunkards, and weep,</span><br><span class=\"poetry indentAll\">Wail, all you swillers of wine—</span><br><span class=\"poetry indentAll\">For the new wine that is denied you!</span><sup class=\"footnote-marker\">b</sup><i class=\"footnote\"><b>denied you </b>Lit. “cut off from your mouth.”</i> "
+          }
+        },
+        {
+          "verse": 6,
+          "translations": {
+            "hebrew": "כִּי־גוֹי֙ עָלָ֣ה עַל־אַרְצִ֔י עָצ֖וּם וְאֵ֣ין מִסְפָּ֑ר שִׁנָּיו֙ שִׁנֵּ֣י אַרְיֵ֔ה וּֽמְתַלְּע֥וֹת לָבִ֖יא לֽוֹ׃",
+            "english": "<span class=\"poetry indentAll\">For a nation has invaded my land,</span><br><span class=\"poetry indentAll\">Vast beyond counting,</span><br><span class=\"poetry indentAll\">With teeth like the teeth of a lion,</span><br><span class=\"poetry indentAll\">With the fangs of a lion’s breed.</span>"
+          }
+        },
+        {
+          "verse": 7,
+          "translations": {
+            "hebrew": "שָׂ֤ם גַּפְנִי֙ לְשַׁמָּ֔ה וּתְאֵנָתִ֖י לִקְצָפָ֑ה חָשֹׂ֤ף חֲשָׂפָהּ֙ וְהִשְׁלִ֔יךְ הִלְבִּ֖ינוּ שָׂרִיגֶֽיהָ׃",
+            "english": "<span class=\"poetry indentAll\">They have laid my vines waste</span><br><span class=\"poetry indentAll\">And splintered my fig trees:</span><br><span class=\"poetry indentAll\">They have stripped off their bark and thrown [it] away;</span><br><span class=\"poetry indentAll\">Their runners have turned white.</span>"
+          }
+        },
+        {
+          "verse": 8,
+          "translations": {
+            "hebrew": "אֱלִ֕י כִּבְתוּלָ֥ה חֲגֻרַת־שַׂ֖ק עַל־בַּ֥עַל נְעוּרֶֽיהָ׃",
+            "english": "<span class=\"poetry indentAll\">Lament—like a maiden girt with sackcloth</span><br><span class=\"poetry indentAll\">For the husband of her youth!</span>"
+          }
+        },
+        {
+          "verse": 9,
+          "translations": {
+            "hebrew": "הׇכְרַ֥ת מִנְחָ֛ה וָנֶ֖סֶךְ מִבֵּ֣ית יְהֹוָ֑ה אָֽבְלוּ֙ הַכֹּ֣הֲנִ֔ים מְשָׁרְתֵ֖י יְהֹוָֽה׃",
+            "english": "<span class=\"poetry indentAll\">Offering and libation have ceased</span><br><span class=\"poetry indentAll\">From the House of </span> G<small>OD</small>;<br><span class=\"poetry indentAll\">The priests must mourn</span><br><span class=\"poetry indentAll\">Who minister to </span> G<small>OD</small>."
+          }
+        },
+        {
+          "verse": 10,
+          "translations": {
+            "hebrew": "שֻׁדַּ֣ד שָׂדֶ֔ה אָבְלָ֖ה אֲדָמָ֑ה כִּ֚י שֻׁדַּ֣ד דָּגָ֔ן הוֹבִ֥ישׁ תִּיר֖וֹשׁ אֻמְלַ֥ל יִצְהָֽר׃",
+            "english": "<span class=\"poetry indentAll\">The country is ravaged,</span><br><span class=\"poetry indentAll\">The ground must mourn;</span><br><span class=\"poetry indentAll\">For the new grain is ravaged,</span><br><span class=\"poetry indentAll\">The new wine is dried up,</span><br><span class=\"poetry indentAll\">The new oil has failed.</span>"
+          }
+        },
+        {
+          "verse": 11,
+          "translations": {
+            "hebrew": "הֹבִ֣ישׁוּ אִכָּרִ֗ים הֵילִ֙ילוּ֙ כֹּֽרְמִ֔ים עַל־חִטָּ֖ה וְעַל־שְׂעֹרָ֑ה כִּ֥י אָבַ֖ד קְצִ֥יר שָׂדֶֽה׃",
+            "english": "<span class=\"poetry indentAll\">Farmers are dismayed</span><br><span class=\"poetry indentAll\">And vine dressers wail</span><br><span class=\"poetry indentAll\">Over wheat and barley;</span><br><span class=\"poetry indentAll\">For the crops of the field are lost.</span>"
+          }
+        },
+        {
+          "verse": 12,
+          "translations": {
+            "hebrew": "הַגֶּ֣פֶן הוֹבִ֔ישָׁה וְהַתְּאֵנָ֖ה אֻמְלָ֑לָה רִמּ֞וֹן גַּם־תָּמָ֣ר וְתַפּ֗וּחַ כׇּל־עֲצֵ֤י הַשָּׂדֶה֙ יָבֵ֔שׁוּ כִּי־הֹבִ֥ישׁ שָׂשׂ֖וֹן מִן־בְּנֵ֥י אָדָֽם׃",
+            "english": "<span class=\"poetry indentAll\">The vine has dried up,</span><br><span class=\"poetry indentAll\">The fig tree withers,</span><br><span class=\"poetry indentAll\">Pomegranate, palm, and apple—</span><br><span class=\"poetry indentAll\">All the trees of the field are sear.</span><br><span class=\"poetry indentAll\">And joy has dried up</span><br><span class=\"poetry indentAll\">Among the people.</span>"
+          }
+        },
+        {
+          "verse": 13,
+          "translations": {
+            "hebrew": "חִגְר֨וּ וְסִפְד֜וּ הַכֹּהֲנִ֗ים הֵילִ֙ילוּ֙ מְשָׁרְתֵ֣י מִזְבֵּ֔חַ בֹּ֚אוּ לִ֣ינוּ בַשַּׂקִּ֔ים מְשָׁרְתֵ֖י אֱלֹהָ֑י כִּ֥י נִמְנַ֛ע מִבֵּ֥ית אֱלֹהֵיכֶ֖ם מִנְחָ֥ה וָנָֽסֶךְ׃",
+            "english": "<span class=\"poetry indentAll\">Gird yourselves and lament, O priests,</span><br><span class=\"poetry indentAll\">Wail, O ministers of the altar;</span><br><span class=\"poetry indentAll\">Come, spend the night in sackcloth,</span><br><span class=\"poetry indentAll\">O ministers of my God.</span><br><span class=\"poetry indentAll\">For offering and libation are withheld</span><br><span class=\"poetry indentAll\">From the House of your God.</span>"
+          }
+        },
+        {
+          "verse": 14,
+          "translations": {
+            "hebrew": "קַדְּשׁוּ־צוֹם֙ קִרְא֣וּ עֲצָרָ֔ה אִסְפ֣וּ זְקֵנִ֗ים כֹּ֚ל יֹשְׁבֵ֣י הָאָ֔רֶץ בֵּ֖ית יְהֹוָ֣ה אֱלֹהֵיכֶ֑ם וְזַעֲק֖וּ אֶל־יְהֹוָֽה׃",
+            "english": "<span class=\"poetry indentAll\">Solemnize a fast,</span><br><span class=\"poetry indentAll\">Proclaim an assembly;</span><br><span class=\"poetry indentAll\">Gather the elders—all the inhabitants of the land—</span><br><span class=\"poetry indentAll\">In the House of </span> the E<small>TERNAL</small> your God,<br><span class=\"poetry indentAll\">And cry out to </span> G<small>OD</small>."
+          }
+        },
+        {
+          "verse": 15,
+          "translations": {
+            "hebrew": "אֲהָ֖הּ לַיּ֑וֹם כִּ֤י קָרוֹב֙ י֣וֹם יְהֹוָ֔ה וּכְשֹׁ֖ד מִשַּׁדַּ֥י יָבֽוֹא׃",
+            "english": "<span class=\"poetry indentAll\">Alas for the day!</span><br><span class=\"poetry indentAll\">For the day of </span> G<small>OD</small> is near;<br><span class=\"poetry indentAll\">It shall come like havoc from Shaddai.</span><sup class=\"footnote-marker\">c</sup><i class=\"footnote\"><b>Shaddai </b>Traditionally “the Almighty”; see Gen. 17.1.</i> "
+          }
+        },
+        {
+          "verse": 16,
+          "translations": {
+            "hebrew": "הֲל֛וֹא נֶ֥גֶד עֵינֵ֖ינוּ אֹ֣כֶל נִכְרָ֑ת מִבֵּ֥ית אֱלֹהֵ֖ינוּ שִׂמְחָ֥ה וָגִֽיל׃",
+            "english": "<span class=\"poetry indentAll\">For food is cut off</span><br><span class=\"poetry indentAll\">Before our very eyes,</span><br><span class=\"poetry indentAll\">And joy and gladness</span><br><span class=\"poetry indentAll\">From the House of our God.</span>"
+          }
+        },
+        {
+          "verse": 17,
+          "translations": {
+            "hebrew": "עָבְשׁ֣וּ פְרֻד֗וֹת תַּ֚חַת מֶגְרְפֹ֣תֵיהֶ֔ם נָשַׁ֙מּוּ֙ אֹֽצָר֔וֹת נֶהֶרְס֖וּ מַמְּגֻר֑וֹת כִּ֥י הֹבִ֖ישׁ דָּגָֽן׃",
+            "english": "<span class=\"poetry indentAll\">The seeds have shriveled</span><br><span class=\"poetry indentAll\">Under their clods.</span><sup class=\"footnote-marker\">d</sup><i class=\"footnote\"><b>The seeds … clods </b>Meaning of Heb. uncertain.</i> <br><span class=\"poetry indentAll\">The granaries are desolate,</span><br><span class=\"poetry indentAll\">Barns are in ruins,</span><br><span class=\"poetry indentAll\">For the new grain has failed.</span>"
+          }
+        },
+        {
+          "verse": 18,
+          "translations": {
+            "hebrew": "מַה־נֶּאֶנְחָ֣ה בְהֵמָ֗ה נָבֹ֙כוּ֙ עֶדְרֵ֣י בָקָ֔ר כִּ֛י אֵ֥ין מִרְעֶ֖ה לָהֶ֑ם גַּם־עֶדְרֵ֥י הַצֹּ֖אן נֶאְשָֽׁמוּ׃",
+            "english": "<span class=\"poetry indentAll\">How the animals groan!</span><br><span class=\"poetry indentAll\">The herds of cattle are bewildered</span><br><span class=\"poetry indentAll\">Because they have no pasture,</span><br><span class=\"poetry indentAll\">And the flocks of sheep are dazed.</span><sup class=\"footnote-marker\">e</sup><i class=\"footnote\"><b>dazed </b>Meaning of Heb. uncertain.</i> "
+          }
+        },
+        {
+          "verse": 19,
+          "translations": {
+            "hebrew": "אֵלֶ֥יךָ יְהֹוָ֖ה אֶקְרָ֑א כִּ֣י אֵ֗שׁ אָֽכְלָה֙ נְא֣וֹת מִדְבָּ֔ר וְלֶ֣הָבָ֔ה לִהֲטָ֖ה כׇּל־עֲצֵ֥י הַשָּׂדֶֽה׃",
+            "english": "<span class=\"poetry indentAll\">To You, O </span> E<small>TERNAL</small> One, I call.<br><span class=\"poetry indentAll\">For fire has consumed</span><br><span class=\"poetry indentAll\">The pastures in the wilderness,</span><br><span class=\"poetry indentAll\">And flame</span><sup class=\"footnote-marker\">f</sup><i class=\"footnote\"><b>fire…flame </b>I.e., scorching heat.</i> has devoured<br><span class=\"poetry indentAll\">All the trees of the countryside.</span>"
+          }
+        },
+        {
+          "verse": 20,
+          "translations": {
+            "hebrew": "גַּם־בַּהֲמ֥וֹת שָׂדֶ֖ה תַּעֲר֣וֹג אֵלֶ֑יךָ כִּ֤י יָֽבְשׁוּ֙ אֲפִ֣יקֵי מָ֔יִם וְאֵ֕שׁ אָכְלָ֖ה נְא֥וֹת הַמִּדְבָּֽר׃",
+            "english": "<span class=\"poetry indentAll\">The very beasts of the field</span><br><span class=\"poetry indentAll\">Cry out to You;</span><br><span class=\"poetry indentAll\">For the watercourses are dried up,</span><br><span class=\"poetry indentAll\">And fire has consumed</span><br><span class=\"poetry indentAll\">The pastures in the wilderness.</span>"
+          }
+        }
+      ]
+    },
+    {
+      "chapter": 2,
+      "verses": [
+        {
+          "verse": 1,
+          "translations": {
+            "hebrew": "תִּקְע֨וּ שׁוֹפָ֜ר בְּצִיּ֗וֹן וְהָרִ֙יעוּ֙ בְּהַ֣ר קׇדְשִׁ֔י יִרְגְּז֕וּ כֹּ֖ל יֹשְׁבֵ֣י הָאָ֑רֶץ כִּי־בָ֥א יוֹם־יְהֹוָ֖ה כִּ֥י קָרֽוֹב׃",
+            "english": "<span class=\"poetry indentAll\">Blow a horn in Zion,</span><br><span class=\"poetry indentAll\">Sound an alarm on My holy mount!</span><br><span class=\"poetry indentAll\">Let all dwellers on earth tremble,</span><br><span class=\"poetry indentAll\">For the day of </span> G<small>OD</small> has come!<br><span class=\"poetry indentAll\">It is close—</span>"
+          }
+        },
+        {
+          "verse": 2,
+          "translations": {
+            "hebrew": "י֧וֹם חֹ֣שֶׁךְ וַאֲפֵלָ֗ה י֤וֹם עָנָן֙ וַעֲרָפֶ֔ל כְּשַׁ֖חַר פָּרֻ֣שׂ עַל־הֶהָרִ֑ים עַ֚ם רַ֣ב וְעָצ֔וּם כָּמֹ֗הוּ לֹ֤א נִֽהְיָה֙ מִן־הָ֣עוֹלָ֔ם וְאַֽחֲרָיו֙ לֹ֣א יוֹסֵ֔ף עַד־שְׁנֵ֖י דּ֥וֹר וָדֽוֹר׃",
+            "english": "<span class=\"poetry indentAll\">A day of darkness and gloom,</span><br><span class=\"poetry indentAll\">A day of densest cloud</span><br><span class=\"poetry indentAll\">Spread like soot over the hills.</span><br><span class=\"poetry indentAll\">A vast, enormous horde—</span><br><span class=\"poetry indentAll\">Nothing like it has ever happened,</span><br><span class=\"poetry indentAll\">And it shall never happen again</span><br><span class=\"poetry indentAll\">Through the years and ages.</span>"
+          }
+        },
+        {
+          "verse": 3,
+          "translations": {
+            "hebrew": "לְפָנָיו֙ אָ֣כְלָה אֵ֔שׁ וְאַחֲרָ֖יו תְּלַהֵ֣ט לֶהָבָ֑ה כְּגַן־עֵ֨דֶן הָאָ֜רֶץ לְפָנָ֗יו וְאַֽחֲרָיו֙ מִדְבַּ֣ר שְׁמָמָ֔ה וְגַם־פְּלֵיטָ֖ה לֹא־הָ֥יְתָה לּֽוֹ׃",
+            "english": "<span class=\"poetry indentAll\">Their vanguard is a consuming fire,</span><br><span class=\"poetry indentAll\">Their rear guard a devouring flame.</span><br><span class=\"poetry indentAll\">Before them the land was like the Garden of Eden,</span><br><span class=\"poetry indentAll\">Behind them, a desolate waste:</span><br><span class=\"poetry indentAll\">Nothing has escaped them.</span>"
+          }
+        },
+        {
+          "verse": 4,
+          "translations": {
+            "hebrew": "כְּמַרְאֵ֥ה סוּסִ֖ים מַרְאֵ֑הוּ וּכְפָרָשִׁ֖ים כֵּ֥ן יְרוּצֽוּן׃",
+            "english": "<span class=\"poetry indentAll\">They have the appearance of horses,</span><br><span class=\"poetry indentAll\">They gallop just like steeds.</span>"
+          }
+        },
+        {
+          "verse": 5,
+          "translations": {
+            "hebrew": "כְּק֣וֹל מַרְכָּב֗וֹת עַל־רָאשֵׁ֤י הֶהָרִים֙ יְרַקֵּד֔וּן כְּקוֹל֙ לַ֣הַב אֵ֔שׁ אֹכְלָ֖ה קָ֑שׁ כְּעַ֣ם עָצ֔וּם עֱר֖וּךְ מִלְחָמָֽה׃",
+            "english": "<span class=\"poetry indentAll\">With a clatter as of chariots</span><br><span class=\"poetry indentAll\">They bound on the hilltops,</span><br><span class=\"poetry indentAll\">With a noise like a blazing fire</span><br><span class=\"poetry indentAll\">Consuming straw;</span><br><span class=\"poetry indentAll\">Like an enormous horde</span><br><span class=\"poetry indentAll\">Arrayed for battle.</span>"
+          }
+        },
+        {
+          "verse": 6,
+          "translations": {
+            "hebrew": "מִפָּנָ֖יו יָחִ֣ילוּ עַמִּ֑ים כׇּל־פָּנִ֖ים קִבְּצ֥וּ פָארֽוּר׃",
+            "english": "<span class=\"poetry indentAll\">Peoples tremble before them,</span><br><span class=\"poetry indentAll\">All faces turn ashen.</span><sup class=\"footnote-marker\">a</sup><i class=\"footnote\"><b>turn ashen </b>Meaning of Heb. uncertain; cf. Nah. 2.11.</i> "
+          }
+        },
+        {
+          "verse": 7,
+          "translations": {
+            "hebrew": "כְּגִבּוֹרִ֣ים יְרֻצ֔וּן כְּאַנְשֵׁ֥י מִלְחָמָ֖ה יַעֲל֣וּ חוֹמָ֑ה וְאִ֤ישׁ בִּדְרָכָיו֙ יֵֽלֵכ֔וּן וְלֹ֥א יְעַבְּט֖וּן אֹרְחוֹתָֽם׃",
+            "english": "<span class=\"poetry indentAll\">They rush like warriors,</span><br><span class=\"poetry indentAll\">They scale a wall like fighters.</span><br><span class=\"poetry indentAll\">And each keeps to his own track.</span><br><span class=\"poetry indentAll\">Their paths never cross;</span><sup class=\"footnote-marker\">b</sup><i class=\"footnote\"><b>cross </b>Meaning of Heb. uncertain.</i> "
+          }
+        },
+        {
+          "verse": 8,
+          "translations": {
+            "hebrew": "וְאִ֤ישׁ אָחִיו֙ לֹ֣א יִדְחָק֔וּן גֶּ֥בֶר בִּמְסִלָּת֖וֹ יֵלֵכ֑וּן וּבְעַ֥ד הַשֶּׁ֛לַח יִפֹּ֖לוּ לֹ֥א יִבְצָֽעוּ׃",
+            "english": "<span class=\"poetry indentAll\">Not a single one jostles another,</span><br><span class=\"poetry indentAll\">Each keeps to his own course.</span><br><span class=\"poetry indentAll\">And should they fall through a loophole,</span><br><span class=\"poetry indentAll\">They do not get hurt.</span><sup class=\"footnote-marker\">c</sup><i class=\"footnote\"><b>And should they fall … not get hurt </b>Meaning of Heb. uncertain.</i> "
+          }
+        },
+        {
+          "verse": 9,
+          "translations": {
+            "hebrew": "בָּעִ֣יר יָשֹׁ֗קּוּ בַּֽחוֹמָה֙ יְרֻצ֔וּן בַּבָּתִּ֖ים יַעֲל֑וּ בְּעַ֧ד הַחַלּוֹנִ֛ים יָבֹ֖אוּ כַּגַּנָּֽב׃",
+            "english": "<span class=\"poetry indentAll\">They rush up the wall,</span><br><span class=\"poetry indentAll\">They dash about in the city;</span><br><span class=\"poetry indentAll\">They climb into the houses,</span><br><span class=\"poetry indentAll\">They enter like thieves</span><br><span class=\"poetry indentAll\">By way of the windows.</span>"
+          }
+        },
+        {
+          "verse": 10,
+          "translations": {
+            "hebrew": "לְפָנָיו֙ רָ֣גְזָה אֶ֔רֶץ רָעֲשׁ֖וּ שָׁמָ֑יִם שֶׁ֤מֶשׁ וְיָרֵ֙חַ֙ קָדָ֔רוּ וְכוֹכָבִ֖ים אָסְפ֥וּ נׇגְהָֽם׃",
+            "english": "<span class=\"poetry indentAll\">Before them earth trembles,</span><br><span class=\"poetry indentAll\">Heaven shakes,</span><br><span class=\"poetry indentAll\">Sun and moon are darkened,</span><br><span class=\"poetry indentAll\">And stars withdraw their brightness.</span>"
+          }
+        },
+        {
+          "verse": 11,
+          "translations": {
+            "hebrew": "וַיהֹוָ֗ה נָתַ֤ן קוֹלוֹ֙ לִפְנֵ֣י חֵיל֔וֹ כִּ֣י רַ֤ב מְאֹד֙ מַחֲנֵ֔הוּ כִּ֥י עָצ֖וּם עֹשֵׂ֣ה דְבָר֑וֹ כִּֽי־גָד֧וֹל יוֹם־יְהֹוָ֛ה וְנוֹרָ֥א מְאֹ֖ד וּמִ֥י יְכִילֶֽנּוּ׃",
+            "english": "<span class=\"poetry indentAll\">And </span> G<small>OD</small> roars aloud<br><span class=\"poetry indentAll\">At the head of the divine army;</span><br><span class=\"poetry indentAll\">For vast indeed is this host,</span><br><span class=\"poetry indentAll\">Numberless are those that do God’s bidding.</span><br><span class=\"poetry indentAll\">For great is the day of </span> G<small>OD</small>,<br><span class=\"poetry indentAll\">Most terrible—who can endure it?</span>"
+          }
+        },
+        {
+          "verse": 12,
+          "translations": {
+            "hebrew": "וְגַם־עַתָּה֙ נְאֻם־יְהֹוָ֔ה שֻׁ֥בוּ עָדַ֖י בְּכׇל־לְבַבְכֶ֑ם וּבְצ֥וֹם וּבִבְכִ֖י וּבְמִסְפֵּֽד׃",
+            "english": "<span class=\"poetry indentAll\">“Yet even now”—says </span> G<small>OD</small>—<br><span class=\"poetry indentAll\">“Turn back to Me with all your hearts,</span><br><span class=\"poetry indentAll\">And with fasting, weeping, and lamenting.”</span>"
+          }
+        },
+        {
+          "verse": 13,
+          "translations": {
+            "hebrew": "וְקִרְע֤וּ לְבַבְכֶם֙ וְאַל־בִּגְדֵיכֶ֔ם וְשׁ֖וּבוּ אֶל־יְהֹוָ֣ה אֱלֹהֵיכֶ֑ם כִּֽי־חַנּ֤וּן וְרַחוּם֙ ה֔וּא אֶ֤רֶךְ אַפַּ֙יִם֙ וְרַב־חֶ֔סֶד וְנִחָ֖ם עַל־הָרָעָֽה׃",
+            "english": "<span class=\"poetry indentAll\">Rend your hearts</span><br><span class=\"poetry indentAll\">Rather than your garments,</span><br><span class=\"poetry indentAll\">And turn back to </span> the E<small>TERNAL</small> your God.<br><span class=\"poetry indentAll\">For [God] is gracious and compassionate,</span><br><span class=\"poetry indentAll\">Slow to anger, abounding in kindness,</span><br><span class=\"poetry indentAll\">And renouncing punishment.</span>"
+          }
+        },
+        {
+          "verse": 14,
+          "translations": {
+            "hebrew": "מִ֥י יוֹדֵ֖עַ יָשׁ֣וּב וְנִחָ֑ם וְהִשְׁאִ֤יר אַחֲרָיו֙ בְּרָכָ֔ה מִנְחָ֣ה וָנֶ֔סֶךְ לַיהֹוָ֖ה אֱלֹהֵיכֶֽם׃",
+            "english": "<span class=\"poetry indentAll\">Who knows but [God] may turn and relent,</span><br><span class=\"poetry indentAll\">And leave a blessing behind</span><br><span class=\"poetry indentAll\">For grain offering and drink offering</span><br><span class=\"poetry indentAll\">To </span> the E<small>TERNAL</small> your God?<sup class=\"footnote-marker\">d</sup><i class=\"footnote\">When the locusts depart, there will again be yield enough for offerings; see 1.9.</i> "
+          }
+        },
+        {
+          "verse": 15,
+          "translations": {
+            "hebrew": "תִּקְע֥וּ שׁוֹפָ֖ר בְּצִיּ֑וֹן קַדְּשׁוּ־צ֖וֹם קִרְא֥וּ עֲצָרָֽה׃",
+            "english": "<span class=\"poetry indentAll\">Blow a horn in Zion,</span><br><span class=\"poetry indentAll\">Solemnize a fast,</span><br><span class=\"poetry indentAll\">Proclaim an assembly!</span>"
+          }
+        },
+        {
+          "verse": 16,
+          "translations": {
+            "hebrew": "אִסְפוּ־עָ֞ם קַדְּשׁ֤וּ קָהָל֙ קִבְצ֣וּ זְקֵנִ֔ים אִסְפוּ֙ עֽוֹלָלִ֔ים וְיֹנְקֵ֖י שָׁדָ֑יִם יֵצֵ֤א חָתָן֙ מֵֽחֶדְר֔וֹ וְכַלָּ֖ה מֵחֻפָּתָֽהּ׃",
+            "english": "<span class=\"poetry indentAll\">Gather the people,</span><br><span class=\"poetry indentAll\">Bid the congregation purify themselves.</span><sup class=\"footnote-marker\">e</sup><i class=\"footnote\"><b>purify themselves </b>Cf. Exod. 19.10; Zeph. 1.7.</i> <br><span class=\"poetry indentAll\">Bring together the old,</span><br><span class=\"poetry indentAll\">Gather the babes</span><br><span class=\"poetry indentAll\">And the sucklings at the breast;</span><br><span class=\"poetry indentAll\">Let the bridegroom come out of his chamber,</span><br><span class=\"poetry indentAll\">The bride from her canopied couch.</span>"
+          }
+        },
+        {
+          "verse": 17,
+          "translations": {
+            "hebrew": "בֵּ֤ין הָאוּלָם֙ וְלַמִּזְבֵּ֔חַ יִבְכּוּ֙ הַכֹּ֣הֲנִ֔ים מְשָׁרְתֵ֖י יְהֹוָ֑ה וְֽיֹאמְר֞וּ ח֧וּסָה יְהֹוָ֣ה עַל־עַמֶּ֗ךָ וְאַל־תִּתֵּ֨ן נַחֲלָתְךָ֤ לְחֶרְפָּה֙ לִמְשׇׁל־בָּ֣ם גּוֹיִ֔ם לָ֚מָּה יֹאמְר֣וּ בָעַמִּ֔ים אַיֵּ֖ה אֱלֹהֵיהֶֽם׃",
+            "english": "<span class=\"poetry indentAll\">Between the portico and the altar,</span><br><span class=\"poetry indentAll\">Let the priests, </span> G<small>OD</small>’s ministers, weep<br><span class=\"poetry indentAll\">And say:</span><br><span class=\"poetry indentAll\">“Oh, spare Your people, </span> E<small>TERNAL</small> One!<br><span class=\"poetry indentAll\">Let not Your possession become a mockery,</span><br><span class=\"poetry indentAll\">To be taunted by nations!</span><br><span class=\"poetry indentAll\">Let not the peoples say,</span><br><span class=\"poetry indentAll\">‘Where is their God?’”</span>"
+          }
+        },
+        {
+          "verse": 18,
+          "translations": {
+            "hebrew": "וַיְקַנֵּ֥א יְהֹוָ֖ה לְאַרְצ֑וֹ וַיַּחְמֹ֖ל עַל־עַמּֽוֹ׃",
+            "english": "<span class=\"poetry indentAll\">Then </span> G<small>OD</small> was roused<br><span class=\"poetry indentAll\">In behalf of this land</span><br><span class=\"poetry indentAll\">And had compassion</span><br><span class=\"poetry indentAll\">Upon this people.</span>"
+          }
+        },
+        {
+          "verse": 19,
+          "translations": {
+            "hebrew": "וַיַּ֨עַן יְהֹוָ֜ה וַיֹּ֣אמֶר לְעַמּ֗וֹ הִנְנִ֨י שֹׁלֵ֤חַ לָכֶם֙ אֶת־הַדָּגָן֙ וְהַתִּיר֣וֹשׁ וְהַיִּצְהָ֔ר וּשְׂבַעְתֶּ֖ם אֹת֑וֹ וְלֹא־אֶתֵּ֨ן אֶתְכֶ֥ם ע֛וֹד חֶרְפָּ֖ה בַּגּוֹיִֽם׃",
+            "english": "<span class=\"poetry indentAll\">In response to this covenanted people</span><br><span class=\"poetry indentAll\"> \nG<small>OD</small>\n </span> declared:<br><span class=\"poetry indentAll\">“I will grant you the new grain,</span><br><span class=\"poetry indentAll\">The new wine, and the new oil,</span><br><span class=\"poetry indentAll\">And you shall have them in abundance.</span><br><span class=\"poetry indentAll\">Nevermore will I let you be</span><br><span class=\"poetry indentAll\">A mockery among the nations.</span>"
+          }
+        },
+        {
+          "verse": 20,
+          "translations": {
+            "hebrew": "וְֽאֶת־הַצְּפוֹנִ֞י אַרְחִ֣יק מֵעֲלֵיכֶ֗ם וְהִדַּחְתִּיו֮ אֶל־אֶ֣רֶץ צִיָּ֣ה וּשְׁמָמָה֒ אֶת־פָּנָ֗יו אֶל־הַיָּם֙ הַקַּדְמֹנִ֔י וְסֹפ֖וֹ אֶל־הַיָּ֣ם הָאַחֲר֑וֹן וְעָלָ֣ה בׇאְשׁ֗וֹ וְתַ֙עַל֙ צַחֲנָת֔וֹ כִּ֥י הִגְדִּ֖יל לַעֲשֽׂוֹת׃",
+            "english": "<span class=\"poetry indentAll\">I will drive the northerner</span><sup class=\"footnote-marker\">f</sup><i class=\"footnote\"><b>the northerner </b>I.e., the locusts. Emendation yields “My multitude”; cf. “nation” (1.6), “horde,” “army,” and “host” (2.2, 5, 11, 25).</i> far from you,<br><span class=\"poetry indentAll\">I will thrust it into a parched and desolate land—</span><br><span class=\"poetry indentAll\">Its van to the Eastern Sea</span><sup class=\"footnote-marker\">g</sup><i class=\"footnote\"><b>the Eastern Sea </b>The Dead Sea.</i> <br><span class=\"poetry indentAll\">And its rear to the Western Sea;</span><sup class=\"footnote-marker\">h</sup><i class=\"footnote\"><b>the Western Sea </b>The Mediterranean Sea.</i> <br><span class=\"poetry indentAll\">And the stench of it shall go up,</span><br><span class=\"poetry indentAll\">And the foul smell rise.”</span><br><span class=\"poetry indentAll\">For [G<small>OD</small>] shall work great deeds.</span>"
+          }
+        },
+        {
+          "verse": 21,
+          "translations": {
+            "hebrew": "אַל־תִּֽירְאִ֖י אֲדָמָ֑ה גִּ֣ילִי וּשְׂמָ֔חִי כִּֽי־הִגְדִּ֥יל יְהֹוָ֖ה לַעֲשֽׂוֹת׃",
+            "english": "<span class=\"poetry indentAll\">Fear not, O soil, rejoice and be glad;</span><br><span class=\"poetry indentAll\">For </span> G<small>OD</small> has wrought great deeds."
+          }
+        },
+        {
+          "verse": 22,
+          "translations": {
+            "hebrew": "אַל־תִּֽירְאוּ֙ בַּהֲמ֣וֹת שָׂדַ֔י כִּ֥י דָשְׁא֖וּ נְא֣וֹת מִדְבָּ֑ר כִּי־עֵץ֙ נָשָׂ֣א פִרְי֔וֹ תְּאֵנָ֥ה וָגֶ֖פֶן נָתְנ֥וּ חֵילָֽם׃",
+            "english": "<span class=\"poetry indentAll\">Fear not, O beasts of the field,</span><br><span class=\"poetry indentAll\">For the pastures in the wilderness</span><br><span class=\"poetry indentAll\">Are clothed with grass.</span><br><span class=\"poetry indentAll\">The trees have borne their fruit;</span><br><span class=\"poetry indentAll\">Fig tree and vine</span><br><span class=\"poetry indentAll\">Have yielded their strength.</span>"
+          }
+        },
+        {
+          "verse": 23,
+          "translations": {
+            "hebrew": "וּבְנֵ֣י צִיּ֗וֹן גִּ֤ילוּ וְשִׂמְחוּ֙ בַּיהֹוָ֣ה אֱלֹהֵיכֶ֔ם כִּֽי־נָתַ֥ן לָכֶ֛ם אֶת־הַמּוֹרֶ֖ה לִצְדָקָ֑ה וַיּ֣וֹרֶד לָכֶ֗ם גֶּ֛שֶׁם מוֹרֶ֥ה וּמַלְק֖וֹשׁ בָּרִאשֽׁוֹן׃",
+            "english": "<span class=\"poetry indentAll\">O children of Zion, be glad,</span><br><span class=\"poetry indentAll\">Rejoice in </span> the E<small>TERNAL</small> your God.<br><span class=\"poetry indentAll\">For you have been given the early rain out of kindness,</span><br><span class=\"poetry indentAll\">Now the rain is made to fall [as] formerly—</span><br><span class=\"poetry indentAll\">The early rain and the late—</span>"
+          }
+        },
+        {
+          "verse": 24,
+          "translations": {
+            "hebrew": "וּמָלְא֥וּ הַגֳּרָנ֖וֹת בָּ֑ר וְהֵשִׁ֥יקוּ הַיְקָבִ֖ים תִּיר֥וֹשׁ וְיִצְהָֽר׃",
+            "english": "<span class=\"poetry indentAll\">And threshing floors shall be piled with grain,</span><br><span class=\"poetry indentAll\">And vats shall overflow with new wine and oil.</span>"
+          }
+        },
+        {
+          "verse": 25,
+          "translations": {
+            "hebrew": "וְשִׁלַּמְתִּ֤י לָכֶם֙ אֶת־הַשָּׁנִ֔ים אֲשֶׁר֙ אָכַ֣ל הָאַרְבֶּ֔ה הַיֶּ֖לֶק וְהֶחָסִ֣יל וְהַגָּזָ֑ם חֵילִי֙ הַגָּד֔וֹל אֲשֶׁ֥ר שִׁלַּ֖חְתִּי בָּכֶֽם׃",
+            "english": "<span class=\"poetry indentAll\">“I will repay you for the years</span><sup class=\"footnote-marker\">i</sup><i class=\"footnote\"><b>for the years </b>Emendation yields “double what was.”</i> <br><span class=\"poetry indentAll\">Consumed by swarms and hoppers,</span><br><span class=\"poetry indentAll\">By grubs and locusts,</span><br><span class=\"poetry indentAll\">The great army I let loose against you.</span>"
+          }
+        },
+        {
+          "verse": 26,
+          "translations": {
+            "hebrew": "וַאֲכַלְתֶּ֤ם אָכוֹל֙ וְשָׂב֔וֹעַ וְהִלַּלְתֶּ֗ם אֶת־שֵׁ֤ם יְהֹוָה֙ אֱלֹ֣הֵיכֶ֔ם אֲשֶׁר־עָשָׂ֥ה עִמָּכֶ֖ם לְהַפְלִ֑יא וְלֹא־יֵבֹ֥שׁוּ עַמִּ֖י לְעוֹלָֽם׃",
+            "english": "<span class=\"poetry indentAll\">And you shall eat your fill</span><br><span class=\"poetry indentAll\">And praise the name of </span> the E<small>TERNAL</small> your God<br><span class=\"poetry indentAll\">Who dealt so wondrously with you—</span><br><span class=\"poetry indentAll\">My people shall be shamed no more.</span>"
+          }
+        },
+        {
+          "verse": 27,
+          "translations": {
+            "hebrew": "וִידַעְתֶּ֗ם כִּ֣י בְקֶ֤רֶב יִשְׂרָאֵל֙ אָ֔נִי וַאֲנִ֛י יְהֹוָ֥ה אֱלֹהֵיכֶ֖ם וְאֵ֣ין ע֑וֹד וְלֹא־יֵבֹ֥שׁוּ עַמִּ֖י לְעוֹלָֽם׃",
+            "english": "<span class=\"poetry indentAll\">And you shall know</span><br><span class=\"poetry indentAll\">That I am in the midst of Israel:</span><br><span class=\"poetry indentAll\">That I </span> the E<small>TERNAL</small> One am your God<br><span class=\"poetry indentAll\">And there is no other.</span><br><span class=\"poetry indentAll\">And My people shall be shamed no more.”</span>"
+          }
+        }
+      ]
+    },
+    {
+      "chapter": 3,
+      "verses": [
+        {
+          "verse": 1,
+          "translations": {
+            "hebrew": "וְהָיָ֣ה אַחֲרֵי־כֵ֗ן אֶשְׁפּ֤וֹךְ אֶת־רוּחִי֙ עַל־כׇּל־בָּשָׂ֔ר וְנִבְּא֖וּ בְּנֵיכֶ֣ם וּבְנוֹתֵיכֶ֑ם זִקְנֵיכֶם֙ חֲלֹמ֣וֹת יַחֲלֹמ֔וּן בַּח֣וּרֵיכֶ֔ם חֶזְיֹנ֖וֹת יִרְאֽוּ׃",
+            "english": "<span class=\"poetry indentAll\">After that,</span><br><span class=\"poetry indentAll\">I will pour out My spirit on all flesh;</span><br><span class=\"poetry indentAll\">Your sons and daughters shall prophesy;</span><br><span class=\"poetry indentAll\">Your elders shall dream dreams,</span><br><span class=\"poetry indentAll\">And your youths shall see visions.</span>"
+          }
+        },
+        {
+          "verse": 2,
+          "translations": {
+            "hebrew": "וְגַ֥ם עַל־הָעֲבָדִ֖ים וְעַל־הַשְּׁפָח֑וֹת בַּיָּמִ֣ים הָהֵ֔מָּה אֶשְׁפּ֖וֹךְ אֶת־רוּחִֽי׃",
+            "english": "<span class=\"poetry indentAll\">I will even pour out My spirit</span><br><span class=\"poetry indentAll\">Upon male and female slaves in those days.</span>"
+          }
+        },
+        {
+          "verse": 3,
+          "translations": {
+            "hebrew": "וְנָֽתַתִּי֙ מֽוֹפְתִ֔ים בַּשָּׁמַ֖יִם וּבָאָ֑רֶץ דָּ֣ם וָאֵ֔שׁ וְתִֽימְר֖וֹת עָשָֽׁן׃",
+            "english": "<span class=\"poetry indentAll\">Before the great and terrible day of </span> G<small>OD</small> comes,<sup class=\"footnote-marker\">a</sup><i class=\"footnote\"><b>Before the great and terrible day of G<small>OD</small> comes </b>Moved up from v. 4 for clarity.</i> <br><span class=\"poetry indentAll\">I will set portents in the sky and on earth:</span><br><span class=\"poetry indentAll\">Blood and fire and pillars of smoke;</span>"
+          }
+        },
+        {
+          "verse": 4,
+          "translations": {
+            "hebrew": "הַשֶּׁ֙מֶשׁ֙ יֵהָפֵ֣ךְ לְחֹ֔שֶׁךְ וְהַיָּרֵ֖חַ לְדָ֑ם לִפְנֵ֗י בּ֚וֹא י֣וֹם יְהֹוָ֔ה הַגָּד֖וֹל וְהַנּוֹרָֽא׃",
+            "english": "<span class=\"poetry indentAll\">The sun shall turn into darkness</span><br><span class=\"poetry indentAll\">And the moon into blood.</span><br>"
+          }
+        },
+        {
+          "verse": 5,
+          "translations": {
+            "hebrew": "וְהָיָ֗ה כֹּ֧ל אֲשֶׁר־יִקְרָ֛א בְּשֵׁ֥ם יְהֹוָ֖ה יִמָּלֵ֑ט כִּ֠י בְּהַר־צִיּ֨וֹן וּבִירוּשָׁלַ֜͏ִם תִּהְיֶ֣ה פְלֵיטָ֗ה כַּֽאֲשֶׁר֙ אָמַ֣ר יְהֹוָ֔ה וּבַ֨שְּׂרִידִ֔ים אֲשֶׁ֥ר יְהֹוָ֖ה קֹרֵֽא׃",
+            "english": "But everyone who invokes G<small>OD</small>’s name shall escape; for there shall be a remnant on Mount Zion and in Jerusalem, as G<small>OD</small> promised. Anyone who invokes G<small>OD</small> will be among the survivors.<sup class=\"footnote-marker\">b</sup><i class=\"footnote\"><b>Anyone who invokes G<small>OD</small> will be among the survivors </b>Meaning of Heb. uncertain.</i> "
+          }
+        }
+      ]
+    },
+    {
+      "chapter": 4,
+      "verses": [
+        {
+          "verse": 1,
+          "translations": {
+            "hebrew": "כִּ֗י הִנֵּ֛ה בַּיָּמִ֥ים הָהֵ֖מָּה וּבָעֵ֣ת הַהִ֑יא אֲשֶׁ֥ר <span class=\"mam-kq\"><span class=\"mam-kq-k\">(אשוב)</span> <span class=\"mam-kq-q\">[אָשִׁ֛יב]</span></span> אֶת־שְׁב֥וּת יְהוּדָ֖ה וִירוּשָׁלָֽ͏ִם׃",
+            "english": "<span class=\"poetry indentAll\">For lo! in those days</span><br><span class=\"poetry indentAll\">And in that time,</span><br><span class=\"poetry indentAll\">When I restore the fortunes</span><br><span class=\"poetry indentAll\">Of Judah and Jerusalem,</span>"
+          }
+        },
+        {
+          "verse": 2,
+          "translations": {
+            "hebrew": "וְקִבַּצְתִּי֙ אֶת־כׇּל־הַגּוֹיִ֔ם וְה֣וֹרַדְתִּ֔ים אֶל־עֵ֖מֶק יְהוֹשָׁפָ֑ט וְנִשְׁפַּטְתִּ֨י עִמָּ֜ם שָׁ֗ם עַל־עַמִּ֨י וְנַחֲלָתִ֤י יִשְׂרָאֵל֙ אֲשֶׁ֣ר פִּזְּר֣וּ בַגּוֹיִ֔ם וְאֶת־אַרְצִ֖י חִלֵּֽקוּ׃",
+            "english": "<span class=\"poetry indentAll\">I will gather all the nations</span><br><span class=\"poetry indentAll\">And bring them down to the Valley of Jehoshaphat.</span><sup class=\"footnote-marker\">a</sup><i class=\"footnote\"><b>Jehoshaphat </b>Here understood as “G<small>OD</small> contends”; contrast v. 12.</i> <br><span class=\"poetry indentAll\">There I will contend with them</span><br><span class=\"poetry indentAll\">Over My very own people, Israel,</span><br><span class=\"poetry indentAll\">Which they scattered among the nations.</span><br><span class=\"poetry indentAll\">For they divided My land among themselves</span>"
+          }
+        },
+        {
+          "verse": 3,
+          "translations": {
+            "hebrew": "וְאֶל־עַמִּ֖י יַדּ֣וּ גוֹרָ֑ל וַֽיִּתְּנ֤וּ הַיֶּ֙לֶד֙ בַּזּוֹנָ֔ה וְהַיַּלְדָּ֛ה מָכְר֥וּ בַיַּ֖יִן וַיִּשְׁתּֽוּ׃",
+            "english": "<span class=\"poetry indentAll\">And cast lots over My people;</span><br><span class=\"poetry indentAll\">And they bartered a boy for a whore,</span><br><span class=\"poetry indentAll\">And sold a girl for wine, which they drank.</span><br>"
+          }
+        },
+        {
+          "verse": 4,
+          "translations": {
+            "hebrew": "וְ֠גַ֠ם מָה־אַתֶּ֥ם לִי֙ צֹ֣ר וְצִיד֔וֹן וְכֹ֖ל גְּלִיל֣וֹת פְּלָ֑שֶׁת הַגְּמ֗וּל אַתֶּם֙ מְשַׁלְּמִ֣ים עָלָ֔י וְאִם־גֹּמְלִ֤ים אַתֶּם֙ עָלַ֔י קַ֣ל מְהֵרָ֔ה אָשִׁ֥יב גְּמֻֽלְכֶ֖ם בְּרֹאשְׁכֶֽם׃",
+            "english": "What is this you are doing to Me, O Tyre, Sidon, and all the districts of Philistia? Are you requiting Me for something I have done, or are you doing something for My benefit? Quick as a flash, I will pay you back; "
+          }
+        },
+        {
+          "verse": 5,
+          "translations": {
+            "hebrew": "אֲשֶׁר־כַּסְפִּ֥י וּזְהָבִ֖י לְקַחְתֶּ֑ם וּמַֽחֲמַדַּי֙ הַטֹּבִ֔ים הֲבֵאתֶ֖ם לְהֵיכְלֵיכֶֽם׃",
+            "english": "for you have taken My gold and My silver, and have carried off My precious treasures to your palaces; "
+          }
+        },
+        {
+          "verse": 6,
+          "translations": {
+            "hebrew": "וּבְנֵ֤י יְהוּדָה֙ וּבְנֵ֣י יְרוּשָׁלַ֔͏ִם מְכַרְתֶּ֖ם לִבְנֵ֣י הַיְּוָנִ֑ים לְמַ֥עַן הַרְחִיקָ֖ם מֵעַ֥ל גְּבוּלָֽם׃",
+            "english": "and you have sold the people of Judah and the people of Jerusalem to the Ionians, so that you have removed them far away from their homeland. "
+          }
+        },
+        {
+          "verse": 7,
+          "translations": {
+            "hebrew": "הִנְנִ֣י מְעִירָ֔ם מִ֨ן־הַמָּק֔וֹם אֲשֶׁר־מְכַרְתֶּ֥ם אֹתָ֖ם שָׁ֑מָּה וַהֲשִׁבֹתִ֥י גְמֻֽלְכֶ֖ם בְּרֹאשְׁכֶֽם׃",
+            "english": "Behold, I will rouse them to leave the place you have sold them to, and I will pay you back: "
+          }
+        },
+        {
+          "verse": 8,
+          "translations": {
+            "hebrew": "וּמָכַרְתִּ֞י אֶת־בְּנֵיכֶ֣ם וְאֶת־בְּנֽוֹתֵיכֶ֗ם בְּיַד֙ בְּנֵ֣י יְהוּדָ֔ה וּמְכָר֥וּם לִשְׁבָאיִ֖ם אֶל־גּ֣וֹי רָח֑וֹק כִּ֥י יְהֹוָ֖ה דִּבֵּֽר׃",
+            "english": "I will deliver your sons and daughters into the hands of the people of Judah, and they will sell them into captivity to a distant nation—for G<small>OD</small> has spoken."
+          }
+        },
+        {
+          "verse": 9,
+          "translations": {
+            "hebrew": "קִרְאוּ־זֹאת֙ בַּגּוֹיִ֔ם קַדְּשׁ֖וּ מִלְחָמָ֑ה הָעִ֙ירוּ֙ הַגִּבּוֹרִ֔ים יִגְּשׁ֣וּ יַֽעֲל֔וּ כֹּ֖ל אַנְשֵׁ֥י הַמִּלְחָמָֽה׃",
+            "english": "<span class=\"poetry indentAll\">Proclaim this among the nations:</span><br><span class=\"poetry indentAll\">Prepare for battle!</span><br><span class=\"poetry indentAll\">Arouse the warriors,</span><br><span class=\"poetry indentAll\">Let all the fighters come and draw near!</span>"
+          }
+        },
+        {
+          "verse": 10,
+          "translations": {
+            "hebrew": "כֹּ֤תּוּ אִתֵּיכֶם֙ לַחֲרָב֔וֹת וּמַזְמְרֹֽתֵיכֶ֖ם לִרְמָחִ֑ים הַֽחַלָּ֔שׁ יֹאמַ֖ר גִּבּ֥וֹר אָֽנִי׃",
+            "english": "<span class=\"poetry indentAll\">Beat your plowshares</span><sup class=\"footnote-marker\">b</sup><i class=\"footnote\"><b>plowshares </b>See note at Isa. 2.4.</i> into swords,<br><span class=\"poetry indentAll\">And your pruning hooks into spears.</span><br><span class=\"poetry indentAll\">Let even the weakling say, “I am strong.”</span>"
+          }
+        },
+        {
+          "verse": 11,
+          "translations": {
+            "hebrew": "ע֣וּשׁוּ וָבֹ֧אוּ כׇֽל־הַגּוֹיִ֛ם מִסָּבִ֖יב וְנִקְבָּ֑צוּ שָׁ֕מָּה הַֽנְחַ֥ת יְהֹוָ֖ה גִּבּוֹרֶֽיךָ׃",
+            "english": "<span class=\"poetry indentAll\">Rouse yourselves</span><sup class=\"footnote-marker\">c</sup><i class=\"footnote\"><b>Rouse yourselves </b>Meaning of Heb. uncertain.</i> and come,<br><span class=\"poetry indentAll\">All you nations;</span><br><span class=\"poetry indentAll\">Come together</span><br><span class=\"poetry indentAll\">From round about.</span><br><span class=\"poetry indentAll\">There bring down</span><sup class=\"footnote-marker\">d</sup><i class=\"footnote\"><b>bring down </b>Meaning of Heb. uncertain.</i> <br><span class=\"poetry indentAll\">Your warriors, O </span> E<small>TERNAL</small> One!"
+          }
+        },
+        {
+          "verse": 12,
+          "translations": {
+            "hebrew": "יֵע֙וֹרוּ֙ וְיַעֲל֣וּ הַגּוֹיִ֔ם אֶל־עֵ֖מֶק יְהוֹשָׁפָ֑ט כִּ֣י שָׁ֗ם אֵשֵׁ֛ב לִשְׁפֹּ֥ט אֶת־כׇּל־הַגּוֹיִ֖ם מִסָּבִֽיב׃",
+            "english": "<span class=\"poetry indentAll\">Let the nations rouse themselves and march up</span><br><span class=\"poetry indentAll\">To the Valley of Jehoshaphat;</span><sup class=\"footnote-marker\">e</sup><i class=\"footnote\"><b>Jehoshaphat </b>Here understood as “G<small>OD</small> judges”; contrast v. 2.</i> <br><span class=\"poetry indentAll\">For there I will sit in judgment</span><br><span class=\"poetry indentAll\">Over all the nations round about.</span>"
+          }
+        },
+        {
+          "verse": 13,
+          "translations": {
+            "hebrew": "שִׁלְח֣וּ מַגָּ֔ל כִּ֥י בָשַׁ֖ל קָצִ֑יר בֹּ֤אֽוּ רְדוּ֙ כִּֽי־מָ֣לְאָה גַּ֔ת הֵשִׁ֙יקוּ֙ הַיְקָבִ֔ים כִּ֥י רַבָּ֖ה רָעָתָֽם׃",
+            "english": "<span class=\"poetry indentAll\">Swing the sickle,</span><br><span class=\"poetry indentAll\">For the crop is ripe;</span><br><span class=\"poetry indentAll\">Come and tread,</span><br><span class=\"poetry indentAll\">For the winepress is full,</span><br><span class=\"poetry indentAll\">The vats are overflowing!</span><br><span class=\"poetry indentAll\">For great is their wickedness.</span>"
+          }
+        },
+        {
+          "verse": 14,
+          "translations": {
+            "hebrew": "הֲמוֹנִ֣ים הֲמוֹנִ֔ים בְּעֵ֖מֶק הֶחָר֑וּץ כִּ֤י קָרוֹב֙ י֣וֹם יְהֹוָ֔ה בְּעֵ֖מֶק הֶחָרֽוּץ׃",
+            "english": "<span class=\"poetry indentAll\">Multitudes upon multitudes</span><br><span class=\"poetry indentAll\">In the Valley of Decision!</span><br><span class=\"poetry indentAll\">For the day of </span> G<small>OD</small> is at hand<br><span class=\"poetry indentAll\">In the Valley of Decision.</span>"
+          }
+        },
+        {
+          "verse": 15,
+          "translations": {
+            "hebrew": "שֶׁ֥מֶשׁ וְיָרֵ֖חַ קָדָ֑רוּ וְכוֹכָבִ֖ים אָסְפ֥וּ נׇגְהָֽם׃",
+            "english": "<span class=\"poetry indentAll\">Sun and moon are darkened,</span><br><span class=\"poetry indentAll\">And stars withdraw their brightness.</span>"
+          }
+        },
+        {
+          "verse": 16,
+          "translations": {
+            "hebrew": "וַיהֹוָ֞ה מִצִּיּ֣וֹן יִשְׁאָ֗ג וּמִירוּשָׁלַ֙͏ִם֙ יִתֵּ֣ן קוֹל֔וֹ וְרָעֲשׁ֖וּ שָׁמַ֣יִם וָאָ֑רֶץ וַֽיהֹוָה֙ מַחֲסֶ֣ה לְעַמּ֔וֹ וּמָע֖וֹז לִבְנֵ֥י יִשְׂרָאֵֽל׃",
+            "english": "<span class=\"poetry indentAll\">And </span> G<small>OD</small> will roar from Zion,<br><span class=\"poetry indentAll\">And shout aloud from Jerusalem,</span><br><span class=\"poetry indentAll\">So that heaven and earth tremble.</span><br><span class=\"poetry indentAll\">But </span> G<small>OD</small> will be a shelter to this covenanted people,<br><span class=\"poetry indentAll\">A refuge to the children of Israel.</span>"
+          }
+        },
+        {
+          "verse": 17,
+          "translations": {
+            "hebrew": "וִידַעְתֶּ֗ם כִּ֣י אֲנִ֤י יְהֹוָה֙ אֱלֹ֣הֵיכֶ֔ם שֹׁכֵ֖ן בְּצִיּ֣וֹן הַר־קׇדְשִׁ֑י וְהָיְתָ֤ה יְרוּשָׁלַ֙͏ִם֙ קֹ֔דֶשׁ וְזָרִ֥ים לֹא־יַֽעַבְרוּ־בָ֖הּ עֽוֹד׃",
+            "english": "<span class=\"poetry indentAll\">And you shall know that I </span> the E<small>TERNAL</small> your God<br><span class=\"poetry indentAll\">Dwell in Zion, My holy mount.</span><br><span class=\"poetry indentAll\">And Jerusalem shall be holy;</span><br><span class=\"poetry indentAll\">Nevermore shall strangers pass through it.</span>"
+          }
+        },
+        {
+          "verse": 18,
+          "translations": {
+            "hebrew": "וְהָיָה֩ בַיּ֨וֹם הַה֜וּא יִטְּפ֧וּ הֶהָרִ֣ים עָסִ֗יס וְהַגְּבָעוֹת֙ תֵּלַ֣כְנָה חָלָ֔ב וְכׇל־אֲפִיקֵ֥י יְהוּדָ֖ה יֵ֣לְכוּ מָ֑יִם וּמַעְיָ֗ן מִבֵּ֤ית יְהֹוָה֙ יֵצֵ֔א וְהִשְׁקָ֖ה אֶת־נַ֥חַל הַשִּׁטִּֽים׃",
+            "english": "<span class=\"poetry indentAll\">And in that day,</span><br><span class=\"poetry indentAll\">The mountains shall drip with wine,</span><br><span class=\"poetry indentAll\">The hills shall flow with milk,</span><br><span class=\"poetry indentAll\">And all the watercourses of Judah shall flow with water;</span><br><span class=\"poetry indentAll\">A spring shall issue from the House of </span> G<small>OD</small> <br><span class=\"poetry indentAll\">And shall water the Wadi of the Acacias.</span>"
+          }
+        },
+        {
+          "verse": 19,
+          "translations": {
+            "hebrew": "מִצְרַ֙יִם֙ לִשְׁמָמָ֣ה תִֽהְיֶ֔ה וֶאֱד֕וֹם לְמִדְבַּ֥ר שְׁמָמָ֖ה תִּֽהְיֶ֑ה מֵֽחֲמַס֙ בְּנֵ֣י יְהוּדָ֔ה אֲשֶׁר־שָׁפְכ֥וּ דָם־נָקִ֖יא בְּאַרְצָֽם׃",
+            "english": "<span class=\"poetry indentAll\">Egypt shall be a desolation,</span><br><span class=\"poetry indentAll\">And Edom a desolate waste,</span><br><span class=\"poetry indentAll\">Because of the outrage to the people of Judah,</span><br><span class=\"poetry indentAll\">In whose land they shed the blood of the innocent.</span>"
+          }
+        },
+        {
+          "verse": 20,
+          "translations": {
+            "hebrew": "וִיהוּדָ֖ה לְעוֹלָ֣ם תֵּשֵׁ֑ב וִירוּשָׁלַ֖͏ִם לְד֥וֹר וָדֽוֹר׃",
+            "english": "<span class=\"poetry indentAll\">But Judah shall be inhabited forever,</span><br><span class=\"poetry indentAll\">And Jerusalem throughout the ages.</span>"
+          }
+        },
+        {
+          "verse": 21,
+          "translations": {
+            "hebrew": "וְנִקֵּ֖יתִי דָּמָ֣ם לֹֽא־נִקֵּ֑יתִי וַיהֹוָ֖ה שֹׁכֵ֥ן בְּצִיּֽוֹן׃",
+            "english": "<span class=\"poetry indentAll\">Thus I will treat as innocent their blood</span><br><span class=\"poetry indentAll\">That I have not treated as innocent;</span><sup class=\"footnote-marker\">f</sup><i class=\"footnote\"><b>I will treat as innocent their blood / That I have not treated as innocent </b>Emendation yields “their unavenged blood shall be avenged.”</i> <br><span class=\"poetry indentAll\">And </span> G<small>OD</small> shall dwell in Zion."
+          }
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "imported": "2025-09-30T18:05:03.005Z",
+    "totalChapters": 4,
+    "totalVerses": 73,
+    "status": "imported_sefaria",
+    "notes": "Imported from Sefaria.org (Hebrew and English)."
+  }
+}

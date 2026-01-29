@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talmud Reader</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/jewish-bible.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="/jewish-bible.ico">
+
+    <!-- Apple Touch Icon for iOS home screen -->
+    <link rel="apple-touch-icon" href="/jewish-bible.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/jewish-bible.png">
+
+    <!-- Android/Chrome -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/jewish-bible.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/jewish-bible.png">
+
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="Talmud Reader">
+    <meta property="og:description" content="Lees de Babylonische Talmud online">
+    <meta property="og:image" content="https://tanach.vercel.app/jewish-bible.png">
+    <meta property="og:type" content="website">
+    <meta name="description" content="Lees de Babylonische Talmud online in Hebreeuws en Engels">
+    <meta name="theme-color" content="#667eea">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 15px;
+            background: rgba(255,255,255,0.2);
+            transition: background 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .tractate-info {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .tractate-info h2 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .page-navigation {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .page-navigation button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .page-navigation button:hover:not(:disabled) {
+            background: #5a6fd8;
+        }
+
+        .page-navigation button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .page-navigation select {
+            padding: 8px 12px;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .content-area {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        .text-section {
+            margin-bottom: 30px;
+        }
+
+        .text-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .hebrew-text {
+            font-size: 1.3rem;
+            line-height: 2;
+            direction: rtl;
+            text-align: right;
+            font-family: 'Times New Roman', serif;
+            white-space: pre-wrap;
+        }
+
+        .english-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            white-space: pre-wrap;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #c62828;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .page-navigation {
+                justify-content: center;
+            }
+
+            .content-area {
+                padding: 20px;
+            }
+
+            .hebrew-text {
+                font-size: 1.1rem;
+            }
+
+            .english-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>📖 Talmud Reader</h1>
+            <div class="nav-links">
+                <a href="/">🏠 Home</a>
+                <a href="/reader.html">📕 Tanach</a>
+                <a href="/readings.html">📚 Lezingen</a>
+                <a href="/calendar.html">📅 Kalender</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="tractate-info" id="tractateInfo">
+            <div class="loading">
+                <div class="spinner"></div>
+                Tractaat wordt geladen...
+            </div>
+        </div>
+
+        <div class="page-navigation" id="pageNavigation" style="display: none;">
+            <button id="prevBtn">← Vorige</button>
+            <select id="pageSelect"></select>
+            <button id="nextBtn">Volgende →</button>
+        </div>
+
+        <div class="content-area" id="contentArea">
+            <div class="loading">
+                <div class="spinner"></div>
+                Bladzijde wordt geladen...
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        class TalmudReader {
+            constructor() {
+                this.tractateData = null;
+                this.currentPageIndex = 0;
+                this.init();
+            }
+
+            async init() {
+                const params = new URLSearchParams(window.location.search);
+                const tractate = params.get('tractate');
+                const page = params.get('page');
+
+                if (!tractate) {
+                    this.showError('Geen tractaat opgegeven. Gebruik ?tractate=naam&page=2a');
+                    return;
+                }
+
+                await this.loadTractate(tractate);
+
+                if (page && this.tractateData) {
+                    const pageIndex = this.tractateData.pages.findIndex(p => p.page === page);
+                    if (pageIndex !== -1) {
+                        this.currentPageIndex = pageIndex;
+                    }
+                }
+
+                this.setupNavigation();
+                this.renderPage();
+            }
+
+            async loadTractate(tractateName) {
+                try {
+                    const fileName = tractateName.toLowerCase().replace(/ /g, '_');
+                    const response = await fetch(`/data/talmud/${fileName}.json`);
+
+                    if (!response.ok) {
+                        throw new Error(`Tractaat "${tractateName}" niet gevonden`);
+                    }
+
+                    this.tractateData = await response.json();
+                    this.renderTractateInfo();
+
+                } catch (error) {
+                    this.showError(`Fout bij het laden van tractaat: ${error.message}`);
+                }
+            }
+
+            renderTractateInfo() {
+                if (!this.tractateData) return;
+
+                document.getElementById('tractateInfo').innerHTML = `
+                    <h2>${this.tractateData.name}</h2>
+                    <p>Type: ${this.tractateData.type} | Totaal bladzijden: ${this.tractateData.metadata.totalPages}</p>
+                `;
+            }
+
+            setupNavigation() {
+                if (!this.tractateData) return;
+
+                const pageSelect = document.getElementById('pageSelect');
+                pageSelect.innerHTML = '';
+
+                this.tractateData.pages.forEach((page, index) => {
+                    const option = document.createElement('option');
+                    option.value = index;
+                    option.textContent = `Bladzijde ${page.page}`;
+                    pageSelect.appendChild(option);
+                });
+
+                pageSelect.value = this.currentPageIndex;
+
+                document.getElementById('prevBtn').addEventListener('click', () => this.navigatePage(-1));
+                document.getElementById('nextBtn').addEventListener('click', () => this.navigatePage(1));
+                pageSelect.addEventListener('change', (e) => {
+                    this.currentPageIndex = parseInt(e.target.value);
+                    this.renderPage();
+                    this.updateURL();
+                });
+
+                document.getElementById('pageNavigation').style.display = 'flex';
+            }
+
+            navigatePage(direction) {
+                const newIndex = this.currentPageIndex + direction;
+                if (newIndex >= 0 && newIndex < this.tractateData.pages.length) {
+                    this.currentPageIndex = newIndex;
+                    document.getElementById('pageSelect').value = this.currentPageIndex;
+                    this.renderPage();
+                    this.updateURL();
+                }
+            }
+
+            renderPage() {
+                if (!this.tractateData) return;
+
+                const page = this.tractateData.pages[this.currentPageIndex];
+
+                document.getElementById('contentArea').innerHTML = `
+                    <div class="text-section">
+                        <h3>🔤 Hebreeuws - דף ${page.page}</h3>
+                        <div class="hebrew-text">${page.content.hebrew || 'Geen Hebreeuwse tekst beschikbaar'}</div>
+                    </div>
+                    <div class="text-section">
+                        <h3>🔤 Engels</h3>
+                        <div class="english-text">${page.content.english || 'No English translation available'}</div>
+                    </div>
+                `;
+
+                // Update navigation buttons
+                document.getElementById('prevBtn').disabled = this.currentPageIndex === 0;
+                document.getElementById('nextBtn').disabled = this.currentPageIndex === this.tractateData.pages.length - 1;
+            }
+
+            updateURL() {
+                const page = this.tractateData.pages[this.currentPageIndex];
+                const params = new URLSearchParams(window.location.search);
+                params.set('page', page.page);
+                window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`);
+            }
+
+            showError(message) {
+                document.getElementById('tractateInfo').innerHTML = `
+                    <div class="error">${message}</div>
+                `;
+                document.getElementById('contentArea').innerHTML = '';
+            }
+        }
+
+        // Initialize reader when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new TalmudReader();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joodse Leesrooster - Tanach Reader</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/jewish-bible.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="/jewish-bible.ico">
+
+    <!-- Apple Touch Icon for iOS home screen -->
+    <link rel="apple-touch-icon" href="/jewish-bible.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/jewish-bible.png">
+
+    <!-- Android/Chrome -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/jewish-bible.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/jewish-bible.png">
+
+    <!-- Open Graph meta tags for social sharing -->
+    <meta property="fb:app_id" content="1234567890">
+    <meta property="og:title" content="Joodse Leesrooster - Tanach Reader">
+    <meta property="og:description" content="Dagelijkse, wekelijkse en jaarlijkse Joodse lezingen">
+    <meta property="og:image" content="https://tanach.vercel.app/jewish-bible.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="454">
+    <meta property="og:image:alt" content="Tanach Reader">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tanach.vercel.app">
+    <meta property="og:site_name" content="Tanach Reader">
+
+    <!-- Additional meta tags -->
+    <meta name="description" content="Dagelijkse, wekelijkse en jaarlijkse Joodse lezingen en studie programma's">
+    <meta name="theme-color" content="#667eea">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .nav-links {
+            margin-top: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.2);
+            transition: background 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .date-selector {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .date-selector label {
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .date-selector input[type="date"] {
+            padding: 10px 15px;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .date-selector button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .date-selector button:hover {
+            background: #5a6fd8;
+        }
+
+        .readings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .reading-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .reading-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+
+        .reading-card.weekly {
+            border-left-color: #9c27b0;
+        }
+
+        .reading-card.daily {
+            border-left-color: #4caf50;
+        }
+
+        .reading-card.yearly {
+            border-left-color: #ff9800;
+        }
+
+        .reading-card h3 {
+            color: #667eea;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .reading-card.weekly h3 {
+            color: #9c27b0;
+        }
+
+        .reading-card.daily h3 {
+            color: #4caf50;
+        }
+
+        .reading-card.yearly h3 {
+            color: #ff9800;
+        }
+
+        .reading-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+
+        .reading-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .reading-label {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .reading-text {
+            color: #333;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .reading-link {
+            display: inline-block;
+            margin-top: 8px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .reading-link:hover {
+            color: #5a6fd8;
+            text-decoration: underline;
+        }
+
+        .hebrew-date-display {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .hebrew-date-display h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .hebrew-date-display p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #c62828;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            opacity: 0.8;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+
+            .nav-links a {
+                margin: 0;
+                padding: 12px 20px;
+                font-size: 1rem;
+                min-width: 200px;
+                text-align: center;
+            }
+
+            .readings-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .reading-card {
+                padding: 20px;
+            }
+
+            .date-selector {
+                flex-direction: column;
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .nav-links a {
+                min-width: 180px;
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+
+            .reading-card {
+                padding: 15px;
+            }
+
+            .reading-card h3 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Joodse Leesrooster</h1>
+            <p>Dagelijkse, wekelijkse en jaarlijkse lezingen en studie programma's</p>
+            <div class="nav-links">
+                <a href="/" title="Home">🏠 Home</a>
+                <a href="/reader.html" title="Tanach Reader">📖 Tanach Reader</a>
+                <a href="/calendar.html" title="Kalender">📅 Kalender</a>
+            </div>
+        </div>
+
+        <div class="date-selector">
+            <label for="readingDate">📅 Selecteer Datum:</label>
+            <input type="date" id="readingDate">
+            <button id="todayBtn">Vandaag</button>
+            <button id="loadReadingsBtn">Laad Lezingen</button>
+        </div>
+
+        <div class="hebrew-date-display" id="hebrewDateDisplay">
+            <div class="loading">
+                <div class="spinner"></div>
+                Datum wordt geladen...
+            </div>
+        </div>
+
+        <div class="readings-grid" id="readingsContainer">
+            <div class="loading">
+                <div class="spinner"></div>
+                Lezingen worden geladen...
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2024 Tanach Reader - Data van HebCal.org en Sefaria.org</p>
+        </div>
+    </div>
+
+    <script type="module">
+        import { getWeeklyInfo, getHebrewDate } from './js/hebcal-service.js';
+        import { generateReaderLink, parseReference, getBookInfo, getParashatInfo } from './js/book-mapping-service.js';
+
+        class ReadingsApp {
+            constructor() {
+                this.selectedDate = new Date();
+                this.init();
+            }
+
+            async init() {
+                this.setupEventListeners();
+                this.setDateInput();
+                await this.loadReadings();
+            }
+
+            setupEventListeners() {
+                document.getElementById('todayBtn').addEventListener('click', () => {
+                    this.selectedDate = new Date();
+                    this.setDateInput();
+                    this.loadReadings();
+                });
+
+                document.getElementById('loadReadingsBtn').addEventListener('click', () => {
+                    const dateInput = document.getElementById('readingDate').value;
+                    if (dateInput) {
+                        this.selectedDate = new Date(dateInput);
+                        this.loadReadings();
+                    }
+                });
+
+                document.getElementById('readingDate').addEventListener('change', (e) => {
+                    if (e.target.value) {
+                        this.selectedDate = new Date(e.target.value);
+                        this.loadReadings();
+                    }
+                });
+            }
+
+            setDateInput() {
+                const dateInput = document.getElementById('readingDate');
+                const year = this.selectedDate.getFullYear();
+                const month = String(this.selectedDate.getMonth() + 1).padStart(2, '0');
+                const day = String(this.selectedDate.getDate()).padStart(2, '0');
+                dateInput.value = `${year}-${month}-${day}`;
+            }
+
+            async loadReadings() {
+                try {
+                    // Show loading state
+                    document.getElementById('readingsContainer').innerHTML = `
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            Lezingen worden geladen...
+                        </div>
+                    `;
+
+                    // Load Hebrew date
+                    await this.loadHebrewDate();
+
+                    // Load readings in parallel
+                    const [weeklyInfo, sefariaCalendar] = await Promise.all([
+                        this.loadWeeklyReadings(),
+                        this.loadSefariaCalendar()
+                    ]);
+
+                    // Render all readings
+                    this.renderReadings(weeklyInfo, sefariaCalendar);
+
+                } catch (error) {
+                    console.error('Error loading readings:', error);
+                    document.getElementById('readingsContainer').innerHTML = `
+                        <div class="error">
+                            <strong>Fout bij het laden van lezingen:</strong><br>
+                            ${error.message}
+                        </div>
+                    `;
+                }
+            }
+
+            async loadHebrewDate() {
+                try {
+                    const hebrewDate = getHebrewDate(this.selectedDate);
+                    const gregorianDate = this.selectedDate.toLocaleDateString('nl-NL', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+
+                    document.getElementById('hebrewDateDisplay').innerHTML = `
+                        <h2>${hebrewDate.display}</h2>
+                        <p>${gregorianDate}</p>
+                    `;
+                } catch (error) {
+                    console.error('Error loading Hebrew date:', error);
+                    document.getElementById('hebrewDateDisplay').innerHTML = `
+                        <div class="error">Kon Joodse datum niet laden</div>
+                    `;
+                }
+            }
+
+            async loadWeeklyReadings() {
+                try {
+                    return getWeeklyInfo(this.selectedDate);
+                } catch (error) {
+                    console.error('Error loading weekly readings:', error);
+                    return null;
+                }
+            }
+
+            async loadSefariaCalendar() {
+                try {
+                    const year = this.selectedDate.getFullYear();
+                    const month = String(this.selectedDate.getMonth() + 1).padStart(2, '0');
+                    const day = String(this.selectedDate.getDate()).padStart(2, '0');
+                    const dateString = `${year}-${month}-${day}`;
+
+                    const response = await fetch(`https://www.sefaria.org/api/calendars?date=${dateString}`);
+
+                    if (!response.ok) {
+                        throw new Error(`Sefaria API error: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    return data;
+                } catch (error) {
+                    console.error('Error loading Sefaria calendar:', error);
+                    return null;
+                }
+            }
+
+            renderReadings(weeklyInfo, sefariaCalendar) {
+                let html = '';
+
+                // Weekly Readings (from HebCal)
+                if (weeklyInfo) {
+                    html += this.renderWeeklyCard(weeklyInfo);
+                }
+
+                // Daily Readings (from Sefaria)
+                if (sefariaCalendar && sefariaCalendar.calendar_items) {
+                    html += this.renderDailyReadings(sefariaCalendar.calendar_items);
+                }
+
+                // Yearly Cycles (from Sefaria)
+                if (sefariaCalendar && sefariaCalendar.calendar_items) {
+                    html += this.renderYearlyReadings(sefariaCalendar.calendar_items);
+                }
+
+                document.getElementById('readingsContainer').innerHTML = html || `
+                    <div class="error">Geen lezingen beschikbaar voor deze datum</div>
+                `;
+            }
+
+            renderWeeklyCard(weeklyInfo) {
+                // Extract parashat name and generate link
+                const parashatText = weeklyInfo.parashat || 'N/A';
+                const parashatLink = this.getTorahLink(parashatText);
+
+                // Extract haftarah reference and generate link
+                const haftarahText = weeklyInfo.haftarah || 'N/A';
+                const haftarahLink = this.getHaftarahLink(haftarahText);
+
+                return `
+                    <div class="reading-card weekly">
+                        <h3>🕯️ Wekelijkse Lezingen</h3>
+                        <div class="reading-item">
+                            <div class="reading-label">Parashat HaShavua (Torah Portion)</div>
+                            <div class="reading-text">${parashatText}</div>
+                            ${parashatLink}
+                        </div>
+                        <div class="reading-item">
+                            <div class="reading-label">Haftarah (Prophets)</div>
+                            <div class="reading-text">${haftarahText}</div>
+                            ${haftarahLink}
+                        </div>
+                        ${weeklyInfo.roshChodesh ? `
+                            <div class="reading-item">
+                                <div class="reading-label">Rosh Chodesh</div>
+                                <div class="reading-text">${weeklyInfo.roshChodesh}</div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }
+
+            /**
+             * Get internal link for a reading reference
+             */
+            getInternalLink(displayText, sefariaUrl) {
+                // Try to generate internal link from display text
+                let internalUrl = generateReaderLink(displayText);
+
+                if (internalUrl) {
+                    return `<a href="${internalUrl}" class="reading-link">Read in our Tanach →</a>`;
+                }
+
+                // If no internal link, try to extract the reference from Sefaria URL
+                if (!internalUrl && sefariaUrl) {
+                    // Extract reference from URL format:
+                    // - Genesis.5 (chapter only)
+                    // - I_Kings.1.1 (chapter.verse)
+                    // - I_Kings.1.1-31 (chapter.verse-verse)
+                    // - Judges.19.20-20.26 (chapter.verse-chapter.verse)
+                    const urlMatch = sefariaUrl.match(/^([^.\/]+)\.(\d+)(?:\.(\d+)(?:-(?:(\d+)\.)?(\d+))?)?$/);
+                    if (urlMatch) {
+                        const book = urlMatch[1].replace(/_/g, ' ');
+                        const chapter = urlMatch[2];
+                        const verse = urlMatch[3];
+                        // urlMatch[4] is ending chapter (if cross-chapter range)
+                        // urlMatch[5] is ending verse (for any range)
+
+                        if (chapter) {
+                            let reference = `${book} ${chapter}`;
+                            if (verse) {
+                                reference += `:${verse}`;
+                            }
+
+                            internalUrl = generateReaderLink(reference);
+                            if (internalUrl) {
+                                return `<a href="${internalUrl}" class="reading-link">Read in our Tanach →</a>`;
+                            }
+                        }
+                    }
+                }
+
+                // Check if it's Talmud, Mishnah, or Rambam
+                const jewishTextLink = this.getJewishTextLink(displayText, sefariaUrl);
+                if (jewishTextLink) {
+                    return jewishTextLink;
+                }
+
+                // If still no internal link, it's not in our collection
+                return '';
+            }
+
+            /**
+             * Get link for Jewish texts (Talmud, Mishnah, Rambam)
+             */
+            getJewishTextLink(displayText, sefariaUrl) {
+                // PRIORITY 1: Check Sefaria URL first to determine content type
+                if (sefariaUrl) {
+                    // Rambam URL: Mishneh_Torah,_Foundations_of_the_Torah.5 or Mishneh_Torah,_The_Sanhedrin...3
+                    if (sefariaUrl.includes('Mishneh_Torah')) {
+                        const match = sefariaUrl.match(/Mishneh_Torah,_([A-Za-z_,]+)\.(\d+)(?:[-\.]?\d+)?/);
+                        if (match) {
+                            const book = match[1].toLowerCase();
+                            const chapter = match[2];
+                            return `<a href="/rambam.html?book=${book}&chapter=${chapter}" class="reading-link">Lees in onze Rambam →</a>`;
+                        }
+                        // Fallback: extract from display text if URL match fails
+                        const rambamMatch = displayText.match(/^(.+?)\s+(\d+)(?::\d+)?(?:-\d+)?$/);
+                        if (rambamMatch) {
+                            let bookName = rambamMatch[1].trim().replace(/^Mishneh Torah,?\s*/i, '');
+                            const chapter = rambamMatch[2];
+                            const bookId = bookName.toLowerCase().replace(/ /g, '_').replace(/'/g, '').replace(/,/g, '');
+                            return `<a href="/rambam.html?book=${bookId}&chapter=${chapter}" class="reading-link">Lees in onze Rambam →</a>`;
+                        }
+                    }
+
+                    // Mishnah URL: Mishnah_Berakhot.2.3 or Mishnah_Chullin.7.5-6
+                    if (sefariaUrl.includes('Mishnah_')) {
+                        const match = sefariaUrl.match(/Mishnah_([A-Za-z_]+)\.(\d+)\.(\d+)(?:-\d+)?/);
+                        if (match) {
+                            const tractate = match[1].toLowerCase();
+                            const chapter = match[2];
+                            return `<a href="/mishnah.html?tractate=${tractate}&chapter=${chapter}" class="reading-link">Lees in onze Mishnah →</a>`;
+                        }
+                    }
+
+                    // Talmud URL: Berakhot.35a or Zevachim.61
+                    if (sefariaUrl.match(/^[A-Za-z_]+\.\d+[ab]?$/)) {
+                        const match = sefariaUrl.match(/^([A-Za-z_]+)\.(\d+)([ab])?$/);
+                        if (match) {
+                            const tractate = match[1].toLowerCase();
+                            const pageNum = match[2];
+                            const side = match[3] || 'a';
+                            return `<a href="/talmud.html?tractate=${tractate}&page=${pageNum}${side}" class="reading-link">Lees in onze Talmud →</a>`;
+                        }
+                    }
+                }
+
+                // PRIORITY 2: Pattern matching on display text (when no URL or URL didn't match)
+
+                // Mishnah - format: "Berakhot 2:3" or "Mishna Berakhot 2:3" or "Chullin 7:5-6"
+                let mishnahText = displayText.replace(/^Mishnah?\s+/i, '');
+                const mishnahMatch = mishnahText.match(/^([A-Za-z\s]+)\s+(\d+):(\d+)(?:-\d+)?$/i);
+                if (mishnahMatch) {
+                    const tractate = mishnahMatch[1].trim().toLowerCase().replace(/ /g, '_');
+                    const chapter = mishnahMatch[2];
+                    return `<a href="/mishnah.html?tractate=${tractate}&chapter=${chapter}" class="reading-link">Lees in onze Mishnah →</a>`;
+                }
+
+                // Rambam - format: "Foundations of the Torah 5" (contains Torah/Mishneh keywords)
+                if (displayText.includes('Torah') || displayText.includes('Mishneh')) {
+                    const rambamMatch = displayText.match(/^(.+?)\s+(\d+)(?::\d+)?(?:-\d+)?$/);
+                    if (rambamMatch) {
+                        let bookName = rambamMatch[1].trim().replace(/^Mishneh Torah,?\s*/i, '');
+                        const chapter = rambamMatch[2];
+                        const bookId = bookName.toLowerCase().replace(/ /g, '_').replace(/'/g, '').replace(/,/g, '');
+                        return `<a href="/rambam.html?book=${bookId}&chapter=${chapter}" class="reading-link">Lees in onze Rambam →</a>`;
+                    }
+                }
+
+                // Talmud - format: "Berakhot 35" or "Shabbat 12a" (short tractate names)
+                const talmudMatch = displayText.match(/^([A-Za-z\s]+)\s+(\d+)([ab])?$/i);
+                if (talmudMatch) {
+                    const tractate = talmudMatch[1].trim().toLowerCase().replace(/ /g, '_');
+                    const pageNum = talmudMatch[2];
+                    const side = talmudMatch[3] || 'a';
+                    return `<a href="/talmud.html?tractate=${tractate}&page=${pageNum}${side}" class="reading-link">Lees in onze Talmud →</a>`;
+                }
+
+                return '';
+            }
+
+            /**
+             * Get link for Torah reading (parashat)
+             */
+            getTorahLink(parashatText) {
+                if (!parashatText || parashatText === 'N/A') return '';
+
+                // Try to parse as a direct reference first (e.g., "Genesis 28:10-32:3")
+                const directUrl = generateReaderLink(parashatText);
+                if (directUrl) {
+                    return `<a href="${directUrl}" class="reading-link">Read in our Tanach →</a>`;
+                }
+
+                // Try to parse as parashat name (e.g., "Parashat Chayei Sara" or just "Chayei Sara")
+                const parashatInfo = getParashatInfo(parashatText);
+                if (parashatInfo) {
+                    const bookInfo = getBookInfo(parashatInfo.book);
+                    if (bookInfo) {
+                        const url = `/reader.html?book=${bookInfo.id}&category=${bookInfo.category}&chapter=${parashatInfo.chapter}`;
+                        return `<a href="${url}" class="reading-link">Read in our Tanach →</a>`;
+                    }
+                }
+
+                return '';
+            }
+
+            /**
+             * Get link for Haftarah reading
+             */
+            getHaftarahLink(haftarahText) {
+                if (!haftarahText || haftarahText === 'N/A') return '';
+
+                // Try to parse the reference
+                const internalUrl = generateReaderLink(haftarahText);
+
+                if (internalUrl) {
+                    return `<a href="${internalUrl}" class="reading-link">Read in our Tanach →</a>`;
+                }
+
+                return '';
+            }
+
+            renderDailyReadings(calendarItems) {
+                const dailyItems = calendarItems.filter(item =>
+                    ['Daf Yomi', 'Daily Mishnah', 'Daily Rambam', 'Chok LeYisrael'].includes(item.title.en)
+                );
+
+                if (dailyItems.length === 0) return '';
+
+                let html = `
+                    <div class="reading-card daily">
+                        <h3>📖 Dagelijkse Studie</h3>
+                `;
+
+                dailyItems.forEach(item => {
+                    let linkHtml = '';
+
+                    // Special handling for Chok LeYisrael - it's usually a parashat name
+                    if (item.title.en === 'Chok LeYisrael') {
+                        linkHtml = this.getTorahLink(item.displayValue.en);
+                    } else if (['Daf Yomi', 'Daily Mishnah', 'Daily Rambam'].includes(item.title.en)) {
+                        // Use Jewish text link handler for Talmud, Mishnah, and Rambam
+                        linkHtml = this.getJewishTextLink(item.displayValue.en, item.url);
+                    } else {
+                        linkHtml = this.getInternalLink(item.displayValue.en, item.url);
+                    }
+
+                    html += `
+                        <div class="reading-item">
+                            <div class="reading-label">${item.title.en}</div>
+                            <div class="reading-text">${item.displayValue.en}</div>
+                            ${linkHtml}
+                        </div>
+                    `;
+                });
+
+                html += `</div>`;
+                return html;
+            }
+
+            renderYearlyReadings(calendarItems) {
+                const yearlyItems = calendarItems.filter(item =>
+                    ['929', 'Tanakh Yomi', 'Nach Yomi', 'Psalms', 'Pirkei Avot'].includes(item.title.en)
+                );
+
+                if (yearlyItems.length === 0) return '';
+
+                let html = `
+                    <div class="reading-card yearly">
+                        <h3>📅 Jaarlijkse Cyclussen</h3>
+                `;
+
+                yearlyItems.forEach(item => {
+                    const internalLink = this.getInternalLink(item.displayValue.en, item.url);
+                    html += `
+                        <div class="reading-item">
+                            <div class="reading-label">${item.title.en}</div>
+                            <div class="reading-text">${item.displayValue.en}</div>
+                            ${internalLink}
+                        </div>
+                    `;
+                });
+
+                html += `</div>`;
+                return html;
+            }
+        }
+
+        // Initialize app when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new ReadingsApp();
+        });
+    </script>
+</body>
+</html>

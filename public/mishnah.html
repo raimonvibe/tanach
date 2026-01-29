@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mishnah Reader</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/jewish-bible.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="/jewish-bible.ico">
+
+    <!-- Apple Touch Icon for iOS home screen -->
+    <link rel="apple-touch-icon" href="/jewish-bible.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/jewish-bible.png">
+
+    <!-- Android/Chrome -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/jewish-bible.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/jewish-bible.png">
+
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="Mishnah Reader">
+    <meta property="og:description" content="Lees de Mishnah online">
+    <meta property="og:image" content="https://tanach.vercel.app/jewish-bible.png">
+    <meta property="og:type" content="website">
+    <meta name="description" content="Lees de Mishnah online in Hebreeuws en Engels">
+    <meta name="theme-color" content="#4caf50">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 15px;
+            background: rgba(255,255,255,0.2);
+            transition: background 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .tractate-info {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .tractate-info h2 {
+            color: #4caf50;
+            margin-bottom: 10px;
+        }
+
+        .chapter-navigation {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .chapter-navigation button {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .chapter-navigation button:hover:not(:disabled) {
+            background: #45a049;
+        }
+
+        .chapter-navigation button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .chapter-navigation select {
+            padding: 8px 12px;
+            border: 2px solid #4caf50;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .content-area {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        .mishnah-item {
+            border-left: 4px solid #4caf50;
+            padding: 20px;
+            margin-bottom: 25px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .mishnah-item h4 {
+            color: #4caf50;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .text-section {
+            margin-bottom: 15px;
+        }
+
+        .text-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .text-section h5 {
+            color: #666;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .hebrew-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            direction: rtl;
+            text-align: right;
+            font-family: 'Times New Roman', serif;
+            white-space: pre-wrap;
+        }
+
+        .english-text {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4caf50;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #c62828;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .chapter-navigation {
+                justify-content: center;
+            }
+
+            .content-area {
+                padding: 20px;
+            }
+
+            .mishnah-item {
+                padding: 15px;
+            }
+
+            .hebrew-text {
+                font-size: 1.05rem;
+            }
+
+            .english-text {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>📜 Mishnah Reader</h1>
+            <div class="nav-links">
+                <a href="/">🏠 Home</a>
+                <a href="/reader.html">📕 Tanach</a>
+                <a href="/readings.html">📚 Lezingen</a>
+                <a href="/calendar.html">📅 Kalender</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="tractate-info" id="tractateInfo">
+            <div class="loading">
+                <div class="spinner"></div>
+                Tractaat wordt geladen...
+            </div>
+        </div>
+
+        <div class="chapter-navigation" id="chapterNavigation" style="display: none;">
+            <button id="prevBtn">← Vorig Hoofdstuk</button>
+            <select id="chapterSelect"></select>
+            <button id="nextBtn">Volgend Hoofdstuk →</button>
+        </div>
+
+        <div class="content-area" id="contentArea">
+            <div class="loading">
+                <div class="spinner"></div>
+                Hoofdstuk wordt geladen...
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        class MishnahReader {
+            constructor() {
+                this.tractateData = null;
+                this.currentChapterIndex = 0;
+                this.init();
+            }
+
+            async init() {
+                const params = new URLSearchParams(window.location.search);
+                const tractate = params.get('tractate');
+                const chapter = params.get('chapter');
+
+                if (!tractate) {
+                    this.showError('Geen tractaat opgegeven. Gebruik ?tractate=naam&chapter=1');
+                    return;
+                }
+
+                await this.loadTractate(tractate);
+
+                if (chapter && this.tractateData) {
+                    const chapterIndex = parseInt(chapter) - 1;
+                    if (chapterIndex >= 0 && chapterIndex < this.tractateData.chapters.length) {
+                        this.currentChapterIndex = chapterIndex;
+                    }
+                }
+
+                this.setupNavigation();
+                this.renderChapter();
+            }
+
+                async loadTractate(tractateName) {
+                    try {
+                        const fileName = tractateName.toLowerCase().replace(/ /g, '_');
+                        const response = await fetch(`/data/mishnah/${fileName}.json`);  // ← HIER WAS DE FOUT
+                        
+                        if (!response.ok) {
+                            throw new Error(`Tractaat "${tractateName}" niet gevonden`);
+                        }
+                
+                        this.tractateData = await response.json();
+                        this.renderTractateInfo();
+                
+                    } catch (error) {
+                        this.showError(`Fout bij het laden van tractaat: ${error.message}`);
+                    }
+                }
+
+            renderTractateInfo() {
+                if (!this.tractateData) return;
+
+                document.getElementById('tractateInfo').innerHTML = `
+                    <h2>${this.tractateData.name}</h2>
+                    <p>Type: ${this.tractateData.type} | Totaal hoofdstukken: ${this.tractateData.metadata.totalChapters}</p>
+                `;
+            }
+
+            setupNavigation() {
+                if (!this.tractateData) return;
+
+                const chapterSelect = document.getElementById('chapterSelect');
+                chapterSelect.innerHTML = '';
+
+                this.tractateData.chapters.forEach((chapter, index) => {
+                    const option = document.createElement('option');
+                    option.value = index;
+                    option.textContent = `Hoofdstuk ${chapter.chapter} (${chapter.mishnayot.length} mishnayot)`;
+                    chapterSelect.appendChild(option);
+                });
+
+                chapterSelect.value = this.currentChapterIndex;
+
+                document.getElementById('prevBtn').addEventListener('click', () => this.navigateChapter(-1));
+                document.getElementById('nextBtn').addEventListener('click', () => this.navigateChapter(1));
+                chapterSelect.addEventListener('change', (e) => {
+                    this.currentChapterIndex = parseInt(e.target.value);
+                    this.renderChapter();
+                    this.updateURL();
+                });
+
+                document.getElementById('chapterNavigation').style.display = 'flex';
+            }
+
+            navigateChapter(direction) {
+                const newIndex = this.currentChapterIndex + direction;
+                if (newIndex >= 0 && newIndex < this.tractateData.chapters.length) {
+                    this.currentChapterIndex = newIndex;
+                    document.getElementById('chapterSelect').value = this.currentChapterIndex;
+                    this.renderChapter();
+                    this.updateURL();
+                }
+            }
+
+            renderChapter() {
+                if (!this.tractateData) return;
+
+                const chapter = this.tractateData.chapters[this.currentChapterIndex];
+                let html = '';
+
+                chapter.mishnayot.forEach(mishnah => {
+                    html += `
+                        <div class="mishnah-item">
+                            <h4>Mishnah ${chapter.chapter}:${mishnah.mishnah}</h4>
+                            <div class="text-section">
+                                <h5>🔤 Hebreeuws</h5>
+                                <div class="hebrew-text">${mishnah.translations.hebrew || 'Geen Hebreeuwse tekst beschikbaar'}</div>
+                            </div>
+                            <div class="text-section">
+                                <h5>🔤 Engels</h5>
+                                <div class="english-text">${mishnah.translations.english || 'No English translation available'}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                document.getElementById('contentArea').innerHTML = html;
+
+                // Update navigation buttons
+                document.getElementById('prevBtn').disabled = this.currentChapterIndex === 0;
+                document.getElementById('nextBtn').disabled = this.currentChapterIndex === this.tractateData.chapters.length - 1;
+            }
+
+            updateURL() {
+                const chapter = this.tractateData.chapters[this.currentChapterIndex];
+                const params = new URLSearchParams(window.location.search);
+                params.set('chapter', chapter.chapter);
+                window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`);
+            }
+
+            showError(message) {
+                document.getElementById('tractateInfo').innerHTML = `
+                    <div class="error">${message}</div>
+                `;
+                document.getElementById('contentArea').innerHTML = '';
+            }
+        }
+
+        // Initialize reader when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new MishnahReader();
+        });
+    </script>
+</body>
+</html>
