@@ -228,6 +228,12 @@ export function parseReference(reference) {
             
             // Handle "Kings" - Seder numbers span across I Kings (22 chapters) and II Kings (25 chapters)
             if (bookName === 'Kings') {
+                const maxSeder = 47; // 22 + 25
+                if (sederNum < 1 || sederNum > maxSeder) {
+                    console.warn(`[BookMapping] Kings Seder ${sederNum} is out of range (1-${maxSeder})`);
+                    return null; // Invalid seder number
+                }
+                
                 // I Kings has 22 chapters, so Seder 1-22 are I Kings, Seder 23+ are II Kings
                 if (sederNum <= 22) {
                     bookName = 'I Kings';
@@ -239,9 +245,14 @@ export function parseReference(reference) {
                     };
                 } else {
                     bookName = 'II Kings';
+                    const chapterNum = sederNum - 22; // Seder 23 = II Kings chapter 1, Seder 30 = II Kings chapter 8
+                    if (chapterNum > 25) {
+                        console.warn(`[BookMapping] Kings Seder ${sederNum} maps to II Kings chapter ${chapterNum}, but II Kings only has 25 chapters`);
+                        return null;
+                    }
                     return {
                         book: bookName,
-                        chapter: sederNum - 22, // Seder 23 = II Kings chapter 1, Seder 30 = II Kings chapter 8
+                        chapter: chapterNum,
                         verseStart: 1,
                         verseEnd: null
                     };
@@ -250,6 +261,12 @@ export function parseReference(reference) {
             
             // Handle "Samuel" - I Samuel has 31 chapters, II Samuel has 24 chapters
             if (bookName === 'Samuel') {
+                const maxSeder = 55; // 31 + 24
+                if (sederNum < 1 || sederNum > maxSeder) {
+                    console.warn(`[BookMapping] Samuel Seder ${sederNum} is out of range (1-${maxSeder})`);
+                    return null; // Invalid seder number
+                }
+                
                 if (sederNum <= 31) {
                     bookName = 'I Samuel';
                     return {
@@ -260,9 +277,14 @@ export function parseReference(reference) {
                     };
                 } else {
                     bookName = 'II Samuel';
+                    const chapterNum = sederNum - 31; // Seder 32 = II Samuel chapter 1
+                    if (chapterNum > 24) {
+                        console.warn(`[BookMapping] Samuel Seder ${sederNum} maps to II Samuel chapter ${chapterNum}, but II Samuel only has 24 chapters`);
+                        return null;
+                    }
                     return {
                         book: bookName,
-                        chapter: sederNum - 31, // Seder 32 = II Samuel chapter 1
+                        chapter: chapterNum,
                         verseStart: 1,
                         verseEnd: null
                     };
@@ -271,6 +293,12 @@ export function parseReference(reference) {
             
             // Handle "Chronicles" - I Chronicles has 29 chapters, II Chronicles has 36 chapters
             if (bookName === 'Chronicles') {
+                const maxSeder = 65; // 29 + 36
+                if (sederNum < 1 || sederNum > maxSeder) {
+                    console.warn(`[BookMapping] Chronicles Seder ${sederNum} is out of range (1-${maxSeder})`);
+                    return null; // Invalid seder number
+                }
+                
                 if (sederNum <= 29) {
                     bookName = 'I Chronicles';
                     return {
@@ -281,9 +309,14 @@ export function parseReference(reference) {
                     };
                 } else {
                     bookName = 'II Chronicles';
+                    const chapterNum = sederNum - 29; // Seder 30 = II Chronicles chapter 1
+                    if (chapterNum > 36) {
+                        console.warn(`[BookMapping] Chronicles Seder ${sederNum} maps to II Chronicles chapter ${chapterNum}, but II Chronicles only has 36 chapters`);
+                        return null;
+                    }
                     return {
                         book: bookName,
-                        chapter: sederNum - 29, // Seder 30 = II Chronicles chapter 1
+                        chapter: chapterNum,
                         verseStart: 1,
                         verseEnd: null
                     };
@@ -302,9 +335,14 @@ export function parseReference(reference) {
         // Try pattern: "Book Chapter" (no verse) - e.g., "Exodus 5"
         const chapterMatch = reference.match(/^(.+?)\s+(\d+)(?:\s+\(\d+\))?$/);
         if (chapterMatch) {
+            const chapterNum = parseInt(chapterMatch[2]);
+            if (chapterNum < 1) {
+                console.warn(`[BookMapping] Invalid chapter number: ${chapterNum} (must be >= 1)`);
+                return null;
+            }
             return {
                 book: chapterMatch[1],
-                chapter: parseInt(chapterMatch[2]),
+                chapter: chapterNum,
                 verseStart: 1,
                 verseEnd: null
             };
