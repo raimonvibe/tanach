@@ -473,7 +473,7 @@
                     ]);
 
                     // Render all readings
-                    this.renderReadings(weeklyInfo, sefariaCalendar);
+                    await this.renderReadings(weeklyInfo, sefariaCalendar);
 
                 } catch (error) {
                     console.error('Error loading readings:', error);
