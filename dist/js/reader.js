@@ -114,12 +114,27 @@ async function loadBookSelector() {
  * Load a specific book
  */
 async function loadBook(bookId, category) {
+    console.log('[Reader] loadBook() called with:', bookId, category);
     try {
+        console.log('[Reader] Fetching book data...');
         currentBook = await getBook(category, bookId);
         currentCategory = category;
+        console.log('[Reader] Book loaded:', currentBook);
 
-        document.getElementById('bookTitle').textContent = currentBook.name;
-        document.getElementById('bookInfo').innerHTML = `
+        const bookTitleEl = document.getElementById('bookTitle');
+        const bookInfoEl = document.getElementById('bookInfo');
+        
+        if (!bookTitleEl) {
+            console.error('[Reader] bookTitle element not found!');
+            return;
+        }
+        if (!bookInfoEl) {
+            console.error('[Reader] bookInfo element not found!');
+            return;
+        }
+
+        bookTitleEl.textContent = currentBook.name;
+        bookInfoEl.innerHTML = `
             <div class="book-title">${currentBook.name}</div>
             <div class="book-meta">
                 ${currentBook.description || ''} • ${currentBook.chapters.length} hoofdstukken
@@ -128,7 +143,13 @@ async function loadBook(bookId, category) {
 
         // Create chapter buttons
         const chapterButtons = document.getElementById('chapterButtons');
+        if (!chapterButtons) {
+            console.error('[Reader] chapterButtons element not found!');
+            return;
+        }
+        
         chapterButtons.innerHTML = '';
+        console.log('[Reader] Creating', currentBook.chapters.length, 'chapter buttons');
         for (let i = 1; i <= currentBook.chapters.length; i++) {
             const button = document.createElement('button');
             button.className = 'chapter-btn';
@@ -137,18 +158,30 @@ async function loadBook(bookId, category) {
             chapterButtons.appendChild(button);
         }
 
-        document.getElementById('chapterNav').style.display = 'block';
-        document.getElementById('contentArea').style.display = 'block';
+        const chapterNav = document.getElementById('chapterNav');
+        const contentArea = document.getElementById('contentArea');
+        if (chapterNav) {
+            chapterNav.style.display = 'block';
+        }
+        if (contentArea) {
+            contentArea.style.display = 'block';
+        }
 
         // Load first chapter if no chapter specified
         if (!currentChapter || currentChapter < 1) {
             currentChapter = 1;
+            console.log('[Reader] Loading first chapter automatically');
             await loadChapter(1);
         }
+        console.log('[Reader] loadBook() completed successfully');
     } catch (error) {
-        document.getElementById('bookInfo').innerHTML = `
-            <div class="error">Kon boek niet laden: ${error.message}</div>
-        `;
+        console.error('[Reader] Error in loadBook():', error);
+        const bookInfoEl = document.getElementById('bookInfo');
+        if (bookInfoEl) {
+            bookInfoEl.innerHTML = `
+                <div class="error">Kon boek niet laden: ${error.message}</div>
+            `;
+        }
     }
 }
 
