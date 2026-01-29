@@ -392,14 +392,16 @@
             getParashatInfo: typeof getParashatInfo
         });
         
-        // Test generateReaderLink immediately
+        // Test generateReaderLink immediately (now async)
         console.log('[ReadingsApp] Testing generateReaderLink with "Judges 4:4-5:31":');
-        try {
-            const testLink = generateReaderLink('Judges 4:4-5:31');
-            console.log('[ReadingsApp] Test result:', testLink);
-        } catch (error) {
-            console.error('[ReadingsApp] Error testing generateReaderLink:', error);
-        }
+        (async () => {
+            try {
+                const testLink = await generateReaderLink('Judges 4:4-5:31');
+                console.log('[ReadingsApp] Test result:', testLink);
+            } catch (error) {
+                console.error('[ReadingsApp] Error testing generateReaderLink:', error);
+            }
+        })();
 
         class ReadingsApp {
             constructor() {
