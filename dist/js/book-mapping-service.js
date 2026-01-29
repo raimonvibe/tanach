@@ -228,6 +228,14 @@ export function parseReference(reference) {
             if (bookName === 'Kings') {
                 bookName = 'I Kings';
             }
+            // Handle "Samuel" -> "I Samuel" (default to I Samuel for Tanakh Yomi)
+            if (bookName === 'Samuel') {
+                bookName = 'I Samuel';
+            }
+            // Handle "Chronicles" -> "I Chronicles" (default to I Chronicles for Tanakh Yomi)
+            if (bookName === 'Chronicles') {
+                bookName = 'I Chronicles';
+            }
             return {
                 book: bookName,
                 chapter: parseInt(sederMatch[2]),
@@ -245,6 +253,23 @@ export function parseReference(reference) {
                 verseStart: 1,
                 verseEnd: null
             };
+        }
+
+        // Try pattern: "Book Name Only" (no chapter/verse) - e.g., "Song of Songs", "Ruth", "Esther"
+        // Fallback: treat as book name and default to chapter 1
+        const bookOnlyMatch = reference.match(/^([A-Za-z\s]+)$/);
+        if (bookOnlyMatch) {
+            const bookName = bookOnlyMatch[1].trim();
+            // Only apply if it's a known book (to avoid false positives)
+            const bookInfo = getBookInfo(bookName);
+            if (bookInfo) {
+                return {
+                    book: bookName,
+                    chapter: 1,
+                    verseStart: 1,
+                    verseEnd: null
+                };
+            }
         }
 
         return null;
