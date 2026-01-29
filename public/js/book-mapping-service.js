@@ -219,24 +219,29 @@ export function parseReference(reference) {
     const match = reference.match(/^(.+?)\s+(\d+):(\d+)(?:-(\d+))?$/);
 
     if (!match) {
+        // Try pattern: "Book Seder X" FIRST (before chapter match) - e.g., "Judges Seder 13" or "Kings Seder 30"
+        const sederMatch = reference.match(/^(.+?)\s+Seder\s+(\d+)$/i);
+        if (sederMatch) {
+            // Approximate: each seder is roughly a chapter or portion
+            let bookName = sederMatch[1].trim();
+            // Handle "Kings" -> "I Kings" (default to I Kings for Tanakh Yomi)
+            if (bookName === 'Kings') {
+                bookName = 'I Kings';
+            }
+            return {
+                book: bookName,
+                chapter: parseInt(sederMatch[2]),
+                verseStart: 1,
+                verseEnd: null
+            };
+        }
+
         // Try pattern: "Book Chapter" (no verse) - e.g., "Exodus 5"
         const chapterMatch = reference.match(/^(.+?)\s+(\d+)(?:\s+\(\d+\))?$/);
         if (chapterMatch) {
             return {
                 book: chapterMatch[1],
                 chapter: parseInt(chapterMatch[2]),
-                verseStart: 1,
-                verseEnd: null
-            };
-        }
-
-        // Try pattern: "Book Seder X" - e.g., "Judges Seder 13"
-        const sederMatch = reference.match(/^(.+?)\s+Seder\s+(\d+)$/i);
-        if (sederMatch) {
-            // Approximate: each seder is roughly a chapter or portion
-            return {
-                book: sederMatch[1],
-                chapter: parseInt(sederMatch[2]),
                 verseStart: 1,
                 verseEnd: null
             };
