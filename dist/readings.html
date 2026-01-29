@@ -559,14 +559,14 @@
                 `;
             }
 
-            renderWeeklyCard(weeklyInfo) {
+            async renderWeeklyCard(weeklyInfo) {
                 // Extract parashat name and generate link
                 const parashatText = weeklyInfo.parashat || 'N/A';
-                const parashatLink = this.getTorahLink(parashatText);
+                const parashatLink = await this.getTorahLink(parashatText);
 
                 // Extract haftarah reference and generate link
                 const haftarahText = weeklyInfo.haftarah || 'N/A';
-                const haftarahLink = this.getHaftarahLink(haftarahText);
+                const haftarahLink = await this.getHaftarahLink(haftarahText);
 
                 return `
                     <div class="reading-card weekly">
@@ -814,7 +814,7 @@
                 return '';
             }
 
-            renderDailyReadings(calendarItems) {
+            async renderDailyReadings(calendarItems) {
                 const dailyItems = calendarItems.filter(item =>
                     ['Daf Yomi', 'Daily Mishnah', 'Daily Rambam', 'Chok LeYisrael'].includes(item.title.en)
                 );
@@ -826,17 +826,18 @@
                         <h3>📖 Dagelijkse Studie</h3>
                 `;
 
-                dailyItems.forEach(item => {
+                // Process items sequentially to handle async link generation
+                for (const item of dailyItems) {
                     let linkHtml = '';
 
                     // Special handling for Chok LeYisrael - it's usually a parashat name
                     if (item.title.en === 'Chok LeYisrael') {
-                        linkHtml = this.getTorahLink(item.displayValue.en);
+                        linkHtml = await this.getTorahLink(item.displayValue.en);
                     } else if (['Daf Yomi', 'Daily Mishnah', 'Daily Rambam'].includes(item.title.en)) {
                         // Use Jewish text link handler for Talmud, Mishnah, and Rambam
                         linkHtml = this.getJewishTextLink(item.displayValue.en, item.url);
                     } else {
-                        linkHtml = this.getInternalLink(item.displayValue.en, item.url);
+                        linkHtml = await this.getInternalLink(item.displayValue.en, item.url);
                     }
 
                     html += `
@@ -852,7 +853,7 @@
                 return html;
             }
 
-            renderYearlyReadings(calendarItems) {
+            async renderYearlyReadings(calendarItems) {
                 const yearlyItems = calendarItems.filter(item =>
                     ['929', 'Tanakh Yomi', 'Nach Yomi', 'Psalms', 'Pirkei Avot'].includes(item.title.en)
                 );
@@ -864,8 +865,9 @@
                         <h3>📅 Jaarlijkse Cyclussen</h3>
                 `;
 
-                yearlyItems.forEach(item => {
-                    const internalLink = this.getInternalLink(item.displayValue.en, item.url);
+                // Process items sequentially to handle async link generation
+                for (const item of yearlyItems) {
+                    const internalLink = await this.getInternalLink(item.displayValue.en, item.url);
                     html += `
                         <div class="reading-item">
                             <div class="reading-label">${item.title.en}</div>
