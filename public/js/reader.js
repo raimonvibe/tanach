@@ -358,8 +358,24 @@ function renderVerses(verses) {
     });
     
     // Set default tab to "both"
+    console.log('[Reader] About to call switchTab("both")');
     switchTab('both');
+    
+    // Force visibility of tab content
+    const bothContent = document.getElementById('both-content');
+    if (bothContent) {
+        bothContent.style.display = 'block';
+        bothContent.classList.add('active');
+        console.log('[Reader] Forced both-content to be visible');
+    }
+    
     console.log('[Reader] renderVerses() completed, rendered', verses.length, 'verses');
+    console.log('[Reader] Hebrew verses element:', hebrewVerses);
+    console.log('[Reader] English verses element:', englishVerses);
+    console.log('[Reader] Both verses element:', bothVerses);
+    console.log('[Reader] Hebrew verses count:', hebrewVerses.children.length);
+    console.log('[Reader] English verses count:', englishVerses.children.length);
+    console.log('[Reader] Both verses count:', bothVerses.children.length);
 }
 
 /**
