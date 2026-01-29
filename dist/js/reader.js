@@ -455,18 +455,24 @@ window.changeBook = changeBook;
 window.toggleVerseNumbers = toggleVerseNumbers;
 window.switchTab = switchTab;
 
+// Immediate log when script file is executed
+console.log('[Reader JS] ===== SCRIPT FILE LOADED =====');
+console.log('[Reader JS] Script file executed at:', new Date().toISOString());
+console.log('[Reader JS] Current URL:', window.location.href);
+console.log('[Reader JS] Document readyState:', document.readyState);
+
 // Initialize when DOM is ready
-console.log('[Reader] Script loaded, readyState:', document.readyState);
 if (document.readyState === 'loading') {
-    console.log('[Reader] Adding DOMContentLoaded listener');
+    console.log('[Reader JS] Adding DOMContentLoaded listener');
     document.addEventListener('DOMContentLoaded', () => {
-        console.log('[Reader] DOMContentLoaded fired, calling init()');
+        console.log('[Reader JS] DOMContentLoaded fired, calling init()');
         init();
     });
 } else {
-    console.log('[Reader] DOM already ready, calling init() immediately');
+    console.log('[Reader JS] DOM already ready, calling init() immediately');
     // Use setTimeout to ensure all scripts are loaded
     setTimeout(() => {
+        console.log('[Reader JS] setTimeout callback executing, calling init()');
         init();
     }, 0);
 }

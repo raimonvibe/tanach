@@ -172,7 +172,16 @@
             border-left: 4px solid #c62828;
         }
     </style>
+    <script>
+        // Immediate console log to verify script execution
+        console.log('[Reader HTML] Script tag reached');
+        console.log('[Reader HTML] Current URL:', window.location.href);
+    </script>
     <script type="module" src="/js/reader.js"></script>
+    <script>
+        // Log after module script
+        console.log('[Reader HTML] Module script tag processed');
+    </script>
 </head>
 <body>
     <div class="header">
