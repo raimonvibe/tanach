@@ -391,17 +391,33 @@
             getBookInfo: typeof getBookInfo,
             getParashatInfo: typeof getParashatInfo
         });
+        
+        // Test generateReaderLink immediately
+        console.log('[ReadingsApp] Testing generateReaderLink with "Judges 4:4-5:31":');
+        try {
+            const testLink = generateReaderLink('Judges 4:4-5:31');
+            console.log('[ReadingsApp] Test result:', testLink);
+        } catch (error) {
+            console.error('[ReadingsApp] Error testing generateReaderLink:', error);
+        }
 
         class ReadingsApp {
             constructor() {
+                console.log('[ReadingsApp] Constructor called');
                 this.selectedDate = new Date();
+                console.log('[ReadingsApp] Initializing with date:', this.selectedDate);
                 this.init();
             }
 
             async init() {
+                console.log('[ReadingsApp] init() called');
                 this.setupEventListeners();
+                console.log('[ReadingsApp] Event listeners setup');
                 this.setDateInput();
+                console.log('[ReadingsApp] Date input set');
+                console.log('[ReadingsApp] Loading readings...');
                 await this.loadReadings();
+                console.log('[ReadingsApp] Readings loaded');
             }
 
             setupEventListeners() {
