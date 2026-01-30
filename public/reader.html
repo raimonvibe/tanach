@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tanach Reader - Lezen</title>
     <link rel="icon" type="image/x-icon" href="/jewish-bible.ico">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" />
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -381,6 +383,111 @@
                 padding: 8px 10px;
             }
         }
+        
+        /* Footer Styles */
+        .footer {
+            text-align: center;
+            color: white;
+            opacity: 0.8;
+            margin-top: 40px;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .footer p {
+            margin-bottom: 15px;
+        }
+        .icons {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 0;
+            margin: 20px 0;
+        }
+        .icons li {
+            margin: 0;
+        }
+        .icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            backdrop-filter: blur(10px);
+        }
+        .icons a:hover {
+            transform: translateY(-3px) scale(1.1);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .icons a.fa-x-twitter:hover {
+            background: #000000;
+            color: white;
+        }
+        .icons a.fa-youtube:hover {
+            background: #FF0000;
+            color: white;
+        }
+        .icons a.fa-tiktok:hover {
+            background: #000000;
+            color: white;
+        }
+        .icons a.fa-instagram:hover {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: white;
+        }
+        .icons a.fa-medium:hover {
+            background: #00ab6c;
+            color: white;
+        }
+        .icons a.fa-github:hover {
+            background: #333;
+            color: white;
+        }
+        .icons a.fa-linkedin-in:hover {
+            background: #0077b5;
+            color: white;
+        }
+        .icons a.fa-facebook-f:hover {
+            background: #1877f2;
+            color: white;
+        }
+        .icons a.fa-envelope:hover {
+            background: #ea4335;
+            color: white;
+        }
+        .icons .label {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .icons {
+                gap: 12px;
+            }
+            .icons a {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .icons {
+                gap: 10px;
+            }
+            .icons a {
+                width: 38px;
+                height: 38px;
+                font-size: 1rem;
+            }
+        }
     </style>
     <script>
         // Immediate console log to verify script execution
@@ -513,5 +620,20 @@
             console.log('[Reader HTML] Event listeners setup complete');
         });
     </script>
+    
+    <div class="footer">
+        <p>&copy; 2024 Tanach Reader - Authentieke Joodse teksten van Sefaria.org</p>
+        <ul class="icons">
+            <li><a href="https://x.com/raimonvibe/" target="_blank" rel="noopener noreferrer" class="icon brands style2 fa-x-twitter"><span class="label">X</span></a></li>
+            <li><a href="https://www.youtube.com/channel/UCDGDNuYb2b2Ets9CYCNVbuA/videos/" target="_blank" rel="noopener noreferrer" class="icon brands style2 fa-youtube"><span class="label">YouTube</span></a></li>
+            <li><a href="https://www.tiktok.com/@raimonvibe/" target="_blank" rel="noopener noreferrer" class="icon brands style2 fa-tiktok"><span class="label">TikTok</span></a></li>
+            <li><a href="https://www.instagram.com/raimonvibe/" target="_blank" rel="noopener noreferrer" class="icon brands style2 fa-instagram"><span class="label">Instagram</span></a></li>
+            <li><a href="https://medium.com/@raimonvibe/" target="_blank" rel="noopener noreferrer" class="icon brands style2 fa-medium"><span class="label">Medium</span></a></li>
+            <li><a href="https://github.com/raimonvibe/" target="_blank" rel="noopener noreferrer" class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>
+            <li><a href="https://www.linkedin.com/in/raimonvibe/" target="_blank" rel="noopener noreferrer" class="icon brands style2 fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+            <li><a href="https://www.facebook.com/profile.php?id=61563450007849" target="_blank" rel="noopener noreferrer" class="icon brands style2 fa-facebook-f"><span class="label">Facebook</span></a></li>
+            <li><a href="mailto:info@raimonvibe.com" class="icon style2 fa-envelope"><span class="label">Email</span></a></li>
+        </ul>
+    </div>
 </body>
 </html>
