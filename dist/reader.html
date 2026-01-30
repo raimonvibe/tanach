@@ -488,12 +488,25 @@
             const backButton = document.getElementById('backButton');
             if (backButton) {
                 backButton.addEventListener('click', (e) => {
-                    // Check if there's a referrer and it's not the current page
-                    if (document.referrer && document.referrer !== window.location.href && window.history.length > 1) {
+                    // Always try to go back in history first if there's history
+                    if (window.history.length > 1) {
+                        // Check if referrer exists and is different from current page
+                        const referrer = document.referrer;
+                        const currentUrl = window.location.href;
+                        
+                        // If we have a referrer and it's different, go back
+                        if (referrer && referrer !== currentUrl) {
+                            e.preventDefault();
+                            window.history.back();
+                            return false;
+                        }
+                        // If no referrer but we have history, still try to go back
+                        // (might be from same-origin navigation)
                         e.preventDefault();
                         window.history.back();
+                        return false;
                     }
-                    // Otherwise, let the default href="/" behavior happen
+                    // If no history, let the default href="/" behavior happen
                 });
             }
             
