@@ -473,7 +473,10 @@
         </div>
 
         <div class="footer">
-            <p>&copy; 2024 Tanach Reader - Data van HebCal.org en Sefaria.org</p>
+            <p>&copy; <span id="copyrightYear">2027</span> Tanach Reader - Data van HebCal.org en Sefaria.org</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">
+                <a href="/privacy.html" style="color: white; text-decoration: underline; opacity: 0.9;">Privacybeleid</a>
+            </p>
             <ul class="icons">
                 <li><a href="https://x.com/raimonvibe/" target="_blank" rel="noopener noreferrer" class="icon brands style2 fa-x-twitter"><span class="label">X</span></a></li>
                 <li><a href="https://www.youtube.com/channel/UCDGDNuYb2b2Ets9CYCNVbuA/videos/" target="_blank" rel="noopener noreferrer" class="icon brands style2 fa-youtube"><span class="label">YouTube</span></a></li>
@@ -999,6 +1002,11 @@
         document.addEventListener('DOMContentLoaded', () => {
             new ReadingsApp();
         });
+    </script>
+    
+    <script>
+        // Update copyright year dynamically
+        document.getElementById('copyrightYear').textContent = new Date().getFullYear();
     </script>
 </body>
 </html>

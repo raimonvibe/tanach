@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacybeleid - Tanach Reader</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/jewish-bible.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="/jewish-bible.ico">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" />
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            padding: 20px 0;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .nav-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.2);
+            transition: background 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .content h2 {
+            color: #667eea;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        .content h2:first-child {
+            margin-top: 0;
+        }
+        
+        .content h3 {
+            color: #764ba2;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+        
+        .content p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        .content ul, .content ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+        
+        .content li {
+            margin-bottom: 8px;
+        }
+        
+        .content strong {
+            color: #667eea;
+        }
+        
+        .highlight-box {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            opacity: 0.8;
+            margin-top: 30px;
+            padding: 20px;
+        }
+        
+        .footer p {
+            margin-bottom: 15px;
+        }
+        
+        .icons {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 0;
+            margin: 20px 0;
+        }
+        
+        .icons li {
+            margin: 0;
+        }
+        
+        .icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .icons a:hover {
+            transform: translateY(-3px) scale(1.1);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .icons a.fa-x-twitter:hover {
+            background: #000000;
+            color: white;
+        }
+        
+        .icons a.fa-youtube:hover {
+            background: #FF0000;
+            color: white;
+        }
+        
+        .icons a.fa-tiktok:hover {
+            background: #000000;
+            color: white;
+        }
+        
+        .icons a.fa-instagram:hover {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: white;
+        }
+        
+        .icons a.fa-medium:hover {
+            background: #00ab6c;
+            color: white;
+        }
+        
+        .icons a.fa-github:hover {
+            background: #333;
+            color: white;
+        }
+        
+        .icons a.fa-linkedin-in:hover {
+            background: #0077b5;
+            color: white;
+        }
+        
+        .icons a.fa-facebook-f:hover {
+            background: #1877f2;
+            color: white;
+        }
+        
+        .icons a.fa-envelope:hover {
+            background: #ea4335;
+            color: white;
+        }
+        
+        .icons .label {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 25px;
+            }
+            
+            .content h2 {
+                font-size: 1.5rem;
+            }
+            
+            .content h3 {
+                font-size: 1.2rem;
+            }
+            
+            .icons {
+                gap: 12px;
+            }
+            
+            .icons a {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.7rem;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .content h2 {
+                font-size: 1.3rem;
+            }
+            
+            .content h3 {
+                font-size: 1.1rem;
+            }
+            
+            .content ul, .content ol {
+                margin-left: 20px;
+            }
+            
+            .icons {
+                gap: 10px;
+            }
+            
+            .icons a {
+                width: 38px;
+                height: 38px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔒 Privacybeleid</h1>
+            <p>Tanach Reader - Joodse Bijbel Online</p>
+            <a href="/" class="nav-link">← Terug naar Home</a>
+        </div>
+        
+        <div class="content">
+            <p><strong>Laatst bijgewerkt:</strong> <span id="lastUpdated">2027</span></p>
+            
+            <div class="highlight-box">
+                <p><strong>Belangrijk:</strong> Tanach Reader is een volledig statische website. We verzamelen geen persoonlijke gegevens van gebruikers en vereisen geen registratie of inloggegevens.</p>
+            </div>
+            
+            <h2>1. Inleiding</h2>
+            <p>Dit privacybeleid beschrijft hoe Tanach Reader ("wij", "ons", "onze") omgaat met informatie wanneer u onze website bezoekt. We respecteren uw privacy en zijn toegewijd aan het beschermen van uw persoonlijke gegevens.</p>
+            
+            <h2>2. Gegevens die we verzamelen</h2>
+            <h3>2.1 Geen persoonlijke gegevens</h3>
+            <p>Tanach Reader verzamelt <strong>geen persoonlijke gegevens</strong> van gebruikers. We vereisen geen:</p>
+            <ul>
+                <li>Registratie of account</li>
+                <li>Inloggegevens</li>
+                <li>E-mailadressen</li>
+                <li>Namen of andere identificerende informatie</li>
+            </ul>
+            
+            <h3>2.2 Automatisch verzamelde gegevens</h3>
+            <p>Zoals bij de meeste websites, kunnen de volgende gegevens automatisch worden verzameld door uw browser of hostingprovider:</p>
+            <ul>
+                <li><strong>IP-adres:</strong> Voor technische doeleinden (server logs)</li>
+                <li><strong>Browser type en versie:</strong> Voor compatibiliteitsdoeleinden</li>
+                <li><strong>Bezochte pagina's:</strong> Voor technische analyse</li>
+                <li><strong>Datum en tijd van bezoek:</strong> In server logs</li>
+            </ul>
+            <p>Deze gegevens worden niet gekoppeld aan uw identiteit en worden alleen gebruikt voor technische doeleinden.</p>
+            
+            <h2>3. Gebruik van gegevens</h2>
+            <p>De automatisch verzamelde gegevens worden uitsluitend gebruikt voor:</p>
+            <ul>
+                <li>Het functioneren van de website</li>
+                <li>Technische ondersteuning en troubleshooting</li>
+                <li>Verbetering van de gebruikerservaring</li>
+                <li>Beveiligingsdoeleinden</li>
+            </ul>
+            
+            <h2>4. Cookies en lokale opslag</h2>
+            <h3>4.1 Cookies</h3>
+            <p>Tanach Reader gebruikt <strong>geen tracking cookies</strong> of analytische cookies. We gebruiken geen cookies voor marketing- of advertentiedoeleinden.</p>
+            
+            <h3>4.2 Lokale opslag (LocalStorage)</h3>
+            <p>De website kan gebruik maken van browser localStorage voor:</p>
+            <ul>
+                <li>Het cachen van tekstdata voor snellere laadtijden</li>
+                <li>Het opslaan van gebruikersvoorkeuren (indien van toepassing)</li>
+            </ul>
+            <p>Deze gegevens worden alleen lokaal op uw apparaat opgeslagen en worden niet naar onze servers verzonden.</p>
+            
+            <h2>5. Externe services</h2>
+            <h3>5.1 Content Delivery Networks (CDN)</h3>
+            <p>We gebruiken de volgende externe services:</p>
+            <ul>
+                <li><strong>Font Awesome CDN:</strong> Voor iconen. Deze service kan cookies of tracking technologie gebruiken. Zie hun <a href="https://fontawesome.com/privacy" target="_blank" rel="noopener noreferrer">privacybeleid</a> voor meer informatie.</li>
+                <li><strong>Cloudflare CDN (via cdnjs):</strong> Voor het leveren van Font Awesome bestanden.</li>
+            </ul>
+            
+            <h3>5.2 Data bronnen</h3>
+            <p>De website haalt tekstdata op van:</p>
+            <ul>
+                <li><strong>Sefaria.org:</strong> Voor authentieke Joodse teksten. We gebruiken hun publieke API. Zie hun <a href="https://www.sefaria.org/terms" target="_blank" rel="noopener noreferrer">gebruiksvoorwaarden</a> voor meer informatie.</li>
+                <li><strong>HebCal.org:</strong> Voor Joodse kalenderdata. We gebruiken hun open-source bibliotheek (@hebcal/core).</li>
+            </ul>
+            <p>Deze services kunnen hun eigen privacybeleid hebben. We raden u aan hun privacybeleid te raadplegen.</p>
+            
+            <h2>6. Hosting en servers</h2>
+            <p>Tanach Reader wordt gehost op:</p>
+            <ul>
+                <li><strong>Vercel:</strong> Voor statische website hosting. Vercel kan standaard server logs bijhouden. Zie het <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">privacybeleid van Vercel</a> voor meer informatie.</li>
+            </ul>
+            
+            <h2>7. Beveiliging</h2>
+            <p>We nemen passende technische en organisatorische maatregelen om uw gegevens te beschermen. Omdat we geen persoonlijke gegevens verzamelen, is het risico op datalekken minimaal.</p>
+            
+            <h2>8. Uw rechten</h2>
+            <p>Onder de Algemene Verordening Gegevensbescherming (AVG) en andere toepasselijke privacywetten heeft u het recht om:</p>
+            <ul>
+                <li>Informatie te ontvangen over welke gegevens we verzamelen</li>
+                <li>Toegang te krijgen tot uw gegevens (indien van toepassing)</li>
+                <li>Rectificatie van onjuiste gegevens te verzoeken</li>
+                <li>Verwijdering van gegevens te verzoeken</li>
+                <li>Bezwaar te maken tegen verwerking van gegevens</li>
+            </ul>
+            <p>Omdat we geen persoonlijke gegevens verzamelen, zijn de meeste van deze rechten niet van toepassing. Als u vragen heeft, neem dan contact met ons op.</p>
+            
+            <h2>9. Wijzigingen in dit privacybeleid</h2>
+            <p>We kunnen dit privacybeleid van tijd tot tijd bijwerken. Wijzigingen worden op deze pagina gepubliceerd met een bijgewerkte "Laatst bijgewerkt" datum. We raden u aan deze pagina regelmatig te raadplegen.</p>
+            
+            <h2>10. Contact</h2>
+            <p>Als u vragen heeft over dit privacybeleid of over hoe we met uw gegevens omgaan, kunt u contact met ons opnemen via:</p>
+            <ul>
+                <li><strong>E-mail:</strong> <a href="mailto:info@raimonvibe.com">info@raimonvibe.com</a></li>
+                <li><strong>Website:</strong> <a href="https://tanach.vercel.app">https://tanach.vercel.app</a></li>
+            </ul>
+            
+            <h2>11. Toepasselijk recht</h2>
+            <p>Dit privacybeleid wordt beheerst door en geïnterpreteerd in overeenstemming met de wetten van Nederland en de Europese Unie, met name de Algemene Verordening Gegevensbescherming (AVG).</p>
+            
+            <div class="highlight-box">
+                <p><strong>Samenvatting:</strong> Tanach Reader is een privacy-vriendelijke website die geen persoonlijke gegevens verzamelt. U kunt de website gebruiken zonder zorgen over uw privacy.</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; <span id="copyrightYear">2027</span> Tanach Reader - Authentieke Joodse teksten van Sefaria.org</p>
+            <ul class="icons">
+                <li><a href="https://x.com/raimonvibe/" target="_blank" rel="noopener noreferrer" class="icon brands style2 fa-x-twitter"><span class="label">X</span></a></li>
+                <li><a href="https://www.youtube.com/channel/UCDGDNuYb2b2Ets9CYCNVbuA/videos/" target="_blank" rel="noopener noreferrer" class="icon brands style2 fa-youtube"><span class="label">YouTube</span></a></li>
+                <li><a href="https://www.tiktok.com/@raimonvibe/" target="_blank" rel="noopener noreferrer" class="icon brands style2 fa-tiktok"><span class="label">TikTok</span></a></li>
+                <li><a href="https://www.instagram.com/raimonvibe/" target="_blank" rel="noopener noreferrer" class="icon brands style2 fa-instagram"><span class="label">Instagram</span></a></li>
+                <li><a href="https://medium.com/@raimonvibe/" target="_blank" rel="noopener noreferrer" class="icon brands style2 fa-medium"><span class="label">Medium</span></a></li>
+                <li><a href="https://github.com/raimonvibe/" target="_blank" rel="noopener noreferrer" class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>
+                <li><a href="https://www.linkedin.com/in/raimonvibe/" target="_blank" rel="noopener noreferrer" class="icon brands style2 fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+                <li><a href="https://www.facebook.com/profile.php?id=61563450007849" target="_blank" rel="noopener noreferrer" class="icon brands style2 fa-facebook-f"><span class="label">Facebook</span></a></li>
+                <li><a href="mailto:info@raimonvibe.com" class="icon style2 fa-envelope"><span class="label">Email</span></a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        // Update copyright year dynamically
+        document.getElementById('copyrightYear').textContent = new Date().getFullYear();
+        document.getElementById('lastUpdated').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
