@@ -186,6 +186,201 @@
             margin: 20px 0;
             border-left: 4px solid #c62828;
         }
+        .book-selector {
+            font-size: 0.9rem;
+            background: rgba(255,255,255,0.2) !important;
+            color: white !important;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .book-selector option {
+            background: white !important;
+            color: #333 !important;
+        }
+        .toggle-btn {
+            white-space: nowrap;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 0;
+            }
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            .header-content > div:first-child {
+                width: 100%;
+            }
+            .header-content > div:first-child a {
+                display: block;
+                width: 100%;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+            .header h1 {
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+            .nav-controls {
+                width: 100%;
+                flex-direction: column;
+                gap: 10px;
+                align-items: stretch;
+            }
+            .nav-controls > * {
+                width: 100%;
+            }
+            .book-selector,
+            .toggle-btn {
+                width: 100%;
+                padding: 12px;
+                font-size: 0.95rem;
+            }
+            .nav-links {
+                flex-direction: column;
+                width: 100%;
+                gap: 8px;
+            }
+            .nav-links a {
+                text-align: center;
+                padding: 10px 15px;
+            }
+            .main-container {
+                padding: 15px;
+            }
+            .book-info {
+                padding: 20px;
+            }
+            .book-title {
+                font-size: 1.6rem;
+            }
+            .chapter-nav {
+                padding: 15px;
+            }
+            .chapter-buttons {
+                gap: 8px;
+            }
+            .chapter-btn {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+                min-width: 40px;
+                flex: 0 0 calc(20% - 6.4px);
+                max-width: calc(20% - 6.4px);
+            }
+            .content-area {
+                padding: 20px;
+            }
+            .language-tabs {
+                flex-wrap: wrap;
+                margin-bottom: 20px;
+            }
+            .tab {
+                padding: 12px 15px;
+                font-size: 1rem;
+                flex: 1;
+                min-width: calc(33.333% - 10px);
+            }
+            .verses {
+                font-size: 1rem;
+            }
+            .hebrew-text {
+                font-size: 1.1rem;
+            }
+            .verse {
+                padding: 8px;
+                margin-bottom: 12px;
+            }
+            .nav-btn {
+                width: 100%;
+                margin: 5px 0 !important;
+                padding: 12px;
+            }
+            .chapter-nav > div:last-child {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+            .chapter-nav > div:last-child .nav-btn {
+                margin-right: 0 !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header {
+                padding: 12px 0;
+            }
+            .header h1 {
+                font-size: 1.3rem;
+            }
+            .main-container {
+                padding: 10px;
+            }
+            .book-info {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+            .book-title {
+                font-size: 1.4rem;
+            }
+            .chapter-nav {
+                padding: 12px;
+            }
+            .chapter-buttons {
+                gap: 6px;
+            }
+            .chapter-btn {
+                padding: 8px 10px;
+                font-size: 0.85rem;
+                min-width: 35px;
+                flex: 0 0 calc(16.666% - 5px);
+                max-width: calc(16.666% - 5px);
+            }
+            .content-area {
+                padding: 15px;
+            }
+            .language-tabs {
+                margin-bottom: 15px;
+            }
+            .tab {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+                min-width: calc(33.333% - 8px);
+            }
+            .verses {
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+            .hebrew-text {
+                font-size: 1rem;
+            }
+            .verse {
+                padding: 8px;
+                margin-bottom: 10px;
+            }
+            .verse-number {
+                font-size: 0.9rem;
+                margin-right: 8px;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .chapter-btn {
+                flex: 0 0 calc(20% - 4.8px);
+                max-width: calc(20% - 4.8px);
+                padding: 6px 8px;
+                font-size: 0.8rem;
+                min-width: 30px;
+            }
+            .tab {
+                font-size: 0.85rem;
+                padding: 8px 10px;
+            }
+        }
     </style>
     <script>
         // Immediate console log to verify script execution
@@ -202,11 +397,11 @@
     <div class="header">
         <div class="header-content">
             <div>
-                <a href="/" style="background: rgba(255,255,255,0.2); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; text-decoration: none; display: inline-block; transition: background-color 0.3s ease;">← Terug</a>
+                <a href="/" id="backButton" style="background: rgba(255,255,255,0.2); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; text-decoration: none; display: inline-block; transition: background-color 0.3s ease;">← Terug</a>
                 <h1 id="bookTitle">Tanach Reader</h1>
             </div>
             <div class="nav-controls">
-                <select id="bookSelector" class="book-selector" style="background: rgba(255,255,255,0.2); color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer;">
+                <select id="bookSelector" class="book-selector">
                     <option value="">Selecteer een boek...</option>
                 </select>
                 <button id="toggleVerseNumbers" class="toggle-btn" style="background: rgba(255,255,255,0.2); color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; transition: background-color 0.3s ease; font-size: 0.9rem;">Vers nummers</button>
@@ -286,6 +481,19 @@
                     if (window.toggleVerseNumbers) {
                         window.toggleVerseNumbers();
                     }
+                });
+            }
+            
+            // Back button - go back in history if available, otherwise go to home
+            const backButton = document.getElementById('backButton');
+            if (backButton) {
+                backButton.addEventListener('click', (e) => {
+                    // Check if there's a referrer and it's not the current page
+                    if (document.referrer && document.referrer !== window.location.href && window.history.length > 1) {
+                        e.preventDefault();
+                        window.history.back();
+                    }
+                    // Otherwise, let the default href="/" behavior happen
                 });
             }
             
