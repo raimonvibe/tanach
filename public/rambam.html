@@ -365,9 +365,18 @@
             renderBookInfo() {
                 if (!this.bookData) return;
 
+                let infoText = '';
+                if (this.bookData.type === 'sefer_hamitzvot' && this.bookData.metadata.totalMitzvot) {
+                    infoText = `Type: ${this.bookData.type} | Totaal mitzvot: ${this.bookData.metadata.totalMitzvot}`;
+                } else if (this.bookData.metadata.totalChapters) {
+                    infoText = `Type: ${this.bookData.type} | Totaal hoofdstukken: ${this.bookData.metadata.totalChapters}`;
+                } else {
+                    infoText = `Type: ${this.bookData.type}`;
+                }
+
                 document.getElementById('bookInfo').innerHTML = `
                     <h2>${this.bookData.name}</h2>
-                    <p>Type: ${this.bookData.type} | Totaal hoofdstukken: ${this.bookData.metadata.totalChapters}</p>
+                    <p>${infoText}</p>
                 `;
             }
 
@@ -377,12 +386,30 @@
                 const chapterSelect = document.getElementById('chapterSelect');
                 chapterSelect.innerHTML = '';
 
-                this.bookData.chapters.forEach((chapter, index) => {
-                    const option = document.createElement('option');
-                    option.value = index;
-                    option.textContent = `Hoofdstuk ${chapter.chapter} (${chapter.halakhot.length} halakhot)`;
-                    chapterSelect.appendChild(option);
-                });
+                // Handle Sefer HaMitzvot structure (mitzvot array)
+                if (this.bookData.type === 'sefer_hamitzvot' && this.bookData.mitzvot) {
+                    // For Sefer HaMitzvot, we'll show mitzvot in groups (e.g., 1-50, 51-100, etc.)
+                    const mitzvotPerPage = 50;
+                    const totalPages = Math.ceil(this.bookData.mitzvot.length / mitzvotPerPage);
+                    
+                    for (let page = 0; page < totalPages; page++) {
+                        const start = page * mitzvotPerPage + 1;
+                        const end = Math.min((page + 1) * mitzvotPerPage, this.bookData.mitzvot.length);
+                        const option = document.createElement('option');
+                        option.value = page;
+                        option.textContent = `Mitzvot ${start}-${end}`;
+                        chapterSelect.appendChild(option);
+                    }
+                } 
+                // Handle Mishneh Torah structure (chapters array)
+                else if (this.bookData.chapters) {
+                    this.bookData.chapters.forEach((chapter, index) => {
+                        const option = document.createElement('option');
+                        option.value = index;
+                        option.textContent = `Hoofdstuk ${chapter.chapter} (${chapter.halakhot.length} halakhot)`;
+                        chapterSelect.appendChild(option);
+                    });
+                }
 
                 chapterSelect.value = this.currentChapterIndex;
 
@@ -398,8 +425,16 @@
             }
 
             navigateChapter(direction) {
+                let maxIndex;
+                if (this.bookData.type === 'sefer_hamitzvot' && this.bookData.mitzvot) {
+                    const mitzvotPerPage = 50;
+                    maxIndex = Math.ceil(this.bookData.mitzvot.length / mitzvotPerPage) - 1;
+                } else {
+                    maxIndex = this.bookData.chapters ? this.bookData.chapters.length - 1 : 0;
+                }
+                
                 const newIndex = this.currentChapterIndex + direction;
-                if (newIndex >= 0 && newIndex < this.bookData.chapters.length) {
+                if (newIndex >= 0 && newIndex <= maxIndex) {
                     this.currentChapterIndex = newIndex;
                     document.getElementById('chapterSelect').value = this.currentChapterIndex;
                     this.renderChapter();
@@ -410,36 +445,74 @@
             renderChapter() {
                 if (!this.bookData) return;
 
-                const chapter = this.bookData.chapters[this.currentChapterIndex];
                 let html = '';
 
-                chapter.halakhot.forEach(halakha => {
-                    html += `
-                        <div class="halakha-item">
-                            <h4>Halakha ${chapter.chapter}:${halakha.halakha}</h4>
-                            <div class="text-section">
-                                <h5>🔤 Hebreeuws</h5>
-                                <div class="hebrew-text">${halakha.translations.hebrew || 'Geen Hebreeuwse tekst beschikbaar'}</div>
+                // Handle Sefer HaMitzvot structure
+                if (this.bookData.type === 'sefer_hamitzvot' && this.bookData.mitzvot) {
+                    const mitzvotPerPage = 50;
+                    const startIndex = this.currentChapterIndex * mitzvotPerPage;
+                    const endIndex = Math.min(startIndex + mitzvotPerPage, this.bookData.mitzvot.length);
+                    const mitzvot = this.bookData.mitzvot.slice(startIndex, endIndex);
+
+                    mitzvot.forEach(mitzvah => {
+                        html += `
+                            <div class="halakha-item">
+                                <h4>Mitzvah ${mitzvah.mitzvah}</h4>
+                                <div class="text-section">
+                                    <h5>🔤 Hebreeuws</h5>
+                                    <div class="hebrew-text">${mitzvah.translations.hebrew || 'Geen Hebreeuwse tekst beschikbaar'}</div>
+                                </div>
+                                <div class="text-section">
+                                    <h5>🔤 Engels</h5>
+                                    <div class="english-text">${mitzvah.translations.english || 'No English translation available'}</div>
+                                </div>
                             </div>
-                            <div class="text-section">
-                                <h5>🔤 Engels</h5>
-                                <div class="english-text">${halakha.translations.english || 'No English translation available'}</div>
+                        `;
+                    });
+
+                    const maxIndex = Math.ceil(this.bookData.mitzvot.length / mitzvotPerPage) - 1;
+                    document.getElementById('prevBtn').disabled = this.currentChapterIndex === 0;
+                    document.getElementById('nextBtn').disabled = this.currentChapterIndex >= maxIndex;
+                } 
+                // Handle Mishneh Torah structure
+                else if (this.bookData.chapters) {
+                    const chapter = this.bookData.chapters[this.currentChapterIndex];
+                    
+                    chapter.halakhot.forEach(halakha => {
+                        html += `
+                            <div class="halakha-item">
+                                <h4>Halakha ${chapter.chapter}:${halakha.halakha}</h4>
+                                <div class="text-section">
+                                    <h5>🔤 Hebreeuws</h5>
+                                    <div class="hebrew-text">${halakha.translations.hebrew || 'Geen Hebreeuwse tekst beschikbaar'}</div>
+                                </div>
+                                <div class="text-section">
+                                    <h5>🔤 Engels</h5>
+                                    <div class="english-text">${halakha.translations.english || 'No English translation available'}</div>
+                                </div>
                             </div>
-                        </div>
-                    `;
-                });
+                        `;
+                    });
+
+                    document.getElementById('prevBtn').disabled = this.currentChapterIndex === 0;
+                    document.getElementById('nextBtn').disabled = this.currentChapterIndex === this.bookData.chapters.length - 1;
+                }
 
                 document.getElementById('contentArea').innerHTML = html;
-
-                // Update navigation buttons
-                document.getElementById('prevBtn').disabled = this.currentChapterIndex === 0;
-                document.getElementById('nextBtn').disabled = this.currentChapterIndex === this.bookData.chapters.length - 1;
             }
 
             updateURL() {
-                const chapter = this.bookData.chapters[this.currentChapterIndex];
                 const params = new URLSearchParams(window.location.search);
-                params.set('chapter', chapter.chapter);
+                
+                if (this.bookData.type === 'sefer_hamitzvot' && this.bookData.mitzvot) {
+                    const mitzvotPerPage = 50;
+                    const startMitzvah = this.currentChapterIndex * mitzvotPerPage + 1;
+                    params.set('page', this.currentChapterIndex + 1);
+                } else if (this.bookData.chapters) {
+                    const chapter = this.bookData.chapters[this.currentChapterIndex];
+                    params.set('chapter', chapter.chapter);
+                }
+                
                 window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`);
             }
 
