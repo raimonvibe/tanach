@@ -696,13 +696,22 @@
             getJewishTextLink(displayText, sefariaUrl) {
                 // PRIORITY 1: Check Sefaria URL first to determine content type
                 if (sefariaUrl) {
-                    // Check for Sefer HaMitzvot (Positive/Negative Mitzvot) - not in our collection
-                    // Link to Sefaria instead
+                    // Check for Sefer HaMitzvot (Positive/Negative Mitzvot)
                     if (sefariaUrl.includes('Sefer_HaMitzvot') || 
                         sefariaUrl.includes('Positive_Commandments') || 
                         sefariaUrl.includes('Negative_Commandments') ||
                         sefariaUrl.match(/Sefer_HaMitzvot/i)) {
-                        // Link to Sefaria since we don't have this in our collection
+                        // Try to extract book name and mitzvah number
+                        const match = sefariaUrl.match(/Sefer_HaMitzvot[,_\s]+(Positive|Negative)[_\s]+Commandments?\.(\d+)/i);
+                        if (match) {
+                            const type = match[1].toLowerCase();
+                            const mitzvah = match[2];
+                            const bookId = `sefer_hamitzvot_${type}_commandments`;
+                            // Calculate page (50 mitzvot per page)
+                            const page = Math.ceil(parseInt(mitzvah) / 50);
+                            return `<a href="/rambam.html?book=${bookId}&page=${page}" class="reading-link">Lees in onze Rambam →</a>`;
+                        }
+                        // Fallback: Link to Sefaria if we can't parse
                         const sefariaLink = sefariaUrl.startsWith('http') ? sefariaUrl : `https://www.sefaria.org/${sefariaUrl}`;
                         return `<a href="${sefariaLink}" class="reading-link" target="_blank">Lees op Sefaria →</a>`;
                     }
@@ -749,12 +758,21 @@
 
                 // PRIORITY 2: Pattern matching on display text (when no URL or URL didn't match)
 
-                // Check for Sefer HaMitzvot (Positive/Negative Mitzvot) - not in our collection
-                // If we have a Sefaria URL, link to it; otherwise skip
+                // Check for Sefer HaMitzvot (Positive/Negative Mitzvot)
                 if (displayText.includes('Positive Mitzvot') || 
                     displayText.includes('Negative Mitzvot') ||
                     displayText.includes('Sefer HaMitzvot')) {
-                    // If we have a Sefaria URL, link to it
+                    // Try to extract mitzvah number from display text (e.g., "Positive Mitzvot 167-248")
+                    const mitzvahMatch = displayText.match(/(Positive|Negative)\s+Mitzvot\s+(\d+)(?:-(\d+))?/i);
+                    if (mitzvahMatch) {
+                        const type = mitzvahMatch[1].toLowerCase();
+                        const startMitzvah = parseInt(mitzvahMatch[2]);
+                        const bookId = `sefer_hamitzvot_${type}_commandments`;
+                        // Calculate page (50 mitzvot per page)
+                        const page = Math.ceil(startMitzvah / 50);
+                        return `<a href="/rambam.html?book=${bookId}&page=${page}" class="reading-link">Lees in onze Rambam →</a>`;
+                    }
+                    // Fallback: If we have a Sefaria URL, link to it
                     if (sefariaUrl) {
                         const sefariaLink = sefariaUrl.startsWith('http') ? sefariaUrl : `https://www.sefaria.org/${sefariaUrl}`;
                         return `<a href="${sefariaLink}" class="reading-link" target="_blank">Lees op Sefaria →</a>`;
