@@ -31,7 +31,19 @@ class MissingTextsChecker {
             const rambamFiles = await fs.readdir(this.rambamDir);
             rambamFiles
                 .filter(f => f.endsWith('.json'))
-                .forEach(f => this.knownRambam.add(f.replace('.json', '')));
+                .forEach(f => {
+                    const name = f.replace('.json', '');
+                    this.knownRambam.add(name);
+                    // Also add alternative names for Sefer HaMitzvot
+                    if (name === 'sefer_hamitzvot_positive_commandments') {
+                        this.knownRambam.add('positive_mitzvot');
+                        this.knownRambam.add('positive_commandments');
+                    }
+                    if (name === 'sefer_hamitzvot_negative_commandments') {
+                        this.knownRambam.add('negative_mitzvot');
+                        this.knownRambam.add('negative_commandments');
+                    }
+                });
         }
 
         // Load Mishnah files
@@ -102,16 +114,26 @@ class MissingTextsChecker {
                     // Check Sefer HaMitzvot
                     else if (item.url.includes('Sefer_HaMitzvot') || 
                              item.url.includes('Positive_Commandments') ||
-                             item.url.includes('Negative_Commandments')) {
-                        if (item.url.includes('Positive_Commandments')) {
-                            if (!this.knownRambam.has('sefer_hamitzvot_positive_commandments')) {
-                                missingTexts.rambam.add('Sefer HaMitzvot, Positive Commandments');
-                            }
+                             item.url.includes('Negative_Commandments') ||
+                             item.url.includes('Positive_Mitzvot') ||
+                             item.url.includes('Negative_Mitzvot')) {
+                        // Extract the type from URL
+                        let isPositive = item.url.includes('Positive');
+                        let isNegative = item.url.includes('Negative');
+                        
+                        // Check various possible names
+                        const hasPositive = this.knownRambam.has('sefer_hamitzvot_positive_commandments') ||
+                                          this.knownRambam.has('positive_mitzvot') ||
+                                          this.knownRambam.has('positive_commandments');
+                        const hasNegative = this.knownRambam.has('sefer_hamitzvot_negative_commandments') ||
+                                          this.knownRambam.has('negative_mitzvot') ||
+                                          this.knownRambam.has('negative_commandments');
+                        
+                        if (isPositive && !hasPositive) {
+                            missingTexts.rambam.add('Sefer HaMitzvot, Positive Commandments');
                         }
-                        if (item.url.includes('Negative_Commandments')) {
-                            if (!this.knownRambam.has('sefer_hamitzvot_negative_commandments')) {
-                                missingTexts.rambam.add('Sefer HaMitzvot, Negative Commandments');
-                            }
+                        if (isNegative && !hasNegative) {
+                            missingTexts.rambam.add('Sefer HaMitzvot, Negative Commandments');
                         }
                     }
                     // Check Mishnah
@@ -124,12 +146,21 @@ class MissingTextsChecker {
                             }
                         }
                     }
-                    // Check Talmud
+                    // Check Talmud (exclude Tanach books)
+                    // Tanach books: Genesis, Exodus, Leviticus, Numbers, Deuteronomy, etc.
                     else if (item.url.match(/^[A-Za-z_]+\.\d+[ab]?$/)) {
                         const match = item.url.match(/^([A-Za-z_]+)\./);
                         if (match) {
                             const tractate = match[1].toLowerCase();
-                            if (!this.knownTalmud.has(tractate)) {
+                            // Exclude Tanach books (these are in our Tanach collection, not Talmud)
+                            const tanachBooks = ['genesis', 'exodus', 'leviticus', 'numbers', 'deuteronomy',
+                                                'joshua', 'judges', 'samuel', 'kings', 'isaiah', 'jeremiah',
+                                                'ezekiel', 'hosea', 'joel', 'amos', 'obadiah', 'jonah', 'micah',
+                                                'nahum', 'habakkuk', 'zephaniah', 'haggai', 'zechariah', 'malachi',
+                                                'psalms', 'proverbs', 'job', 'song', 'ruth', 'lamentations',
+                                                'ecclesiastes', 'esther', 'daniel', 'ezra', 'nehemiah', 'chronicles'];
+                            
+                            if (!tanachBooks.includes(tractate) && !this.knownTalmud.has(tractate)) {
                                 missingTexts.talmud.add(tractate);
                             }
                         }
