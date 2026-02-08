@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rambam Reader</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/jewish-bible.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="/jewish-bible.ico">
+
+    <!-- Apple Touch Icon for iOS home screen -->
+    <link rel="apple-touch-icon" href="/jewish-bible.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/jewish-bible.png">
+
+    <!-- Android/Chrome -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/jewish-bible.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/jewish-bible.png">
+
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="Rambam Reader">
+    <meta property="og:description" content="Lees de Mishneh Torah (Rambam) online">
+    <meta property="og:image" content="https://tanach.vercel.app/jewish-bible.png">
+    <meta property="og:type" content="website">
+    <meta name="description" content="Lees de Mishneh Torah (Rambam) online in Hebreeuws en Engels">
+    <meta name="theme-color" content="#ff9800">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 15px;
+            background: rgba(255,255,255,0.2);
+            transition: background 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .book-info {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .book-info h2 {
+            color: #ff9800;
+            margin-bottom: 10px;
+        }
+
+        .chapter-navigation {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .chapter-navigation button {
+            background: #ff9800;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .chapter-navigation button:hover:not(:disabled) {
+            background: #fb8c00;
+        }
+
+        .chapter-navigation button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .chapter-navigation select {
+            padding: 8px 12px;
+            border: 2px solid #ff9800;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .content-area {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        .halakha-item {
+            border-left: 4px solid #ff9800;
+            padding: 20px;
+            margin-bottom: 25px;
+            background: #fff8e1;
+            border-radius: 8px;
+        }
+
+        .halakha-item h4 {
+            color: #ff9800;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .text-section {
+            margin-bottom: 15px;
+        }
+
+        .text-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .text-section h5 {
+            color: #666;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .hebrew-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            direction: rtl;
+            text-align: right;
+            font-family: 'Times New Roman', serif;
+            white-space: pre-wrap;
+        }
+
+        .english-text {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #ff9800;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #c62828;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .chapter-navigation {
+                justify-content: center;
+            }
+
+            .content-area {
+                padding: 20px;
+            }
+
+            .halakha-item {
+                padding: 15px;
+            }
+
+            .hebrew-text {
+                font-size: 1.05rem;
+            }
+
+            .english-text {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>📚 Rambam Reader (Mishneh Torah)</h1>
+            <div class="nav-links">
+                <a href="/">🏠 Home</a>
+                <a href="/reader.html">📕 Tanach</a>
+                <a href="/readings.html">📚 Lezingen</a>
+                <a href="/calendar.html">📅 Kalender</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="book-info" id="bookInfo">
+            <div class="loading">
+                <div class="spinner"></div>
+                Boek wordt geladen...
+            </div>
+        </div>
+
+        <div class="chapter-navigation" id="chapterNavigation" style="display: none;">
+            <button id="prevBtn">← Vorig Hoofdstuk</button>
+            <select id="chapterSelect"></select>
+            <button id="nextBtn">Volgend Hoofdstuk →</button>
+        </div>
+
+        <div class="content-area" id="contentArea">
+            <div class="loading">
+                <div class="spinner"></div>
+                Hoofdstuk wordt geladen...
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        class RambamReader {
+            constructor() {
+                this.bookData = null;
+                this.currentChapterIndex = 0;
+                this.init();
+            }
+
+            async init() {
+                const params = new URLSearchParams(window.location.search);
+                const book = params.get('book');
+                const chapter = params.get('chapter');
+
+                if (!book) {
+                    this.showError('Geen boek opgegeven. Gebruik ?book=naam&chapter=1');
+                    return;
+                }
+
+                await this.loadBook(book);
+
+                if (chapter && this.bookData) {
+                    const chapterIndex = parseInt(chapter) - 1;
+                    if (chapterIndex >= 0 && chapterIndex < this.bookData.chapters.length) {
+                        this.currentChapterIndex = chapterIndex;
+                    }
+                }
+
+                this.setupNavigation();
+                this.renderChapter();
+            }
+
+            async loadBook(bookName) {
+                try {
+                    const fileName = bookName.toLowerCase().replace(/ /g, '_');
+                    const response = await fetch(`/data/rambam/${fileName}.json`);
+
+                    if (!response.ok) {
+                        // Check if it's Sefer HaMitzvot (not in our collection)
+                        if (bookName.includes('positive_mitzvot') || 
+                            bookName.includes('negative_mitzvot') ||
+                            bookName.includes('sefer_hamitzvot')) {
+                            throw new Error(`"${bookName}" is Sefer HaMitzvot, wat niet beschikbaar is in onze collectie. We hebben alleen Mishneh Torah boeken.`);
+                        }
+                        throw new Error(`Boek "${bookName}" niet gevonden. Controleer of de boeknaam correct is.`);
+                    }
+
+                    this.bookData = await response.json();
+                    this.renderBookInfo();
+
+                } catch (error) {
+                    this.showError(`Fout bij het laden van boek: ${error.message}`);
+                }
+            }
+
+            renderBookInfo() {
+                if (!this.bookData) return;
+
+                document.getElementById('bookInfo').innerHTML = `
+                    <h2>${this.bookData.name}</h2>
+                    <p>Type: ${this.bookData.type} | Totaal hoofdstukken: ${this.bookData.metadata.totalChapters}</p>
+                `;
+            }
+
+            setupNavigation() {
+                if (!this.bookData) return;
+
+                const chapterSelect = document.getElementById('chapterSelect');
+                chapterSelect.innerHTML = '';
+
+                this.bookData.chapters.forEach((chapter, index) => {
+                    const option = document.createElement('option');
+                    option.value = index;
+                    option.textContent = `Hoofdstuk ${chapter.chapter} (${chapter.halakhot.length} halakhot)`;
+                    chapterSelect.appendChild(option);
+                });
+
+                chapterSelect.value = this.currentChapterIndex;
+
+                document.getElementById('prevBtn').addEventListener('click', () => this.navigateChapter(-1));
+                document.getElementById('nextBtn').addEventListener('click', () => this.navigateChapter(1));
+                chapterSelect.addEventListener('change', (e) => {
+                    this.currentChapterIndex = parseInt(e.target.value);
+                    this.renderChapter();
+                    this.updateURL();
+                });
+
+                document.getElementById('chapterNavigation').style.display = 'flex';
+            }
+
+            navigateChapter(direction) {
+                const newIndex = this.currentChapterIndex + direction;
+                if (newIndex >= 0 && newIndex < this.bookData.chapters.length) {
+                    this.currentChapterIndex = newIndex;
+                    document.getElementById('chapterSelect').value = this.currentChapterIndex;
+                    this.renderChapter();
+                    this.updateURL();
+                }
+            }
+
+            renderChapter() {
+                if (!this.bookData) return;
+
+                const chapter = this.bookData.chapters[this.currentChapterIndex];
+                let html = '';
+
+                chapter.halakhot.forEach(halakha => {
+                    html += `
+                        <div class="halakha-item">
+                            <h4>Halakha ${chapter.chapter}:${halakha.halakha}</h4>
+                            <div class="text-section">
+                                <h5>🔤 Hebreeuws</h5>
+                                <div class="hebrew-text">${halakha.translations.hebrew || 'Geen Hebreeuwse tekst beschikbaar'}</div>
+                            </div>
+                            <div class="text-section">
+                                <h5>🔤 Engels</h5>
+                                <div class="english-text">${halakha.translations.english || 'No English translation available'}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                document.getElementById('contentArea').innerHTML = html;
+
+                // Update navigation buttons
+                document.getElementById('prevBtn').disabled = this.currentChapterIndex === 0;
+                document.getElementById('nextBtn').disabled = this.currentChapterIndex === this.bookData.chapters.length - 1;
+            }
+
+            updateURL() {
+                const chapter = this.bookData.chapters[this.currentChapterIndex];
+                const params = new URLSearchParams(window.location.search);
+                params.set('chapter', chapter.chapter);
+                window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`);
+            }
+
+            showError(message) {
+                document.getElementById('bookInfo').innerHTML = `
+                    <div class="error">${message}</div>
+                `;
+                document.getElementById('contentArea').innerHTML = '';
+            }
+        }
+
+        // Initialize reader when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new RambamReader();
+        });
+    </script>
+</body>
+</html>
