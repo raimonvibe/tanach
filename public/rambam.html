@@ -297,11 +297,15 @@
                 const params = new URLSearchParams(window.location.search);
                 const book = params.get('book');
                 const chapter = params.get('chapter');
+                const sefariaUrl = params.get('sefaria'); // Optional: original Sefaria URL for fallback
 
                 if (!book) {
                     this.showError('Geen boek opgegeven. Gebruik ?book=naam&chapter=1');
                     return;
                 }
+
+                // Store Sefaria URL for potential redirect
+                this.sefariaUrl = sefariaUrl;
 
                 await this.loadBook(book);
 
@@ -326,8 +330,27 @@
                         if (bookName.includes('positive_mitzvot') || 
                             bookName.includes('negative_mitzvot') ||
                             bookName.includes('sefer_hamitzvot')) {
-                            throw new Error(`"${bookName}" is Sefer HaMitzvot, wat niet beschikbaar is in onze collectie. We hebben alleen Mishneh Torah boeken.`);
+                            // Redirect to Sefaria if we have the URL, otherwise show error with Sefaria link
+                            if (this.sefariaUrl) {
+                                window.location.href = this.sefariaUrl.startsWith('http') 
+                                    ? this.sefariaUrl 
+                                    : `https://www.sefaria.org/${this.sefariaUrl}`;
+                                return;
+                            }
+                            // Try to construct Sefaria URL from book name
+                            const sefariaLink = `https://www.sefaria.org/Sefer_HaMitzvot,_Positive_Commandments.${bookName.match(/\d+/)?.[0] || ''}`;
+                            this.showError(`"${bookName}" is Sefer HaMitzvot, wat niet beschikbaar is in onze collectie. We hebben alleen Mishneh Torah boeken.<br><a href="${sefariaLink}" target="_blank">Lees op Sefaria →</a>`);
+                            return;
                         }
+                        
+                        // For other missing books, try to redirect to Sefaria if URL available
+                        if (this.sefariaUrl) {
+                            window.location.href = this.sefariaUrl.startsWith('http') 
+                                ? this.sefariaUrl 
+                                : `https://www.sefaria.org/${this.sefariaUrl}`;
+                            return;
+                        }
+                        
                         throw new Error(`Boek "${bookName}" niet gevonden. Controleer of de boeknaam correct is.`);
                     }
 

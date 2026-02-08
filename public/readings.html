@@ -696,11 +696,15 @@
             getJewishTextLink(displayText, sefariaUrl) {
                 // PRIORITY 1: Check Sefaria URL first to determine content type
                 if (sefariaUrl) {
-                    // Skip Sefer HaMitzvot (Positive/Negative Mitzvot) - not in our collection
+                    // Check for Sefer HaMitzvot (Positive/Negative Mitzvot) - not in our collection
+                    // Link to Sefaria instead
                     if (sefariaUrl.includes('Sefer_HaMitzvot') || 
                         sefariaUrl.includes('Positive_Commandments') || 
-                        sefariaUrl.includes('Negative_Commandments')) {
-                        return '';
+                        sefariaUrl.includes('Negative_Commandments') ||
+                        sefariaUrl.match(/Sefer_HaMitzvot/i)) {
+                        // Link to Sefaria since we don't have this in our collection
+                        const sefariaLink = sefariaUrl.startsWith('http') ? sefariaUrl : `https://www.sefaria.org/${sefariaUrl}`;
+                        return `<a href="${sefariaLink}" class="reading-link" target="_blank">Lees op Sefaria →</a>`;
                     }
 
                     // Rambam URL: Mishneh_Torah,_Foundations_of_the_Torah.5 or Mishneh_Torah,_The_Sanhedrin...3
@@ -745,10 +749,17 @@
 
                 // PRIORITY 2: Pattern matching on display text (when no URL or URL didn't match)
 
-                // Skip Sefer HaMitzvot (Positive/Negative Mitzvot) - not in our collection
+                // Check for Sefer HaMitzvot (Positive/Negative Mitzvot) - not in our collection
+                // If we have a Sefaria URL, link to it; otherwise skip
                 if (displayText.includes('Positive Mitzvot') || 
                     displayText.includes('Negative Mitzvot') ||
                     displayText.includes('Sefer HaMitzvot')) {
+                    // If we have a Sefaria URL, link to it
+                    if (sefariaUrl) {
+                        const sefariaLink = sefariaUrl.startsWith('http') ? sefariaUrl : `https://www.sefaria.org/${sefariaUrl}`;
+                        return `<a href="${sefariaLink}" class="reading-link" target="_blank">Lees op Sefaria →</a>`;
+                    }
+                    // Otherwise, skip (no link)
                     return '';
                 }
 
