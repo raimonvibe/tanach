@@ -67,7 +67,7 @@ class SeferHaMitzvotImporter {
         try {
             // Create file ID: "Sefer HaMitzvot, Positive Commandments" -> "sefer_hamitzvot_positive_commandments"
             const bookId = bookName.toLowerCase()
-                .replace(/sefer hamitzvot, /g, '')
+                .replace(/sefer hamitzvot, /g, 'sefer_hamitzvot_')  // Keep prefix for consistency
                 .replace(/ /g, '_')
                 .replace(/'/g, '');
             
