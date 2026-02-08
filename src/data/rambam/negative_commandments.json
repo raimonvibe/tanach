@@ -1,0 +1,12 @@
+{
+  "id": "negative_commandments",
+  "name": "Sefer HaMitzvot, Negative Commandments",
+  "type": "sefer_hamitzvot",
+  "sefariaRef": "Sefer HaMitzvot, Negative Commandments",
+  "mitzvot": [],
+  "metadata": {
+    "imported": "2026-02-08T15:38:25.889Z",
+    "totalMitzvot": 0,
+    "status": "imported_sefaria"
+  }
+}
