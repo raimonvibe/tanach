@@ -72,16 +72,21 @@
 
         .nav-links {
             margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
         }
 
         .nav-links a {
             color: white;
             text-decoration: none;
-            margin: 0 15px;
             padding: 8px 16px;
             border-radius: 20px;
             background: rgba(255,255,255,0.2);
             transition: background 0.3s ease;
+            white-space: nowrap;
         }
 
         .nav-links a:hover {
