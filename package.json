@@ -13,6 +13,7 @@
     "import:mishnah": "node src/scripts/jewish-texts-importer.js mishnah",
     "import:rambam": "node src/scripts/jewish-texts-importer.js rambam",
     "import:sefer-hamitzvot": "node src/scripts/import-sefer-hamitzvot.js",
+    "check:missing": "node src/scripts/check-missing-texts.js",
     "import:all-texts": "node src/scripts/jewish-texts-importer.js all",
     "import:readings": "node src/scripts/import-readings-content.js",
     "fix:missing": "node src/scripts/fix-missing-content.js",
