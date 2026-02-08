@@ -60,9 +60,19 @@
         }
 
         .header {
-            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             margin-bottom: 40px;
+            width: 100%;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
         }
 
         .header h1 {
@@ -76,7 +86,7 @@
             opacity: 0.9;
         }
 
-        .nav-links {
+        .header .nav-links {
             margin-top: 20px;
         }
 
@@ -492,8 +502,8 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
+    <div class="header">
+        <div class="header-content">
             <h1>📖 Tanach Reader</h1>
             <p>Lees de Joodse Bijbel online in Hebreeuws en Engels</p>
             <div class="nav-links">
