@@ -311,12 +311,25 @@
                 await this.loadBook(book);
 
                 if (this.bookData) {
-                    // Handle Sefer HaMitzvot (uses page parameter)
-                    if (this.bookData.type === 'sefer_hamitzvot' && page) {
-                        const pageIndex = parseInt(page) - 1;
-                        const maxPages = Math.ceil(this.bookData.mitzvot.length / 50);
-                        if (pageIndex >= 0 && pageIndex < maxPages) {
-                            this.currentChapterIndex = pageIndex;
+                    // Handle Sefer HaMitzvot (uses page parameter OR chapter parameter as mitzvah number)
+                    if (this.bookData.type === 'sefer_hamitzvot') {
+                        if (page) {
+                            // Use page parameter directly
+                            const pageIndex = parseInt(page) - 1;
+                            const maxPages = Math.ceil(this.bookData.mitzvot.length / 50);
+                            if (pageIndex >= 0 && pageIndex < maxPages) {
+                                this.currentChapterIndex = pageIndex;
+                            }
+                        } else if (chapter) {
+                            // Convert chapter (mitzvah number) to page
+                            const mitzvahNum = parseInt(chapter);
+                            if (mitzvahNum > 0 && mitzvahNum <= this.bookData.mitzvot.length) {
+                                const pageIndex = Math.ceil(mitzvahNum / 50) - 1;
+                                const maxPages = Math.ceil(this.bookData.mitzvot.length / 50);
+                                if (pageIndex >= 0 && pageIndex < maxPages) {
+                                    this.currentChapterIndex = pageIndex;
+                                }
+                            }
                         }
                     }
                     // Handle Mishneh Torah (uses chapter parameter)
@@ -332,17 +345,60 @@
                 this.renderChapter();
             }
 
+            /**
+             * Map book name variations to actual file names
+             */
+            mapBookName(bookName) {
+                const name = bookName.toLowerCase().replace(/ /g, '_');
+                
+                // Map Sefer HaMitzvot variations
+                if (name === 'positive_mitzvot' || 
+                    name === 'positive_commandments' ||
+                    name.includes('positive') && name.includes('mitzvot')) {
+                    return 'sefer_hamitzvot_positive_commandments';
+                }
+                if (name === 'negative_mitzvot' || 
+                    name === 'negative_commandments' ||
+                    name.includes('negative') && name.includes('mitzvot')) {
+                    return 'sefer_hamitzvot_negative_commandments';
+                }
+                
+                // Return as-is for other books
+                return name;
+            }
+
             async loadBook(bookName) {
                 try {
-                    const fileName = bookName.toLowerCase().replace(/ /g, '_');
+                    // Map book name to actual file name
+                    const mappedName = this.mapBookName(bookName);
+                    const fileName = mappedName;
                     const response = await fetch(`/data/rambam/${fileName}.json`);
 
                     if (!response.ok) {
-                        // Check if it's Sefer HaMitzvot (not in our collection)
-                        if (bookName.includes('positive_mitzvot') || 
-                            bookName.includes('negative_mitzvot') ||
-                            bookName.includes('sefer_hamitzvot')) {
-                            // Redirect to Sefaria if we have the URL, otherwise show error with Sefaria link
+                        // Check if it's Sefer HaMitzvot - try alternative names
+                        if (bookName.includes('positive') || bookName.includes('negative') || 
+                            bookName.includes('mitzvot') || bookName.includes('sefer_hamitzvot')) {
+                            
+                            // Try alternative file names
+                            const alternatives = [];
+                            if (bookName.includes('positive')) {
+                                alternatives.push('sefer_hamitzvot_positive_commandments');
+                            }
+                            if (bookName.includes('negative')) {
+                                alternatives.push('sefer_hamitzvot_negative_commandments');
+                            }
+                            
+                            // Try each alternative
+                            for (const alt of alternatives) {
+                                const altResponse = await fetch(`/data/rambam/${alt}.json`);
+                                if (altResponse.ok) {
+                                    this.bookData = await altResponse.json();
+                                    this.renderBookInfo();
+                                    return;
+                                }
+                            }
+                            
+                            // If still not found, redirect to Sefaria
                             if (this.sefariaUrl) {
                                 window.location.href = this.sefariaUrl.startsWith('http') 
                                     ? this.sefariaUrl 
@@ -350,7 +406,8 @@
                                 return;
                             }
                             // Try to construct Sefaria URL from book name
-                            const sefariaLink = `https://www.sefaria.org/Sefer_HaMitzvot,_Positive_Commandments.${bookName.match(/\d+/)?.[0] || ''}`;
+                            const type = bookName.includes('positive') ? 'Positive' : 'Negative';
+                            const sefariaLink = `https://www.sefaria.org/Sefer_HaMitzvot,_${type}_Commandments`;
                             this.showError(`"${bookName}" is Sefer HaMitzvot, wat niet beschikbaar is in onze collectie. We hebben alleen Mishneh Torah boeken.<br><a href="${sefariaLink}" target="_blank">Lees op Sefaria →</a>`);
                             return;
                         }
