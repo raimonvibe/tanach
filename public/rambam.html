@@ -297,6 +297,7 @@
                 const params = new URLSearchParams(window.location.search);
                 const book = params.get('book');
                 const chapter = params.get('chapter');
+                const page = params.get('page'); // For Sefer HaMitzvot
                 const sefariaUrl = params.get('sefaria'); // Optional: original Sefaria URL for fallback
 
                 if (!book) {
@@ -309,10 +310,21 @@
 
                 await this.loadBook(book);
 
-                if (chapter && this.bookData) {
-                    const chapterIndex = parseInt(chapter) - 1;
-                    if (chapterIndex >= 0 && chapterIndex < this.bookData.chapters.length) {
-                        this.currentChapterIndex = chapterIndex;
+                if (this.bookData) {
+                    // Handle Sefer HaMitzvot (uses page parameter)
+                    if (this.bookData.type === 'sefer_hamitzvot' && page) {
+                        const pageIndex = parseInt(page) - 1;
+                        const maxPages = Math.ceil(this.bookData.mitzvot.length / 50);
+                        if (pageIndex >= 0 && pageIndex < maxPages) {
+                            this.currentChapterIndex = pageIndex;
+                        }
+                    }
+                    // Handle Mishneh Torah (uses chapter parameter)
+                    else if (chapter && this.bookData.chapters) {
+                        const chapterIndex = parseInt(chapter) - 1;
+                        if (chapterIndex >= 0 && chapterIndex < this.bookData.chapters.length) {
+                            this.currentChapterIndex = chapterIndex;
+                        }
                     }
                 }
 
