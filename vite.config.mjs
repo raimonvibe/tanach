@@ -6,11 +6,11 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
 export default defineConfig({
   root: 'public',
-  publicDir: false, // Disable default publicDir since root is already 'public'
+  publicDir: '.', // Use current directory as public dir (since root is 'public')
   build: {
     outDir: '../dist',
     emptyOutDir: true,
-    copyPublicDir: false, // We'll copy manually or use assets
+    copyPublicDir: true, // Copy all static assets including data directory
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'public/index.html'),
