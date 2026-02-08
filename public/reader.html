@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanach Reader - Lezen</title>
+    <link rel="icon" type="image/x-icon" href="/jewish-bible.ico">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 { font-size: 1.8rem; }
+        .nav-controls { display: flex; gap: 15px; align-items: center; }
+        .nav-links { display: flex; gap: 10px; }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 15px;
+            background: rgba(255,255,255,0.2);
+            transition: background 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .nav-links a:hover { background: rgba(255,255,255,0.3); }
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .book-info {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .book-title {
+            font-size: 2rem;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        .chapter-nav {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .content-area {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .language-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+        }
+        .tab {
+            background: none;
+            border: none;
+            padding: 15px 25px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+        .tab-content { 
+            display: none !important; 
+        }
+        .tab-content.active { 
+            display: block !important; 
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+        #tabContent {
+            min-height: 200px;
+        }
+        #both-content.active,
+        #hebrew-content.active,
+        #english-content.active {
+            display: block !important;
+            visibility: visible !important;
+        }
+        .verses { font-size: 1.1rem; line-height: 1.8; }
+        .verse {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        .verse:hover { background-color: #f8f9fa; }
+        .verse-number {
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .hebrew-text {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.2rem;
+            direction: rtl;
+            text-align: right;
+        }
+        .chapter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .chapter-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            min-width: 45px;
+        }
+        .chapter-btn:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+        }
+        .chapter-btn.active {
+            background: #764ba2;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .nav-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+        }
+        .nav-btn:hover:not(:disabled) {
+            background: #5a6fd8;
+        }
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-size: 1.1rem;
+        }
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #c62828;
+        }
+    </style>
+    <script>
+        // Immediate console log to verify script execution
+        console.log('[Reader HTML] Script tag reached');
+        console.log('[Reader HTML] Current URL:', window.location.href);
+    </script>
+    <script type="module" src="/js/reader.js"></script>
+    <script>
+        // Log after module script
+        console.log('[Reader HTML] Module script tag processed');
+    </script>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div>
+                <a href="/" style="background: rgba(255,255,255,0.2); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; text-decoration: none; display: inline-block; transition: background-color 0.3s ease;">← Terug</a>
+                <h1 id="bookTitle">Tanach Reader</h1>
+            </div>
+            <div class="nav-controls">
+                <select id="bookSelector" class="book-selector" style="background: rgba(255,255,255,0.2); color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer;">
+                    <option value="">Selecteer een boek...</option>
+                </select>
+                <button id="toggleVerseNumbers" class="toggle-btn" style="background: rgba(255,255,255,0.2); color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; transition: background-color 0.3s ease; font-size: 0.9rem;">Vers nummers</button>
+                <div class="nav-links">
+                    <a href="/readings.html">📚 Leesrooster</a>
+                    <a href="/calendar.html">📅 Kalender</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div id="bookInfo" class="book-info">
+            <div class="loading">Laden van boeken...</div>
+        </div>
+
+        <div id="chapterNav" class="chapter-nav" style="display: none;">
+            <h3>Hoofdstukken</h3>
+            <div id="chapterButtons" class="chapter-buttons" style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;"></div>
+            <div style="margin-top: 15px;">
+                <button id="prevChapter" class="nav-btn" style="background: #667eea; color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; transition: background-color 0.3s ease; margin-right: 10px;">← Vorige</button>
+                <button id="nextChapter" class="nav-btn" style="background: #667eea; color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; transition: background-color 0.3s ease;">Volgende →</button>
+            </div>
+        </div>
+
+        <div id="contentArea" class="content-area" style="display: none;">
+            <div class="language-tabs">
+                <button class="tab active" data-tab="hebrew" onclick="switchTab('hebrew')">Hebreeuws</button>
+                <button class="tab active" data-tab="english" onclick="switchTab('english')">Engels</button>
+                <button class="tab active" data-tab="both" onclick="switchTab('both')">Beide</button>
+            </div>
+            <div id="tabContent"></div>
+        </div>
+    </div>
+    <script>
+        // Add event listeners after DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('[Reader HTML] DOM loaded, setting up event listeners');
+            
+            // Book selector change event
+            const bookSelector = document.getElementById('bookSelector');
+            if (bookSelector) {
+                bookSelector.addEventListener('change', () => {
+                    console.log('[Reader HTML] Book selector changed');
+                    if (window.changeBook) {
+                        window.changeBook();
+                    }
+                });
+            }
+            
+            // Previous/Next chapter buttons
+            const prevBtn = document.getElementById('prevChapter');
+            if (prevBtn) {
+                prevBtn.addEventListener('click', () => {
+                    console.log('[Reader HTML] Previous chapter clicked');
+                    if (window.changeChapter) {
+                        window.changeChapter(-1);
+                    }
+                });
+            }
+            
+            const nextBtn = document.getElementById('nextChapter');
+            if (nextBtn) {
+                nextBtn.addEventListener('click', () => {
+                    console.log('[Reader HTML] Next chapter clicked');
+                    if (window.changeChapter) {
+                        window.changeChapter(1);
+                    }
+                });
+            }
+            
+            // Toggle verse numbers button
+            const toggleBtn = document.getElementById('toggleVerseNumbers');
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', () => {
+                    console.log('[Reader HTML] Toggle verse numbers clicked');
+                    if (window.toggleVerseNumbers) {
+                        window.toggleVerseNumbers();
+                    }
+                });
+            }
+            
+            console.log('[Reader HTML] Event listeners setup complete');
+        });
+    </script>
+</body>
+</html>

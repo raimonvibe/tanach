@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joodse Kalender - Tanach Reader</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/jewish-bible.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="/jewish-bible.ico">
+
+    <!-- Apple Touch Icon for iOS home screen -->
+    <link rel="apple-touch-icon" href="/jewish-bible.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/jewish-bible.png">
+
+    <!-- Android/Chrome -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/jewish-bible.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/jewish-bible.png">
+
+    <!-- Open Graph meta tags for social sharing -->
+    <meta property="fb:app_id" content="1234567890">
+    <meta property="og:title" content="Tanach Reader - Joodse Bijbel Online">
+    <meta property="og:description" content="Lees de Joodse Bijbel online in Hebreeuws en Engels">
+    <meta property="og:image" content="https://tanach.vercel.app/jewish-bible.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="454">
+    <meta property="og:image:alt" content="Tanach Reader - Joodse Bijbel">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tanach.vercel.app">
+    <meta property="og:site_name" content="Tanach Reader">
+
+    <!-- Twitter Card meta tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tanach Reader - Joodse Bijbel Online">
+    <meta name="twitter:description" content="Lees de Joodse Bijbel online in Hebreeuws en Engels">
+    <meta name="twitter:image" content="https://tanach.vercel.app/jewish-bible.png">
+
+    <!-- Additional meta tags -->
+    <meta name="description" content="Lees de Joodse Bijbel online in Hebreeuws en Engels">
+    <meta name="theme-color" content="#667eea">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* Hebrew font support */
+        @font-face {
+            font-family: 'Noto Sans Hebrew';
+            src: url('https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@400;700&display=swap');
+        }
+
+        .hebrew-text {
+            font-family: 'Noto Sans Hebrew', 'David', 'Arial Hebrew', sans-serif;
+            direction: rtl;
+            text-align: right;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .nav-links {
+            margin-top: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.2);
+            transition: background 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .calendar-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .calendar-title {
+            font-size: 1.8rem;
+            color: #667eea;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        @media (max-width: 768px) {
+            .calendar-title {
+                font-size: 1.4rem;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .calendar-title {
+                font-size: 1.2rem;
+            }
+        }
+
+        .calendar-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: #5a6fd8;
+        }
+
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .view-toggle {
+            display: flex;
+            background: #f0f0f0;
+            border-radius: 8px;
+            padding: 4px;
+        }
+
+        .view-toggle button {
+            background: none;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .view-toggle button.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+
+        .day-cell {
+            background: white;
+            min-height: 120px;
+            padding: 8px;
+            border: 1px solid #f0f0f0;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .day-cell:hover {
+            background: #f8f9fa;
+        }
+
+        .day-cell.other-month {
+            background: #f8f9fa;
+            color: #666;
+        }
+
+        .day-cell.other-month .day-number {
+            color: #667eea;
+        }
+
+        .day-cell.other-month .hebrew-date {
+            color: #666;
+        }
+
+        .day-cell.other-month .hebrew-numeral {
+            color: #666;
+        }
+
+        .day-cell.other-month .hebrew-month {
+            color: #666;
+        }
+
+        .day-cell.other-month .hebrew-year {
+            color: #666;
+        }
+
+        .day-cell.other-month .day-events {
+            color: #666;
+        }
+
+        .day-cell.today {
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+        }
+
+        .day-cell.holiday {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .day-cell.shabbat {
+            background: #f3e5f5;
+            border-left: 4px solid #9c27b0;
+        }
+
+        .day-number {
+            font-weight: bold;
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+            color: #667eea;
+            line-height: 1.3;
+        }
+
+        .hebrew-date {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 4px;
+            text-align: left;
+        }
+
+        .hebrew-numeral {
+            font-size: 0.9rem;
+            color: #667eea;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+
+        .hebrew-month {
+            font-size: 0.7rem;
+            color: #888;
+        }
+
+        .hebrew-year {
+            font-size: 0.6rem;
+            color: #999;
+        }
+
+        .day-events {
+            font-size: 0.7rem;
+            color: #333;
+        }
+
+        .event {
+            background: #667eea;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin: 1px 0;
+            font-size: 0.65rem;
+        }
+
+        .event.holiday {
+            background: #ff9800;
+        }
+
+        .event.shabbat {
+            background: #9c27b0;
+        }
+
+        .event.parashat {
+            background: #4caf50;
+        }
+
+        .event.roshChodesh {
+            background: #ff9800;
+            color: white;
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .sidebar h3 {
+            color: #333333;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: bold;
+            color: #666666;
+        }
+
+        .info-value {
+            color: #444444;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666666;
+            font-size: 1.1rem;
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #c62828;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            opacity: 0.8;
+            margin-top: 30px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+            
+            .nav-links a {
+                margin: 0;
+                padding: 12px 20px;
+                font-size: 1rem;
+                min-width: 200px;
+                text-align: center;
+            }
+
+            .calendar-container {
+                padding: 15px;
+            }
+
+            .calendar-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .calendar-controls {
+                justify-content: center;
+            }
+
+            .calendar-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2px;
+                min-width: 100%;
+            }
+
+
+            .day-cell {
+                min-height: 80px;
+                padding: 8px;
+                font-size: 0.9rem;
+            }
+
+            .day-number {
+                font-size: 0.85rem;
+                font-weight: bold;
+                color: #667eea;
+                line-height: 1.2;
+            }
+
+            .hebrew-date {
+                font-size: 0.7rem;
+            }
+
+            .hebrew-numeral {
+                font-size: 0.8rem;
+            }
+
+            .hebrew-month {
+                font-size: 0.65rem;
+            }
+
+            .day-events {
+                font-size: 0.65rem;
+            }
+
+            .event {
+                font-size: 0.6rem;
+                padding: 2px 4px;
+                margin: 1px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 5px;
+            }
+            
+            .nav-links a {
+                min-width: 180px;
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+
+            .calendar-container {
+                padding: 10px;
+            }
+
+            .calendar-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1px;
+                min-width: 100%;
+            }
+
+
+            .day-cell {
+                min-height: 70px;
+                padding: 6px;
+                font-size: 0.8rem;
+            }
+
+            .day-number {
+                font-size: 0.8rem;
+                font-weight: bold;
+                color: #667eea;
+                line-height: 1.2;
+            }
+
+            .hebrew-date {
+                font-size: 0.65rem;
+            }
+
+            .hebrew-numeral {
+                font-size: 0.75rem;
+            }
+
+            .hebrew-month {
+                font-size: 0.6rem;
+            }
+
+            .day-events {
+                font-size: 0.6rem;
+            }
+
+            .event {
+                font-size: 0.55rem;
+                padding: 1px 3px;
+                margin: 1px 0;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .container {
+                padding: 2px;
+            }
+
+            .calendar-container {
+                padding: 8px;
+            }
+
+            .calendar-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1px;
+                min-width: 100%;
+            }
+
+
+            .day-cell {
+                min-height: 60px;
+                padding: 4px;
+                font-size: 0.75rem;
+            }
+
+            .day-number {
+                font-size: 0.75rem;
+                font-weight: bold;
+                color: #667eea;
+                line-height: 1.2;
+            }
+
+            .hebrew-date {
+                font-size: 0.6rem;
+            }
+
+            .hebrew-numeral {
+                font-size: 0.7rem;
+            }
+
+            .hebrew-month {
+                font-size: 0.55rem;
+            }
+
+            .day-events {
+                font-size: 0.55rem;
+            }
+
+            .event {
+                font-size: 0.5rem;
+                padding: 1px 2px;
+                margin: 1px 0;
+            }
+        }
+
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            .calendar-container {
+                background: #2d3748;
+                color: #e2e8f0;
+            }
+            
+            .sidebar {
+                background: #2d3748;
+                color: #e2e8f0;
+            }
+            
+            .sidebar h3 {
+                color: #e2e8f0;
+            }
+            
+            .info-label {
+                color: #cbd5e0;
+            }
+            
+            .info-value {
+                color: #e2e8f0;
+            }
+            
+            .loading {
+                color: #cbd5e0;
+            }
+
+            .day-cell {
+                background: #4a5568;
+                color: #e2e8f0;
+                border-color: #718096;
+            }
+
+            .day-cell:hover {
+                background: #2d3748;
+            }
+
+            .day-cell.other-month {
+                background: #1a202c;
+                color: #718096;
+            }
+            
+            .day-number {
+                color: #667eea;
+            }
+            
+            .day-cell.other-month .day-number {
+                color: #667eea;
+            }
+
+            .info-item {
+                border-color: #4a5568;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📅 Joodse Kalender</h1>
+            <p>Ontdek de Joodse feestdagen, parasja en speciale dagen</p>
+            <div class="nav-links">
+                <a href="/">🏠 Home</a>
+                <a href="/reader.html">📖 Tanach Reader</a>
+                <a href="/readings.html">📚 Leesrooster</a>
+            </div>
+        </div>
+
+        <div class="calendar-container">
+            <div class="calendar-header">
+                <div class="calendar-title" id="calendarTitle">
+                    Lading...
+                </div>
+                <div class="calendar-controls">
+                    <button class="nav-btn" id="prevMonth">‹ Vorige</button>
+                    <button class="nav-btn" id="todayBtn">Vandaag</button>
+                    <button class="nav-btn" id="nextMonth">Volgende ›</button>
+                </div>
+            </div>
+
+            <div id="calendarContent">
+                <div class="loading">Kalender wordt geladen...</div>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <h3>📚 Deze Maand</h3>
+            <div id="weeklyInfo">
+                <div class="loading">Week informatie wordt geladen...</div>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <h3>📅 Datum Info</h3>
+            <div id="hebrewDateInfo">
+                <div class="loading">Joodse datum wordt geladen...</div>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <h3>🕯️ Tijden</h3>
+            <div id="timesInfo">
+                <div class="loading">Tijden worden geladen...</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2024 Tanach Reader - Joodse Kalender met data van HebCal.org</p>
+        </div>
+    </div>
+
+    <script type="module">
+        import './js/calendar-app.js';
+    </script>
+</body>
+</html>
