@@ -15,9 +15,10 @@ class SeferHaMitzvotImporter {
         this.rambamDir = path.join(__dirname, '../data/rambam');
         
         // Sefer HaMitzvot has two parts
+        // Note: Sefaria uses "Sefer HaMitzvot, Positive Commandments" as the full reference
         this.seferHaMitzvotBooks = [
-            'Sefer HaMitzvot, Positive Commandments',
-            'Sefer HaMitzvot, Negative Commandments'
+            { name: 'Sefer HaMitzvot, Positive Commandments', expectedCount: 248 },
+            { name: 'Sefer HaMitzvot, Negative Commandments', expectedCount: 365 }
         ];
     }
 
@@ -35,8 +36,8 @@ class SeferHaMitzvotImporter {
 
         for (const book of this.seferHaMitzvotBooks) {
             try {
-                console.log(`\n📖 ${book}...`);
-                const bookData = await this.importBook(book);
+                console.log(`\n📖 ${book.name}...`);
+                const bookData = await this.importBook(book.name, book.expectedCount);
 
                 if (bookData) {
                     totalBooks++;
@@ -62,7 +63,7 @@ class SeferHaMitzvotImporter {
     /**
      * Import a Sefer HaMitzvot book
      */
-    async importBook(bookName) {
+    async importBook(bookName, expectedCount = null) {
         try {
             // Create file ID: "Sefer HaMitzvot, Positive Commandments" -> "sefer_hamitzvot_positive_commandments"
             const bookId = bookName.toLowerCase()
@@ -72,9 +73,15 @@ class SeferHaMitzvotImporter {
             
             const sefariaRef = bookName;
 
-            // Get book structure
-            const indexUrl = `${this.baseUrl}/index/${encodeURIComponent(sefariaRef)}`;
-            const response = await fetch(indexUrl);
+            // Get book structure - try the direct reference first
+            let indexUrl = `${this.baseUrl}/index/${encodeURIComponent(sefariaRef)}`;
+            let response = await fetch(indexUrl);
+
+            // If that fails, try the parent "Sefer HaMitzvot" index
+            if (!response.ok) {
+                indexUrl = `${this.baseUrl}/index/Sefer_HaMitzvot`;
+                response = await fetch(indexUrl);
+            }
 
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -87,20 +94,60 @@ class SeferHaMitzvotImporter {
                 throw new Error(indexData.error);
             }
 
-            // Sefer HaMitzvot structure: Each mitzvah is numbered (1-248 for positive, 1-365 for negative)
-            // The structure might be flat or organized by chapters
-            const totalMitzvot = indexData.schema && indexData.schema.lengths ? indexData.schema.lengths[0] : 0;
+            // Try to find the count from schema, or use expected count
+            let totalMitzvot = expectedCount;
+            
+            // Try to find in nested schema structure
+            if (indexData.schema && indexData.schema.nodes) {
+                const findMitzvotNode = (nodes) => {
+                    for (const node of nodes) {
+                        if (node.key === 'Mitzvot Ase' || node.key === 'Positive Commandments' || 
+                            node.key === 'Mitzvot Lo Taase' || node.key === 'Negative Commandments') {
+                            if (node.lengths && node.lengths.length > 0) {
+                                return node.lengths[0];
+                            }
+                            // Check nested nodes
+                            if (node.nodes) {
+                                const nested = findMitzvotNode(node.nodes);
+                                if (nested) return nested;
+                            }
+                        }
+                        if (node.nodes) {
+                            const nested = findMitzvotNode(node.nodes);
+                            if (nested) return nested;
+                        }
+                    }
+                    return null;
+                };
+                
+                const foundCount = findMitzvotNode(indexData.schema.nodes);
+                if (foundCount) {
+                    totalMitzvot = foundCount;
+                }
+            }
+
+            // Fallback: try to determine by testing if mitzvot exist
+            if (!totalMitzvot) {
+                console.log(`  ⚠️  Kon aantal niet bepalen, gebruik verwacht aantal: ${expectedCount || 'onbekend'}`);
+                totalMitzvot = expectedCount || 248; // Default to positive count
+            }
+
             console.log(`  📊 Totaal mitzvot: ${totalMitzvot}`);
 
             const mitzvot = [];
 
             // Import each mitzvah
+            // Reference format: "Sefer HaMitzvot, Positive Commandments 1" (with space)
+            let successCount = 0;
+            let consecutiveFailures = 0;
+            const maxConsecutiveFailures = 10; // Stop if 10 in a row fail
+            
             for (let mitzvahNum = 1; mitzvahNum <= totalMitzvot; mitzvahNum++) {
                 try {
-                    const ref = `${sefariaRef}.${mitzvahNum}`;
+                    const ref = `${sefariaRef} ${mitzvahNum}`;
                     const mitzvahData = await this.fetchMitzvah(ref);
 
-                    if (mitzvahData) {
+                    if (mitzvahData && (mitzvahData.he || mitzvahData.text)) {
                         mitzvot.push({
                             mitzvah: mitzvahNum,
                             translations: {
@@ -108,15 +155,33 @@ class SeferHaMitzvotImporter {
                                 english: mitzvahData.text || ''
                             }
                         });
+                        successCount++;
+                        consecutiveFailures = 0;
 
                         if (mitzvahNum % 50 === 0) {
-                            console.log(`    📄 Mitzvah ${mitzvahNum}...`);
+                            console.log(`    📄 Mitzvah ${mitzvahNum}... (${successCount} successvol)`);
+                        }
+                    } else {
+                        consecutiveFailures++;
+                        if (consecutiveFailures >= maxConsecutiveFailures) {
+                            console.log(`    ⚠️  Gestopt na ${maxConsecutiveFailures} opeenvolgende fouten bij mitzvah ${mitzvahNum}`);
+                            break;
                         }
                     }
+                    
+                    // Small delay to avoid rate limiting
+                    await this.sleep(200);
+                    
                 } catch (error) {
+                    consecutiveFailures++;
                     console.log(`    ⚠️  Mitzvah ${mitzvahNum}: ${error.message}`);
+                    if (consecutiveFailures >= maxConsecutiveFailures) {
+                        break;
+                    }
                 }
             }
+            
+            console.log(`  ✅ ${successCount} van ${totalMitzvot} mitzvot geïmporteerd`);
 
             const bookData = {
                 id: bookId,
@@ -152,6 +217,9 @@ class SeferHaMitzvotImporter {
                 const response = await fetch(url);
 
                 if (!response.ok) {
+                    if (response.status === 404) {
+                        return null; // Mitzvah doesn't exist
+                    }
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
@@ -162,19 +230,25 @@ class SeferHaMitzvotImporter {
                     return null;
                 }
 
-                // Sefer HaMitzvot returns text directly
-                if (data.he && data.text) {
-                    return {
-                        he: data.he || '',
-                        text: data.text || ''
-                    };
+                // Sefer HaMitzvot returns text in arrays
+                if (Array.isArray(data.he) && Array.isArray(data.text)) {
+                    // Join all seifim (sub-sections) together
+                    const hebrew = data.he.map(h => h || '').join('\n\n').trim();
+                    const english = data.text.map(t => t || '').join('\n\n').trim();
+                    
+                    if (hebrew || english) {
+                        return {
+                            he: hebrew,
+                            text: english
+                        };
+                    }
                 }
 
-                // Sometimes it's an array
-                if (Array.isArray(data.he) && Array.isArray(data.text)) {
+                // Fallback: single text
+                if (data.he && data.text) {
                     return {
-                        he: data.he.join('\n') || '',
-                        text: data.text.join('\n') || ''
+                        he: Array.isArray(data.he) ? data.he.join('\n\n') : data.he,
+                        text: Array.isArray(data.text) ? data.text.join('\n\n') : data.text
                     };
                 }
 
@@ -185,10 +259,12 @@ class SeferHaMitzvotImporter {
                     await this.sleep(1000 * (attempt + 1));
                     continue;
                 } else {
-                    throw new Error(`Kon mitzvah niet ophalen: ${error.message}`);
+                    // Don't throw, just return null so we can continue
+                    return null;
                 }
             }
         }
+        return null;
     }
 
     /**
