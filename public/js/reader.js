@@ -445,14 +445,15 @@ async function changeBook() {
  */
 function toggleVerseNumbers() {
     showVerseNumbers = !showVerseNumbers;
-    const toggleBtn = document.getElementById('verseNumbersToggle');
-    
-    if (showVerseNumbers) {
-        toggleBtn.textContent = 'Verberg versnummers';
-        toggleBtn.classList.add('active');
-    } else {
-        toggleBtn.textContent = 'Toon versnummers';
-        toggleBtn.classList.remove('active');
+    const toggleBtn = document.getElementById('toggleVerseNumbers');
+    if (toggleBtn) {
+        if (showVerseNumbers) {
+            toggleBtn.textContent = 'Verberg versnummers';
+            toggleBtn.classList.add('active');
+        } else {
+            toggleBtn.textContent = 'Toon versnummers';
+            toggleBtn.classList.remove('active');
+        }
     }
 
     // Reload current chapter to update verse numbers
