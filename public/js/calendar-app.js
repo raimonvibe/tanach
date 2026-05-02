@@ -1,4 +1,4 @@
-import { getWeeklyInfo, getTimes, getHebrewDate, getCalendarData } from './hebcal-service.js';
+import { getWeeklyInfo, getTimes, getHebrewDate, getCalendarData, formatLocalDateKey } from './hebcal-service.js';
 
 class JewishCalendar {
     constructor() {
@@ -37,17 +37,12 @@ class JewishCalendar {
             const monthData = getCalendarData(this.currentYear, this.currentMonth + 1);
             this.calendarData[`${this.currentYear}-${this.currentMonth + 1}`] = monthData;
 
-            // Get the first day of the currently viewed month
-            const viewedDate = new Date(this.currentYear, this.currentMonth, 1);
-
-            // Load weekly info for the viewed month
-            this.loadWeeklyInfo(viewedDate);
-
-            // Load times info for the viewed month
-            this.loadTimesInfo(viewedDate);
-
-            // Load Hebrew date info for the viewed month
-            this.loadHebrewDateInfo(viewedDate);
+            // Parasha, zmanim, and "Datum Info" refer to the actual current day — not day 1 of the
+            // month being shown (which caused Hebrew/Gregorian to disagree with "today" in the grid).
+            const today = new Date();
+            this.loadWeeklyInfo(today);
+            this.loadTimesInfo(today);
+            this.loadHebrewDateInfo(today);
 
         } catch (error) {
             console.error('Error loading calendar data:', error);
@@ -292,7 +287,7 @@ class JewishCalendar {
                 }
 
                 html += `
-                    <div class="${cellClass}" data-date="${currentDate.toISOString().split('T')[0]}">
+                    <div class="${cellClass}" data-date="${formatLocalDateKey(currentDate)}">
                         <div class="day-number">${dayNumber} ${europeanMonth}</div>
                         <div class="hebrew-date">
                             <div class="hebrew-numeral">${hebrewDayOnly}</div>
