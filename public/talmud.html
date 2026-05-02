@@ -306,7 +306,7 @@
                     if (!response.ok) {
                         // Provide helpful error message
                         if (response.status === 404) {
-                            throw new Error(`Tractaat "${tractateName}" niet gevonden in onze collectie. We hebben momenteel 22 van de 63 Talmud tractaten. Dit tractaat is mogelijk nog niet geïmporteerd.`);
+                            throw new Error(`Tractaat "${tractateName}" niet gevonden in onze collectie. De Babylonische Talmud heeft 63 tractaten; we bieden er nog maar een deel offline aan. Dit tractaat is mogelijk nog niet geïmporteerd.`);
                         }
                         throw new Error(`Fout bij het laden: HTTP ${response.status}`);
                     }
