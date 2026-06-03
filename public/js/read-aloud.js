@@ -9,9 +9,9 @@
     '[data-read-aloud-block], article, .text-section, .reading-card, .reading-item, .content-area, .tab-content.active, #tabContent';
   const READABLE_SELECTOR = 'h1, h2, h3, h4, p, li, blockquote, .verse, .reading-text, .hebrew-text, .english-text';
   const IGNORE_ANCESTOR =
-    '[data-read-aloud-ignore], nav, footer, header, button, .header, .nav-links, .language-tabs, .date-selector';
+    '[data-read-aloud-ignore], nav, footer, header, button, .nav-links, .language-tabs, .date-selector, .header-content, .chapter-nav, .book-selector, .location-controls';
   const MAIN_ROOT_SELECTORS =
-    '#main-content, #contentArea, #readingsContainer, #tabContent, .main-content, .container';
+    '#main-content, #readingsContainer, #contentArea, .main-container, #tabContent, .main-content, .container';
   const SPEEDS = [0.75, 1, 1.25, 1.5];
 
   let selectionCache = null;
@@ -214,10 +214,26 @@
 
   function getMainRoot() {
     for (const sel of MAIN_ROOT_SELECTORS) {
+      const matches = document.querySelectorAll(sel);
+      for (const el of matches) {
+        if (isVisible(el)) return el;
+      }
+    }
+    for (const sel of MAIN_ROOT_SELECTORS) {
       const el = document.querySelector(sel);
       if (el) return el;
     }
     return document.body;
+  }
+
+  function detectUtteranceLang(text) {
+    return /[\u0590-\u05FF]/.test(text) ? 'he-IL' : 'en-US';
+  }
+
+  function pickVoiceForLang(lang) {
+    const prefix = lang.startsWith('he') ? 'he' : 'en';
+    const match = voices.find((v) => v.lang.startsWith(prefix));
+    return match || voices[0] || null;
   }
 
   function icon(name) {
@@ -365,6 +381,10 @@
         return;
       }
 
+      if (!voices.length && window.speechSynthesis) {
+        loadVoices();
+      }
+
       const generation = session.generation;
       const chunk = list[index];
       indexRef = index;
@@ -375,9 +395,13 @@
       utterance.rate = rate;
       utterance.pitch = pitch;
       utterance.volume = volume;
+      utterance.lang = detectUtteranceLang(chunk.text);
 
-      const voice = voices.find((item) => item.voiceURI === voiceURI);
+      const selected = voices.find((item) => item.voiceURI === voiceURI);
+      const voice = selected || pickVoiceForLang(utterance.lang);
       if (voice) utterance.voice = voice;
+
+      window.speechSynthesis.resume();
 
       utterance.onend = () => {
         const current = session;
@@ -435,7 +459,19 @@
         list = getReadableChunks(mainRef);
       }
 
-      if (!list.length) return false;
+      if (!list.length) {
+        const hiddenRoot =
+          mainRef &&
+          !isVisible(mainRef) &&
+          MAIN_ROOT_SELECTORS.some((sel) => {
+            const el = document.querySelector(sel);
+            return el === mainRef;
+          });
+        if (hiddenRoot) {
+          setHint('Open a chapter or wait for content to load, then try again.');
+        }
+        return false;
+      }
 
       mode = activeMode;
       chunksRef = list;
@@ -492,11 +528,13 @@
         () => {
           const ok = start(readMode);
           if (!ok) {
-            setHint(
-              readMode === 'selection'
-                ? 'Highlight some text on the page first, then try again.'
-                : 'No readable content on this page yet.',
-            );
+            if (!ui.hint?.textContent) {
+              setHint(
+                readMode === 'selection'
+                  ? 'Highlight some text on the page first, then try again.'
+                  : 'No readable content on this page yet.',
+              );
+            }
           } else {
             setHint('');
           }
@@ -508,8 +546,11 @@
     function handlePlayPause() {
       if (status === 'idle') {
         const ok = start('page');
-        if (!ok) setHint('No readable content on this page yet.');
-        else setHint('');
+        if (!ok && !ui.hint?.textContent) {
+          setHint('No readable content on this page yet.');
+        } else if (ok) {
+          setHint('');
+        }
       } else {
         setHint('');
         togglePlayPause();
@@ -639,7 +680,7 @@
               <span>Pitch</span>
               <span class="read-aloud-pitch-val">1.0</span>
             </label>
-            <input type="range" class="read-aloud-range read-aloud-pitch" min="0.5" max="1.5" step="0.1" value="1" aria-label="Toonhoogte">
+            <input type="range" class="read-aloud-range read-aloud-pitch" min="0.5" max="1.5" step="0.1" value="1" aria-label="Pitch">
             <label class="read-aloud-label" style="margin-top:0.5rem;display:flex;justify-content:space-between;">
               <span>Volume</span>
               <span class="read-aloud-volume-val">100%</span>
