@@ -65,15 +65,20 @@ Ensure the project uses **Node.js 20** (Project Settings → General → Node.js
 
 ### GitHub Actions (optional backup)
 
-Workflow: `.github/workflows/vercel-deploy.yml` deploys on every push to `main` when these repository secrets are set:
+Workflow: `.github/workflows/vercel-deploy.yml`
+
+- **Always runs:** `npm run build` on every push to `main` (CI passes without Vercel credentials).
+- **Deploy step:** runs only when all three secrets below are set. If they are missing, the workflow still succeeds and only the build job runs.
 
 | Secret | Where to find it |
 |--------|------------------|
-| `VERCEL_TOKEN` | Vercel → Account Settings → Tokens |
-| `VERCEL_ORG_ID` | Vercel → Account Settings → General (Team ID) |
+| `VERCEL_TOKEN` | Vercel → Account Settings → Tokens → Create |
+| `VERCEL_ORG_ID` | Vercel → Account/Team Settings → General (Team ID) |
 | `VERCEL_PROJECT_ID` | Project → Settings → General → Project ID |
 
-Add them under GitHub → repo **Settings** → **Secrets and variables** → **Actions**.
+Add them under GitHub → repo **Settings** → **Secrets and variables** → **Actions** → **New repository secret**.
+
+Until these exist, rely on **Vercel Git integration** (recommended above) for production deploys.
 
 ## License
 
