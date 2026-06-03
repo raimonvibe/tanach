@@ -2,42 +2,43 @@
 
 ![Jewish Bible](public/jewish-bible.png)
 
-**Live Website:** [https://tanach.vercel.app/](https://tanach.vercel.app/)
+**Live website:** [https://tanach.vercel.app/](https://tanach.vercel.app/)
 
-## Over dit project
+## About this project
 
-Tanach Reader is een online applicatie voor het lezen van de Joodse Bijbel (Tanach) in zowel Hebreeuws als Engels. De applicatie biedt een gebruiksvriendelijke interface voor het bestuderen van de heilige teksten.
+Tanach Reader is an online application for reading the Jewish Bible (Tanach) in both Hebrew and English. It offers a user-friendly interface for studying the sacred texts.
 
-## Functionaliteiten
+## Features
 
-- 📖 **Tanach Reader**: Lees alle boeken van de Tanach in Hebreeuws en Engels
-- 📅 **Joodse Kalender**: Bekijk de Joodse kalender met belangrijke data en feestdagen
-- 🔍 **Zoekfunctie**: Zoek door de teksten in Hebreeuws of Engels
-- 📊 **Statistieken**: Overzicht van alle boeken, hoofdstukken en verzen
-- 📱 **Responsive Design**: Werkt op desktop, tablet en mobiel
+- 📖 **Tanach Reader**: Read all books of the Tanach in Hebrew and English
+- 📅 **Jewish Calendar**: View the Jewish calendar with important dates and holidays
+- 📚 **Reading Schedule**: Follow the weekly Torah and Haftarah readings
+- 🔍 **Search**: Search through the texts in Hebrew or English
+- 📊 **Statistics**: Overview of all books, chapters, and verses
+- 📱 **Responsive design**: Works on desktop, tablet, and mobile
 
-## Technologie
+## Technology
 
-- **Fully Static Site** - No server required!
-- **Vite** - Modern build tool and dev server
-- **@hebcal/core & @hebcal/leyning** - Accurate Jewish calendar calculations
-- **Sefaria.org** API voor authentieke Joodse teksten
-- **Responsive Design** - Werkt op alle apparaten
+- **Fully static site** — no server required
+- **Vite** — modern build tool and dev server
+- **@hebcal/core & @hebcal/leyning** — accurate Jewish calendar calculations
+- **Sefaria.org** API for authentic Jewish texts
+- **Responsive design** — works on all devices
 
-## Gebruik
+## Usage
 
-Bezoek [https://tanach.vercel.app/](https://tanach.vercel.app/) om de applicatie te gebruiken.
+Visit [https://tanach.vercel.app/](https://tanach.vercel.app/) to use the application.
 
-## Lokaal Ontwikkelen
+## Local development
 
 ```bash
-# Installeer dependencies
+# Install dependencies
 npm install
 
 # Start development server (http://localhost:3000)
 npm run dev
 
-# Build voor productie
+# Build for production
 npm run build
 
 # Preview production build
@@ -46,18 +47,19 @@ npm run preview
 
 ## Deployment
 
-De site is volledig statisch en kan gehost worden op:
-- **GitHub Pages**
-- **Netlify** - Automatische deployments
-- **Vercel** - Automatische deployments
-- Elke static hosting service
+The site is fully static and can be hosted on:
 
-Build command: `npm run build`
+- **GitHub Pages**
+- **Netlify** — automatic deployments
+- **Vercel** — automatic deployments
+- Any static hosting service
+
+Build command: `npm run build`  
 Output directory: `dist/`
 
-## Licentie
+## License
 
-Dit project gebruikt teksten van Sefaria.org
+This project uses texts from Sefaria.org.
 
 ---
 

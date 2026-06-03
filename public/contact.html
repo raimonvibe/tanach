@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +8,7 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/jewish-bible.ico">
     <link rel="shortcut icon" type="image/x-icon" href="/jewish-bible.ico">
+    <link rel="stylesheet" href="/css/read-aloud.css">
     
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" />
@@ -366,33 +367,33 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="main-content">
         <div class="header">
             <h1>📧 Contact</h1>
-            <p>Tanach Reader - Joodse Bijbel Online</p>
+            <p>Tanach Reader - Jewish Bible Online</p>
             <div>
-                <a href="/" class="nav-link">← Terug naar Home</a>
-                <a href="/privacy.html" class="nav-link">Privacybeleid</a>
+                <a href="/" class="nav-link">← Back to Home</a>
+                <a href="/privacy.html" class="nav-link">Privacy Policy</a>
             </div>
         </div>
         
         <div class="content">
-            <h2>Neem Contact Op</h2>
-            <p>Vragen over Tanach Reader? Feedback? Ideeën voor nieuwe functies? Stuur ons een bericht – we reageren meestal binnen 24 uur.</p>
+            <h2>Get in Touch</h2>
+            <p>Questions about Tanach Reader? Feedback? Ideas for new features? Send us a message — we usually respond within 24 hours.</p>
             
             <form method="POST" action="https://formspree.io/f/xwplqeky" class="contact-form" id="contactForm">
                 <div class="form-fields">
                     <div class="form-field half">
-                        <label for="name">Naam</label>
-                        <input type="text" name="name" id="name" placeholder="Uw naam" required />
+                        <label for="name">Name</label>
+                        <input type="text" name="name" id="name" placeholder="Your name" required />
                     </div>
                     <div class="form-field half">
-                        <label for="email">E-mail</label>
-                        <input type="email" name="email" id="email" placeholder="uw.email@voorbeeld.nl" required />
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" placeholder="your.email@example.com" required />
                     </div>
                     <div class="form-field">
-                        <label for="message">Bericht</label>
-                        <textarea name="message" id="message" rows="6" placeholder="Hoe kunnen we Tanach Reader nog beter maken?" required></textarea>
+                        <label for="message">Message</label>
+                        <textarea name="message" id="message" rows="6" placeholder="How can we make Tanach Reader better?" required></textarea>
                     </div>
                 </div>
                 
@@ -401,16 +402,16 @@
                 <div class="form-actions">
                     <button type="submit" class="submit-button" id="submitButton">
                         <i class="fa-solid fa-paper-plane" style="margin-right: 8px;"></i>
-                        Verstuur Bericht
+                        Send Message
                     </button>
                 </div>
             </form>
         </div>
         
         <div class="footer">
-            <p>&copy; <span id="copyrightYear">2027</span> Tanach Reader - Authentieke Joodse teksten van Sefaria.org</p>
+            <p>&copy; <span id="copyrightYear">2027</span> Tanach Reader - Authentic Jewish texts from Sefaria.org</p>
             <p style="margin-top: 10px; font-size: 0.9rem;">
-                <a href="/privacy.html" style="color: white; text-decoration: underline; opacity: 0.9;">Privacybeleid</a>
+                <a href="/privacy.html" style="color: white; text-decoration: underline; opacity: 0.9;">Privacy Policy</a>
             </p>
             <ul class="icons">
                 <li><a href="https://x.com/raimonvibe/" target="_blank" rel="noopener noreferrer" class="fa-brands fa-x-twitter"><span class="label">X</span></a></li>
@@ -440,7 +441,7 @@
             
             // Disable submit button
             submitButton.disabled = true;
-            submitButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="margin-right: 8px;"></i> Verzenden...';
+            submitButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="margin-right: 8px;"></i> Sending...';
             
             // Hide previous messages
             formMessage.className = 'form-message';
@@ -458,21 +459,22 @@
                 
                 if (response.ok) {
                     formMessage.className = 'form-message success';
-                    formMessage.textContent = 'Bedankt! Uw bericht is verzonden. We reageren zo spoedig mogelijk.';
+                    formMessage.textContent = 'Thank you! Your message has been sent. We will respond as soon as possible.';
                     form.reset();
                 } else {
                     const data = await response.json();
-                    throw new Error(data.error || 'Er is een fout opgetreden');
+                    throw new Error(data.error || 'An error occurred');
                 }
             } catch (error) {
                 formMessage.className = 'form-message error';
-                formMessage.textContent = error.message || 'Er is een fout opgetreden bij het verzenden. Probeer het later opnieuw.';
+                formMessage.textContent = error.message || 'An error occurred while sending. Please try again later.';
             } finally {
                 // Re-enable submit button
                 submitButton.disabled = false;
-                submitButton.innerHTML = '<i class="fa-solid fa-paper-plane" style="margin-right: 8px;"></i> Verstuur Bericht';
+                submitButton.innerHTML = '<i class="fa-solid fa-paper-plane" style="margin-right: 8px;"></i> Send Message';
             }
         });
     </script>
+    <script src="/js/read-aloud.js" defer></script>
 </body>
 </html>

@@ -185,7 +185,7 @@ export function getTimes(date = null) {
                 hour: '2-digit',
                 minute: '2-digit'
             }) : 'N/A',
-            location: 'Amsterdam, Nederland',
+            location: 'Amsterdam, Netherlands',
             nextShabbat: saturdayDate.toLocaleDateString('nl-NL')
         };
     } catch (error) {
@@ -195,7 +195,7 @@ export function getTimes(date = null) {
             havdalah: 'Error',
             sunrise: 'Error',
             sunset: 'Error',
-            location: 'Amsterdam, Nederland',
+            location: 'Amsterdam, Netherlands',
             nextShabbat: 'Error'
         };
     }

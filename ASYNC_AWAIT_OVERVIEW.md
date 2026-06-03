@@ -1,87 +1,87 @@
-# Async/Await Overzicht
+# Async/Await Overview
 
-## Functies die async zijn gemaakt:
+## Functions that were made async:
 
 ### 1. `generateReaderLink()` in `book-mapping-service.js`
-- **Status**: ✅ Async gemaakt
-- **Reden**: Moet boekdata laden om verse limits te valideren
-- **Gebruikt in**:
-  - `readings.html` - ✅ Alle callers gebruiken `await`
+- **Status**: ✅ Made async
+- **Reason**: Must load book data to validate verse limits
+- **Used in**:
+  - `readings.html` - ✅ All callers use `await`
 
 ### 2. `getInternalLink()` in `readings.html`
-- **Status**: ✅ Async gemaakt
-- **Reden**: Roept `generateReaderLink()` aan (nu async)
-- **Gebruikt in**:
-  - `renderDailyReadings()` - ✅ Gebruikt `await`
-  - `renderYearlyReadings()` - ✅ Gebruikt `await`
+- **Status**: ✅ Made async
+- **Reason**: Calls `generateReaderLink()` (now async)
+- **Used in**:
+  - `renderDailyReadings()` - ✅ Uses `await`
+  - `renderYearlyReadings()` - ✅ Uses `await`
 
 ### 3. `getTorahLink()` in `readings.html`
-- **Status**: ✅ Async gemaakt
-- **Reden**: Roept `generateReaderLink()` aan (nu async)
-- **Gebruikt in**:
-  - `renderWeeklyCard()` - ✅ Gebruikt `await`
-  - `renderDailyReadings()` - ✅ Gebruikt `await`
+- **Status**: ✅ Made async
+- **Reason**: Calls `generateReaderLink()` (now async)
+- **Used in**:
+  - `renderWeeklyCard()` - ✅ Uses `await`
+  - `renderDailyReadings()` - ✅ Uses `await`
 
 ### 4. `getHaftarahLink()` in `readings.html`
-- **Status**: ✅ Async gemaakt
-- **Reden**: Roept `generateReaderLink()` aan (nu async)
-- **Gebruikt in**:
-  - `renderWeeklyCard()` - ✅ Gebruikt `await`
+- **Status**: ✅ Made async
+- **Reason**: Calls `generateReaderLink()` (now async)
+- **Used in**:
+  - `renderWeeklyCard()` - ✅ Uses `await`
 
 ### 5. `renderWeeklyCard()` in `readings.html`
-- **Status**: ✅ Async gemaakt
-- **Reden**: Roept `getTorahLink()` en `getHaftarahLink()` aan (nu async)
-- **Gebruikt in**:
-  - `renderReadings()` - ✅ Gebruikt `await`
+- **Status**: ✅ Made async
+- **Reason**: Calls `getTorahLink()` and `getHaftarahLink()` (now async)
+- **Used in**:
+  - `renderReadings()` - ✅ Uses `await`
 
 ### 6. `renderDailyReadings()` in `readings.html`
-- **Status**: ✅ Async gemaakt
-- **Reden**: Roept `getInternalLink()` en `getTorahLink()` aan (nu async)
-- **Gebruikt in**:
-  - `renderReadings()` - ✅ Gebruikt `await`
+- **Status**: ✅ Made async
+- **Reason**: Calls `getInternalLink()` and `getTorahLink()` (now async)
+- **Used in**:
+  - `renderReadings()` - ✅ Uses `await`
 
 ### 7. `renderYearlyReadings()` in `readings.html`
-- **Status**: ✅ Async gemaakt
-- **Reden**: Roept `getInternalLink()` aan (nu async)
-- **Gebruikt in**:
-  - `renderReadings()` - ✅ Gebruikt `await`
+- **Status**: ✅ Made async
+- **Reason**: Calls `getInternalLink()` (now async)
+- **Used in**:
+  - `renderReadings()` - ✅ Uses `await`
 
 ### 8. `renderReadings()` in `readings.html`
-- **Status**: ✅ Async gemaakt
-- **Reden**: Roept `renderWeeklyCard()`, `renderDailyReadings()`, en `renderYearlyReadings()` aan (nu async)
-- **Gebruikt in**:
-  - `loadReadings()` - ✅ Gebruikt `await`
+- **Status**: ✅ Made async
+- **Reason**: Calls `renderWeeklyCard()`, `renderDailyReadings()`, and `renderYearlyReadings()` (now async)
+- **Used in**:
+  - `loadReadings()` - ✅ Uses `await`
 
-## Andere bestanden die `generateReaderLink` zouden kunnen gebruiken:
+## Other files that could use `generateReaderLink`:
 
 ### ✅ `calendar.html`
-- **Status**: ❌ Gebruikt `generateReaderLink` NIET
-- **Actie**: Geen aanpassing nodig
+- **Status**: ❌ Does NOT use `generateReaderLink`
+- **Action**: No changes needed
 
 ### ✅ `index.html`
-- **Status**: ❌ Gebruikt `generateReaderLink` NIET
-- **Actie**: Geen aanpassing nodig
+- **Status**: ❌ Does NOT use `generateReaderLink`
+- **Action**: No changes needed
 
 ### ✅ `reader.html`
-- **Status**: ❌ Gebruikt `generateReaderLink` NIET
-- **Actie**: Geen aanpassing nodig
+- **Status**: ❌ Does NOT use `generateReaderLink`
+- **Action**: No changes needed
 
 ### ✅ `talmud.html`, `rambam.html`, `mishnah.html`
-- **Status**: ❌ Gebruiken `generateReaderLink` NIET
-- **Actie**: Geen aanpassing nodig
+- **Status**: ❌ Do NOT use `generateReaderLink`
+- **Action**: No changes needed
 
-## Conclusie:
+## Conclusion:
 
-✅ **Alle async/await aanpassingen zijn correct geïmplementeerd!**
+✅ **All async/await changes are correctly implemented!**
 
-- Alle functies die `generateReaderLink()` aanroepen zijn async gemaakt
-- Alle callers gebruiken correct `await`
-- Geen andere bestanden gebruiken `generateReaderLink()`
-- De call chain is volledig async: `loadReadings()` → `renderReadings()` → `renderWeeklyCard()`/`renderDailyReadings()`/`renderYearlyReadings()` → `getInternalLink()`/`getTorahLink()`/`getHaftarahLink()` → `generateReaderLink()`
+- All functions that call `generateReaderLink()` were made async
+- All callers correctly use `await`
+- No other files use `generateReaderLink()`
+- The call chain is fully async: `loadReadings()` → `renderReadings()` → `renderWeeklyCard()`/`renderDailyReadings()`/`renderYearlyReadings()` → `getInternalLink()`/`getTorahLink()`/`getHaftarahLink()` → `generateReaderLink()`
 
 ## Test code:
 
-✅ Test code in `readings.html` gebruikt correct een IIFE (Immediately Invoked Function Expression) met async/await:
+✅ Test code in `readings.html` correctly uses an IIFE (Immediately Invoked Function Expression) with async/await:
 ```javascript
 (async () => {
     try {
@@ -93,4 +93,4 @@
 })();
 ```
 
-## Geen verdere aanpassingen nodig! 🎉
+## No further changes needed! 🎉

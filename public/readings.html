@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joodse Leesrooster - Tanach Reader</title>
+    <title>Jewish Reading Schedule - Tanach Reader</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/jewish-bible.ico">
     <link rel="shortcut icon" type="image/x-icon" href="/jewish-bible.ico">
+    <link rel="stylesheet" href="/css/read-aloud.css">
 
     <!-- Apple Touch Icon for iOS home screen -->
     <link rel="apple-touch-icon" href="/jewish-bible.png">
@@ -19,8 +20,8 @@
 
     <!-- Open Graph meta tags for social sharing -->
     <meta property="fb:app_id" content="1234567890">
-    <meta property="og:title" content="Joodse Leesrooster - Tanach Reader">
-    <meta property="og:description" content="Dagelijkse, wekelijkse en jaarlijkse Joodse lezingen">
+    <meta property="og:title" content="Jewish Reading Schedule - Tanach Reader">
+    <meta property="og:description" content="Daily, weekly, and yearly Jewish readings">
     <meta property="og:image" content="https://tanach.vercel.app/jewish-bible.png">
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="454">
@@ -30,7 +31,7 @@
     <meta property="og:site_name" content="Tanach Reader">
 
     <!-- Additional meta tags -->
-    <meta name="description" content="Dagelijkse, wekelijkse en jaarlijkse Joodse lezingen en studie programma's">
+    <meta name="description" content="Daily, weekly, and yearly Jewish readings and study programs">
     <meta name="theme-color" content="#667eea">
     <style>
         * {
@@ -370,12 +371,12 @@
 <body>
     <div class="header">
         <div class="header-content">
-            <h1>📚 Joodse Leesrooster</h1>
-            <p>Dagelijkse, wekelijkse en jaarlijkse lezingen en studie programma's</p>
+            <h1>📚 Jewish Reading Schedule</h1>
+            <p>Daily, weekly, and yearly readings and study programs</p>
             <div class="nav-links">
                 <a href="/" title="Home">🏠 Home</a>
-                <a href="/readings.html" title="Lezingen">📚 Lezingen</a>
-                <a href="/calendar.html" title="Kalender">📅 Kalender</a>
+                <a href="/readings.html" title="Readings">📚 Readings</a>
+                <a href="/calendar.html" title="Calendar">📅 Calendar</a>
             </div>
         </div>
     </div>
@@ -383,28 +384,28 @@
     <div class="container">
 
         <div class="date-selector">
-            <label for="readingDate">📅 Selecteer Datum:</label>
+            <label for="readingDate">📅 Select Date:</label>
             <input type="date" id="readingDate">
-            <button id="todayBtn">Vandaag</button>
-            <button id="loadReadingsBtn">Laad Lezingen</button>
+            <button id="todayBtn">Today</button>
+            <button id="loadReadingsBtn">Load Readings</button>
         </div>
 
         <div class="hebrew-date-display" id="hebrewDateDisplay">
             <div class="loading">
                 <div class="spinner"></div>
-                Datum wordt geladen...
+                Loading date...
             </div>
         </div>
 
-        <div class="readings-grid" id="readingsContainer">
+        <div class="readings-grid" id="readingsContainer" data-read-aloud-block>
             <div class="loading">
                 <div class="spinner"></div>
-                Lezingen worden geladen...
+                Loading readings...
             </div>
         </div>
 
         <div class="footer">
-            <p>&copy; 2024 Tanach Reader - Data van HebCal.org en Sefaria.org</p>
+            <p>&copy; 2024 Tanach Reader - Data from HebCal.org and Sefaria.org</p>
         </div>
     </div>
 
@@ -490,7 +491,7 @@
                     document.getElementById('readingsContainer').innerHTML = `
                         <div class="loading">
                             <div class="spinner"></div>
-                            Lezingen worden geladen...
+                            Loading readings...
                         </div>
                     `;
 
@@ -510,7 +511,7 @@
                     console.error('Error loading readings:', error);
                     document.getElementById('readingsContainer').innerHTML = `
                         <div class="error">
-                            <strong>Fout bij het laden van lezingen:</strong><br>
+                            <strong>Error loading readings:</strong><br>
                             ${error.message}
                         </div>
                     `;
@@ -520,7 +521,7 @@
             async loadHebrewDate() {
                 try {
                     const hebrewDate = getHebrewDate(this.selectedDate);
-                    const gregorianDate = this.selectedDate.toLocaleDateString('nl-NL', {
+                    const gregorianDate = this.selectedDate.toLocaleDateString('en-US', {
                         weekday: 'long',
                         year: 'numeric',
                         month: 'long',
@@ -534,7 +535,7 @@
                 } catch (error) {
                     console.error('Error loading Hebrew date:', error);
                     document.getElementById('hebrewDateDisplay').innerHTML = `
-                        <div class="error">Kon Joodse datum niet laden</div>
+                        <div class="error">Could not load Hebrew date</div>
                     `;
                 }
             }
@@ -588,7 +589,7 @@
                 }
 
                 document.getElementById('readingsContainer').innerHTML = html || `
-                    <div class="error">Geen lezingen beschikbaar voor deze datum</div>
+                    <div class="error">No readings available for this date</div>
                 `;
             }
 
@@ -603,7 +604,7 @@
 
                 return `
                     <div class="reading-card weekly">
-                        <h3>🕯️ Wekelijkse Lezingen</h3>
+                        <h3>🕯️ Weekly Readings</h3>
                         <div class="reading-item">
                             <div class="reading-label">Parashat HaShavua (Torah Portion)</div>
                             <div class="reading-text">${parashatText}</div>
@@ -740,11 +741,11 @@
                             const bookId = `sefer_hamitzvot_${type}_commandments`;
                             // Calculate page (50 mitzvot per page)
                             const page = Math.ceil(parseInt(mitzvah) / 50);
-                            return `<a href="/rambam.html?book=${bookId}&page=${page}" class="reading-link">Lees in onze Rambam →</a>`;
+                            return `<a href="/rambam.html?book=${bookId}&page=${page}" class="reading-link">Read in our Rambam →</a>`;
                         }
                         // Fallback: Link to Sefaria if we can't parse
                         const sefariaLink = sefariaUrl.startsWith('http') ? sefariaUrl : `https://www.sefaria.org/${sefariaUrl}`;
-                        return `<a href="${sefariaLink}" class="reading-link" target="_blank">Lees op Sefaria →</a>`;
+                        return `<a href="${sefariaLink}" class="reading-link" target="_blank">Read on Sefaria →</a>`;
                     }
 
                     // Rambam URL: Mishneh_Torah,_Foundations_of_the_Torah.5 or Mishneh_Torah,_The_Sanhedrin...3
@@ -753,7 +754,7 @@
                         if (match) {
                             const book = match[1].toLowerCase();
                             const chapter = match[2];
-                            return `<a href="/rambam.html?book=${book}&chapter=${chapter}" class="reading-link">Lees in onze Rambam →</a>`;
+                            return `<a href="/rambam.html?book=${book}&chapter=${chapter}" class="reading-link">Read in our Rambam →</a>`;
                         }
                         // Fallback: extract from display text if URL match fails
                         const rambamMatch = displayText.match(/^(.+?)\s+(\d+)(?::\d+)?(?:-\d+)?$/);
@@ -761,7 +762,7 @@
                             let bookName = rambamMatch[1].trim().replace(/^Mishneh Torah,?\s*/i, '');
                             const chapter = rambamMatch[2];
                             const bookId = bookName.toLowerCase().replace(/ /g, '_').replace(/'/g, '').replace(/,/g, '');
-                            return `<a href="/rambam.html?book=${bookId}&chapter=${chapter}" class="reading-link">Lees in onze Rambam →</a>`;
+                            return `<a href="/rambam.html?book=${bookId}&chapter=${chapter}" class="reading-link">Read in our Rambam →</a>`;
                         }
                     }
 
@@ -771,7 +772,7 @@
                         if (match) {
                             const tractate = match[1].toLowerCase();
                             const chapter = match[2];
-                            return `<a href="/mishnah.html?tractate=${tractate}&chapter=${chapter}" class="reading-link">Lees in onze Mishnah →</a>`;
+                            return `<a href="/mishnah.html?tractate=${tractate}&chapter=${chapter}" class="reading-link">Read in our Mishnah →</a>`;
                         }
                     }
 
@@ -782,7 +783,7 @@
                             const tractate = match[1].toLowerCase();
                             const pageNum = match[2];
                             const side = match[3] || 'a';
-                            return `<a href="/talmud.html?tractate=${tractate}&page=${pageNum}${side}" class="reading-link">Lees in onze Talmud →</a>`;
+                            return `<a href="/talmud.html?tractate=${tractate}&page=${pageNum}${side}" class="reading-link">Read in our Talmud →</a>`;
                         }
                     }
                 }
@@ -801,12 +802,12 @@
                         const bookId = `sefer_hamitzvot_${type}_commandments`;
                         // Calculate page (50 mitzvot per page)
                         const page = Math.ceil(startMitzvah / 50);
-                        return `<a href="/rambam.html?book=${bookId}&page=${page}" class="reading-link">Lees in onze Rambam →</a>`;
+                        return `<a href="/rambam.html?book=${bookId}&page=${page}" class="reading-link">Read in our Rambam →</a>`;
                     }
                     // Fallback: If we have a Sefaria URL, link to it
                     if (sefariaUrl) {
                         const sefariaLink = sefariaUrl.startsWith('http') ? sefariaUrl : `https://www.sefaria.org/${sefariaUrl}`;
-                        return `<a href="${sefariaLink}" class="reading-link" target="_blank">Lees op Sefaria →</a>`;
+                        return `<a href="${sefariaLink}" class="reading-link" target="_blank">Read on Sefaria →</a>`;
                     }
                     // Otherwise, skip (no link)
                     return '';
@@ -818,7 +819,7 @@
                 if (mishnahMatch) {
                     const tractate = mishnahMatch[1].trim().toLowerCase().replace(/ /g, '_');
                     const chapter = mishnahMatch[2];
-                    return `<a href="/mishnah.html?tractate=${tractate}&chapter=${chapter}" class="reading-link">Lees in onze Mishnah →</a>`;
+                    return `<a href="/mishnah.html?tractate=${tractate}&chapter=${chapter}" class="reading-link">Read in our Mishnah →</a>`;
                 }
 
                 // Rambam - format: "Foundations of the Torah 5" (contains Torah/Mishneh keywords)
@@ -831,7 +832,7 @@
                         let bookName = rambamMatch[1].trim().replace(/^Mishneh Torah,?\s*/i, '');
                         const chapter = rambamMatch[2];
                         const bookId = bookName.toLowerCase().replace(/ /g, '_').replace(/'/g, '').replace(/,/g, '');
-                        return `<a href="/rambam.html?book=${bookId}&chapter=${chapter}" class="reading-link">Lees in onze Rambam →</a>`;
+                        return `<a href="/rambam.html?book=${bookId}&chapter=${chapter}" class="reading-link">Read in our Rambam →</a>`;
                     }
                 }
 
@@ -841,7 +842,7 @@
                     const tractate = talmudMatch[1].trim().toLowerCase().replace(/ /g, '_');
                     const pageNum = talmudMatch[2];
                     const side = talmudMatch[3] || 'a';
-                    return `<a href="/talmud.html?tractate=${tractate}&page=${pageNum}${side}" class="reading-link">Lees in onze Talmud →</a>`;
+                    return `<a href="/talmud.html?tractate=${tractate}&page=${pageNum}${side}" class="reading-link">Read in our Talmud →</a>`;
                 }
 
                 return '';
@@ -902,7 +903,7 @@
 
                 let html = `
                     <div class="reading-card daily">
-                        <h3>📖 Dagelijkse Studie</h3>
+                        <h3>📖 Daily Study</h3>
                 `;
 
                 // Process items sequentially to handle async link generation
@@ -941,7 +942,7 @@
 
                 let html = `
                     <div class="reading-card yearly">
-                        <h3>📅 Jaarlijkse Cyclussen</h3>
+                        <h3>📅 Yearly Cycles</h3>
                 `;
 
                 // Process items sequentially to handle async link generation
@@ -966,5 +967,6 @@
             new ReadingsApp();
         });
     </script>
+    <script src="/js/read-aloud.js" defer></script>
 </body>
 </html>

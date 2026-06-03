@@ -1,7 +1,7 @@
 {
-  "name": "tanach-nederlandse-vertaling",
+  "name": "tanach-reader",
   "version": "1.0.1",
-  "description": "Eigen Nederlandse vertaling van de Tanach (Joodse Bijbel)",
+  "description": "Tanach Reader — read the Jewish Bible online in Hebrew and English",
   "main": "index.js",
   "scripts": {
     "dev": "vite",
@@ -22,9 +22,9 @@
   },
   "keywords": [
     "tanach",
-    "bijbel",
-    "nederlands",
-    "vertaling"
+    "bible",
+    "hebrew",
+    "jewish"
   ],
   "dependencies": {
     "@hebcal/core": "^5.10.1",

@@ -1,58 +1,58 @@
-# Verificatie: API vs Static File Access
+# Verification: API vs Static File Access
 
-## Huidige Situatie
+## Current situation
 
-### 1. Static File Access (Production/Vercel)
-- **Locatie**: `public/data/books/` → `dist/data/books/`
-- **Gebruikt door**: `books-service.js` via `fetch('/data/books/${category}/${bookId}.json')`
-- **Werkt op**: Vercel (static hosting)
-- **Voordeel**: Geen server nodig, sneller, goedkoper
+### 1. Static file access (production/Vercel)
+- **Location**: `public/data/books/` → `dist/data/books/`
+- **Used by**: `books-service.js` via `fetch('/data/books/${category}/${bookId}.json')`
+- **Works on**: Vercel (static hosting)
+- **Advantage**: No server needed, faster, cheaper
 
-### 2. API Endpoints (Development Server)
-- **Locatie**: `src/data/books/`
-- **Gebruikt door**: `src/server.js` Express API endpoints
+### 2. API endpoints (development server)
+- **Location**: `src/data/books/`
+- **Used by**: `src/server.js` Express API endpoints
 - **Endpoints**:
-  - `GET /api/books` - Alle boeken
-  - `GET /api/books/:category` - Boeken per categorie
-  - `GET /api/books/:category/:bookId` - Specifiek boek
-  - `GET /api/books/:category/:bookId/:chapter` - Specifiek hoofdstuk
-- **Werkt op**: Development server (npm run server)
-- **Voordeel**: Kan server-side processing doen, caching, etc.
+  - `GET /api/books` - All books
+  - `GET /api/books/:category` - Books by category
+  - `GET /api/books/:category/:bookId` - Specific book
+  - `GET /api/books/:category/:bookId/:chapter` - Specific chapter
+- **Works on**: Development server (`npm run server`)
+- **Advantage**: Can do server-side processing, caching, etc.
 
-## Belangrijk: Beide Systemen Gebruiken dezelfde Data
+## Important: both systems use the same data
 
-✅ **Beide systemen lezen van dezelfde JSON bestanden**
-- `public/data/books/` (voor static hosting)
-- `src/data/books/` (voor API server)
+✅ **Both systems read from the same JSON files**
+- `public/data/books/` (for static hosting)
+- `src/data/books/` (for API server)
 
-✅ **Data structuur is identiek**
-- Beide gebruiken dezelfde JSON structuur
-- Beide hebben dezelfde categorieën en boeken
+✅ **Data structure is identical**
+- Both use the same JSON structure
+- Both have the same categories and books
 
-## Hoe het werkt
+## How it works
 
-### In Development:
-1. Express server serveert `public/` als static files
-2. `books-service.js` fetcht `/data/books/...` → werkt via static file serving
-3. API endpoints zijn beschikbaar maar worden **niet gebruikt** door frontend
+### In development:
+1. Express server serves `public/` as static files
+2. `books-service.js` fetches `/data/books/...` → works via static file serving
+3. API endpoints are available but are **not used** by the frontend
 
-### In Production (Vercel):
-1. Vercel serveert `dist/` als static files
-2. `books-service.js` fetcht `/data/books/...` → werkt via static file serving
-3. API endpoints zijn **niet beschikbaar** (geen server)
+### In production (Vercel):
+1. Vercel serves `dist/` as static files
+2. `books-service.js` fetches `/data/books/...` → works via static file serving
+3. API endpoints are **not available** (no server)
 
-## Conclusie
+## Conclusion
 
-✅ **Beide systemen werken correct en onafhankelijk:**
-- Static file access werkt in beide omgevingen
-- API endpoints zijn optioneel voor toekomstige features
-- Geen conflict tussen beide systemen
-- Data blijft gesynchroniseerd omdat beide dezelfde source gebruiken
+✅ **Both systems work correctly and independently:**
+- Static file access works in both environments
+- API endpoints are optional for future features
+- No conflict between the two systems
+- Data stays synchronized because both use the same source
 
-## Aanbeveling
+## Recommendation
 
-De huidige setup is correct:
-- ✅ Static files voor production (Vercel)
-- ✅ API endpoints voor development (optioneel)
-- ✅ Beide gebruiken dezelfde data structuur
-- ✅ Geen verwarring in de code - frontend gebruikt altijd static files
+The current setup is correct:
+- ✅ Static files for production (Vercel)
+- ✅ API endpoints for development (optional)
+- ✅ Both use the same data structure
+- ✅ No confusion in the code — the frontend always uses static files

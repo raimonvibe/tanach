@@ -75,7 +75,7 @@ async function init() {
         console.error('[Reader] Error stack:', error.stack);
         const bookInfo = document.getElementById('bookInfo');
         if (bookInfo) {
-            bookInfo.innerHTML = `<div class="error">Fout bij initialiseren: ${error.message}</div>`;
+            bookInfo.innerHTML = `<div class="error">Error initializing: ${error.message}</div>`;
         }
     }
 
@@ -105,7 +105,7 @@ async function loadBookSelector() {
     try {
         allBooks = await getAllBooks();
         const selector = document.getElementById('bookSelector');
-        selector.innerHTML = '<option value="">Selecteer boek...</option>';
+        selector.innerHTML = '<option value="">Select a book...</option>';
 
         const categories = ['torah', 'neviim', 'ketuvim'];
         const categoryLabels = {
@@ -160,7 +160,7 @@ async function loadBook(bookId, category) {
         bookInfoEl.innerHTML = `
             <div class="book-title">${currentBook.name}</div>
             <div class="book-meta">
-                ${currentBook.description || ''} • ${currentBook.chapters.length} hoofdstukken
+                ${currentBook.description || ''} • ${currentBook.chapters.length} chapters
             </div>
         `;
 
@@ -205,7 +205,7 @@ async function loadBook(bookId, category) {
         const bookInfoEl = document.getElementById('bookInfo');
         if (bookInfoEl) {
             bookInfoEl.innerHTML = `
-                <div class="error">Kon boek niet laden: ${error.message}</div>
+                <div class="error">Could not load book: ${error.message}</div>
             `;
         }
     }
@@ -215,6 +215,7 @@ async function loadBook(bookId, category) {
  * Load a specific chapter
  */
 async function loadChapter(chapterNum) {
+    window.dispatchEvent(new Event('read-aloud-stop'));
     if (!currentBook) return;
 
     try {
@@ -249,7 +250,7 @@ async function loadChapter(chapterNum) {
             console.error('[Reader] Chapter data structure:', JSON.stringify(chapterData, null, 2));
             const tabContent = document.getElementById('tabContent');
             if (tabContent) {
-                tabContent.innerHTML = '<div class="error">Geen verzen gevonden in dit hoofdstuk. Debug info in console.</div>';
+                tabContent.innerHTML = '<div class="error">No verses found in this chapter. See console for debug info.</div>';
             }
         }
 
@@ -260,7 +261,7 @@ async function loadChapter(chapterNum) {
         console.error('[Reader] Error loading chapter:', error);
         const tabContent = document.getElementById('tabContent');
         if (tabContent) {
-            tabContent.innerHTML = `<div class="error">Fout bij laden hoofdstuk: ${error.message}</div>`;
+            tabContent.innerHTML = `<div class="error">Error loading chapter: ${error.message}</div>`;
         }
     }
 }
@@ -311,9 +312,9 @@ function renderVerses(verses) {
     
     if (!verses || verses.length === 0) {
         console.warn('[Reader] No verses to render');
-        hebrewVerses.innerHTML = '<div class="loading">Geen verzen gevonden</div>';
-        englishVerses.innerHTML = '<div class="loading">Geen verzen gevonden</div>';
-        bothVerses.innerHTML = '<div class="loading">Geen verzen gevonden</div>';
+        hebrewVerses.innerHTML = '<div class="loading">No verses found</div>';
+        englishVerses.innerHTML = '<div class="loading">No verses found</div>';
+        bothVerses.innerHTML = '<div class="loading">No verses found</div>';
         return;
     }
     
@@ -429,6 +430,7 @@ function changeChapter(offset) {
  * Change book from selector
  */
 async function changeBook() {
+    window.dispatchEvent(new Event('read-aloud-stop'));
     const selector = document.getElementById('bookSelector');
     const value = selector.value;
     if (value) {
@@ -477,7 +479,7 @@ function switchTab(tabName) {
     } else {
         // Fallback: find the tab button by text content
         document.querySelectorAll('.tab').forEach(tab => {
-            if (tab.textContent.includes(tabName === 'hebrew' ? 'Hebreeuws' : tabName === 'english' ? 'Engels' : 'Beide')) {
+            if (tab.textContent.includes(tabName === 'hebrew' ? 'Hebrew' : tabName === 'english' ? 'English' : 'Both')) {
                 tab.classList.add('active');
             }
         });

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tanach Reader - Joodse Bijbel Online</title>
+    <title>Tanach Reader - Jewish Bible Online</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/jewish-bible.ico">
@@ -19,25 +19,26 @@
 
     <!-- Open Graph meta tags for social sharing -->
     <meta property="fb:app_id" content="1234567890">
-    <meta property="og:title" content="Tanach Reader - Joodse Bijbel Online">
-    <meta property="og:description" content="Lees de Joodse Bijbel online in Hebreeuws en Engels">
+    <meta property="og:title" content="Tanach Reader - Jewish Bible Online">
+    <meta property="og:description" content="Read the Jewish Bible online in Hebrew and English">
     <meta property="og:image" content="https://tanach.vercel.app/jewish-bible.png">
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="454">
-    <meta property="og:image:alt" content="Tanach Reader - Joodse Bijbel">
+    <meta property="og:image:alt" content="Tanach Reader - Jewish Bible">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://tanach.vercel.app">
     <meta property="og:site_name" content="Tanach Reader">
 
     <!-- Twitter Card meta tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Tanach Reader - Joodse Bijbel Online">
-    <meta name="twitter:description" content="Lees de Joodse Bijbel online in Hebreeuws en Engels">
+    <meta name="twitter:title" content="Tanach Reader - Jewish Bible Online">
+    <meta name="twitter:description" content="Read the Jewish Bible online in Hebrew and English">
     <meta name="twitter:image" content="https://tanach.vercel.app/jewish-bible.png">
 
     <!-- Additional meta tags -->
-    <meta name="description" content="Lees de Joodse Bijbel online in Hebreeuws en Engels">
+    <meta name="description" content="Read the Jewish Bible online in Hebrew and English">
     <meta name="theme-color" content="#667eea">
+    <link rel="stylesheet" href="/css/read-aloud.css">
     <style>
         * {
             margin: 0;
@@ -60,9 +61,19 @@
         }
 
         .header {
-            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             margin-bottom: 40px;
+            width: 100%;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
         }
 
         .header h1 {
@@ -76,7 +87,7 @@
             opacity: 0.9;
         }
 
-        .nav-links {
+        .header .nav-links {
             margin-top: 20px;
         }
 
@@ -88,6 +99,9 @@
             border-radius: 20px;
             background: rgba(255,255,255,0.2);
             transition: background 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            line-height: 1.2;
         }
 
         .nav-links a:hover {
@@ -418,6 +432,10 @@
                 font-size: 1rem;
                 min-width: 200px;
                 text-align: center;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                line-height: 1.2;
             }
         }
         
@@ -446,6 +464,10 @@
                 min-width: 180px;
                 padding: 10px 16px;
                 font-size: 0.9rem;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                line-height: 1.2;
             }
 
             .result-item {
@@ -481,38 +503,38 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
+    <div class="header">
+        <div class="header-content">
             <h1>📖 Tanach Reader</h1>
-            <p>Lees de Joodse Bijbel online in Hebreeuws en Engels</p>
+            <p>Read the Jewish Bible online in Hebrew and English</p>
             <div class="nav-links">
                 <a href="/reader.html">📖 Tanach Reader</a>
-                <a href="/calendar.html">📅 Joodse Kalender</a>
-                <a href="/readings.html">📚 Leesrooster</a>
+                <a href="/calendar.html">📅 Jewish Calendar</a>
+                <a href="/readings.html">📚 Reading Schedule</a>
             </div>
         </div>
 
-        <div class="main-content">
+        <div class="main-content" id="main-content">
             <div class="stats" id="stats">
-                <div class="loading">Laden van statistieken...</div>
+                <div class="loading">Loading statistics...</div>
             </div>
 
             <div class="search-section">
-                <h3>🔍 Zoek in de Tanach</h3>
+                <h3>🔍 Search the Tanach</h3>
                 <form class="search-form" id="searchForm">
-                    <input type="text" class="search-input" id="searchInput" placeholder="Zoek in Hebreeuws of Engels...">
-                    <button type="submit" class="search-btn" id="searchBtn">Zoeken</button>
+                    <input type="text" class="search-input" id="searchInput" placeholder="Search in Hebrew or English...">
+                    <button type="submit" class="search-btn" id="searchBtn">Search</button>
                 </form>
                 <div id="searchResults" class="search-results"></div>
             </div>
 
             <div class="categories" id="categories">
-                <div class="loading">Laden van boeken...</div>
+                <div class="loading">Loading books...</div>
             </div>
         </div>
 
         <div class="footer">
-            <p>&copy; 2024 Tanach Reader - Authentieke Joodse teksten van Sefaria.org</p>
+            <p>&copy; 2024 Tanach Reader - Authentic Jewish texts from Sefaria.org</p>
         </div>
     </div>
 
@@ -530,25 +552,25 @@
                     sum + book.chapters.reduce((chSum, chapter) => chSum + chapter.verses.length, 0), 0);
 
                 document.getElementById('stats').innerHTML = `
-                    <h3>📊 Tanach Statistieken</h3>
+                    <h3>📊 Tanach Statistics</h3>
                     <div class="stats-grid">
                         <div class="stat-item">
                             <div class="stat-number">${totalBooks}</div>
-                            <div class="stat-label">Boeken</div>
+                            <div class="stat-label">Books</div>
                         </div>
                         <div class="stat-item">
                             <div class="stat-number">${totalChapters}</div>
-                            <div class="stat-label">Hoofdstukken</div>
+                            <div class="stat-label">Chapters</div>
                         </div>
                         <div class="stat-item">
                             <div class="stat-number">${totalVerses.toLocaleString()}</div>
-                            <div class="stat-label">Verzen</div>
+                            <div class="stat-label">Verses</div>
                         </div>
                     </div>
                 `;
             } catch (error) {
                 document.getElementById('stats').innerHTML = `
-                    <div class="error">Kon statistieken niet laden: ${error.message}</div>
+                    <div class="error">Could not load statistics: ${error.message}</div>
                 `;
             }
         }
@@ -561,23 +583,23 @@
                 // Group books by category
                 const structure = {
                     torah: {
-                        name: 'Torah (De Vijf Boeken van Mozes)',
-                        description: 'De eerste vijf boeken van de Tanach',
+                        name: 'Torah (The Five Books of Moses)',
+                        description: 'The first five books of the Tanach',
                         books: []
                     },
                     neviim: {
-                        name: 'Nevi\'im (De Profeten)',
-                        description: 'De historische en profetische boeken',
+                        name: 'Nevi\'im (The Prophets)',
+                        description: 'The historical and prophetic books',
                         books: []
                     },
                     trei_asara: {
-                        name: 'Trei Asar (De Twaalf Kleine Profeten)',
-                        description: 'De twaalf kleine profeten',
+                        name: 'Trei Asar (The Twelve Minor Prophets)',
+                        description: 'The twelve minor prophets',
                         books: []
                     },
                     ketuvim: {
-                        name: 'Ketuvim (De Geschriften)',
-                        description: 'De wijsheid, poëzie en historische boeken',
+                        name: 'Ketuvim (The Writings)',
+                        description: 'Wisdom, poetry, and historical books',
                         books: []
                     }
                 };
@@ -604,7 +626,7 @@
                                     ${category.books.map(book => `
                                         <li>
                                             <a href="/reader.html?book=${book.id}&category=${categoryKey}">
-                                                ${book.name} (${book.chapters} hoofdstukken)
+                                                ${book.name} (${book.chapters} chapters)
                                             </a>
                                         </li>
                                     `).join('')}
@@ -617,7 +639,7 @@
                 document.getElementById('categories').innerHTML = html;
             } catch (error) {
                 document.getElementById('categories').innerHTML = `
-                    <div class="error">Kon boeken niet laden: ${error.message}</div>
+                    <div class="error">Could not load books: ${error.message}</div>
                 `;
             }
         }
@@ -635,7 +657,7 @@
             resultsDiv.innerHTML = `
                 <div class="loading-spinner">
                     <div class="spinner"></div>
-                    <p style="margin-top: 15px; color: #666;">Aan het zoeken...</p>
+                    <p style="margin-top: 15px; color: #666;">Searching...</p>
                 </div>
             `;
         }
@@ -647,9 +669,9 @@
             if (results.length === 0) {
                 resultsDiv.innerHTML = `
                     <div class="search-message error">
-                        <h3>❌ Geen resultaten gevonden</h3>
-                        <p>We konden geen verzen vinden die overeenkomen met "${query}".</p>
-                        <p style="margin-top: 10px; font-size: 0.9rem;">Tip: Probeer verschillende spellingen of kortere zoektermen.</p>
+                        <h3>❌ No results found</h3>
+                        <p>We could not find any verses matching "${query}".</p>
+                        <p style="margin-top: 10px; font-size: 0.9rem;">Tip: Try different spellings or shorter search terms.</p>
                     </div>
                 `;
                 return;
@@ -661,9 +683,9 @@
 
             let html = `
                 <div class="results-count">
-                    ✅ ${results.length}${results.length >= 500 ? '+' : ''} resultaten gevonden voor "${query}"
-                    ${hasMore ? `<br><small style="color: #999;">(Eerste 100 worden weergegeven)</small>` : ''}
-                    ${results.length >= 500 ? `<br><small style="color: #999;">⚠️ Maximaal 500 resultaten - verfijn je zoekopdracht voor meer specifieke resultaten</small>` : ''}
+                    ✅ ${results.length}${results.length >= 500 ? '+' : ''} results found for "${query}"
+                    ${hasMore ? `<br><small style="color: #999;">(Showing the first 100)</small>` : ''}
+                    ${results.length >= 500 ? `<br><small style="color: #999;">⚠️ Maximum 500 results — refine your search for more specific matches</small>` : ''}
                 </div>
             `;
 
@@ -675,7 +697,7 @@
                     <div class="result-item" onclick="goToVerse('${result.book.id}', '${result.book.category}', ${result.chapter}, ${result.verse})">
                         <div class="result-header">
                             <span class="result-book">${result.book.name}</span>
-                            <span class="result-location">Hoofdstuk ${result.chapter}, Vers ${result.verse}</span>
+                            <span class="result-location">Chapter ${result.chapter}, Verse ${result.verse}</span>
                         </div>
                         <div class="result-text">
                             <div class="result-hebrew">${hebrewHighlighted}</div>
@@ -706,7 +728,7 @@
             if (!query) {
                 resultsDiv.innerHTML = `
                     <div class="search-message info">
-                        <p>💡 Voer een zoekterm in om te beginnen met zoeken.</p>
+                        <p>💡 Enter a search term to get started.</p>
                     </div>
                 `;
                 return;
@@ -715,7 +737,7 @@
             try {
                 // Disable button and show loading
                 searchBtn.disabled = true;
-                searchBtn.textContent = 'Zoeken...';
+                searchBtn.textContent = 'Searching...';
                 showLoading();
 
                 const results = await searchBooks(query);
@@ -734,15 +756,15 @@
                 const resultsDiv = document.getElementById('searchResults');
                 resultsDiv.innerHTML = `
                     <div class="search-message error">
-                        <h3>⚠️ Er is een fout opgetreden</h3>
+                        <h3>⚠️ An error occurred</h3>
                         <p>${error.message}</p>
-                        <p style="margin-top: 10px; font-size: 0.9rem;">Probeer het opnieuw of neem contact op als het probleem aanhoudt.</p>
+                        <p style="margin-top: 10px; font-size: 0.9rem;">Please try again or contact us if the problem persists.</p>
                     </div>
                 `;
             } finally {
                 // Re-enable button
                 searchBtn.disabled = false;
-                searchBtn.textContent = 'Zoeken';
+                searchBtn.textContent = 'Search';
             }
         });
 
@@ -753,6 +775,7 @@
         loadStats();
         loadCategories();
     </script>
+    <script src="/js/read-aloud.js" defer></script>
 </body>
 </html>
 

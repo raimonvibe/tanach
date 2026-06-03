@@ -55,7 +55,7 @@ app.get('/api/books', async (req, res) => {
 
         res.json(allBooks);
     } catch (error) {
-        res.status(500).json({ error: 'Kon boeken niet laden' });
+        res.status(500).json({ error: 'Could not load books' });
     }
 });
 
@@ -66,7 +66,7 @@ app.get('/api/books/:category', async (req, res) => {
         const booksDir = path.join(__dirname, 'data/books', category);
         
         if (!await fs.pathExists(booksDir)) {
-            return res.status(404).json({ error: 'Categorie niet gevonden' });
+            return res.status(404).json({ error: 'Category not found' });
         }
 
         const files = await fs.readdir(booksDir);
@@ -81,7 +81,7 @@ app.get('/api/books/:category', async (req, res) => {
 
         res.json(books);
     } catch (error) {
-        res.status(500).json({ error: 'Kon boeken niet laden' });
+        res.status(500).json({ error: 'Could not load books' });
     }
 });
 
@@ -92,13 +92,13 @@ app.get('/api/books/:category/:bookId', async (req, res) => {
         const bookPath = path.join(__dirname, 'data/books', category, `${bookId}.json`);
         
         if (!await fs.pathExists(bookPath)) {
-            return res.status(404).json({ error: 'Boek niet gevonden' });
+            return res.status(404).json({ error: 'Book not found' });
         }
 
         const bookData = await fs.readJson(bookPath);
         res.json(bookData);
     } catch (error) {
-        res.status(500).json({ error: 'Kon boek niet laden' });
+        res.status(500).json({ error: 'Could not load book' });
     }
 });
 
@@ -109,7 +109,7 @@ app.get('/api/books/:category/:bookId/:chapter', async (req, res) => {
         const bookPath = path.join(__dirname, 'data/books', category, `${bookId}.json`);
         
         if (!await fs.pathExists(bookPath)) {
-            return res.status(404).json({ error: 'Boek niet gevonden' });
+            return res.status(404).json({ error: 'Book not found' });
         }
 
         const bookData = await fs.readJson(bookPath);
@@ -117,7 +117,7 @@ app.get('/api/books/:category/:bookId/:chapter', async (req, res) => {
         
         const chapterData = bookData.chapters.find(ch => ch.chapter === chapterNum);
         if (!chapterData) {
-            return res.status(404).json({ error: 'Hoofstuk niet gevonden' });
+            return res.status(404).json({ error: 'Chapter not found' });
         }
 
         res.json({
@@ -129,7 +129,7 @@ app.get('/api/books/:category/:bookId/:chapter', async (req, res) => {
             chapter: chapterData
         });
     } catch (error) {
-        res.status(500).json({ error: 'Kon hoofdstuk niet laden' });
+        res.status(500).json({ error: 'Could not load chapter' });
     }
 });
 
@@ -138,7 +138,7 @@ app.get('/api/search', async (req, res) => {
     try {
         const { q } = req.query;
         if (!q) {
-            return res.status(400).json({ error: 'Zoekterm vereist' });
+            return res.status(400).json({ error: 'Search query required' });
         }
 
         const booksDir = path.join(__dirname, 'data/books');
@@ -205,14 +205,14 @@ app.get('/api/search', async (req, res) => {
 
         res.json(results);
     } catch (error) {
-        res.status(500).json({ error: 'Zoeken gefaald' });
+        res.status(500).json({ error: 'Search failed' });
     }
 });
 
 // Get Tanach structure
 app.get('/api/structure', async (req, res) => {
     try {
-        // Definieer de correcte volgorde van boeken per categorie volgens traditionele Joodse indeling
+        // Define the correct book order per category according to traditional Jewish arrangement
         const bookOrder = {
             torah: ['bereshit', 'shemot', 'vayikra', 'bamidbar', 'devarim'],
             neviim: [
@@ -232,22 +232,22 @@ app.get('/api/structure', async (req, res) => {
         const structure = {
             torah: {
                 name: 'Torah (תורה)',
-                description: 'De vijf boeken van Mozes',
+                description: 'The five books of Moses',
                 books: []
             },
             neviim: {
                 name: 'Neviim (נביאים)',
-                description: 'De profeten - Vroege en Late Profeten',
+                description: 'The prophets — Early and Later Prophets',
                 books: []
             },
             trei_asara: {
                 name: 'Trei Asara (תרי עשר)',
-                description: 'De twaalf kleine profeten',
+                description: 'The twelve minor prophets',
                 books: []
             },
             ketuvim: {
                 name: 'Ketuvim (כתובים)',
-                description: 'De geschriften',
+                description: 'The Writings',
                 books: []
             }
         };
@@ -257,7 +257,7 @@ app.get('/api/structure', async (req, res) => {
         for (const category of Object.keys(structure)) {
             const categoryDir = path.join(booksDir, category);
             if (await fs.pathExists(categoryDir)) {
-                // Laad boeken in de correcte volgorde
+                // Load books in the correct order
                 for (const bookId of bookOrder[category]) {
                     const bookPath = path.join(categoryDir, `${bookId}.json`);
                     if (await fs.pathExists(bookPath)) {
@@ -274,7 +274,7 @@ app.get('/api/structure', async (req, res) => {
 
         res.json(structure);
     } catch (error) {
-        res.status(500).json({ error: 'Kon structuur niet laden' });
+        res.status(500).json({ error: 'Could not load structure' });
     }
 });
 
@@ -288,7 +288,7 @@ app.get('/api/calendar/:year/:month', async (req, res) => {
         const monthNum = parseInt(month);
         
         if (isNaN(yearNum) || isNaN(monthNum) || monthNum < 1 || monthNum > 12) {
-            return res.status(400).json({ error: 'Ongeldige datum parameters' });
+            return res.status(400).json({ error: 'Invalid date parameters' });
         }
 
         // For now, return mock data
@@ -298,7 +298,7 @@ app.get('/api/calendar/:year/:month', async (req, res) => {
         
     } catch (error) {
         console.error('Calendar API error:', error);
-        res.status(500).json({ error: 'Kon kalender data niet laden' });
+        res.status(500).json({ error: 'Could not load calendar data' });
     }
 });
 
@@ -368,7 +368,7 @@ app.get('/api/calendar/weekly', async (req, res) => {
 
     } catch (error) {
         console.error('Weekly API error:', error);
-        res.status(500).json({ error: 'Kon week informatie niet laden' });
+        res.status(500).json({ error: 'Could not load weekly information' });
     }
 });
 
@@ -428,7 +428,7 @@ app.get('/api/calendar/times', async (req, res) => {
                 hour: '2-digit',
                 minute: '2-digit'
             }) : 'N/A',
-            location: 'Amsterdam, Nederland',
+            location: 'Amsterdam, Netherlands',
             nextShabbat: saturdayDate.toLocaleDateString('nl-NL')
         };
 
@@ -436,7 +436,7 @@ app.get('/api/calendar/times', async (req, res) => {
 
     } catch (error) {
         console.error('Times API error:', error);
-        res.status(500).json({ error: 'Kon tijden niet laden' });
+        res.status(500).json({ error: 'Could not load times' });
     }
 });
 
@@ -449,7 +449,7 @@ app.get('/api/calendar/hebrew-date/:year/:month/:day', async (req, res) => {
         const dayNum = parseInt(day);
         
         if (isNaN(yearNum) || isNaN(monthNum) || isNaN(dayNum)) {
-            return res.status(400).json({ error: 'Ongeldige datum parameters' });
+            return res.status(400).json({ error: 'Invalid date parameters' });
         }
 
         const date = new Date(yearNum, monthNum - 1, dayNum);
@@ -464,7 +464,7 @@ app.get('/api/calendar/hebrew-date/:year/:month/:day', async (req, res) => {
         
     } catch (error) {
         console.error('Hebrew date API error:', error);
-        res.status(500).json({ error: 'Kon Joodse datum niet berekenen' });
+        res.status(500).json({ error: 'Could not calculate Hebrew date' });
     }
 });
 
@@ -653,9 +653,9 @@ function getDayEvents(date) {
     // Add Shabbat
     if (date.getDay() === 6) {
         events.push({
-            name: 'Sjabbat',
+            name: 'Shabbat',
             type: 'shabbat',
-            description: 'Dag van rust'
+            description: 'Day of rest'
         });
     }
 
@@ -667,7 +667,7 @@ function getDayEvents(date) {
         events.push({
             name: 'Rosh Chodesh',
             type: 'roshChodesh',
-            description: 'Nieuwe maan'
+            description: 'New moon'
         });
     }
 
@@ -686,63 +686,63 @@ function getJewishHolidays(hebrewDate) {
     // Major holidays
     const holidayMap = {
         'Tishrei': {
-            1: { name: 'Rosh Hashanah', type: 'holiday', description: 'Joods Nieuwjaar' },
-            2: { name: 'Rosh Hashanah', type: 'holiday', description: 'Joods Nieuwjaar (dag 2)' },
-            10: { name: 'Yom Kippur', type: 'holiday', description: 'Grote Verzoendag' },
-            15: { name: 'Sukkot', type: 'holiday', description: 'Loofhuttenfeest' },
-            16: { name: 'Sukkot', type: 'holiday', description: 'Loofhuttenfeest (dag 2)' },
-            17: { name: 'Sukkot', type: 'holiday', description: 'Loofhuttenfeest (dag 3)' },
-            18: { name: 'Sukkot', type: 'holiday', description: 'Loofhuttenfeest (dag 4)' },
-            19: { name: 'Sukkot', type: 'holiday', description: 'Loofhuttenfeest (dag 5)' },
-            20: { name: 'Sukkot', type: 'holiday', description: 'Loofhuttenfeest (dag 6)' },
-            21: { name: 'Sukkot', type: 'holiday', description: 'Loofhuttenfeest (dag 7)' },
-            22: { name: 'Shemini Atzeret', type: 'holiday', description: 'Slotfeest' },
-            23: { name: 'Simchat Torah', type: 'holiday', description: 'Vreugde der Wet' }
+            1: { name: 'Rosh Hashanah', type: 'holiday', description: 'Jewish New Year' },
+            2: { name: 'Rosh Hashanah', type: 'holiday', description: 'Jewish New Year (day 2)' },
+            10: { name: 'Yom Kippur', type: 'holiday', description: 'Day of Atonement' },
+            15: { name: 'Sukkot', type: 'holiday', description: 'Festival of Booths' },
+            16: { name: 'Sukkot', type: 'holiday', description: 'Festival of Booths (day 2)' },
+            17: { name: 'Sukkot', type: 'holiday', description: 'Festival of Booths (day 3)' },
+            18: { name: 'Sukkot', type: 'holiday', description: 'Festival of Booths (day 4)' },
+            19: { name: 'Sukkot', type: 'holiday', description: 'Festival of Booths (day 5)' },
+            20: { name: 'Sukkot', type: 'holiday', description: 'Festival of Booths (day 6)' },
+            21: { name: 'Sukkot', type: 'holiday', description: 'Festival of Booths (day 7)' },
+            22: { name: 'Shemini Atzeret', type: 'holiday', description: 'Eighth Day of Assembly' },
+            23: { name: 'Simchat Torah', type: 'holiday', description: 'Rejoicing of the Torah' }
         },
         'Kislev': {
-            25: { name: 'Chanukah', type: 'holiday', description: 'Lichtfeest (dag 1)' },
-            26: { name: 'Chanukah', type: 'holiday', description: 'Lichtfeest (dag 2)' },
-            27: { name: 'Chanukah', type: 'holiday', description: 'Lichtfeest (dag 3)' },
-            28: { name: 'Chanukah', type: 'holiday', description: 'Lichtfeest (dag 4)' },
-            29: { name: 'Chanukah', type: 'holiday', description: 'Lichtfeest (dag 5)' }
+            25: { name: 'Chanukah', type: 'holiday', description: 'Festival of Lights (day 1)' },
+            26: { name: 'Chanukah', type: 'holiday', description: 'Festival of Lights (day 2)' },
+            27: { name: 'Chanukah', type: 'holiday', description: 'Festival of Lights (day 3)' },
+            28: { name: 'Chanukah', type: 'holiday', description: 'Festival of Lights (day 4)' },
+            29: { name: 'Chanukah', type: 'holiday', description: 'Festival of Lights (day 5)' }
         },
         'Tevet': {
-            1: { name: 'Chanukah', type: 'holiday', description: 'Lichtfeest (dag 6)' },
-            2: { name: 'Chanukah', type: 'holiday', description: 'Lichtfeest (dag 7)' },
-            3: { name: 'Chanukah', type: 'holiday', description: 'Lichtfeest (dag 8)' },
-            10: { name: 'Asara B\'Tevet', type: 'holiday', description: 'Vastendag' }
+            1: { name: 'Chanukah', type: 'holiday', description: 'Festival of Lights (day 6)' },
+            2: { name: 'Chanukah', type: 'holiday', description: 'Festival of Lights (day 7)' },
+            3: { name: 'Chanukah', type: 'holiday', description: 'Festival of Lights (day 8)' },
+            10: { name: 'Asara B\'Tevet', type: 'holiday', description: 'Fast day' }
         },
         'Shevat': {
-            15: { name: 'Tu B\'Shevat', type: 'holiday', description: 'Nieuwjaar der Bomen' }
+            15: { name: 'Tu B\'Shevat', type: 'holiday', description: 'New Year for Trees' }
         },
         'Adar': {
-            14: { name: 'Purim', type: 'holiday', description: 'Lotfeest' },
-            15: { name: 'Shushan Purim', type: 'holiday', description: 'Purim in ommuurde steden' }
+            14: { name: 'Purim', type: 'holiday', description: 'Purim' },
+            15: { name: 'Shushan Purim', type: 'holiday', description: 'Purim in walled cities' }
         },
         'Nisan': {
-            15: { name: 'Pesach', type: 'holiday', description: 'Pesach (dag 1)' },
-            16: { name: 'Pesach', type: 'holiday', description: 'Pesach (dag 2)' },
-            17: { name: 'Pesach', type: 'holiday', description: 'Pesach (dag 3)' },
-            18: { name: 'Pesach', type: 'holiday', description: 'Pesach (dag 4)' },
-            19: { name: 'Pesach', type: 'holiday', description: 'Pesach (dag 5)' },
-            20: { name: 'Pesach', type: 'holiday', description: 'Pesach (dag 6)' },
-            21: { name: 'Pesach', type: 'holiday', description: 'Pesach (dag 7)' },
-            22: { name: 'Pesach', type: 'holiday', description: 'Pesach (dag 8)' }
+            15: { name: 'Pesach', type: 'holiday', description: 'Passover (day 1)' },
+            16: { name: 'Pesach', type: 'holiday', description: 'Passover (day 2)' },
+            17: { name: 'Pesach', type: 'holiday', description: 'Passover (day 3)' },
+            18: { name: 'Pesach', type: 'holiday', description: 'Passover (day 4)' },
+            19: { name: 'Pesach', type: 'holiday', description: 'Passover (day 5)' },
+            20: { name: 'Pesach', type: 'holiday', description: 'Passover (day 6)' },
+            21: { name: 'Pesach', type: 'holiday', description: 'Passover (day 7)' },
+            22: { name: 'Pesach', type: 'holiday', description: 'Passover (day 8)' }
         },
         'Iyar': {
-            5: { name: 'Yom Ha\'Atzmaut', type: 'holiday', description: 'Onafhankelijkheidsdag' },
-            18: { name: 'Lag B\'Omer', type: 'holiday', description: 'Feest van Rabbi Shimon' }
+            5: { name: 'Yom Ha\'Atzmaut', type: 'holiday', description: 'Israeli Independence Day' },
+            18: { name: 'Lag B\'Omer', type: 'holiday', description: 'Lag B\'Omer' }
         },
         'Sivan': {
-            6: { name: 'Shavuot', type: 'holiday', description: 'Wekenfeest (dag 1)' },
-            7: { name: 'Shavuot', type: 'holiday', description: 'Wekenfeest (dag 2)' }
+            6: { name: 'Shavuot', type: 'holiday', description: 'Festival of Weeks (day 1)' },
+            7: { name: 'Shavuot', type: 'holiday', description: 'Festival of Weeks (day 2)' }
         },
         'Tammuz': {
-            17: { name: 'Shiva Asar B\'Tammuz', type: 'holiday', description: 'Vastendag' }
+            17: { name: 'Shiva Asar B\'Tammuz', type: 'holiday', description: 'Fast day' }
         },
         'Av': {
-            9: { name: 'Tisha B\'Av', type: 'holiday', description: 'Vastendag' },
-            15: { name: 'Tu B\'Av', type: 'holiday', description: 'Liefdesfeest' }
+            9: { name: 'Tisha B\'Av', type: 'holiday', description: 'Fast day' },
+            15: { name: 'Tu B\'Av', type: 'holiday', description: 'Day of love' }
         }
     };
     
@@ -755,8 +755,8 @@ function getJewishHolidays(hebrewDate) {
 
 // Start server
 app.listen(PORT, () => {
-    console.log(`🚀 Tanach Reader server draait op http://localhost:${PORT}`);
-    console.log(`📚 Alle boeken zijn beschikbaar via de API`);
-    console.log(`📅 Joodse kalender beschikbaar op /calendar.html`);
+    console.log(`🚀 Tanach Reader server running at http://localhost:${PORT}`);
+    console.log(`📚 All books are available via the API`);
+    console.log(`📅 Jewish calendar available at /calendar.html`);
 });
 

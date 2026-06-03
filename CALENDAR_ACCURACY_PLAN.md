@@ -99,7 +99,7 @@ app.get('/api/calendar/weekly', async (req, res) => {
         res.json(weeklyData);
     } catch (error) {
         console.error('Weekly API error:', error);
-        res.status(500).json({ error: 'Kon week informatie niet laden' });
+        res.status(500).json({ error: 'Could not load week information' });
     }
 });
 ```
@@ -166,7 +166,7 @@ app.get('/api/calendar/weekly', async (req, res) => {
 
     } catch (error) {
         console.error('Weekly API error:', error);
-        res.status(500).json({ error: 'Kon week informatie niet laden' });
+        res.status(500).json({ error: 'Could not load week information' });
     }
 });
 ```
@@ -186,12 +186,12 @@ app.get('/api/calendar/times', async (req, res) => {
             havdalah: '19:30',
             sunrise: '07:15',
             sunset: '17:45',
-            location: 'Amsterdam, Nederland'
+            location: 'Amsterdam, Netherlands'
         };
         res.json(timesData);
     } catch (error) {
         console.error('Times API error:', error);
-        res.status(500).json({ error: 'Kon tijden niet laden' });
+        res.status(500).json({ error: 'Could not load times' });
     }
 });
 ```
@@ -260,7 +260,7 @@ app.get('/api/calendar/times', async (req, res) => {
                 hour: '2-digit',
                 minute: '2-digit'
             }) : 'N/A',
-            location: 'Amsterdam, Nederland',
+            location: 'Amsterdam, Netherlands',
             nextShabbat: saturdayDate.toLocaleDateString('nl-NL')
         };
 
@@ -268,7 +268,7 @@ app.get('/api/calendar/times', async (req, res) => {
 
     } catch (error) {
         console.error('Times API error:', error);
-        res.status(500).json({ error: 'Kon tijden niet laden' });
+        res.status(500).json({ error: 'Could not load times' });
     }
 });
 ```

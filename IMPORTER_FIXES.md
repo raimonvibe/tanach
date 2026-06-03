@@ -94,7 +94,7 @@ for (let pageNum = 2; pageNum <= totalPages + 2; pageNum++) {
 
             // If 3 pages in a row fail, tractate likely ends
             if (consecutiveFailures >= 3) {
-                console.log(`Tractaat eindigt waarschijnlijk bij ${lastPage}`);
+                console.log(`Tractate likely ends at ${lastPage}`);
                 break;
             }
         }
@@ -107,11 +107,11 @@ Instead of blindly trying all pages, it stops after 3 consecutive failures.
 ### ✅ Fix #5: Better Error Messages
 ```javascript
 // Old: Generic error
-⚠️ Bladzijde 35b: Error
+⚠️ Page 35b: Error
 
 // New: Specific messages
-⏭️ Bladzijde 35b (bestaat niet)
-ℹ️ Tractaat eindigt waarschijnlijk bij 35a
+⏭️ Page 35b (does not exist)
+ℹ️ Tractate likely ends at 35a
 ```
 
 ## What's Now Fixed in All Importers
@@ -132,8 +132,8 @@ These improvements were applied to:
 
 ### Before (Rosh Hashanah 35b):
 ```
-📄 Bladzijde 35a ✓
-📄 Bladzijde 35b ✓   // ❌ Empty content saved!
+📄 Page 35a ✓
+📄 Page 35b ✓   // ❌ Empty content saved!
 ```
 
 Result:
@@ -146,11 +146,11 @@ Result:
 
 ### After (Rosh Hashanah 35b):
 ```
-📄 Bladzijde 35a ✓
-⏭️ Bladzijde 35b (bestaat niet)
-⏭️ Bladzijde 36a (bestaat niet)
-⏭️ Bladzijde 36b (bestaat niet)
-ℹ️ Tractaat eindigt waarschijnlijk bij 35a
+📄 Page 35a ✓
+⏭️ Page 35b (does not exist)
+⏭️ Page 36a (does not exist)
+⏭️ Page 36b (does not exist)
+ℹ️ Tractate likely ends at 35a
 ```
 
 Result:

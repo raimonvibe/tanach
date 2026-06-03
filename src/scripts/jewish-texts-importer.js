@@ -158,7 +158,7 @@ class JewishTextsImporter {
     async importAllTalmud() {
         console.log('📚 TALMUD IMPORTER');
         console.log('='.repeat(50));
-        console.log('Importeer Babylonische Talmud uit Sefaria.org\n');
+        console.log('Import Babylonian Talmud from Sefaria.org\n');
 
         let totalTractates = 0;
         let totalPages = 0;
@@ -171,22 +171,22 @@ class JewishTextsImporter {
                 if (tractateData) {
                     totalTractates++;
                     totalPages += tractateData.metadata.totalPages;
-                    console.log(`  ✅ ${tractateData.metadata.totalPages} bladzijden (dapim)`);
+                    console.log(`  ✅ ${tractateData.metadata.totalPages} pages (dapim)`);
                 } else {
-                    console.log(`  ⚠️  Geen data opgehaald`);
+                    console.log(`  ⚠️  No data fetched`);
                 }
 
                 await this.sleep(1000);
 
             } catch (error) {
-                console.log(`  ❌ Fout: ${error.message}`);
+                console.log(`  ❌ Error: ${error.message}`);
             }
         }
 
-        console.log('\n🎉 TALMUD IMPORT VOLTOOID!');
+        console.log('\n🎉 TALMUD IMPORT COMPLETE!');
         console.log('='.repeat(50));
-        console.log(`📚 Totaal tractaten: ${totalTractates}`);
-        console.log(`📄 Totaal bladzijden: ${totalPages}`);
+        console.log(`📚 Total tractates: ${totalTractates}`);
+        console.log(`📄 Total pages: ${totalPages}`);
     }
 
     /**
@@ -209,7 +209,7 @@ class JewishTextsImporter {
 
             // Get total pages from schema
             const totalPages = indexData.schema && indexData.schema.lengths ? indexData.schema.lengths[0] : 0;
-            console.log(`  📊 Totaal bladzijden: ${totalPages}`);
+            console.log(`  📊 Total pages: ${totalPages}`);
 
             const pages = [];
 
@@ -234,27 +234,27 @@ class JewishTextsImporter {
                                     english: pageData.text || ''
                                 }
                             });
-                            console.log(`    📄 Bladzijde ${pageNum}${side} ✓`);
+                            console.log(`    📄 Page ${pageNum}${side} ✓`);
                             lastSuccessfulPage = `${pageNum}${side}`;
                             consecutiveFailures = 0;
                         } else {
                             // Page doesn't exist or has no content
-                            console.log(`    ⏭️  Bladzijde ${pageNum}${side} (bestaat niet)`);
+                            console.log(`    ⏭️  Page ${pageNum}${side} (does not exist)`);
                             consecutiveFailures++;
 
                             // If we've had 3 consecutive failures, the tractate likely ends
                             if (consecutiveFailures >= 3) {
-                                console.log(`    ℹ️  Tractaat eindigt waarschijnlijk bij ${lastSuccessfulPage}`);
+                                console.log(`    ℹ️  Tractate likely ends at ${lastSuccessfulPage}`);
                                 break;
                             }
                         }
                     } catch (error) {
-                        console.log(`    ⚠️  Bladzijde ${pageNum}${side}: ${error.message}`);
+                        console.log(`    ⚠️  Page ${pageNum}${side}: ${error.message}`);
                         consecutiveFailures++;
 
                         // Stop if too many errors in a row
                         if (consecutiveFailures >= 3) {
-                            console.log(`    ℹ️  Te veel fouten, stoppen bij ${pageNum}${side}`);
+                            console.log(`    ℹ️  Too many errors, stopping at ${pageNum}${side}`);
                             break;
                         }
                     }
@@ -285,7 +285,7 @@ class JewishTextsImporter {
             return tractateData;
 
         } catch (error) {
-            throw new Error(`Import gefaald: ${error.message}`);
+            throw new Error(`Import failed: ${error.message}`);
         }
     }
 
@@ -332,7 +332,7 @@ class JewishTextsImporter {
                     await this.sleep(1000 * (attempt + 1));
                     continue;
                 } else {
-                    throw new Error(`Kon bladzijde niet ophalen: ${error.message}`);
+                    throw new Error(`Could not fetch page: ${error.message}`);
                 }
             }
         }
@@ -353,7 +353,7 @@ class JewishTextsImporter {
     async importAllMishnah() {
         console.log('📚 MISHNAH IMPORTER');
         console.log('='.repeat(50));
-        console.log('Importeer Mishnah uit Sefaria.org\n');
+        console.log('Import Mishnah from Sefaria.org\n');
 
         let totalTractates = 0;
         let totalChapters = 0;
@@ -369,23 +369,23 @@ class JewishTextsImporter {
                     if (tractateData) {
                         totalTractates++;
                         totalChapters += tractateData.chapters.length;
-                        console.log(`    ✅ ${tractateData.chapters.length} hoofdstukken`);
+                        console.log(`    ✅ ${tractateData.chapters.length} chapters`);
                     } else {
-                        console.log(`    ⚠️  Geen data opgehaald`);
+                        console.log(`    ⚠️  No data fetched`);
                     }
 
                     await this.sleep(1000);
 
                 } catch (error) {
-                    console.log(`    ❌ Fout: ${error.message}`);
+                    console.log(`    ❌ Error: ${error.message}`);
                 }
             }
         }
 
-        console.log('\n🎉 MISHNAH IMPORT VOLTOOID!');
+        console.log('\n🎉 MISHNAH IMPORT COMPLETE!');
         console.log('='.repeat(50));
-        console.log(`📚 Totaal tractaten: ${totalTractates}`);
-        console.log(`📄 Totaal hoofdstukken: ${totalChapters}`);
+        console.log(`📚 Total tractates: ${totalTractates}`);
+        console.log(`📄 Total chapters: ${totalChapters}`);
     }
 
     /**
@@ -406,7 +406,7 @@ class JewishTextsImporter {
 
             const indexData = await response.json();
             const totalChapters = indexData.schema && indexData.schema.lengths ? indexData.schema.lengths[0] : 0;
-            console.log(`    📊 Totaal hoofdstukken: ${totalChapters}`);
+            console.log(`    📊 Total chapters: ${totalChapters}`);
 
             const chapters = [];
 
@@ -430,10 +430,10 @@ class JewishTextsImporter {
                             mishnayot: mishnayot
                         });
 
-                        console.log(`      📄 Hoofdstuk ${chapterNum}: ${mishnayot.length} mishnayot`);
+                        console.log(`      📄 Chapter ${chapterNum}: ${mishnayot.length} mishnayot`);
                     }
                 } catch (error) {
-                    console.log(`      ⚠️  Hoofdstuk ${chapterNum}: ${error.message}`);
+                    console.log(`      ⚠️  Chapter ${chapterNum}: ${error.message}`);
                 }
             }
 
@@ -456,7 +456,7 @@ class JewishTextsImporter {
             return tractateData;
 
         } catch (error) {
-            throw new Error(`Import gefaald: ${error.message}`);
+            throw new Error(`Import failed: ${error.message}`);
         }
     }
 
@@ -494,7 +494,7 @@ class JewishTextsImporter {
                     await this.sleep(1000 * (attempt + 1));
                     continue;
                 } else {
-                    throw new Error(`Kon hoofdstuk niet ophalen: ${error.message}`);
+                    throw new Error(`Could not fetch chapter: ${error.message}`);
                 }
             }
         }
@@ -515,7 +515,7 @@ class JewishTextsImporter {
     async importAllRambam() {
         console.log('📚 RAMBAM IMPORTER');
         console.log('='.repeat(50));
-        console.log('Importeer Mishneh Torah uit Sefaria.org\n');
+        console.log('Import Mishneh Torah from Sefaria.org\n');
 
         let totalBooks = 0;
         let totalChapters = 0;
@@ -528,22 +528,22 @@ class JewishTextsImporter {
                 if (bookData) {
                     totalBooks++;
                     totalChapters += bookData.chapters.length;
-                    console.log(`  ✅ ${bookData.chapters.length} hoofdstukken`);
+                    console.log(`  ✅ ${bookData.chapters.length} chapters`);
                 } else {
-                    console.log(`  ⚠️  Geen data opgehaald`);
+                    console.log(`  ⚠️  No data fetched`);
                 }
 
                 await this.sleep(1000);
 
             } catch (error) {
-                console.log(`  ❌ Fout: ${error.message}`);
+                console.log(`  ❌ Error: ${error.message}`);
             }
         }
 
-        console.log('\n🎉 RAMBAM IMPORT VOLTOOID!');
+        console.log('\n🎉 RAMBAM IMPORT COMPLETE!');
         console.log('='.repeat(50));
-        console.log(`📚 Totaal boeken: ${totalBooks}`);
-        console.log(`📄 Totaal hoofdstukken: ${totalChapters}`);
+        console.log(`📚 Total books: ${totalBooks}`);
+        console.log(`📄 Total chapters: ${totalChapters}`);
     }
 
     /**
@@ -572,7 +572,7 @@ class JewishTextsImporter {
             // Rambam has 2-level structure: Chapter (Perek) and Halakhah
             // schema.lengths[0] tells us how many chapters
             const totalChapters = indexData.schema && indexData.schema.lengths ? indexData.schema.lengths[0] : 0;
-            console.log(`  📊 Totaal hoofdstukken: ${totalChapters}`);
+            console.log(`  📊 Total chapters: ${totalChapters}`);
 
             const chapters = [];
 
@@ -596,10 +596,10 @@ class JewishTextsImporter {
                             halakhot: halakhot
                         });
 
-                        console.log(`    📄 Hoofdstuk ${chapterNum}: ${halakhot.length} halakhot`);
+                        console.log(`    📄 Chapter ${chapterNum}: ${halakhot.length} halakhot`);
                     }
                 } catch (error) {
-                    console.log(`    ⚠️  Hoofdstuk ${chapterNum}: ${error.message}`);
+                    console.log(`    ⚠️  Chapter ${chapterNum}: ${error.message}`);
                 }
             }
 
@@ -622,7 +622,7 @@ class JewishTextsImporter {
             return bookData;
 
         } catch (error) {
-            throw new Error(`Import gefaald: ${error.message}`);
+            throw new Error(`Import failed: ${error.message}`);
         }
     }
 
@@ -661,7 +661,7 @@ class JewishTextsImporter {
                     await this.sleep(1000 * (attempt + 1));
                     continue;
                 } else {
-                    throw new Error(`Kon hoofdstuk niet ophalen: ${error.message}`);
+                    throw new Error(`Could not fetch chapter: ${error.message}`);
                 }
             }
         }
@@ -714,11 +714,11 @@ if (require.main === module) {
 
         default:
             console.log(`
-Gebruik:
-  node jewish-texts-importer.js talmud     # Importeer Babylonische Talmud
-  node jewish-texts-importer.js mishnah    # Importeer Mishnah
-  node jewish-texts-importer.js rambam     # Importeer Rambam (Mishneh Torah)
-  node jewish-texts-importer.js all        # Importeer alles
+Usage:
+  node jewish-texts-importer.js talmud     # Import Babylonian Talmud
+  node jewish-texts-importer.js mishnah    # Import Mishnah
+  node jewish-texts-importer.js rambam     # Import Rambam (Mishneh Torah)
+  node jewish-texts-importer.js all        # Import everything
             `);
     }
 }

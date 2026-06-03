@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Sefaria Importer - Importeer alle boeken van de Tanach uit Sefaria.org
+ * Sefaria Importer - Import all Tanach books from Sefaria.org
  */
 
 const fs = require('fs-extra');
@@ -12,7 +12,7 @@ class SefariaImporter {
         this.baseUrl = 'https://www.sefaria.org/api/texts';
         this.booksDir = path.join(__dirname, '../data/books');
         
-        // Mapping van Sefaria namen naar onze IDs
+        // Mapping of Sefaria names to our IDs
         this.bookMapping = {
             // Torah
             'Genesis': 'bereshit',
@@ -69,12 +69,12 @@ class SefariaImporter {
     }
 
     /**
-     * Importeer alle boeken
+     * Import all books
      */
     async importAllBooks() {
         console.log('📚 SEFARIA IMPORTER');
         console.log('=' .repeat(50));
-        console.log('Importeer alle boeken van de Tanach uit Sefaria.org\n');
+        console.log('Import all Tanach books from Sefaria.org\n');
 
         let totalBooks = 0;
         let totalChapters = 0;
@@ -86,7 +86,7 @@ class SefariaImporter {
             for (const sefariaName of books) {
                 const bookId = this.bookMapping[sefariaName];
                 if (!bookId) {
-                    console.log(`  ❌ ${sefariaName}: Geen mapping gevonden`);
+                    console.log(`  ❌ ${sefariaName}: No mapping found`);
                     continue;
                 }
 
@@ -99,43 +99,43 @@ class SefariaImporter {
                         totalBooks++;
                         totalChapters += bookData.chapters.length;
                         totalVerses += bookData.metadata.totalVerses;
-                        console.log(`    ✅ ${bookData.chapters.length} hoofdstukken, ${bookData.metadata.totalVerses} verzen`);
+                        console.log(`    ✅ ${bookData.chapters.length} chapters, ${bookData.metadata.totalVerses} verses`);
                     } else {
-                        console.log(`    ⚠️  Geen data opgehaald`);
+                        console.log(`    ⚠️  No data fetched`);
                     }
                     
-                    // Korte pauze tussen boeken
+                    // Short pause between books
                     await this.sleep(1000);
                     
                 } catch (error) {
-                    console.log(`    ❌ Fout: ${error.message}`);
+                    console.log(`    ❌ Error: ${error.message}`);
                 }
             }
         }
 
-        console.log('\n🎉 IMPORT VOLTOOID!');
+        console.log('\n🎉 IMPORT COMPLETE!');
         console.log('=' .repeat(50));
-        console.log(`📚 Totaal boeken: ${totalBooks}`);
-        console.log(`📄 Totaal hoofdstukken: ${totalChapters}`);
-        console.log(`📝 Totaal verzen: ${totalVerses}`);
+        console.log(`📚 Total books: ${totalBooks}`);
+        console.log(`📄 Total chapters: ${totalChapters}`);
+        console.log(`📝 Total verses: ${totalVerses}`);
     }
 
     /**
-     * Importeer een specifiek boek
+     * Import a specific book
      */
     async importBook(sefariaName, bookId, category) {
         try {
-            // Haal boek informatie op
+            // Fetch book information
             const bookInfo = await this.fetchBookInfo(sefariaName);
-            console.log(`    📊 Boek info: ${bookInfo} hoofdstukken`);
+            console.log(`    📊 Book info: ${bookInfo} chapters`);
             if (!bookInfo) {
-                throw new Error('Geen boek informatie gevonden');
+                throw new Error('No book information found');
             }
 
             const chapters = [];
             let totalVerses = 0;
 
-            // Importeer elk hoofdstuk
+            // Import each chapter
             for (let chapterNum = 1; chapterNum <= bookInfo; chapterNum++) {
                 try {
                     const chapterData = await this.fetchChapter(sefariaName, chapterNum);
@@ -154,16 +154,16 @@ class SefariaImporter {
                         });
 
                         totalVerses += verses.length;
-                        console.log(`      📄 Hoofdstuk ${chapterNum}: ${verses.length} verzen`);
+                        console.log(`      📄 Chapter ${chapterNum}: ${verses.length} verses`);
                     } else {
-                        console.log(`      ⚠️  Hoofdstuk ${chapterNum}: Geen data`);
+                        console.log(`      ⚠️  Chapter ${chapterNum}: No data`);
                     }
                 } catch (error) {
-                    console.log(`      ⚠️  Hoofdstuk ${chapterNum}: ${error.message}`);
+                    console.log(`      ⚠️  Chapter ${chapterNum}: ${error.message}`);
                 }
             }
 
-            // Maak boek data
+            // Create book data
             const bookData = {
                 id: bookId,
                 name: this.getBookName(bookId),
@@ -179,22 +179,22 @@ class SefariaImporter {
                 }
             };
 
-            // Sla boek op
+            // Save book
             await this.saveBook(bookData, category);
 
             return bookData;
 
         } catch (error) {
-            throw new Error(`Import gefaald: ${error.message}`);
+            throw new Error(`Import failed: ${error.message}`);
         }
     }
 
     /**
-     * Haal boek informatie op via Sefaria API
+     * Fetch book information via Sefaria API
      */
     async fetchBookInfo(sefariaName) {
         try {
-            // Gebruik de Sefaria index API om de structuur te krijgen
+            // Use the Sefaria index API to get the structure
             const url = `https://www.sefaria.org/api/index/${sefariaName}`;
             const response = await fetch(url);
             
@@ -204,20 +204,20 @@ class SefariaImporter {
             
             const data = await response.json();
             
-            // Sefaria geeft de structuur terug in schema.lengths
+            // Sefaria returns the structure in schema.lengths
             if (data.schema && data.schema.lengths && data.schema.lengths.length > 0) {
-                return data.schema.lengths[0]; // Eerste element is aantal hoofdstukken
+                return data.schema.lengths[0]; // First element is the number of chapters
             }
             
             return 0;
             
         } catch (error) {
-            throw new Error(`Kon boek info niet ophalen: ${error.message}`);
+            throw new Error(`Could not fetch book info: ${error.message}`);
         }
     }
 
     /**
-     * Haal hoofdstuk op
+     * Fetch chapter
      */
     async fetchChapter(sefariaName, chapterNum) {
         try {
@@ -230,21 +230,21 @@ class SefariaImporter {
             
             const data = await response.json();
             
-            // Sefaria geeft zowel Hebreeuwse als Engelse teksten terug
+            // Sefaria returns both Hebrew and English texts
             if (data.he && data.text && data.he.length > 0 && data.text.length > 0) {
-                // Combineer Hebreeuws en Engels
+                // Combine Hebrew and English
                 return data.he.map((hebrewVerse, index) => ({
                     he: hebrewVerse,
                     text: data.text[index] || ''
                 }));
             } else if (data.he && data.he.length > 0) {
-                // Alleen Hebreeuws
+                // Hebrew only
                 return data.he.map(hebrewVerse => ({
                     he: hebrewVerse,
                     text: ''
                 }));
             } else if (data.text && data.text.length > 0) {
-                // Alleen Engels
+                // English only
                 return data.text.map(englishVerse => ({
                     he: '',
                     text: englishVerse
@@ -252,17 +252,17 @@ class SefariaImporter {
             } else if (Array.isArray(data)) {
                 return data;
             } else {
-                console.log(`      ⚠️  Hoofdstuk ${chapterNum}: Geen tekst gevonden in data:`, Object.keys(data));
+                console.log(`      ⚠️  Chapter ${chapterNum}: No text found in data:`, Object.keys(data));
                 return [];
             }
             
         } catch (error) {
-            throw new Error(`Kon hoofdstuk niet ophalen: ${error.message}`);
+            throw new Error(`Could not fetch chapter: ${error.message}`);
         }
     }
 
     /**
-     * Sla boek op
+     * Save book
      */
     async saveBook(bookData, category) {
         const categoryDir = path.join(this.booksDir, category);
@@ -273,72 +273,72 @@ class SefariaImporter {
     }
 
     /**
-     * Krijg Nederlandse naam van boek
+     * Get display name of book
      */
     getBookName(bookId) {
         const names = {
             'bereshit': 'Genesis',
             'shemot': 'Exodus',
             'vayikra': 'Leviticus',
-            'bamidbar': 'Numeri',
-            'devarim': 'Deuteronomium',
-            'yehoshua': 'Jozua',
-            'shoftim': 'Richteren',
-            'shmuel1': '1 Samuël',
-            'shmuel2': '2 Samuël',
-            'melachim1': '1 Koningen',
-            'melachim2': '2 Koningen',
-            'yeshayahu': 'Jesaja',
-            'yirmeyahu': 'Jeremia',
-            'yechezkel': 'Ezechiël',
+            'bamidbar': 'Numbers',
+            'devarim': 'Deuteronomy',
+            'yehoshua': 'Joshua',
+            'shoftim': 'Judges',
+            'shmuel1': '1 Samuel',
+            'shmuel2': '2 Samuel',
+            'melachim1': '1 Kings',
+            'melachim2': '2 Kings',
+            'yeshayahu': 'Isaiah',
+            'yirmeyahu': 'Jeremiah',
+            'yechezkel': 'Ezekiel',
             'hoshea': 'Hosea',
-            'yoel': 'Joël',
+            'yoel': 'Joel',
             'amos': 'Amos',
-            'ovadya': 'Obadja',
-            'yona': 'Jona',
-            'michah': 'Micha',
+            'ovadya': 'Obadiah',
+            'yona': 'Jonah',
+            'michah': 'Micah',
             'nachum': 'Nahum',
-            'chavakuk': 'Habakuk',
-            'tzefanya': 'Sefanja',
+            'chavakuk': 'Habakkuk',
+            'tzefanya': 'Zephaniah',
             'chagai': 'Haggai',
-            'zecharya': 'Zacharia',
-            'malachi': 'Maleachi',
-            'tehillim': 'Psalmen',
-            'mishlei': 'Spreuken',
+            'zecharya': 'Zechariah',
+            'malachi': 'Malachi',
+            'tehillim': 'Psalms',
+            'mishlei': 'Proverbs',
             'iyov': 'Job',
-            'shir_hashirim': 'Hooglied',
+            'shir_hashirim': 'Song of Songs',
             'rut': 'Ruth',
-            'eicha': 'Klaagliederen',
-            'kohelet': 'Prediker',
+            'eicha': 'Lamentations',
+            'kohelet': 'Ecclesiastes',
             'esther': 'Esther',
-            'daniel': 'Daniël',
+            'daniel': 'Daniel',
             'ezra': 'Ezra',
-            'nechemya': 'Nehemia',
-            'divrei_hayamim1': '1 Kronieken',
-            'divrei_hayamim2': '2 Kronieken'
+            'nechemya': 'Nehemiah',
+            'divrei_hayamim1': '1 Chronicles',
+            'divrei_hayamim2': '2 Chronicles'
         };
         return names[bookId] || bookId;
     }
 
     /**
-     * Krijg beschrijving van boek
+     * Get book description
      */
     getBookDescription(bookId) {
         const descriptions = {
-            'bereshit': 'Het boek van het begin',
-            'shemot': 'Het boek van de uittocht',
-            'vayikra': 'Het boek van de wetten',
-            'bamidbar': 'Het boek van de woestijn',
-            'devarim': 'Het boek van de herhaling van de wet',
-            'tehillim': 'Het boek van de psalmen',
-            'mishlei': 'Het boek van de spreuken',
-            'iyov': 'Het boek van Job'
+            'bereshit': 'The book of beginnings',
+            'shemot': 'The book of the Exodus',
+            'vayikra': 'The book of laws',
+            'bamidbar': 'The book of the wilderness',
+            'devarim': 'The book of the repetition of the law',
+            'tehillim': 'The book of psalms',
+            'mishlei': 'The book of proverbs',
+            'iyov': 'The book of Job'
         };
         return descriptions[bookId] || '';
     }
 
     /**
-     * Sleep functie
+     * Sleep utility
      */
     sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
@@ -368,18 +368,18 @@ if (require.main === module) {
                 if (bookId && category) {
                     importer.importBook(sefariaName, bookId, category).catch(console.error);
                 } else {
-                    console.log(`Onbekend boek: ${sefariaName}`);
+                    console.log(`Unknown book: ${sefariaName}`);
                 }
             } else {
-                console.log('Gebruik: node sefaria-importer.js book <sefariaName>');
+                console.log('Usage: node sefaria-importer.js book <sefariaName>');
             }
             break;
             
         default:
             console.log(`
-Gebruik:
-  node sefaria-importer.js all                    # Importeer alle boeken
-  node sefaria-importer.js book <sefariaName>     # Importeer specifiek boek
+Usage:
+  node sefaria-importer.js all                    # Import all books
+  node sefaria-importer.js book <sefariaName>     # Import a specific book
             `);
     }
 }

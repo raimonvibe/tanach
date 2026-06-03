@@ -1,124 +1,124 @@
-# 📅 Joodse Kalender - Implementatie Plan
+# 📅 Jewish Calendar — Implementation Plan
 
-## 🎯 Overzicht
+## 🎯 Overview
 
-Dit document beschrijft de implementatie van een mooie en responsieve Joodse kalender pagina voor de Tanach Reader website. De kalender integreert met externe APIs om accurate Joodse kalender informatie te tonen.
+This document describes the implementation of a beautiful, responsive Jewish calendar page for the Tanach Reader website. The calendar integrates with external APIs to display accurate Jewish calendar information.
 
-## 🔍 API Onderzoek
+## 🔍 API research
 
 ### Sefaria API
 - **URL:** https://www.sefaria.org/api/
-- **Functionaliteit:** Torah lezingen, dagelijkse studieplannen
-- **Beperkingen:** Beperkte directe kalender functionaliteit
-- **Gebruik:** Voor Torah content en parashat informatie
+- **Functionality:** Torah readings, daily study plans
+- **Limitations:** Limited direct calendar functionality
+- **Use:** For Torah content and parashat information
 
-### HebCal API (Aanbevolen)
+### HebCal API (recommended)
 - **URL:** https://www.hebcal.com/
-- **Functionaliteit:** Uitgebreide Joodse kalender data
+- **Functionality:** Extensive Jewish calendar data
 - **Features:**
-  - Joodse feestdagen
-  - Parashat van de week
-  - Zonsopgang/zonsondergang tijden
-  - Candle lighting tijden
+  - Jewish holidays
+  - Weekly Torah portion (parashat)
+  - Sunrise/sunset times
+  - Candle lighting times
   - Rosh Chodesh
-  - Speciale dagen
+  - Special days
 
-## 🏗️ Technische Architectuur
+## 🏗️ Technical architecture
 
 ### Frontend
-- **HTML5:** Semantische structuur
-- **CSS3:** Responsief design met CSS Grid/Flexbox
-- **JavaScript:** Vanilla JS voor interactiviteit
+- **HTML5:** Semantic structure
+- **CSS3:** Responsive design with CSS Grid/Flexbox
+- **JavaScript:** Vanilla JS for interactivity
 - **Design:** Mobile-first approach
 
 ### Backend
-- **Express.js:** API routes voor kalender data
-- **Mock Data:** Voor ontwikkeling en testing
-- **API Integration:** Proxy voor externe APIs
+- **Express.js:** API routes for calendar data
+- **Mock data:** For development and testing
+- **API integration:** Proxy for external APIs
 
-## 📱 Responsief Design
+## 📱 Responsive design
 
 ### Breakpoints
-- **Desktop:** > 768px - Volledige kalender grid
-- **Tablet:** 768px - Geoptimaliseerde layout
-- **Mobile:** < 480px - Compacte weergave
+- **Desktop:** > 768px — Full calendar grid
+- **Tablet:** 768px — Optimized layout
+- **Mobile:** < 480px — Compact view
 
 ### Features
-- **Flexible Grid:** CSS Grid voor kalender layout
-- **Touch Friendly:** Grote klikbare elementen
-- **Readable Text:** Aangepaste font sizes per device
-- **Dark Mode:** Automatische detectie van systeem voorkeur
+- **Flexible grid:** CSS Grid for calendar layout
+- **Touch friendly:** Large clickable elements
+- **Readable text:** Adjusted font sizes per device
+- **Dark mode:** Automatic detection of system preference
 
-## 🎨 Design Concept
+## 🎨 Design concept
 
-### Kleurenschema
-- **Primary:** #667eea (Blauw)
-- **Secondary:** #764ba2 (Paars)
-- **Accent:** #ff9800 (Oranje voor feestdagen)
-- **Shabbat:** #9c27b0 (Paars)
-- **Background:** Gradient van blauw naar paars
+### Color scheme
+- **Primary:** #667eea (blue)
+- **Secondary:** #764ba2 (purple)
+- **Accent:** #ff9800 (orange for holidays)
+- **Shabbat:** #9c27b0 (purple)
+- **Background:** Gradient from blue to purple
 
 ### Typography
-- **Font:** Segoe UI (systeem font)
-- **Hierarchy:** Duidelijke heading structuur
-- **Hebrew Support:** Unicode ondersteuning
+- **Font:** Segoe UI (system font)
+- **Hierarchy:** Clear heading structure
+- **Hebrew support:** Unicode support
 
-### Visual Elements
-- **Icons:** Emoji voor universele herkenning
-- **Shadows:** Subtiele depth effecten
-- **Borders:** Rounded corners voor moderne look
-- **Hover Effects:** Smooth transitions
+### Visual elements
+- **Icons:** Emoji for universal recognition
+- **Shadows:** Subtle depth effects
+- **Borders:** Rounded corners for a modern look
+- **Hover effects:** Smooth transitions
 
-## 🔧 Functionaliteiten
+## 🔧 Functionality
 
-### Kalender Weergave
-- [x] Maandelijkse grid layout
-- [x] Joodse en Gregoriaanse datums
-- [x] Navigatie tussen maanden
-- [x] "Vandaag" knop
-- [x] Responsief design
+### Calendar display
+- [x] Monthly grid layout
+- [x] Jewish and Gregorian dates
+- [x] Navigation between months
+- [x] "Today" button
+- [x] Responsive design
 
-### Feestdagen & Evenementen
-- [x] Sjabbat markering
+### Holidays & events
+- [x] Shabbat marking
 - [x] Rosh Chodesh
-- [x] Joodse feestdagen (mock data)
+- [x] Jewish holidays (mock data)
 - [x] Event tooltips
 
-### Informatieve Elementen
-- [x] Parashat van de week
-- [x] Haftarah informatie
-- [x] Candle lighting tijden
-- [x] Zonsopgang/zonsondergang
-- [x] Havdalah tijden
+### Informational elements
+- [x] Weekly Torah portion (parashat)
+- [x] Haftarah information
+- [x] Candle lighting times
+- [x] Sunrise/sunset
+- [x] Havdalah times
 
-### Interactieve Features
-- [x] Maand navigatie
-- [x] View toggle (maand/jaar)
-- [x] Hover effecten
-- [x] Responsieve controls
+### Interactive features
+- [x] Month navigation
+- [x] View toggle (month/year)
+- [x] Hover effects
+- [x] Responsive controls
 
-## 📁 Bestandsstructuur
+## 📁 File structure
 
 ```
 public/
-├── calendar.html          # Hoofdpagina kalender
-├── index.html            # Homepage (updated met nav)
-└── reader.html           # Tanach reader (updated met nav)
+├── calendar.html          # Main calendar page
+├── index.html            # Homepage (updated with nav)
+└── reader.html           # Tanach reader (updated with nav)
 
 src/
-├── server.js             # Express server met kalender API routes
+├── server.js             # Express server with calendar API routes
 └── scripts/
-    └── sefaria-importer.js # Bestaande Sefaria import
+    └── sefaria-importer.js # Existing Sefaria import
 ```
 
-## 🚀 API Endpoints
+## 🚀 API endpoints
 
-### Kalender Data
-- `GET /api/calendar/:year/:month` - Maandelijkse kalender data
-- `GET /api/calendar/weekly` - Week informatie (parashat, haftarah)
-- `GET /api/calendar/times` - Tijden (candle lighting, zonsopgang, etc.)
+### Calendar data
+- `GET /api/calendar/:year/:month` - Monthly calendar data
+- `GET /api/calendar/weekly` - Weekly information (parashat, haftarah)
+- `GET /api/calendar/times` - Times (candle lighting, sunrise, etc.)
 
-### Response Format
+### Response format
 ```json
 {
   "year": 2024,
@@ -138,64 +138,64 @@ src/
 }
 ```
 
-## 🔮 Toekomstige Verbeteringen
+## 🔮 Future improvements
 
-### API Integratie
-- [ ] Echte HebCal API integratie
-- [ ] Locatie-gebaseerde tijden
+### API integration
+- [ ] Real HebCal API integration
+- [ ] Location-based times
 - [ ] Real-time data updates
 
-### Functionaliteiten
-- [ ] Jaarweergave
+### Functionality
+- [ ] Year view
 - [ ] Event details modal
-- [ ] Export functionaliteit
-- [ ] Notificaties voor feestdagen
+- [ ] Export functionality
+- [ ] Holiday notifications
 
 ### Performance
 - [ ] Data caching
 - [ ] Lazy loading
-- [ ] Service worker voor offline gebruik
+- [ ] Service worker for offline use
 
 ### Accessibility
-- [ ] Screen reader ondersteuning
-- [ ] Keyboard navigatie
+- [ ] Screen reader support
+- [ ] Keyboard navigation
 - [ ] High contrast mode
 
 ## 🧪 Testing
 
-### Responsiviteit
+### Responsiveness
 - [x] Desktop (1920x1080)
 - [x] Tablet (768x1024)
 - [x] Mobile (375x667)
 - [x] Dark mode support
 
-### Browser Compatibiliteit
+### Browser compatibility
 - [x] Chrome/Edge
 - [x] Firefox
 - [x] Safari
 - [x] Mobile browsers
 
-## 📊 Performance Metrics
+## 📊 Performance metrics
 
-### Loading Times
-- **Initial Load:** < 2 seconden
-- **Month Navigation:** < 500ms
-- **API Responses:** < 1 seconde
+### Loading times
+- **Initial load:** < 2 seconds
+- **Month navigation:** < 500ms
+- **API responses:** < 1 second
 
-### Bundle Size
+### Bundle size
 - **HTML:** ~15KB
 - **CSS:** ~8KB
 - **JavaScript:** ~12KB
 - **Total:** ~35KB
 
-## 🛠️ Development Setup
+## 🛠️ Development setup
 
-### Vereisten
+### Requirements
 - Node.js 16+
-- npm of yarn
+- npm or yarn
 - Modern browser
 
-### Installatie
+### Installation
 ```bash
 npm install
 npm start
@@ -203,24 +203,24 @@ npm start
 
 ### Development
 ```bash
-npm run dev  # Met nodemon voor auto-reload
+npm run dev  # With nodemon for auto-reload
 ```
 
-## 📝 Conclusie
+## 📝 Conclusion
 
-De Joodse kalender implementatie biedt een mooie, responsieve en functionele kalender die perfect integreert met de bestaande Tanach Reader website. Het design is modern, toegankelijk en respectvol voor de Joodse traditie.
+The Jewish calendar implementation provides a beautiful, responsive, and functional calendar that integrates well with the existing Tanach Reader website. The design is modern, accessible, and respectful of Jewish tradition.
 
-De huidige implementatie gebruikt mock data voor ontwikkeling, maar is voorbereid voor integratie met echte APIs zoals HebCal voor productie gebruik.
+The current implementation uses mock data for development but is prepared for integration with real APIs such as HebCal for production use.
 
-### Volgende Stappen
-1. Integreer echte HebCal API
-2. Voeg locatie-gebaseerde tijden toe
-3. Implementeer jaarweergave
-4. Voeg event details modal toe
-5. Optimaliseer voor performance
+### Next steps
+1. Integrate real HebCal API
+2. Add location-based times
+3. Implement year view
+4. Add event details modal
+5. Optimize for performance
 
 ---
 
-**Gemaakt door:** AI Assistant  
-**Datum:** December 2024  
-**Versie:** 1.0.0
+**Created by:** AI Assistant  
+**Date:** December 2024  
+**Version:** 1.0.0

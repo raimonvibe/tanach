@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +8,7 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/jewish-bible.ico">
     <link rel="shortcut icon" type="image/x-icon" href="/jewish-bible.ico">
+    <link rel="stylesheet" href="/css/read-aloud.css">
 
     <!-- Apple Touch Icon for iOS home screen -->
     <link rel="apple-touch-icon" href="/jewish-bible.png">
@@ -19,10 +20,10 @@
 
     <!-- Open Graph meta tags -->
     <meta property="og:title" content="Mishnah Reader">
-    <meta property="og:description" content="Lees de Mishnah online">
+    <meta property="og:description" content="Read the Mishnah online">
     <meta property="og:image" content="https://tanach.vercel.app/jewish-bible.png">
     <meta property="og:type" content="website">
-    <meta name="description" content="Lees de Mishnah online in Hebreeuws en Engels">
+    <meta name="description" content="Read the Mishnah online in Hebrew and English">
     <meta name="theme-color" content="#4caf50">
     <style>
         * {
@@ -260,8 +261,8 @@
             <div class="nav-links">
                 <a href="/">🏠 Home</a>
                 <a href="/reader.html">📕 Tanach</a>
-                <a href="/readings.html">📚 Lezingen</a>
-                <a href="/calendar.html">📅 Kalender</a>
+                <a href="/readings.html">📚 Readings</a>
+                <a href="/calendar.html">📅 Calendar</a>
             </div>
         </div>
     </div>
@@ -270,20 +271,20 @@
         <div class="tractate-info" id="tractateInfo">
             <div class="loading">
                 <div class="spinner"></div>
-                Tractaat wordt geladen...
+                Loading tractate...
             </div>
         </div>
 
         <div class="chapter-navigation" id="chapterNavigation" style="display: none;">
-            <button id="prevBtn">← Vorig Hoofdstuk</button>
+            <button id="prevBtn">← Previous Chapter</button>
             <select id="chapterSelect"></select>
-            <button id="nextBtn">Volgend Hoofdstuk →</button>
+            <button id="nextBtn">Next Chapter →</button>
         </div>
 
-        <div class="content-area" id="contentArea">
+        <div class="content-area" id="contentArea" data-read-aloud-block>
             <div class="loading">
                 <div class="spinner"></div>
-                Hoofdstuk wordt geladen...
+                Loading chapter...
             </div>
         </div>
     </div>
@@ -302,7 +303,7 @@
                 const chapter = params.get('chapter');
 
                 if (!tractate) {
-                    this.showError('Geen tractaat opgegeven. Gebruik ?tractate=naam&chapter=1');
+                    this.showError('No tractate specified. Use ?tractate=name&chapter=1');
                     return;
                 }
 
@@ -327,16 +328,16 @@
                         if (!response.ok) {
                             // Provide helpful error message
                             if (response.status === 404) {
-                                throw new Error(`Tractaat "${tractateName}" niet gevonden in onze collectie. Dit tractaat is mogelijk nog niet geïmporteerd.`);
+                                throw new Error(`Tractate "${tractateName}" not found in our collection. This tractate may not have been imported yet.`);
                             }
-                            throw new Error(`Fout bij het laden: HTTP ${response.status}`);
+                            throw new Error(`Error loading: HTTP ${response.status}`);
                         }
                 
                         this.tractateData = await response.json();
                         this.renderTractateInfo();
                 
                     } catch (error) {
-                        this.showError(`Fout bij het laden van tractaat: ${error.message}`);
+                        this.showError(`Error loading tractate: ${error.message}`);
                     }
                 }
 
@@ -345,7 +346,7 @@
 
                 document.getElementById('tractateInfo').innerHTML = `
                     <h2>${this.tractateData.name}</h2>
-                    <p>Type: ${this.tractateData.type} | Totaal hoofdstukken: ${this.tractateData.metadata.totalChapters}</p>
+                    <p>Type: ${this.tractateData.type} | Total chapters: ${this.tractateData.metadata.totalChapters}</p>
                 `;
             }
 
@@ -358,7 +359,7 @@
                 this.tractateData.chapters.forEach((chapter, index) => {
                     const option = document.createElement('option');
                     option.value = index;
-                    option.textContent = `Hoofdstuk ${chapter.chapter} (${chapter.mishnayot.length} mishnayot)`;
+                    option.textContent = `Chapter ${chapter.chapter} (${chapter.mishnayot.length} mishnayot)`;
                     chapterSelect.appendChild(option);
                 });
 
@@ -386,6 +387,7 @@
             }
 
             renderChapter() {
+                window.dispatchEvent(new Event('read-aloud-stop'));
                 if (!this.tractateData) return;
 
                 const chapter = this.tractateData.chapters[this.currentChapterIndex];
@@ -396,11 +398,11 @@
                         <div class="mishnah-item">
                             <h4>Mishnah ${chapter.chapter}:${mishnah.mishnah}</h4>
                             <div class="text-section">
-                                <h5>🔤 Hebreeuws</h5>
-                                <div class="hebrew-text">${mishnah.translations.hebrew || 'Geen Hebreeuwse tekst beschikbaar'}</div>
+                                <h5>🔤 Hebrew</h5>
+                                <div class="hebrew-text">${mishnah.translations.hebrew || 'No Hebrew text available'}</div>
                             </div>
                             <div class="text-section">
-                                <h5>🔤 Engels</h5>
+                                <h5>🔤 English</h5>
                                 <div class="english-text">${mishnah.translations.english || 'No English translation available'}</div>
                             </div>
                         </div>
@@ -434,5 +436,6 @@
             new MishnahReader();
         });
     </script>
+    <script src="/js/read-aloud.js" defer></script>
 </body>
 </html>

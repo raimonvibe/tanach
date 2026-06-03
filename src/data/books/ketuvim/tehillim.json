@@ -1,7 +1,7 @@
 {
   "id": "tehillim",
   "name": "Psalmen",
-  "description": "Het boek van de psalmen",
+  "description": "The book of psalms",
   "sefariaRef": "Psalms",
   "chapters": [
     {

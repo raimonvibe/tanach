@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joodse Kalender - Tanach Reader</title>
+    <title>Jewish Calendar - Tanach Reader</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/jewish-bible.ico">
     <link rel="shortcut icon" type="image/x-icon" href="/jewish-bible.ico">
+    <link rel="stylesheet" href="/css/read-aloud.css">
 
     <!-- Apple Touch Icon for iOS home screen -->
     <link rel="apple-touch-icon" href="/jewish-bible.png">
@@ -19,24 +20,24 @@
 
     <!-- Open Graph meta tags for social sharing -->
     <meta property="fb:app_id" content="1234567890">
-    <meta property="og:title" content="Tanach Reader - Joodse Bijbel Online">
-    <meta property="og:description" content="Lees de Joodse Bijbel online in Hebreeuws en Engels">
+    <meta property="og:title" content="Tanach Reader - Jewish Bible Online">
+    <meta property="og:description" content="Read the Jewish Bible online in Hebrew and English">
     <meta property="og:image" content="https://tanach.vercel.app/jewish-bible.png">
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="454">
-    <meta property="og:image:alt" content="Tanach Reader - Joodse Bijbel">
+    <meta property="og:image:alt" content="Tanach Reader - Jewish Bible">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://tanach.vercel.app">
     <meta property="og:site_name" content="Tanach Reader">
 
     <!-- Twitter Card meta tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Tanach Reader - Joodse Bijbel Online">
-    <meta name="twitter:description" content="Lees de Joodse Bijbel online in Hebreeuws en Engels">
+    <meta name="twitter:title" content="Tanach Reader - Jewish Bible Online">
+    <meta name="twitter:description" content="Read the Jewish Bible online in Hebrew and English">
     <meta name="twitter:image" content="https://tanach.vercel.app/jewish-bible.png">
 
     <!-- Additional meta tags -->
-    <meta name="description" content="Lees de Joodse Bijbel online in Hebreeuws en Engels">
+    <meta name="description" content="Read the Jewish Bible online in Hebrew and English">
     <meta name="theme-color" content="#667eea">
     <style>
         * {
@@ -648,62 +649,63 @@
 <body>
     <div class="header">
         <div class="header-content">
-            <h1>📅 Joodse Kalender</h1>
-            <p>Ontdek de Joodse feestdagen, parasja en speciale dagen</p>
+            <h1>📅 Jewish Calendar</h1>
+            <p>Discover Jewish holidays, parashiyot, and special days</p>
             <div class="nav-links">
                 <a href="/">🏠 Home</a>
                 <a href="/reader.html">📖 Tanach Reader</a>
-                <a href="/readings.html">📚 Leesrooster</a>
+                <a href="/readings.html">📚 Reading Schedule</a>
             </div>
         </div>
     </div>
 
-    <div class="container">
+    <div class="container" id="main-content">
         <div class="calendar-container">
             <div class="calendar-header">
                 <div class="calendar-title" id="calendarTitle">
-                    Lading...
+                    Loading...
                 </div>
                 <div class="calendar-controls">
-                    <button class="nav-btn" id="prevMonth">‹ Vorige</button>
-                    <button class="nav-btn" id="todayBtn">Vandaag</button>
-                    <button class="nav-btn" id="nextMonth">Volgende ›</button>
+                    <button class="nav-btn" id="prevMonth">‹ Previous</button>
+                    <button class="nav-btn" id="todayBtn">Today</button>
+                    <button class="nav-btn" id="nextMonth">Next ›</button>
                 </div>
             </div>
 
             <div id="calendarContent">
-                <div class="loading">Kalender wordt geladen...</div>
+                <div class="loading">Loading calendar...</div>
             </div>
         </div>
 
         <div class="sidebar">
-            <h3>📚 Deze Maand</h3>
+            <h3>📚 This Month</h3>
             <div id="weeklyInfo">
-                <div class="loading">Week informatie wordt geladen...</div>
+                <div class="loading">Loading weekly information...</div>
             </div>
         </div>
 
         <div class="sidebar">
-            <h3>📅 Datum Info</h3>
+            <h3>📅 Date Info</h3>
             <div id="hebrewDateInfo">
-                <div class="loading">Joodse datum wordt geladen...</div>
+                <div class="loading">Loading Hebrew date...</div>
             </div>
         </div>
 
         <div class="sidebar">
-            <h3>🕯️ Tijden</h3>
+            <h3>🕯️ Times</h3>
             <div id="timesInfo">
-                <div class="loading">Tijden worden geladen...</div>
+                <div class="loading">Loading times...</div>
             </div>
         </div>
 
         <div class="footer">
-            <p>&copy; 2024 Tanach Reader - Joodse Kalender met data van HebCal.org</p>
+            <p>&copy; 2024 Tanach Reader - Jewish Calendar with data from HebCal.org</p>
         </div>
     </div>
 
     <script type="module">
         import './js/calendar-app.js';
     </script>
+    <script src="/js/read-aloud.js" defer></script>
 </body>
 </html>

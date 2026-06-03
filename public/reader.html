@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tanach Reader - Lezen</title>
+    <title>Tanach Reader - Read</title>
     <link rel="icon" type="image/x-icon" href="/jewish-bible.ico">
+    <link rel="stylesheet" href="/css/read-aloud.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -285,17 +286,17 @@
     <div class="header">
         <div class="header-content">
             <div>
-                <a href="/" style="background: rgba(255,255,255,0.2); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; text-decoration: none; display: inline-block; transition: background-color 0.3s ease;">← Terug</a>
+                <a href="/" style="background: rgba(255,255,255,0.2); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; text-decoration: none; display: inline-block; transition: background-color 0.3s ease;">← Back</a>
                 <h1 id="bookTitle">Tanach Reader</h1>
             </div>
             <div class="nav-controls">
                 <select id="bookSelector" class="book-selector" style="background: rgba(255,255,255,0.2); color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer;">
-                    <option value="">Selecteer een boek...</option>
+                    <option value="">Select a book...</option>
                 </select>
-                <button id="toggleVerseNumbers" class="toggle-btn" style="background: rgba(255,255,255,0.2); color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; transition: background-color 0.3s ease; font-size: 0.9rem;">Vers nummers</button>
+                <button id="toggleVerseNumbers" class="toggle-btn" style="background: rgba(255,255,255,0.2); color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; transition: background-color 0.3s ease; font-size: 0.9rem;">Verse numbers</button>
                 <div class="nav-links">
-                    <a href="/readings.html">📚 Leesrooster</a>
-                    <a href="/calendar.html">📅 Kalender</a>
+                    <a href="/readings.html">📚 Reading schedule</a>
+                    <a href="/calendar.html">📅 Calendar</a>
                 </div>
             </div>
         </div>
@@ -303,23 +304,23 @@
 
     <div class="main-container">
         <div id="bookInfo" class="book-info">
-            <div class="loading">Laden van boeken...</div>
+            <div class="loading">Loading books...</div>
         </div>
 
         <div id="chapterNav" class="chapter-nav" style="display: none;">
-            <h3>Hoofdstukken</h3>
+            <h3>Chapters</h3>
             <div id="chapterButtons" class="chapter-buttons" style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;"></div>
             <div style="margin-top: 15px;">
-                <button id="prevChapter" class="nav-btn" style="background: #667eea; color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; transition: background-color 0.3s ease; margin-right: 10px;">← Vorige</button>
-                <button id="nextChapter" class="nav-btn" style="background: #667eea; color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; transition: background-color 0.3s ease;">Volgende →</button>
+                <button id="prevChapter" class="nav-btn" style="background: #667eea; color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; transition: background-color 0.3s ease; margin-right: 10px;">← Previous</button>
+                <button id="nextChapter" class="nav-btn" style="background: #667eea; color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; transition: background-color 0.3s ease;">Next →</button>
             </div>
         </div>
 
-        <div id="contentArea" class="content-area" style="display: none;">
+        <div id="contentArea" class="content-area" data-read-aloud-block style="display: none;">
             <div class="language-tabs">
-                <button class="tab active" data-tab="hebrew" onclick="switchTab('hebrew')">Hebreeuws</button>
-                <button class="tab active" data-tab="english" onclick="switchTab('english')">Engels</button>
-                <button class="tab active" data-tab="both" onclick="switchTab('both')">Beide</button>
+                <button class="tab active" data-tab="hebrew" onclick="switchTab('hebrew')">Hebrew</button>
+                <button class="tab active" data-tab="english" onclick="switchTab('english')">English</button>
+                <button class="tab active" data-tab="both" onclick="switchTab('both')">Both</button>
             </div>
             <div id="tabContent"></div>
         </div>
@@ -375,5 +376,6 @@
             console.log('[Reader HTML] Event listeners setup complete');
         });
     </script>
+    <script src="/js/read-aloud.js" defer></script>
 </body>
 </html>

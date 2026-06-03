@@ -28,8 +28,8 @@ class SeferHaMitzvotImporter {
     async importAll() {
         console.log('📚 SEFER HAMITZVOT IMPORTER');
         console.log('='.repeat(50));
-        console.log('Importeer Sefer HaMitzvot uit Sefaria.org\n');
-        console.log('Dit is een apart werk van Rambam (niet onderdeel van Mishneh Torah)\n');
+        console.log('Import Sefer HaMitzvot from Sefaria.org\n');
+        console.log('This is a separate work by Rambam (not part of Mishneh Torah)\n');
 
         let totalBooks = 0;
         let totalMitzvot = 0;
@@ -42,22 +42,22 @@ class SeferHaMitzvotImporter {
                 if (bookData) {
                     totalBooks++;
                     totalMitzvot += bookData.mitzvot.length;
-                    console.log(`  ✅ ${bookData.mitzvot.length} mitzvot geïmporteerd`);
+                    console.log(`  ✅ ${bookData.mitzvot.length} mitzvot imported`);
                 } else {
-                    console.log(`  ⚠️  Geen data opgehaald`);
+                    console.log(`  ⚠️  No data fetched`);
                 }
 
                 await this.sleep(1000);
 
             } catch (error) {
-                console.log(`  ❌ Fout: ${error.message}`);
+                console.log(`  ❌ Error: ${error.message}`);
             }
         }
 
-        console.log('\n🎉 SEFER HAMITZVOT IMPORT VOLTOOID!');
+        console.log('\n🎉 SEFER HAMITZVOT IMPORT COMPLETE!');
         console.log('='.repeat(50));
-        console.log(`📚 Totaal boeken: ${totalBooks}`);
-        console.log(`📄 Totaal mitzvot: ${totalMitzvot}`);
+        console.log(`📚 Total books: ${totalBooks}`);
+        console.log(`📄 Total mitzvot: ${totalMitzvot}`);
     }
 
     /**
@@ -128,11 +128,11 @@ class SeferHaMitzvotImporter {
 
             // Fallback: try to determine by testing if mitzvot exist
             if (!totalMitzvot) {
-                console.log(`  ⚠️  Kon aantal niet bepalen, gebruik verwacht aantal: ${expectedCount || 'onbekend'}`);
+                console.log(`  ⚠️  Could not determine count, using expected count: ${expectedCount || 'unknown'}`);
                 totalMitzvot = expectedCount || 248; // Default to positive count
             }
 
-            console.log(`  📊 Totaal mitzvot: ${totalMitzvot}`);
+            console.log(`  📊 Total mitzvot: ${totalMitzvot}`);
 
             const mitzvot = [];
 
@@ -159,12 +159,12 @@ class SeferHaMitzvotImporter {
                         consecutiveFailures = 0;
 
                         if (mitzvahNum % 50 === 0) {
-                            console.log(`    📄 Mitzvah ${mitzvahNum}... (${successCount} successvol)`);
+                            console.log(`    📄 Mitzvah ${mitzvahNum}... (${successCount} successful)`);
                         }
                     } else {
                         consecutiveFailures++;
                         if (consecutiveFailures >= maxConsecutiveFailures) {
-                            console.log(`    ⚠️  Gestopt na ${maxConsecutiveFailures} opeenvolgende fouten bij mitzvah ${mitzvahNum}`);
+                            console.log(`    ⚠️  Stopped after ${maxConsecutiveFailures} consecutive errors at mitzvah ${mitzvahNum}`);
                             break;
                         }
                     }
@@ -181,7 +181,7 @@ class SeferHaMitzvotImporter {
                 }
             }
             
-            console.log(`  ✅ ${successCount} van ${totalMitzvot} mitzvot geïmporteerd`);
+            console.log(`  ✅ ${successCount} of ${totalMitzvot} mitzvot imported`);
 
             const bookData = {
                 id: bookId,
@@ -199,11 +199,11 @@ class SeferHaMitzvotImporter {
             // Save book
             await this.saveBook(bookData);
 
-            console.log(`  ✅ ${mitzvot.length} mitzvot geïmporteerd`);
+            console.log(`  ✅ ${mitzvot.length} mitzvot imported`);
             return bookData;
 
         } catch (error) {
-            throw new Error(`Import gefaald: ${error.message}`);
+            throw new Error(`Import failed: ${error.message}`);
         }
     }
 
@@ -291,12 +291,12 @@ async function main() {
     try {
         await importer.importAll();
         
-        console.log('\n✅ Klaar! Bestanden zijn opgeslagen in:');
+        console.log('\n✅ Done! Files saved to:');
         console.log(`   ${importer.rambamDir}`);
-        console.log('\n💡 Tip: Kopieer de bestanden naar public/data/rambam/ om ze beschikbaar te maken op de website');
+        console.log('\n💡 Tip: Copy the files to public/data/rambam/ to make them available on the website');
         
     } catch (error) {
-        console.error('\n❌ Fout bij import:', error.message);
+        console.error('\n❌ Import error:', error.message);
         process.exit(1);
     }
 }

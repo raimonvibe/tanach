@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +8,7 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/jewish-bible.ico">
     <link rel="shortcut icon" type="image/x-icon" href="/jewish-bible.ico">
+    <link rel="stylesheet" href="/css/read-aloud.css">
 
     <!-- Apple Touch Icon for iOS home screen -->
     <link rel="apple-touch-icon" href="/jewish-bible.png">
@@ -19,10 +20,10 @@
 
     <!-- Open Graph meta tags -->
     <meta property="og:title" content="Rambam Reader">
-    <meta property="og:description" content="Lees de Mishneh Torah (Rambam) online">
+    <meta property="og:description" content="Read the Mishneh Torah (Rambam) online">
     <meta property="og:image" content="https://tanach.vercel.app/jewish-bible.png">
     <meta property="og:type" content="website">
-    <meta name="description" content="Lees de Mishneh Torah (Rambam) online in Hebreeuws en Engels">
+    <meta name="description" content="Read the Mishneh Torah (Rambam) online in Hebrew and English">
     <meta name="theme-color" content="#ff9800">
     <style>
         * {
@@ -260,8 +261,8 @@
             <div class="nav-links">
                 <a href="/">🏠 Home</a>
                 <a href="/reader.html">📕 Tanach</a>
-                <a href="/readings.html">📚 Lezingen</a>
-                <a href="/calendar.html">📅 Kalender</a>
+                <a href="/readings.html">📚 Readings</a>
+                <a href="/calendar.html">📅 Calendar</a>
             </div>
         </div>
     </div>
@@ -270,20 +271,20 @@
         <div class="book-info" id="bookInfo">
             <div class="loading">
                 <div class="spinner"></div>
-                Boek wordt geladen...
+                Loading book...
             </div>
         </div>
 
         <div class="chapter-navigation" id="chapterNavigation" style="display: none;">
-            <button id="prevBtn">← Vorig Hoofdstuk</button>
+            <button id="prevBtn">← Previous Chapter</button>
             <select id="chapterSelect"></select>
-            <button id="nextBtn">Volgend Hoofdstuk →</button>
+            <button id="nextBtn">Next Chapter →</button>
         </div>
 
-        <div class="content-area" id="contentArea">
+        <div class="content-area" id="contentArea" data-read-aloud-block>
             <div class="loading">
                 <div class="spinner"></div>
-                Hoofdstuk wordt geladen...
+                Loading chapter...
             </div>
         </div>
     </div>
@@ -304,7 +305,7 @@
                 const sefariaUrl = params.get('sefaria'); // Optional: original Sefaria URL for fallback
 
                 if (!book) {
-                    this.showError('Geen boek opgegeven. Gebruik ?book=naam&chapter=1');
+                    this.showError('No book specified. Use ?book=name&chapter=1');
                     return;
                 }
 
@@ -411,7 +412,7 @@
                             // Try to construct Sefaria URL from book name
                             const type = bookName.includes('positive') ? 'Positive' : 'Negative';
                             const sefariaLink = `https://www.sefaria.org/Sefer_HaMitzvot,_${type}_Commandments`;
-                            this.showError(`"${bookName}" is Sefer HaMitzvot, wat niet beschikbaar is in onze collectie. We hebben alleen Mishneh Torah boeken.<br><a href="${sefariaLink}" target="_blank">Lees op Sefaria →</a>`);
+                            this.showError(`"${bookName}" is Sefer HaMitzvot, which is not available in our collection. We only have Mishneh Torah books.<br><a href="${sefariaLink}" target="_blank">Read on Sefaria →</a>`);
                             return;
                         }
                         
@@ -423,14 +424,14 @@
                             return;
                         }
                         
-                        throw new Error(`Boek "${bookName}" niet gevonden. Controleer of de boeknaam correct is.`);
+                        throw new Error(`Book "${bookName}" not found. Check that the book name is correct.`);
                     }
 
                     this.bookData = await response.json();
                     this.renderBookInfo();
 
                 } catch (error) {
-                    this.showError(`Fout bij het laden van boek: ${error.message}`);
+                    this.showError(`Error loading book: ${error.message}`);
                 }
             }
 
@@ -439,9 +440,9 @@
 
                 let infoText = '';
                 if (this.bookData.type === 'sefer_hamitzvot' && this.bookData.metadata.totalMitzvot) {
-                    infoText = `Type: ${this.bookData.type} | Totaal mitzvot: ${this.bookData.metadata.totalMitzvot}`;
+                    infoText = `Type: ${this.bookData.type} | Total mitzvot: ${this.bookData.metadata.totalMitzvot}`;
                 } else if (this.bookData.metadata.totalChapters) {
-                    infoText = `Type: ${this.bookData.type} | Totaal hoofdstukken: ${this.bookData.metadata.totalChapters}`;
+                    infoText = `Type: ${this.bookData.type} | Total chapters: ${this.bookData.metadata.totalChapters}`;
                 } else {
                     infoText = `Type: ${this.bookData.type}`;
                 }
@@ -478,7 +479,7 @@
                     this.bookData.chapters.forEach((chapter, index) => {
                         const option = document.createElement('option');
                         option.value = index;
-                        option.textContent = `Hoofdstuk ${chapter.chapter} (${chapter.halakhot.length} halakhot)`;
+                        option.textContent = `Chapter ${chapter.chapter} (${chapter.halakhot.length} halakhot)`;
                         chapterSelect.appendChild(option);
                     });
                 }
@@ -515,6 +516,7 @@
             }
 
             renderChapter() {
+                window.dispatchEvent(new Event('read-aloud-stop'));
                 if (!this.bookData) return;
 
                 let html = '';
@@ -531,11 +533,11 @@
                             <div class="halakha-item">
                                 <h4>Mitzvah ${mitzvah.mitzvah}</h4>
                                 <div class="text-section">
-                                    <h5>🔤 Hebreeuws</h5>
-                                    <div class="hebrew-text">${mitzvah.translations.hebrew || 'Geen Hebreeuwse tekst beschikbaar'}</div>
+                                    <h5>🔤 Hebrew</h5>
+                                    <div class="hebrew-text">${mitzvah.translations.hebrew || 'No Hebrew text available'}</div>
                                 </div>
                                 <div class="text-section">
-                                    <h5>🔤 Engels</h5>
+                                    <h5>🔤 English</h5>
                                     <div class="english-text">${mitzvah.translations.english || 'No English translation available'}</div>
                                 </div>
                             </div>
@@ -555,11 +557,11 @@
                             <div class="halakha-item">
                                 <h4>Halakha ${chapter.chapter}:${halakha.halakha}</h4>
                                 <div class="text-section">
-                                    <h5>🔤 Hebreeuws</h5>
-                                    <div class="hebrew-text">${halakha.translations.hebrew || 'Geen Hebreeuwse tekst beschikbaar'}</div>
+                                    <h5>🔤 Hebrew</h5>
+                                    <div class="hebrew-text">${halakha.translations.hebrew || 'No Hebrew text available'}</div>
                                 </div>
                                 <div class="text-section">
-                                    <h5>🔤 Engels</h5>
+                                    <h5>🔤 English</h5>
                                     <div class="english-text">${halakha.translations.english || 'No English translation available'}</div>
                                 </div>
                             </div>
@@ -601,5 +603,6 @@
             new RambamReader();
         });
     </script>
+    <script src="/js/read-aloud.js" defer></script>
 </body>
 </html>

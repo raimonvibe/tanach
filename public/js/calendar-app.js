@@ -37,7 +37,7 @@ class JewishCalendar {
             const monthData = getCalendarData(this.currentYear, this.currentMonth + 1);
             this.calendarData[`${this.currentYear}-${this.currentMonth + 1}`] = monthData;
 
-            // Parasha, zmanim, and "Datum Info" refer to the actual current day — not day 1 of the
+            // Parasha, zmanim, and "Date Info" refer to the actual current day — not day 1 of the
             // month being shown (which caused Hebrew/Gregorian to disagree with "today" in the grid).
             const today = new Date();
             this.loadWeeklyInfo(today);
@@ -46,7 +46,7 @@ class JewishCalendar {
 
         } catch (error) {
             console.error('Error loading calendar data:', error);
-            this.showError('Kon kalender data niet laden');
+            this.showError('Could not load calendar data');
         }
     }
 
@@ -85,7 +85,7 @@ class JewishCalendar {
             const hebrewDate = getHebrewDate(targetDate);
 
             const data = {
-                gregorian: targetDate.toLocaleDateString('nl-NL'),
+                gregorian: targetDate.toLocaleDateString('en-US'),
                 hebrew: hebrewDate
             };
 
@@ -132,11 +132,11 @@ class JewishCalendar {
                 <span class="info-value">${data.havdalah || 'N/A'}</span>
             </div>
             <div class="info-item">
-                <span class="info-label">Zonsopgang:</span>
+                <span class="info-label">Sunrise:</span>
                 <span class="info-value">${data.sunrise || 'N/A'}</span>
             </div>
             <div class="info-item">
-                <span class="info-label">Zonsondergang:</span>
+                <span class="info-label">Sunset:</span>
                 <span class="info-value">${data.sunset || 'N/A'}</span>
             </div>
         `;
@@ -146,15 +146,15 @@ class JewishCalendar {
         const container = document.getElementById('hebrewDateInfo');
         container.innerHTML = `
             <div class="info-item">
-                <span class="info-label">Gregoriaans:</span>
+                <span class="info-label">Gregorian:</span>
                 <span class="info-value">${data.gregorian || 'N/A'}</span>
             </div>
             <div class="info-item">
-                <span class="info-label">Joods (Latijns):</span>
+                <span class="info-label">Hebrew (Latin):</span>
                 <span class="info-value" style="font-size: 1.1rem; font-weight: bold; color: #667eea;">${data.hebrew.display || 'N/A'}</span>
             </div>
             <div class="info-item">
-                <span class="info-label">Joods Jaar:</span>
+                <span class="info-label">Hebrew Year:</span>
                 <span class="info-value">${data.hebrew.year || 'N/A'}</span>
             </div>
         `;
@@ -165,8 +165,8 @@ class JewishCalendar {
         const title = document.getElementById('calendarTitle');
 
         const monthNames = [
-            'Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni',
-            'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December'
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
         ];
 
         // Get Hebrew month name if available
@@ -208,7 +208,7 @@ class JewishCalendar {
     renderMonthView() {
         const monthData = this.calendarData[`${this.currentYear}-${this.currentMonth + 1}`];
         if (!monthData) {
-            return '<div class="error">Geen data beschikbaar voor deze maand</div>';
+            return '<div class="error">No data available for this month</div>';
         }
 
         const firstDay = new Date(this.currentYear, this.currentMonth, 1);
@@ -273,11 +273,11 @@ class JewishCalendar {
 
                 // Fallback for Shabbat if no data
                 if (!dayEvents && isShabbat) {
-                    dayEvents = '<div class="event shabbat">Sjabbat</div>';
+                    dayEvents = '<div class="event shabbat">Shabbat</div>';
                 }
 
                 // Get month names
-                const monthNames = ['Jan', 'Feb', 'Mrt', 'Apr', 'Mei', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'];
+                const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
                 const europeanMonth = monthNames[currentDate.getMonth()];
 
                 // Extract just the day number from hebrewDateInfo.display

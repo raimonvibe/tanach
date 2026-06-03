@@ -13,6 +13,17 @@ const AMSTERDAM = Location.lookup('Amsterdam') || new Location(
 );
 
 /**
+ * Gregorian date as YYYY-MM-DD in the user's local timezone.
+ * Avoids UTC day-shift bugs from Date#toISOString() for calendar cells near midnight.
+ */
+export function formatLocalDateKey(d) {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+}
+
+/**
  * Get weekly Torah reading, Haftarah, and Rosh Chodesh info
  */
 export function getWeeklyInfo(date = null) {
@@ -174,7 +185,7 @@ export function getTimes(date = null) {
                 hour: '2-digit',
                 minute: '2-digit'
             }) : 'N/A',
-            location: 'Amsterdam, Nederland',
+            location: 'Amsterdam, Netherlands',
             nextShabbat: saturdayDate.toLocaleDateString('nl-NL')
         };
     } catch (error) {
@@ -184,7 +195,7 @@ export function getTimes(date = null) {
             havdalah: 'Error',
             sunrise: 'Error',
             sunset: 'Error',
-            location: 'Amsterdam, Nederland',
+            location: 'Amsterdam, Netherlands',
             nextShabbat: 'Error'
         };
     }
@@ -266,7 +277,7 @@ export function getCalendarData(year, month) {
 
             days.push({
                 day: day,
-                date: date.toISOString().split('T')[0],
+                date: formatLocalDateKey(date),
                 hebrewDate: hebrewDate,
                 isToday: isToday(date),
                 isShabbat: date.getDay() === 6,
@@ -294,11 +305,11 @@ export function getCalendarData(year, month) {
  */
 function getDayEventsFromHebcal(date, allEvents) {
     const events = [];
-    const dateString = date.toISOString().split('T')[0];
+    const dateString = formatLocalDateKey(date);
 
     for (const ev of allEvents) {
         const evDate = ev.getDate().greg();
-        const evDateString = evDate.toISOString().split('T')[0];
+        const evDateString = formatLocalDateKey(evDate);
 
         if (evDateString === dateString) {
             const desc = ev.getDesc();

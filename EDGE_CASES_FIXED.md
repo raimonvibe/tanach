@@ -1,58 +1,58 @@
-# Edge Cases Gefixed
+# Edge Cases Fixed
 
-## Nieuwe Validaties Toegevoegd:
+## New validations added:
 
-### 1. Whitespace Normalisatie
-- ✅ Meerdere spaces → enkele space
+### 1. Whitespace normalization
+- ✅ Multiple spaces → single space
 - ✅ Tabs → spaces
 - ✅ Newlines → spaces
-- ✅ HTML entities (&nbsp;, &amp;, etc.) → normale karakters
+- ✅ HTML entities (&nbsp;, &amp;, etc.) → normal characters
 
-### 2. Verse Nummer Validatie
-- ✅ Verse nummers moeten >= 1 zijn
-- ✅ Verse ranges mogen niet reversed zijn (10-5 is invalid)
-- ✅ Verse 0 wordt afgevangen
-- ✅ Negatieve verse nummers worden afgevangen
+### 2. Verse number validation
+- ✅ Verse numbers must be >= 1
+- ✅ Verse ranges cannot be reversed (10-5 is invalid)
+- ✅ Verse 0 is caught
+- ✅ Negative verse numbers are caught
 
-### 3. Cross-Chapter Range Validatie
+### 3. Cross-chapter range validation
 - ✅ End chapter >= start chapter
-- ✅ Als zelfde chapter, end verse >= start verse
-- ✅ Alle nummers moeten positief zijn
+- ✅ If same chapter, end verse >= start verse
+- ✅ All numbers must be positive
 
-### 4. HTML Content Handling
-- ✅ HTML tags worden verwijderd uit display text
-- ✅ HTML entities worden gedecodeerd
-- ✅ Whitespace wordt genormaliseerd
+### 4. HTML content handling
+- ✅ HTML tags are removed from display text
+- ✅ HTML entities are decoded
+- ✅ Whitespace is normalized
 
-### 5. Sefaria URL Parsing Verbeteringen
-- ✅ Handelt full URLs en relative paths af
+### 5. Sefaria URL parsing improvements
+- ✅ Handles full URLs and relative paths
 - ✅ Roman numerals in book names (I_Kings → I Kings)
-- ✅ Error handling voor malformed URLs
-- ✅ Validatie van chapter nummers
+- ✅ Error handling for malformed URLs
+- ✅ Validation of chapter numbers
 
-### 6. Edge Cases Afgehandeld
-- ✅ Lege strings
-- ✅ Alleen whitespace
-- ✅ Alleen nummers (geen book name)
+### 6. Edge cases handled
+- ✅ Empty strings
+- ✅ Whitespace only
+- ✅ Numbers only (no book name)
 - ✅ Incomplete references (Genesis 1:, Genesis 1:1-)
-- ✅ Speciale karakters
-- ✅ URL encoding voor book IDs
+- ✅ Special characters
+- ✅ URL encoding for book IDs
 
-## Nog Te Valideren (Requires Book Data Loading):
+## Still to validate (requires book data loading):
 
-### Verse Limits Per Chapter
-- ⚠️ "Genesis 1:100" zou moeten falen (hoofdstuk 1 heeft maar 31 verzen)
-- ⚠️ Dit vereist het laden van boek data om te valideren
-- 💡 Kan worden toegevoegd in `generateReaderLink()` door async book data te laden
-- 💡 Of in `loadChapter()` in reader.js waar data al geladen is
+### Verse limits per chapter
+- ⚠️ "Genesis 1:100" should fail (chapter 1 has only 31 verses)
+- ⚠️ This requires loading book data to validate
+- 💡 Can be added in `generateReaderLink()` by loading book data asynchronously
+- 💡 Or in `loadChapter()` in reader.js where data is already loaded
 
-### Cross-Chapter Verse Validation
-- ⚠️ "Genesis 1:1-2:100" zou moeten falen als hoofdstuk 2 maar 25 verzen heeft
-- 💡 Vereist validatie tegen beide hoofdstukken
+### Cross-chapter verse validation
+- ⚠️ "Genesis 1:1-2:100" should fail if chapter 2 has only 25 verses
+- 💡 Requires validation against both chapters
 
-## Aanbevelingen Voor Toekomst:
+## Recommendations for the future:
 
-1. **Async Verse Validation**: Laad boek data in `generateReaderLink()` om verse limits te valideren
-2. **Caching**: Cache verse limits per hoofdstuk voor snellere validatie
-3. **User Feedback**: Toon betere error messages aan gebruikers in plaats van alleen console warnings
-4. **Fallback Links**: Als verse range invalid is, link naar hoofdstuk in plaats van foutmelding
+1. **Async verse validation**: Load book data in `generateReaderLink()` to validate verse limits
+2. **Caching**: Cache verse limits per chapter for faster validation
+3. **User feedback**: Show better error messages to users instead of console warnings only
+4. **Fallback links**: If a verse range is invalid, link to the chapter instead of showing an error

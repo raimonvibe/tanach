@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +8,7 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/jewish-bible.ico">
     <link rel="shortcut icon" type="image/x-icon" href="/jewish-bible.ico">
+    <link rel="stylesheet" href="/css/read-aloud.css">
 
     <!-- Apple Touch Icon for iOS home screen -->
     <link rel="apple-touch-icon" href="/jewish-bible.png">
@@ -19,10 +20,10 @@
 
     <!-- Open Graph meta tags -->
     <meta property="og:title" content="Talmud Reader">
-    <meta property="og:description" content="Lees de Babylonische Talmud online">
+    <meta property="og:description" content="Read the Babylonian Talmud online">
     <meta property="og:image" content="https://tanach.vercel.app/jewish-bible.png">
     <meta property="og:type" content="website">
-    <meta name="description" content="Lees de Babylonische Talmud online in Hebreeuws en Engels">
+    <meta name="description" content="Read the Babylonian Talmud online in Hebrew and English">
     <meta name="theme-color" content="#667eea">
     <style>
         * {
@@ -239,8 +240,8 @@
             <div class="nav-links">
                 <a href="/">🏠 Home</a>
                 <a href="/reader.html">📕 Tanach</a>
-                <a href="/readings.html">📚 Lezingen</a>
-                <a href="/calendar.html">📅 Kalender</a>
+                <a href="/readings.html">📚 Readings</a>
+                <a href="/calendar.html">📅 Calendar</a>
             </div>
         </div>
     </div>
@@ -249,20 +250,20 @@
         <div class="tractate-info" id="tractateInfo">
             <div class="loading">
                 <div class="spinner"></div>
-                Tractaat wordt geladen...
+                Loading tractate...
             </div>
         </div>
 
         <div class="page-navigation" id="pageNavigation" style="display: none;">
-            <button id="prevBtn">← Vorige</button>
+            <button id="prevBtn">← Previous</button>
             <select id="pageSelect"></select>
-            <button id="nextBtn">Volgende →</button>
+            <button id="nextBtn">Next →</button>
         </div>
 
-        <div class="content-area" id="contentArea">
+        <div class="content-area" id="contentArea" data-read-aloud-block>
             <div class="loading">
                 <div class="spinner"></div>
-                Bladzijde wordt geladen...
+                Loading page...
             </div>
         </div>
     </div>
@@ -281,7 +282,7 @@
                 const page = params.get('page');
 
                 if (!tractate) {
-                    this.showError('Geen tractaat opgegeven. Gebruik ?tractate=naam&page=2a');
+                    this.showError('No tractate specified. Use ?tractate=name&page=2a');
                     return;
                 }
 
@@ -306,16 +307,16 @@
                     if (!response.ok) {
                         // Provide helpful error message
                         if (response.status === 404) {
-                            throw new Error(`Tractaat "${tractateName}" niet gevonden in onze collectie. De Babylonische Talmud heeft 63 tractaten; we bieden er nog maar een deel offline aan. Dit tractaat is mogelijk nog niet geïmporteerd.`);
+                            throw new Error(`Tractate "${tractateName}" not found in our collection. The Babylonian Talmud has 63 tractates; we only offer a subset offline. This tractate may not have been imported yet.`);
                         }
-                        throw new Error(`Fout bij het laden: HTTP ${response.status}`);
+                        throw new Error(`Error loading: HTTP ${response.status}`);
                     }
 
                     this.tractateData = await response.json();
                     this.renderTractateInfo();
 
                 } catch (error) {
-                    this.showError(`Fout bij het laden van tractaat: ${error.message}`);
+                    this.showError(`Error loading tractate: ${error.message}`);
                 }
             }
 
@@ -324,7 +325,7 @@
 
                 document.getElementById('tractateInfo').innerHTML = `
                     <h2>${this.tractateData.name}</h2>
-                    <p>Type: ${this.tractateData.type} | Totaal bladzijden: ${this.tractateData.metadata.totalPages}</p>
+                    <p>Type: ${this.tractateData.type} | Total pages: ${this.tractateData.metadata.totalPages}</p>
                 `;
             }
 
@@ -337,7 +338,7 @@
                 this.tractateData.pages.forEach((page, index) => {
                     const option = document.createElement('option');
                     option.value = index;
-                    option.textContent = `Bladzijde ${page.page}`;
+                    option.textContent = `Page ${page.page}`;
                     pageSelect.appendChild(option);
                 });
 
@@ -366,16 +367,17 @@
 
             renderPage() {
                 if (!this.tractateData) return;
+                window.dispatchEvent(new Event('read-aloud-stop'));
 
                 const page = this.tractateData.pages[this.currentPageIndex];
 
                 document.getElementById('contentArea').innerHTML = `
                     <div class="text-section">
-                        <h3>🔤 Hebreeuws - דף ${page.page}</h3>
-                        <div class="hebrew-text">${page.content.hebrew || 'Geen Hebreeuwse tekst beschikbaar'}</div>
+                        <h3>🔤 Hebrew - דף ${page.page}</h3>
+                        <div class="hebrew-text">${page.content.hebrew || 'No Hebrew text available'}</div>
                     </div>
                     <div class="text-section">
-                        <h3>🔤 Engels</h3>
+                        <h3>🔤 English</h3>
                         <div class="english-text">${page.content.english || 'No English translation available'}</div>
                     </div>
                 `;
@@ -405,5 +407,6 @@
             new TalmudReader();
         });
     </script>
+    <script src="/js/read-aloud.js" defer></script>
 </body>
 </html>
