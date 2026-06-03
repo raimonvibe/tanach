@@ -526,6 +526,33 @@ html[data-color-mode="dark"] .reading-card.yearly .reading-link {
   color: var(--color-accent-yearly) !important;
 }
 
+html[data-color-mode="dark"] .reading-item {
+  background: var(--color-surface-raised) !important;
+  color: var(--color-text) !important;
+}
+
+html[data-color-mode="dark"] .reading-item .reading-text {
+  color: var(--color-text) !important;
+}
+
+html[data-color-mode="dark"] .date-selector label {
+  color: var(--color-primary) !important;
+}
+
+html[data-color-mode="dark"] .day-cell.holiday {
+  background: rgba(255, 183, 77, 0.14) !important;
+  border-left-color: var(--color-accent-holiday) !important;
+}
+
+html[data-color-mode="dark"] .day-cell.shabbat {
+  background: rgba(206, 147, 216, 0.14) !important;
+  border-left-color: var(--color-accent-shabbat) !important;
+}
+
+html[data-color-mode="dark"] .calendar-grid {
+  background: var(--color-border) !important;
+}
+
 html[data-color-mode="dark"] .halakha-item,
 html[data-color-mode="dark"] .halakha-block,
 html[data-color-mode="dark"] .mishnah-item,

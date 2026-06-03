@@ -5,6 +5,31 @@
 
 import { getBook, getAllBooks, getChapter } from './books-service.js';
 
+const CATEGORY_META = {
+    torah: {
+        optgroup: 'Torah',
+        name: 'Torah (The Five Books of Moses)',
+        description: 'The first five books of the Tanach',
+    },
+    neviim: {
+        optgroup: 'Nevi\'im',
+        name: 'Nevi\'im (The Prophets)',
+        description: 'The historical and prophetic books',
+    },
+    trei_asara: {
+        optgroup: 'Trei Asar',
+        name: 'Trei Asar (The Twelve Minor Prophets)',
+        description: 'The twelve minor prophets',
+    },
+    ketuvim: {
+        optgroup: 'Ketuvim',
+        name: 'Ketuvim (The Writings)',
+        description: 'Wisdom, poetry, and historical books',
+    },
+};
+
+const CATEGORY_ORDER = ['torah', 'neviim', 'trei_asara', 'ketuvim'];
+
 // Global state
 let currentBook = null;
 let currentChapter = 1;
@@ -65,9 +90,11 @@ async function init() {
                 }
             }
         } else {
-            console.log('[Reader] No book/category in URL, loading book selector');
-            await loadBookSelector();
+            console.log('[Reader] No book/category in URL, loading book catalog');
+            await showBookCatalog({ updateHistory: false });
         }
+
+        setupCatalogNavigation();
         
         console.log('[Reader] ===== INIT COMPLETED =====');
     } catch (error) {
@@ -93,44 +120,147 @@ async function init() {
                 await loadChapter(currentChapter);
             }
         } else {
-            await loadBookSelector();
+            await showBookCatalog({ updateHistory: false });
         }
     });
 }
 
+function setupCatalogNavigation() {
+    const bookInfo = document.getElementById('bookInfo');
+    if (!bookInfo || bookInfo.dataset.catalogNavBound) return;
+    bookInfo.dataset.catalogNavBound = '1';
+    bookInfo.addEventListener('click', (event) => {
+        const link = event.target.closest('[data-book-id][data-book-category]');
+        if (!link) return;
+        event.preventDefault();
+        navigateToBook(link.dataset.bookId, link.dataset.bookCategory);
+    });
+}
+
+function syncBookSelector() {
+    const selector = document.getElementById('bookSelector');
+    if (!selector) return;
+    if (currentBook && currentCategory) {
+        selector.value = `${currentBook.id}|${currentCategory}`;
+    } else {
+        selector.value = '';
+    }
+}
+
+function renderBookCatalogHtml(books) {
+    const grouped = Object.fromEntries(
+        CATEGORY_ORDER.map((key) => [key, books.filter((book) => book.category === key)]),
+    );
+
+    let html = `
+        <p class="book-catalog-intro">Choose a book below or use the dropdown above.</p>
+        <div class="book-catalog">
+    `;
+
+    for (const categoryKey of CATEGORY_ORDER) {
+        const categoryBooks = grouped[categoryKey];
+        if (!categoryBooks.length) continue;
+        const meta = CATEGORY_META[categoryKey];
+        html += `
+            <div class="category">
+                <h3>${meta.name}</h3>
+                <p>${meta.description}</p>
+                <ul class="books-list">
+                    ${categoryBooks
+                        .map(
+                            (book) => `
+                        <li>
+                            <a href="/reader.html?book=${encodeURIComponent(book.id)}&category=${encodeURIComponent(categoryKey)}"
+                               data-book-id="${book.id}"
+                               data-book-category="${categoryKey}">
+                                ${book.name} (${book.chapters.length} chapters)
+                            </a>
+                        </li>
+                    `,
+                        )
+                        .join('')}
+                </ul>
+            </div>
+        `;
+    }
+
+    html += '</div>';
+    return html;
+}
+
+async function populateBookSelector() {
+    allBooks = await getAllBooks();
+    const selector = document.getElementById('bookSelector');
+    if (!selector) return;
+
+    selector.innerHTML = '<option value="">Select a book...</option>';
+
+    for (const categoryKey of CATEGORY_ORDER) {
+        const categoryBooks = allBooks.filter((book) => book.category === categoryKey);
+        if (!categoryBooks.length) continue;
+
+        const optgroup = document.createElement('optgroup');
+        optgroup.label = CATEGORY_META[categoryKey].optgroup;
+        categoryBooks.forEach((book) => {
+            const option = document.createElement('option');
+            option.value = `${book.id}|${categoryKey}`;
+            option.textContent = book.name;
+            optgroup.appendChild(option);
+        });
+        selector.appendChild(optgroup);
+    }
+}
+
+async function showBookCatalog(options = {}) {
+    const { updateHistory = true } = options;
+
+    window.dispatchEvent(new Event('read-aloud-stop'));
+    currentBook = null;
+    currentCategory = null;
+    currentChapter = 1;
+
+    const bookTitleEl = document.getElementById('bookTitle');
+    const bookInfoEl = document.getElementById('bookInfo');
+    const chapterNav = document.getElementById('chapterNav');
+    const contentArea = document.getElementById('contentArea');
+
+    if (bookTitleEl) bookTitleEl.textContent = 'Tanach Reader';
+    if (chapterNav) chapterNav.style.display = 'none';
+    if (contentArea) contentArea.style.display = 'none';
+
+    if (bookInfoEl) {
+        bookInfoEl.innerHTML = '<div class="loading">Loading books...</div>';
+    }
+
+    try {
+        await populateBookSelector();
+        syncBookSelector();
+        if (bookInfoEl) {
+            bookInfoEl.innerHTML = renderBookCatalogHtml(allBooks);
+        }
+        if (updateHistory && window.location.search) {
+            window.history.pushState({}, '', window.location.pathname);
+        }
+    } catch (error) {
+        console.error('[Reader] Error loading book catalog:', error);
+        if (bookInfoEl) {
+            bookInfoEl.innerHTML = `<div class="error">Could not load books: ${error.message}</div>`;
+        }
+    }
+}
+
 /**
- * Load the book selector dropdown
+ * @deprecated Use showBookCatalog() — kept as alias for clarity in older call sites.
  */
 async function loadBookSelector() {
-    try {
-        allBooks = await getAllBooks();
-        const selector = document.getElementById('bookSelector');
-        selector.innerHTML = '<option value="">Select a book...</option>';
+    await showBookCatalog({ updateHistory: false });
+}
 
-        const categories = ['torah', 'neviim', 'ketuvim'];
-        const categoryLabels = {
-            torah: 'Torah',
-            neviim: 'Neviim',
-            ketuvim: 'Ketuvim'
-        };
-
-        categories.forEach(category => {
-            const categoryBooks = allBooks.filter(book => book.category === category);
-            if (categoryBooks.length > 0) {
-                const optgroup = document.createElement('optgroup');
-                optgroup.label = categoryLabels[category];
-                categoryBooks.forEach(book => {
-                    const option = document.createElement('option');
-                    option.value = `${book.id}|${category}`;
-                    option.textContent = book.name;
-                    optgroup.appendChild(option);
-                });
-                selector.appendChild(optgroup);
-            }
-        });
-    } catch (error) {
-        console.error('Error loading books:', error);
-    }
+async function navigateToBook(bookId, category, chapter = 1) {
+    currentChapter = chapter;
+    await loadBook(bookId, category);
+    syncBookSelector();
+    updateURL(currentChapter);
 }
 
 /**
@@ -189,6 +319,8 @@ async function loadBook(bookId, category) {
         if (contentArea) {
             contentArea.style.display = 'block';
         }
+
+        syncBookSelector();
 
         // Load chapter - either from URL or first chapter
         if (currentChapter && currentChapter >= 1 && currentChapter <= currentBook.chapters.length) {
@@ -435,13 +567,14 @@ async function changeBook() {
     window.dispatchEvent(new Event('read-aloud-stop'));
     const selector = document.getElementById('bookSelector');
     const value = selector.value;
-    if (value) {
-        const [bookId, category] = value.split('|');
-        currentChapter = 1; // Reset to first chapter
-        await loadBook(bookId, category);
-        // Update URL for new book
-        updateURL(1);
+    if (!value) {
+        await showBookCatalog();
+        return;
     }
+    const [bookId, category] = value.split('|');
+    currentChapter = 1;
+    await loadBook(bookId, category);
+    updateURL(1);
 }
 
 /**
@@ -452,10 +585,10 @@ function toggleVerseNumbers() {
     const toggleBtn = document.getElementById('toggleVerseNumbers');
     if (toggleBtn) {
         if (showVerseNumbers) {
-            toggleBtn.textContent = 'Verberg versnummers';
+            toggleBtn.textContent = 'Hide verse numbers';
             toggleBtn.classList.add('active');
         } else {
-            toggleBtn.textContent = 'Toon versnummers';
+            toggleBtn.textContent = 'Verse numbers';
             toggleBtn.classList.remove('active');
         }
     }
