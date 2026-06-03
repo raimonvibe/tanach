@@ -68,7 +68,9 @@ Ensure the project uses **Node.js 20** (Project Settings → General → Node.js
 Workflow: `.github/workflows/vercel-deploy.yml`
 
 - **Always runs:** `npm run build` on every push to `main` (CI passes without Vercel credentials).
-- **Deploy step:** runs only when all three secrets below are set. If they are missing, the workflow still succeeds and only the build job runs.
+- **Deploy job:** skipped on push unless you enable it (see below). You can also run deploy manually via **Actions** → **Deploy to Vercel** → **Run workflow**.
+
+**1. Repository secrets** (Settings → Secrets and variables → Actions):
 
 | Secret | Where to find it |
 |--------|------------------|
@@ -76,9 +78,15 @@ Workflow: `.github/workflows/vercel-deploy.yml`
 | `VERCEL_ORG_ID` | Vercel → Account/Team Settings → General (Team ID) |
 | `VERCEL_PROJECT_ID` | Project → Settings → General → Project ID |
 
-Add them under GitHub → repo **Settings** → **Secrets and variables** → **Actions** → **New repository secret**.
+**2. Repository variable** (Settings → Secrets and variables → Actions → **Variables**):
 
-Until these exist, rely on **Vercel Git integration** (recommended above) for production deploys.
+| Variable | Value |
+|----------|--------|
+| `VERCEL_DEPLOY_ENABLED` | `true` |
+
+Set the variable only after all three secrets exist. That turns on automatic deploy on every push to `main`. Without it, only the build job runs on push (no failed deploy).
+
+Until this is configured, rely on **Vercel Git integration** (recommended above) for production deploys.
 
 ## License
 

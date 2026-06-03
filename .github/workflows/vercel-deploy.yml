@@ -1,5 +1,5 @@
-# Build on every push to main. Deploy only when Vercel secrets are configured.
-# See README "Deployment" → GitHub Actions for setup.
+# Build on every push to main. Deploy when enabled (see README).
+# GitHub does not allow `secrets` in job-level if — use repo variable VERCEL_DEPLOY_ENABLED.
 
 name: Deploy to Vercel
 
@@ -37,11 +37,9 @@ jobs:
     name: Deploy to Vercel
     runs-on: ubuntu-latest
     needs: build
-    # Skip deploy when secrets are missing (avoids vercel-action "Input required" error)
-    if: >-
-      ${{ secrets.VERCEL_TOKEN != '' &&
-          secrets.VERCEL_ORG_ID != '' &&
-          secrets.VERCEL_PROJECT_ID != '' }}
+    # Set repository variable VERCEL_DEPLOY_ENABLED=true (and add secrets) to deploy on push.
+    # workflow_dispatch always runs deploy so you can trigger manually after configuring secrets.
+    if: github.event_name == 'workflow_dispatch' || vars.VERCEL_DEPLOY_ENABLED == 'true'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
