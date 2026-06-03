@@ -1,16 +1,29 @@
-import { HDate, Location, HebrewCalendar, Event, Zmanim } from '@hebcal/core';
+import { HDate, HebrewCalendar, Event, Zmanim } from '@hebcal/core';
 import { getLeyningOnDate, formatAliyahWithBook } from '@hebcal/leyning';
+import {
+    getHebcalLocation,
+    useIsraelCalendar,
+    getDisplayLocale,
+    formatCalendarTime,
+    formatCalendarDate,
+    getLocationDisplayName,
+    getCalendarLabels,
+    setCalendarLocation,
+    getActiveLocationId,
+    getLocationPresets,
+    LOCATION_PRESETS,
+    setCustomGeoLocation,
+} from './calendar-location.js';
 
-// Configure Amsterdam location
-const AMSTERDAM = Location.lookup('Amsterdam') || new Location(
-    52.3676,            // latitude
-    4.9041,             // longitude
-    false,              // isIsrael
-    'Europe/Amsterdam', // timezone
-    'Amsterdam',        // city name
-    'NL',               // country code
-    'nl'                // geo ID
-);
+export {
+    setCalendarLocation,
+    getActiveLocationId,
+    LOCATION_PRESETS,
+    setCustomGeoLocation,
+    getLocationDisplayName,
+    getCalendarLabels,
+    getDisplayLocale,
+};
 
 /**
  * Gregorian date as YYYY-MM-DD in the user's local timezone.
@@ -38,8 +51,8 @@ export function getWeeklyInfo(date = null) {
         const events = HebrewCalendar.calendar({
             start: saturday,
             end: saturday,
-            sedrot: true, // Include Torah readings
-            il: false,    // Diaspora calendar
+            sedrot: true,
+            il: useIsraelCalendar(),
         });
 
         let parashat = null;
@@ -57,7 +70,7 @@ export function getWeeklyInfo(date = null) {
 
                 // Get the Haftarah reading
                 try {
-                    const leyning = getLeyningOnDate(ev.getDate(), false); // false = diaspora
+                    const leyning = getLeyningOnDate(ev.getDate(), useIsraelCalendar());
                     if (leyning && leyning.haftara) {
                         const haftaraData = leyning.haftara;
                         console.log('Haftarah data:', haftaraData); // Debug log
@@ -106,8 +119,10 @@ export function getWeeklyInfo(date = null) {
 
         if (roshChodeshEvents.length > 0) {
             const nextRoshChodesh = roshChodeshEvents[0];
-            roshChodesh = nextRoshChodesh.render('en') + ' - ' +
-                         nextRoshChodesh.getDate().greg().toLocaleDateString('nl-NL');
+            roshChodesh =
+                nextRoshChodesh.render('en') +
+                ' - ' +
+                nextRoshChodesh.getDate().greg().toLocaleDateString(getDisplayLocale());
         }
 
         return {
@@ -140,13 +155,16 @@ export function getTimes(date = null) {
         const saturdayDate = saturday.greg();
 
         // Get Shabbat candle lighting and havdalah times
+        const location = getHebcalLocation();
+        const isIsrael = useIsraelCalendar();
+
         const events = HebrewCalendar.calendar({
             start: saturday,
             end: saturday,
-            location: AMSTERDAM,
+            location,
             candlelighting: true,
             havdalah: true,
-            il: false
+            il: isIsrael,
         });
 
         let candleLighting = null;
@@ -155,38 +173,23 @@ export function getTimes(date = null) {
         for (const ev of events) {
             const desc = ev.getDesc();
             if (desc === 'Candle lighting') {
-                const eventTime = ev.eventTime;
-                candleLighting = eventTime.toLocaleTimeString('nl-NL', {
-                    hour: '2-digit',
-                    minute: '2-digit'
-                });
+                candleLighting = formatCalendarTime(ev.eventTime);
             } else if (desc === 'Havdalah') {
-                const eventTime = ev.eventTime;
-                havdalah = eventTime.toLocaleTimeString('nl-NL', {
-                    hour: '2-digit',
-                    minute: '2-digit'
-                });
+                havdalah = formatCalendarTime(ev.eventTime);
             }
         }
 
-        // Calculate sunrise and sunset for target date
-        const zmanim = new Zmanim(AMSTERDAM, targetDate, false);
+        const zmanim = new Zmanim(location, targetDate, isIsrael);
         const sunrise = zmanim.sunrise();
         const sunset = zmanim.sunset();
 
         return {
             candleLighting: candleLighting || 'N/A',
             havdalah: havdalah || 'N/A',
-            sunrise: sunrise ? sunrise.toLocaleTimeString('nl-NL', {
-                hour: '2-digit',
-                minute: '2-digit'
-            }) : 'N/A',
-            sunset: sunset ? sunset.toLocaleTimeString('nl-NL', {
-                hour: '2-digit',
-                minute: '2-digit'
-            }) : 'N/A',
-            location: 'Amsterdam, Netherlands',
-            nextShabbat: saturdayDate.toLocaleDateString('nl-NL')
+            sunrise: formatCalendarTime(sunrise),
+            sunset: formatCalendarTime(sunset),
+            location: getLocationDisplayName(),
+            nextShabbat: formatCalendarDate(saturdayDate),
         };
     } catch (error) {
         console.error('Times error:', error);
@@ -195,8 +198,8 @@ export function getTimes(date = null) {
             havdalah: 'Error',
             sunrise: 'Error',
             sunset: 'Error',
-            location: 'Amsterdam, Netherlands',
-            nextShabbat: 'Error'
+            location: getLocationDisplayName(),
+            nextShabbat: 'Error',
         };
     }
 }
@@ -255,14 +258,15 @@ export function getCalendarData(year, month) {
         const lastDay = new Date(year, month - 1, daysInMonth);
 
         // Get all events for the month from Hebcal
+        const location = getHebcalLocation();
         const monthEvents = HebrewCalendar.calendar({
             start: firstDay,
             end: lastDay,
-            location: AMSTERDAM,
+            location,
             candlelighting: true,
             havdalah: true,
             sedrot: true,
-            il: false
+            il: useIsraelCalendar(),
         });
 
         const days = [];
@@ -306,6 +310,7 @@ export function getCalendarData(year, month) {
 function getDayEventsFromHebcal(date, allEvents) {
     const events = [];
     const dateString = formatLocalDateKey(date);
+    const labels = getCalendarLabels();
 
     for (const ev of allEvents) {
         const evDate = ev.getDate().greg();
@@ -337,19 +342,15 @@ function getDayEventsFromHebcal(date, allEvents) {
             events.push({
                 name: render,
                 type: eventType,
-                time: ev.eventTime ? ev.eventTime.toLocaleTimeString('nl-NL', {
-                    hour: '2-digit',
-                    minute: '2-digit'
-                }) : null
+                time: ev.eventTime ? formatCalendarTime(ev.eventTime) : null,
             });
         }
     }
 
-    // Add Shabbat if it's Saturday and not already added
-    if (date.getDay() === 6 && !events.some(e => e.type === 'shabbat')) {
+    if (date.getDay() === 6 && !events.some((e) => e.type === 'shabbat')) {
         events.push({
-            name: 'Sjabbat',
-            type: 'shabbat'
+            name: labels.shabbat,
+            type: 'shabbat',
         });
     }
 

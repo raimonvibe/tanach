@@ -47,15 +47,33 @@ npm run preview
 
 ## Deployment
 
-The site is fully static and can be hosted on:
-
-- **GitHub Pages**
-- **Netlify** — automatic deployments
-- **Vercel** — automatic deployments
-- Any static hosting service
+**Live site:** [tanach.vercel.app](https://tanach.vercel.app/)
 
 Build command: `npm run build`  
-Output directory: `dist/`
+Output directory: `dist/`  
+Node.js: **20.19+** (see `.nvmrc`)
+
+### Vercel (recommended)
+
+If pushes to `main` on GitHub do not update the live site, the Vercel ↔ GitHub link is usually disconnected.
+
+1. Open [vercel.com](https://vercel.com) → your **tanach** project → **Settings** → **Git**
+2. Connect repository `raimonvibe/tanach`, production branch **`main`**
+3. Click **Deployments** → **Redeploy** on the latest commit (or push again)
+
+Ensure the project uses **Node.js 20** (Project Settings → General → Node.js Version).
+
+### GitHub Actions (optional backup)
+
+Workflow: `.github/workflows/vercel-deploy.yml` deploys on every push to `main` when these repository secrets are set:
+
+| Secret | Where to find it |
+|--------|------------------|
+| `VERCEL_TOKEN` | Vercel → Account Settings → Tokens |
+| `VERCEL_ORG_ID` | Vercel → Account Settings → General (Team ID) |
+| `VERCEL_PROJECT_ID` | Project → Settings → General → Project ID |
+
+Add them under GitHub → repo **Settings** → **Secrets and variables** → **Actions**.
 
 ## License
 

@@ -1,4 +1,16 @@
-import { getWeeklyInfo, getTimes, getHebrewDate, getCalendarData, formatLocalDateKey } from './hebcal-service.js';
+import {
+    getWeeklyInfo,
+    getTimes,
+    getHebrewDate,
+    getCalendarData,
+    formatLocalDateKey,
+    setCalendarLocation,
+    getActiveLocationId,
+    LOCATION_PRESETS,
+    setCustomGeoLocation,
+    getLocationDisplayName,
+    getCalendarLabels,
+} from './hebcal-service.js';
 
 class JewishCalendar {
     constructor() {
@@ -7,12 +19,15 @@ class JewishCalendar {
         this.currentYear = this.currentDate.getFullYear();
         this.viewMode = 'month';
         this.calendarData = {};
+        this.labels = getCalendarLabels();
 
         this.init();
     }
 
     async init() {
         this.setupEventListeners();
+        this.populateLocationSelect();
+        this.renderLocationHeader();
         await this.loadCalendarData();
         this.renderCalendar();
     }
@@ -29,6 +44,107 @@ class JewishCalendar {
         document.getElementById('todayBtn').addEventListener('click', () => {
             this.goToToday();
         });
+
+        const locationSelect = document.getElementById('locationSelect');
+        if (locationSelect) {
+            locationSelect.addEventListener('change', (e) => {
+                this.onLocationChange(e.target.value);
+            });
+        }
+
+        const geoBtn = document.getElementById('useGeoLocation');
+        if (geoBtn) {
+            geoBtn.addEventListener('click', () => {
+                this.requestGeoLocation();
+            });
+        }
+    }
+
+    onLocationChange(locationId) {
+        if (locationId === 'geo') {
+            this.requestGeoLocation();
+            return;
+        }
+        setCalendarLocation(locationId);
+        this.labels = getCalendarLabels();
+        this.refreshAfterLocationChange();
+    }
+
+    requestGeoLocation() {
+        if (!navigator.geolocation) {
+            alert(this.labels.geoUnavailable);
+            return;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+            (pos) => {
+                setCustomGeoLocation(
+                    pos.coords.latitude,
+                    pos.coords.longitude,
+                );
+                this.labels = getCalendarLabels();
+                this.populateLocationSelect();
+                this.refreshAfterLocationChange();
+            },
+            () => {
+                alert(this.labels.geoDenied);
+                this.populateLocationSelect();
+            },
+            { enableHighAccuracy: false, timeout: 12000, maximumAge: 600000 },
+        );
+    }
+
+    async refreshAfterLocationChange() {
+        await this.loadCalendarData();
+        this.renderCalendar();
+        this.renderLocationHeader();
+    }
+
+    populateLocationSelect() {
+        const select = document.getElementById('locationSelect');
+        if (!select) return;
+
+        const activeId = getActiveLocationId();
+        const nl = getCalendarLabels().locationLabel === 'Locatie';
+
+        select.innerHTML = '';
+
+        const geoOpt = document.createElement('option');
+        geoOpt.value = 'geo';
+        geoOpt.textContent = nl ? '📍 Mijn locatie' : '📍 Use my location';
+        select.appendChild(geoOpt);
+
+        for (const preset of LOCATION_PRESETS) {
+            const opt = document.createElement('option');
+            opt.value = preset.id;
+            opt.textContent = nl ? preset.nameNl : preset.nameEn;
+            select.appendChild(opt);
+        }
+
+        select.value = activeId;
+    }
+
+    renderLocationHeader() {
+        const title = document.getElementById('timesSidebarTitle');
+        if (title) {
+            title.textContent = `🕯️ ${this.labels.timesTitle}`;
+        }
+        const weeklyTitle = document.getElementById('weeklySidebarTitle');
+        if (weeklyTitle) {
+            weeklyTitle.textContent = `📚 ${this.labels.thisMonth}`;
+        }
+        const dateTitle = document.getElementById('dateSidebarTitle');
+        if (dateTitle) {
+            dateTitle.textContent = `📅 ${this.labels.dateInfo}`;
+        }
+        const locLabel = document.querySelector('.location-label');
+        if (locLabel) {
+            locLabel.textContent = this.labels.locationLabel;
+        }
+        const geoBtn = document.getElementById('useGeoLocation');
+        if (geoBtn) {
+            geoBtn.textContent = this.labels.useMyLocation;
+        }
     }
 
     async loadCalendarData() {
@@ -85,8 +201,10 @@ class JewishCalendar {
             const hebrewDate = getHebrewDate(targetDate);
 
             const data = {
-                gregorian: targetDate.toLocaleDateString('en-US'),
-                hebrew: hebrewDate
+                gregorian: targetDate.toLocaleDateString(
+                    getCalendarLabels().gregorian === 'Gregoriaans' ? 'nl-NL' : 'en-US',
+                ),
+                hebrew: hebrewDate,
             };
 
             this.renderHebrewDateInfo(data);
@@ -106,15 +224,15 @@ class JewishCalendar {
         const container = document.getElementById('weeklyInfo');
         container.innerHTML = `
             <div class="info-item">
-                <span class="info-label">Parashat:</span>
+                <span class="info-label">${this.labels.parashat}:</span>
                 <span class="info-value">${data.parashat || 'N/A'}</span>
             </div>
             <div class="info-item">
-                <span class="info-label">Haftarah:</span>
+                <span class="info-label">${this.labels.haftarah}:</span>
                 <span class="info-value">${data.haftarah || 'N/A'}</span>
             </div>
             <div class="info-item">
-                <span class="info-label">Rosh Chodesh:</span>
+                <span class="info-label">${this.labels.roshChodesh}:</span>
                 <span class="info-value">${data.roshChodesh || 'N/A'}</span>
             </div>
         `;
@@ -122,39 +240,54 @@ class JewishCalendar {
 
     renderTimesInfo(data) {
         const container = document.getElementById('timesInfo');
+        const hintNl = getCalendarLabels().locationLabel === 'Locatie';
         container.innerHTML = `
+            <div class="info-item location-display">
+                <span class="info-label">${this.labels.locationLabel}:</span>
+                <span class="info-value">${data.location || getLocationDisplayName()}</span>
+            </div>
             <div class="info-item">
-                <span class="info-label">Candle Lighting:</span>
+                <span class="info-label">${this.labels.nextShabbat}:</span>
+                <span class="info-value">${data.nextShabbat || 'N/A'}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">${this.labels.candleLighting}:</span>
                 <span class="info-value">${data.candleLighting || 'N/A'}</span>
             </div>
             <div class="info-item">
-                <span class="info-label">Havdalah:</span>
+                <span class="info-label">${this.labels.havdalah}:</span>
                 <span class="info-value">${data.havdalah || 'N/A'}</span>
             </div>
             <div class="info-item">
-                <span class="info-label">Sunrise:</span>
+                <span class="info-label">${this.labels.sunrise}:</span>
                 <span class="info-value">${data.sunrise || 'N/A'}</span>
             </div>
             <div class="info-item">
-                <span class="info-label">Sunset:</span>
+                <span class="info-label">${this.labels.sunset}:</span>
                 <span class="info-value">${data.sunset || 'N/A'}</span>
             </div>
+            <p class="times-hint">${hintNl ? 'Tijden volgen de geselecteerde locatie (HebCal).' : 'Times are calculated for the selected location (HebCal).'}</p>
         `;
     }
 
     renderHebrewDateInfo(data) {
         const container = document.getElementById('hebrewDateInfo');
+        const gregorian =
+            data.gregorian ||
+            new Date().toLocaleDateString(
+                getCalendarLabels().gregorian === 'Gregoriaans' ? 'nl-NL' : 'en-US',
+            );
         container.innerHTML = `
             <div class="info-item">
-                <span class="info-label">Gregorian:</span>
-                <span class="info-value">${data.gregorian || 'N/A'}</span>
+                <span class="info-label">${this.labels.gregorian}:</span>
+                <span class="info-value">${gregorian}</span>
             </div>
             <div class="info-item">
-                <span class="info-label">Hebrew (Latin):</span>
+                <span class="info-label">${this.labels.hebrewLatin}:</span>
                 <span class="info-value" style="font-size: 1.1rem; font-weight: bold; color: #667eea;">${data.hebrew.display || 'N/A'}</span>
             </div>
             <div class="info-item">
-                <span class="info-label">Hebrew Year:</span>
+                <span class="info-label">${this.labels.hebrewYear}:</span>
                 <span class="info-value">${data.hebrew.year || 'N/A'}</span>
             </div>
         `;
@@ -273,7 +406,7 @@ class JewishCalendar {
 
                 // Fallback for Shabbat if no data
                 if (!dayEvents && isShabbat) {
-                    dayEvents = '<div class="event shabbat">Shabbat</div>';
+                    dayEvents = `<div class="event shabbat">${this.labels.shabbat}</div>`;
                 }
 
                 // Get month names

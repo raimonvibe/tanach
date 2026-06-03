@@ -351,6 +351,56 @@
             font-weight: bold;
         }
 
+        .location-controls {
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .location-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .location-select {
+            width: 100%;
+            padding: 0.5rem 0.65rem;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+            font-size: 0.9rem;
+            background: white;
+            color: #333;
+        }
+
+        .geo-btn {
+            padding: 0.45rem 0.75rem;
+            border-radius: 8px;
+            border: 1px solid #667eea;
+            background: rgba(102, 126, 234, 0.08);
+            color: #667eea;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .geo-btn:hover {
+            background: rgba(102, 126, 234, 0.18);
+        }
+
+        .times-hint {
+            margin-top: 0.75rem;
+            font-size: 0.75rem;
+            color: #888;
+            line-height: 1.35;
+        }
+
+        .location-display .info-value {
+            font-weight: 600;
+        }
+
         .info-item {
             display: flex;
             justify-content: space-between;
@@ -678,21 +728,28 @@
         </div>
 
         <div class="sidebar">
-            <h3>📚 This Month</h3>
+            <h3 id="weeklySidebarTitle">📚 This Month</h3>
             <div id="weeklyInfo">
                 <div class="loading">Loading weekly information...</div>
             </div>
         </div>
 
         <div class="sidebar">
-            <h3>📅 Date Info</h3>
+            <h3 id="dateSidebarTitle">📅 Date Info</h3>
             <div id="hebrewDateInfo">
                 <div class="loading">Loading Hebrew date...</div>
             </div>
         </div>
 
-        <div class="sidebar">
-            <h3>🕯️ Times</h3>
+        <div class="sidebar sidebar-times">
+            <h3 id="timesSidebarTitle">🕯️ Times</h3>
+            <div class="location-controls">
+                <label class="location-label" for="locationSelect">Location</label>
+                <select id="locationSelect" class="location-select" aria-label="City for Shabbat times">
+                    <option value="amsterdam">Amsterdam, Netherlands</option>
+                </select>
+                <button type="button" id="useGeoLocation" class="geo-btn">Use my location</button>
+            </div>
             <div id="timesInfo">
                 <div class="loading">Loading times...</div>
             </div>

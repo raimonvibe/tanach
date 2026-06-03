@@ -20,6 +20,9 @@
     "clean:invalid": "node src/scripts/clean-invalid-pages.js",
     "test": "jest"
   },
+  "engines": {
+    "node": ">=20.19.0"
+  },
   "keywords": [
     "tanach",
     "bible",
