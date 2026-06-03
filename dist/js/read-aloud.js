@@ -11,8 +11,15 @@
     'h1, h2, h3, h4, p, li, blockquote, .verse, .reading-text, .hebrew-text, .english-text, .result-item, .result-hebrew, .result-english, .halakha-item, .stats';
   const IGNORE_ANCESTOR =
     '[data-read-aloud-ignore], nav, footer, header, button, .nav-links, .language-tabs, .date-selector, .header-content, .chapter-nav, .book-selector, .location-controls';
-  const MAIN_ROOT_SELECTORS =
-    '#main-content, #readingsContainer, #contentArea, .main-container, #tabContent, .main-content, .container';
+  const MAIN_ROOT_SELECTORS = [
+    '#main-content',
+    '#readingsContainer',
+    '#contentArea',
+    '.main-container',
+    '#tabContent',
+    '.main-content',
+    '.container',
+  ];
   const SPEEDS = [0.75, 1, 1.25, 1.5];
 
   let selectionCache = null;
