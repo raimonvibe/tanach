@@ -380,15 +380,15 @@ app.get('/api/calendar/times', async (req, res) => {
 
         // Get the next Shabbat
         const saturday = hd.onOrAfter(6); // 6 = Saturday
+        const friday = saturday.before(1);
         const saturdayDate = saturday.greg();
 
         // Get Shabbat candle lighting and havdalah times
         const events = HebrewCalendar.calendar({
-            start: saturday,
+            start: friday,
             end: saturday,
             location: AMSTERDAM,
             candlelighting: true,
-            havdalah: true,
             il: false
         });
 

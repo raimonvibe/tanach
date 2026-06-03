@@ -150,8 +150,9 @@ export function getTimes(date = null) {
         const targetDate = date || new Date();
         const hd = new HDate(targetDate);
 
-        // Get the next Shabbat from the target date
+        // Candle lighting is Friday eve; havdalah is Saturday night — need both days
         const saturday = hd.onOrAfter(6); // 6 = Saturday
+        const friday = saturday.before(1);
         const saturdayDate = saturday.greg();
 
         // Get Shabbat candle lighting and havdalah times
@@ -159,11 +160,10 @@ export function getTimes(date = null) {
         const isIsrael = useIsraelCalendar();
 
         const events = HebrewCalendar.calendar({
-            start: saturday,
+            start: friday,
             end: saturday,
             location,
             candlelighting: true,
-            havdalah: true,
             il: isIsrael,
         });
 
