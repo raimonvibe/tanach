@@ -1,4 +1,4 @@
-# Tanach Reader
+#  Tanach Reader
 
 ![Jewish Bible](public/jewish-bible.png)
 
