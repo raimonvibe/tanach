@@ -1,0 +1,543 @@
+/**
+ * Site-wide light/dark themes — Tanach (purple), Rambam (orange), Mishnah (green).
+ * Toggle via data-color-mode on <html>; book accent via data-theme.
+ */
+
+/* ── Tanach (default) ───────────────────────────────────────────── */
+html[data-theme="tanach"] {
+  --color-primary: #667eea;
+  --color-primary-hover: #5a6fd8;
+  --color-primary-soft: rgba(102, 126, 234, 0.15);
+  --color-primary-ring: rgba(102, 126, 234, 0.45);
+  --color-secondary: #764ba2;
+  --gradient-header: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-body: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-stats: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --color-bg-page: #667eea;
+  --color-bg-page-flat: #f8f9fa;
+  --color-surface: #ffffff;
+  --color-surface-raised: #f8f9fa;
+  --color-surface-muted: #f0f0f0;
+  --color-border: #e9ecef;
+  --color-border-strong: #dee2e6;
+  --color-text: #333333;
+  --color-text-muted: #666666;
+  --color-text-faint: #888888;
+  --color-on-primary: #ffffff;
+  --color-link: #333333;
+  --color-link-hover-bg: #e9ecef;
+  --color-input-bg: #ffffff;
+  --color-input-border: #dddddd;
+  --color-error-bg: #ffebee;
+  --color-error-text: #c62828;
+  --color-highlight-active: rgba(255, 243, 205, 0.95);
+  --color-accent-weekly: #9c27b0;
+  --color-accent-daily: #4caf50;
+  --color-accent-yearly: #ff9800;
+  --color-accent-shabbat: #9c27b0;
+  --color-accent-holiday: #ff9800;
+  --color-accent-parashat: #4caf50;
+  --shadow-card: 0 20px 40px rgba(0, 0, 0, 0.1);
+  --shadow-card-sm: 0 5px 15px rgba(0, 0, 0, 0.1);
+  --shadow-header: 0 2px 10px rgba(0, 0, 0, 0.1);
+  --meta-theme-color: #667eea;
+}
+
+html[data-theme="tanach"][data-color-mode="dark"] {
+  --color-primary: #8b9cf7;
+  --color-primary-hover: #a5b4fc;
+  --color-primary-soft: rgba(139, 156, 247, 0.2);
+  --color-primary-ring: rgba(139, 156, 247, 0.5);
+  --color-secondary: #b794f6;
+  --gradient-header: linear-gradient(135deg, #4c5fd5 0%, #6b3fa0 100%);
+  --gradient-body: linear-gradient(165deg, #12152a 0%, #1e2348 40%, #2a1f4a 100%);
+  --gradient-stats: linear-gradient(135deg, #4c5fd5 0%, #6b3fa0 100%);
+  --color-bg-page: #12152a;
+  --color-bg-page-flat: #12152a;
+  --color-surface: #1e2438;
+  --color-surface-raised: #252d45;
+  --color-surface-muted: #2f3854;
+  --color-border: #3d4663;
+  --color-border-strong: #4a5578;
+  --color-text: #e8eaef;
+  --color-text-muted: #a8b0c4;
+  --color-text-faint: #7a849c;
+  --color-on-primary: #ffffff;
+  --color-link: #d4daf0;
+  --color-link-hover-bg: #2f3854;
+  --color-input-bg: #252d45;
+  --color-input-border: #4a5578;
+  --color-error-bg: #3d2028;
+  --color-error-text: #f48fb1;
+  --color-highlight-active: rgba(139, 156, 247, 0.25);
+  --color-accent-weekly: #ce93d8;
+  --color-accent-daily: #81c784;
+  --color-accent-yearly: #ffb74d;
+  --color-accent-shabbat: #ce93d8;
+  --color-accent-holiday: #ffb74d;
+  --color-accent-parashat: #81c784;
+  --shadow-card: 0 16px 40px rgba(0, 0, 0, 0.45);
+  --shadow-card-sm: 0 4px 16px rgba(0, 0, 0, 0.35);
+  --shadow-header: 0 2px 16px rgba(0, 0, 0, 0.4);
+  --meta-theme-color: #3d4a9e;
+  color-scheme: dark;
+}
+
+/* ── Rambam (orange) ────────────────────────────────────────────── */
+html[data-theme="rambam"] {
+  --color-primary: #ff9800;
+  --color-primary-hover: #fb8c00;
+  --color-primary-soft: rgba(255, 152, 0, 0.15);
+  --color-primary-ring: rgba(255, 152, 0, 0.45);
+  --color-secondary: #f57c00;
+  --gradient-header: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+  --gradient-body: #f8f9fa;
+  --gradient-stats: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+  --color-bg-page: #f8f9fa;
+  --color-bg-page-flat: #f8f9fa;
+  --color-surface: #ffffff;
+  --color-surface-raised: #fff8e1;
+  --color-surface-muted: #fff3e0;
+  --color-border: #ffe0b2;
+  --color-border-strong: #ffcc80;
+  --color-text: #333333;
+  --color-text-muted: #666666;
+  --color-text-faint: #888888;
+  --color-on-primary: #ffffff;
+  --color-link: #333333;
+  --color-link-hover-bg: #fff3e0;
+  --color-input-bg: #ffffff;
+  --color-input-border: #ffcc80;
+  --color-error-bg: #ffebee;
+  --color-error-text: #c62828;
+  --color-highlight-active: rgba(255, 224, 178, 0.95);
+  --meta-theme-color: #ff9800;
+}
+
+html[data-theme="rambam"][data-color-mode="dark"] {
+  --color-primary: #ffb74d;
+  --color-primary-hover: #ffcc80;
+  --color-primary-soft: rgba(255, 183, 77, 0.2);
+  --color-primary-ring: rgba(255, 183, 77, 0.5);
+  --color-secondary: #ff9800;
+  --gradient-header: linear-gradient(135deg, #e65100 0%, #bf360c 100%);
+  --gradient-body: linear-gradient(165deg, #1a1208 0%, #2d1f0f 50%, #1f150a 100%);
+  --gradient-stats: linear-gradient(135deg, #e65100 0%, #bf360c 100%);
+  --color-bg-page: #1a1208;
+  --color-bg-page-flat: #1a1208;
+  --color-surface: #2a2018;
+  --color-surface-raised: #352a1e;
+  --color-surface-muted: #3d3020;
+  --color-border: #5c4a32;
+  --color-border-strong: #7a6040;
+  --color-text: #f5ebe0;
+  --color-text-muted: #c4b5a0;
+  --color-text-faint: #9a8b78;
+  --color-on-primary: #ffffff;
+  --color-link: #ffe0b2;
+  --color-link-hover-bg: #3d3020;
+  --color-input-bg: #352a1e;
+  --color-input-border: #7a6040;
+  --color-error-bg: #3d2020;
+  --color-error-text: #ffab91;
+  --color-highlight-active: rgba(255, 183, 77, 0.22);
+  --meta-theme-color: #c67600;
+  color-scheme: dark;
+}
+
+/* ── Mishnah (green) ────────────────────────────────────────────── */
+html[data-theme="mishnah"] {
+  --color-primary: #4caf50;
+  --color-primary-hover: #45a049;
+  --color-primary-soft: rgba(76, 175, 80, 0.15);
+  --color-primary-ring: rgba(76, 175, 80, 0.45);
+  --color-secondary: #388e3c;
+  --gradient-header: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+  --gradient-body: #f8f9fa;
+  --gradient-stats: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+  --color-bg-page: #f8f9fa;
+  --color-bg-page-flat: #f8f9fa;
+  --color-surface: #ffffff;
+  --color-surface-raised: #e8f5e9;
+  --color-surface-muted: #f1f8e9;
+  --color-border: #c8e6c9;
+  --color-border-strong: #a5d6a7;
+  --color-text: #333333;
+  --color-text-muted: #666666;
+  --color-text-faint: #888888;
+  --color-on-primary: #ffffff;
+  --color-link: #333333;
+  --color-link-hover-bg: #e8f5e9;
+  --color-input-bg: #ffffff;
+  --color-input-border: #a5d6a7;
+  --color-error-bg: #ffebee;
+  --color-error-text: #c62828;
+  --color-highlight-active: rgba(200, 230, 201, 0.95);
+  --meta-theme-color: #4caf50;
+}
+
+html[data-theme="mishnah"][data-color-mode="dark"] {
+  --color-primary: #81c784;
+  --color-primary-hover: #a5d6a7;
+  --color-primary-soft: rgba(129, 199, 132, 0.2);
+  --color-primary-ring: rgba(129, 199, 132, 0.5);
+  --color-secondary: #66bb6a;
+  --gradient-header: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+  --gradient-body: linear-gradient(165deg, #0d140e 0%, #142218 50%, #0f1a12 100%);
+  --gradient-stats: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+  --color-bg-page: #0d140e;
+  --color-bg-page-flat: #0d140e;
+  --color-surface: #1a2820;
+  --color-surface-raised: #223528;
+  --color-surface-muted: #2a4030;
+  --color-border: #3d5c44;
+  --color-border-strong: #4e7356;
+  --color-text: #e8f0ea;
+  --color-text-muted: #a8c4ad;
+  --color-text-faint: #7a9a82;
+  --color-on-primary: #ffffff;
+  --color-link: #c8e6c9;
+  --color-link-hover-bg: #2a4030;
+  --color-input-bg: #223528;
+  --color-input-border: #4e7356;
+  --color-error-bg: #2d2020;
+  --color-error-text: #ef9a9a;
+  --color-highlight-active: rgba(129, 199, 132, 0.22);
+  --meta-theme-color: #2d7a32;
+  color-scheme: dark;
+}
+
+/* ── Dark mode: global overrides (beats duplicated inline colors) ─ */
+html[data-color-mode="dark"] body {
+  color: var(--color-text) !important;
+  background: var(--gradient-body) !important;
+}
+
+html[data-theme="rambam"][data-color-mode="light"] body,
+html[data-theme="mishnah"][data-color-mode="light"] body {
+  background: var(--color-bg-page-flat) !important;
+}
+
+html[data-color-mode="dark"] .header {
+  background: var(--gradient-header) !important;
+  color: var(--color-on-primary) !important;
+}
+
+html[data-color-mode="dark"] .main-content,
+html[data-color-mode="dark"] .book-info,
+html[data-color-mode="dark"] .tractate-info,
+html[data-color-mode="dark"] .chapter-nav,
+html[data-color-mode="dark"] .chapter-navigation,
+html[data-color-mode="dark"] .content-area,
+html[data-color-mode="dark"] .category,
+html[data-color-mode="dark"] .search-section,
+html[data-color-mode="dark"] .date-selector,
+html[data-color-mode="dark"] .hebrew-date-display,
+html[data-color-mode="dark"] .reading-card,
+html[data-color-mode="dark"] .calendar-container,
+html[data-color-mode="dark"] .sidebar,
+html[data-color-mode="dark"] .privacy-content,
+html[data-color-mode="dark"] .contact-content,
+html[data-color-mode="dark"] .content,
+html[data-color-mode="dark"] .content-card {
+  background: var(--color-surface) !important;
+  color: var(--color-text) !important;
+  box-shadow: var(--shadow-card-sm) !important;
+}
+
+html[data-color-mode="dark"] .category,
+html[data-color-mode="dark"] .search-section {
+  background: var(--color-surface-raised) !important;
+}
+
+html[data-color-mode="dark"] .category h3,
+html[data-color-mode="dark"] .book-title,
+html[data-color-mode="dark"] .book-info h2,
+html[data-color-mode="dark"] .tractate-info h2,
+html[data-color-mode="dark"] .calendar-title,
+html[data-color-mode="dark"] .reading-card h3,
+html[data-color-mode="dark"] h2,
+html[data-color-mode="dark"] h3 {
+  color: var(--color-primary) !important;
+}
+
+html[data-color-mode="dark"] .category p,
+html[data-color-mode="dark"] .book-info p,
+html[data-color-mode="dark"] .info-label,
+html[data-color-mode="dark"] .loading,
+html[data-color-mode="dark"] label {
+  color: var(--color-text-muted) !important;
+}
+
+html[data-color-mode="dark"] .books-list a,
+html[data-color-mode="dark"] .info-value,
+html[data-color-mode="dark"] .reading-text,
+html[data-color-mode="dark"] .verse,
+html[data-color-mode="dark"] p {
+  color: var(--color-text) !important;
+}
+
+html[data-color-mode="dark"] .books-list a:hover {
+  background-color: var(--color-link-hover-bg) !important;
+}
+
+html[data-color-mode="dark"] .search-input,
+html[data-color-mode="dark"] input[type="text"],
+html[data-color-mode="dark"] input[type="date"],
+html[data-color-mode="dark"] input[type="email"],
+html[data-color-mode="dark"] textarea,
+html[data-color-mode="dark"] select,
+html[data-color-mode="dark"] .book-selector,
+html[data-color-mode="dark"] .location-select {
+  background: var(--color-input-bg) !important;
+  color: var(--color-text) !important;
+  border-color: var(--color-input-border) !important;
+}
+
+html[data-color-mode="dark"] .search-btn,
+html[data-color-mode="dark"] .nav-btn,
+html[data-color-mode="dark"] #loadReadingsBtn,
+html[data-color-mode="dark"] #todayBtn,
+html[data-color-mode="dark"] button.nav-btn {
+  background: var(--color-primary) !important;
+  color: var(--color-on-primary) !important;
+}
+
+html[data-color-mode="dark"] .search-btn:hover,
+html[data-color-mode="dark"] .nav-btn:hover:not(:disabled) {
+  background: var(--color-primary-hover) !important;
+}
+
+html[data-color-mode="dark"] .chapter-btn,
+html[data-color-mode="dark"] .chapter-buttons button {
+  background: var(--color-surface-muted) !important;
+  color: var(--color-text) !important;
+  border-color: var(--color-border) !important;
+}
+
+html[data-color-mode="dark"] .chapter-btn.active,
+html[data-color-mode="dark"] .chapter-buttons button.active {
+  background: var(--color-primary) !important;
+  color: var(--color-on-primary) !important;
+}
+
+html[data-color-mode="dark"] .tab {
+  color: var(--color-text-muted) !important;
+}
+
+html[data-color-mode="dark"] .tab.active {
+  color: var(--color-primary) !important;
+  border-bottom-color: var(--color-primary) !important;
+}
+
+html[data-color-mode="dark"] .verse:hover {
+  background-color: var(--color-surface-muted) !important;
+}
+
+html[data-color-mode="dark"] .verse.verse-search-highlight,
+html[data-color-mode="dark"] [data-verse].verse-highlight {
+  background-color: var(--color-highlight-active) !important;
+}
+
+html[data-color-mode="dark"] .error {
+  background: var(--color-error-bg) !important;
+  color: var(--color-error-text) !important;
+}
+
+html[data-color-mode="dark"] .footer,
+html[data-color-mode="dark"] .container > .footer {
+  color: var(--color-text-muted) !important;
+}
+
+html[data-color-mode="dark"] .day-cell {
+  background: var(--color-surface-muted) !important;
+  color: var(--color-text) !important;
+  border-color: var(--color-border) !important;
+}
+
+html[data-color-mode="dark"] .day-cell:hover {
+  background: var(--color-surface-raised) !important;
+}
+
+html[data-color-mode="dark"] .day-cell.other-month {
+  background: var(--color-bg-page) !important;
+  color: var(--color-text-faint) !important;
+}
+
+html[data-color-mode="dark"] .day-cell.today {
+  background: var(--color-primary-soft) !important;
+  border-color: var(--color-primary) !important;
+}
+
+html[data-color-mode="dark"] .day-number {
+  color: var(--color-primary) !important;
+}
+
+html[data-color-mode="dark"] .info-item {
+  border-color: var(--color-border) !important;
+}
+
+html[data-color-mode="dark"] .reading-card.weekly {
+  border-left-color: var(--color-accent-weekly) !important;
+}
+
+html[data-color-mode="dark"] .reading-card.daily {
+  border-left-color: var(--color-accent-daily) !important;
+}
+
+html[data-color-mode="dark"] .reading-card.yearly {
+  border-left-color: var(--color-accent-yearly) !important;
+}
+
+html[data-color-mode="dark"] .reading-card.weekly h3 {
+  color: var(--color-accent-weekly) !important;
+}
+
+html[data-color-mode="dark"] .reading-card.daily h3 {
+  color: var(--color-accent-daily) !important;
+}
+
+html[data-color-mode="dark"] .reading-card.yearly h3 {
+  color: var(--color-accent-yearly) !important;
+}
+
+html[data-color-mode="dark"] .halakha-item,
+html[data-color-mode="dark"] .halakha-block,
+html[data-color-mode="dark"] .mishnah-block {
+  background: var(--color-surface-raised) !important;
+  border-color: var(--color-border) !important;
+  color: var(--color-text) !important;
+}
+
+html[data-color-mode="dark"] .halakha-item h4 {
+  color: var(--color-primary) !important;
+}
+
+html[data-color-mode="dark"] .hebrew-text,
+html[data-color-mode="dark"] .english-text {
+  color: var(--color-text) !important;
+}
+
+html[data-color-mode="dark"] .hebrew-accent,
+.hebrew-accent {
+  color: var(--color-primary) !important;
+}
+
+.verse-highlight {
+  background-color: var(--color-highlight-active, #fff3cd) !important;
+}
+
+html[data-color-mode="dark"] .geo-btn {
+  border-color: var(--color-primary) !important;
+  color: var(--color-primary) !important;
+  background: transparent !important;
+}
+
+html[data-color-mode="dark"] .geo-btn:hover {
+  background: var(--color-primary-soft) !important;
+}
+
+/* ── Theme toggle ───────────────────────────────────────────────── */
+.theme-toggle {
+  position: fixed;
+  top: max(0.75rem, env(safe-area-inset-top, 0px));
+  right: max(0.75rem, env(safe-area-inset-right, 0px));
+  z-index: 8500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  background: var(--gradient-header);
+  color: var(--color-on-primary);
+  box-shadow: var(--shadow-header), 0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.06);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--color-on-primary);
+  outline-offset: 3px;
+}
+
+.theme-toggle svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.theme-toggle .icon-sun,
+.theme-toggle.is-dark .icon-moon {
+  display: none;
+}
+
+.theme-toggle.is-dark .icon-sun,
+.theme-toggle .icon-moon {
+  display: block;
+}
+
+@media (max-width: 480px) {
+  .theme-toggle {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+
+/* Listen panel — follow active book theme in dark mode */
+html[data-color-mode="dark"] .read-aloud-mode-btn {
+  background: var(--color-surface-muted) !important;
+  border-color: var(--color-border) !important;
+  color: var(--color-text) !important;
+}
+
+html[data-color-mode="dark"] .read-aloud-mode-btn.active,
+html[data-color-mode="dark"] .read-aloud-speed-btn.active,
+html[data-color-mode="dark"] .read-aloud-icon-btn-primary {
+  background: var(--gradient-header) !important;
+  color: var(--color-on-primary) !important;
+}
+
+html[data-color-mode="dark"] .read-aloud-speed-btn,
+html[data-color-mode="dark"] .read-aloud-progress-track {
+  background: var(--color-surface-muted) !important;
+  color: var(--color-text) !important;
+}
+
+html[data-color-mode="dark"] .read-aloud-select {
+  background: var(--color-input-bg) !important;
+  border-color: var(--color-input-border) !important;
+  color: var(--color-text) !important;
+}
+
+html[data-color-mode="dark"] .read-aloud-label,
+html[data-color-mode="dark"] .read-aloud-footer-note {
+  color: var(--color-text-muted) !important;
+}
+
+html[data-color-mode="dark"] .read-aloud-hint {
+  background: var(--color-surface-raised) !important;
+  border-color: var(--color-primary) !important;
+  color: var(--color-text) !important;
+}
+
+html[data-color-mode="dark"] .read-aloud-icon-btn {
+  border-color: var(--color-border) !important;
+  color: var(--color-text) !important;
+}
+
+html[data-color-mode="dark"] .read-aloud-icon-btn:hover:not(:disabled) {
+  border-color: var(--color-primary) !important;
+  color: var(--color-primary) !important;
+}

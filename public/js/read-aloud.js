@@ -6,7 +6,7 @@
   'use strict';
 
   const BLOCK_SELECTOR =
-    '[data-read-aloud-block], article, .text-section, .reading-card, .reading-item, .content-area, .tab-content.active, #tabContent';
+    '[data-read-aloud-block], #main-content, .main-content, article, .text-section, .reading-card, .reading-item, .content-area, .tab-content.active, #tabContent';
   const READABLE_SELECTOR = 'h1, h2, h3, h4, p, li, blockquote, .verse, .reading-text, .hebrew-text, .english-text';
   const IGNORE_ANCESTOR =
     '[data-read-aloud-ignore], nav, footer, header, button, .nav-links, .language-tabs, .date-selector, .header-content, .chapter-nav, .book-selector, .location-controls';
@@ -230,12 +230,6 @@
     return /[\u0590-\u05FF]/.test(text) ? 'he-IL' : 'en-US';
   }
 
-  function pickVoiceForLang(lang) {
-    const prefix = lang.startsWith('he') ? 'he' : 'en';
-    const match = voices.find((v) => v.lang.startsWith(prefix));
-    return match || voices[0] || null;
-  }
-
   function icon(name) {
     const icons = {
       headphones:
@@ -318,7 +312,7 @@
 
       const progress =
         chunks.length > 0 ? ((currentIndex + 1) / chunks.length) * 100 : 0;
-      ui.progressFill.style.width = `${progress}%`;
+      if (ui.progressFill) ui.progressFill.style.width = `${progress}%`;
       ui.progressLabel.textContent =
         chunks.length > 0
           ? `${currentIndex + 1} / ${chunks.length}`
@@ -372,6 +366,37 @@
         .join('');
     }
 
+    function pickVoiceForLang(lang) {
+      const prefix = lang.startsWith('he') ? 'he' : 'en';
+      const match = voices.find((v) => v.lang.startsWith(prefix));
+      return match || voices[0] || null;
+    }
+
+    function waitForVoicesThenSpeak(index) {
+      const generation = session.generation;
+      const trySpeak = () => {
+        if (session.generation !== generation || session.stopped) return;
+        loadVoices();
+        if (voices.length) {
+          speakChunk(index);
+          return;
+        }
+        setHint('Loading voices… try Play again in a moment.');
+      };
+
+      if (window.speechSynthesis.getVoices().length) {
+        trySpeak();
+        return;
+      }
+
+      const onVoices = () => {
+        window.speechSynthesis.removeEventListener('voiceschanged', onVoices);
+        trySpeak();
+      };
+      window.speechSynthesis.addEventListener('voiceschanged', onVoices);
+      window.setTimeout(trySpeak, 250);
+    }
+
     function speakChunk(index) {
       if (session.stopped) return;
 
@@ -381,8 +406,10 @@
         return;
       }
 
-      if (!voices.length && window.speechSynthesis) {
-        loadVoices();
+      loadVoices();
+      if (!voices.length) {
+        waitForVoicesThenSpeak(index);
+        return;
       }
 
       const generation = session.generation;
@@ -391,50 +418,66 @@
       currentIndex = index;
       highlightChunk(chunk.element);
 
-      const utterance = new SpeechSynthesisUtterance(chunk.text);
-      utterance.rate = rate;
-      utterance.pitch = pitch;
-      utterance.volume = volume;
-      utterance.lang = detectUtteranceLang(chunk.text);
+      try {
+        const utterance = new SpeechSynthesisUtterance(chunk.text);
+        utterance.rate = rate;
+        utterance.pitch = pitch;
+        utterance.volume = volume;
+        utterance.lang = detectUtteranceLang(chunk.text);
 
-      const selected = voices.find((item) => item.voiceURI === voiceURI);
-      const voice = selected || pickVoiceForLang(utterance.lang);
-      if (voice) utterance.voice = voice;
+        const selected = voices.find((item) => item.voiceURI === voiceURI);
+        const voice = selected || pickVoiceForLang(utterance.lang);
+        if (voice) utterance.voice = voice;
 
-      window.speechSynthesis.resume();
-
-      utterance.onend = () => {
-        const current = session;
-        if (
-          current.generation !== generation ||
-          current.stopped ||
-          current.paused
-        ) {
-          return;
-        }
-        window.setTimeout(() => {
-          const after = session;
+        utterance.onend = () => {
+          const current = session;
           if (
-            after.generation !== generation ||
-            after.stopped ||
-            after.paused
+            current.generation !== generation ||
+            current.stopped ||
+            current.paused
           ) {
             return;
           }
-          speakChunk(index + 1);
-        }, 280);
-      };
+          window.setTimeout(() => {
+            const after = session;
+            if (
+              after.generation !== generation ||
+              after.stopped ||
+              after.paused
+            ) {
+              return;
+            }
+            speakChunk(index + 1);
+          }, 280);
+        };
 
-      utterance.onerror = (event) => {
-        if (session.generation !== generation || session.stopped) return;
-        if (event.error === 'interrupted' || event.error === 'canceled') return;
-        if (index < list.length - 1) speakChunk(index + 1);
-        else stop();
-      };
+        utterance.onerror = (event) => {
+          if (session.generation !== generation || session.stopped) return;
+          if (event.error === 'interrupted' || event.error === 'canceled') {
+            return;
+          }
+          if (event.error === 'not-allowed') {
+            setHint(
+              'Speech was blocked. Use Play again after clicking the page, or check browser permissions.',
+            );
+            stop();
+            return;
+          }
+          if (index < list.length - 1) speakChunk(index + 1);
+          else stop();
+        };
 
-      window.speechSynthesis.speak(utterance);
-      status = session.paused ? 'paused' : 'playing';
-      updateUI();
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.resume();
+        window.speechSynthesis.speak(utterance);
+        status = session.paused ? 'paused' : 'playing';
+        setHint('');
+        updateUI();
+      } catch (err) {
+        console.error('[read-aloud] speak failed:', err);
+        setHint('Could not start speech. Try another browser or voice.');
+        stop();
+      }
     }
 
     function start(readMode) {

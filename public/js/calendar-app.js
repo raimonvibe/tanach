@@ -284,7 +284,7 @@ class JewishCalendar {
             </div>
             <div class="info-item">
                 <span class="info-label">${this.labels.hebrewLatin}:</span>
-                <span class="info-value" style="font-size: 1.1rem; font-weight: bold; color: #667eea;">${data.hebrew.display || 'N/A'}</span>
+                <span class="info-value hebrew-accent" style="font-size: 1.1rem; font-weight: bold;">${data.hebrew.display || 'N/A'}</span>
             </div>
             <div class="info-item">
                 <span class="info-label">${this.labels.hebrewYear}:</span>
