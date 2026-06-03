@@ -330,13 +330,39 @@
       ui.hint.textContent = msg;
     }
 
-    const fabIcon = ui.fab.querySelector('.read-aloud-fab-icon');
-    const fabPing = ui.fab.querySelector('.read-aloud-fab-ping');
+    const fabIcon = ui.fab?.querySelector('.read-aloud-fab-icon');
+    const fabPing = ui.fab?.querySelector('.read-aloud-fab-ping');
+    let keepAliveTimer = null;
+
+    function stopKeepAlive() {
+      if (keepAliveTimer) {
+        clearInterval(keepAliveTimer);
+        keepAliveTimer = null;
+      }
+    }
+
+    function startKeepAlive() {
+      stopKeepAlive();
+      keepAliveTimer = window.setInterval(() => {
+        if (session.stopped || status === 'idle') {
+          stopKeepAlive();
+          return;
+        }
+        window.speechSynthesis?.resume();
+      }, 8000);
+    }
+
+    function openPanel() {
+      rootEl.classList.add('is-open');
+      if (ui.fab) ui.fab.setAttribute('aria-expanded', 'true');
+      updateUI();
+    }
 
     function updateUI() {
       const isActive = status === 'playing' || status === 'paused';
-      ui.panel.hidden = !rootEl.classList.contains('is-open');
-      ui.progressWrap.hidden = !isActive;
+      const isOpen = rootEl.classList.contains('is-open');
+      if (ui.panel) ui.panel.hidden = !isOpen;
+      if (ui.progressWrap) ui.progressWrap.hidden = !isActive;
       ui.fab.classList.toggle('read-aloud-play-btn', isActive);
       ui.fab.classList.toggle('read-aloud-fab-idle', !isActive);
       if (fabIcon) {
@@ -355,10 +381,12 @@
       const progress =
         chunks.length > 0 ? ((currentIndex + 1) / chunks.length) * 100 : 0;
       if (ui.progressFill) ui.progressFill.style.width = `${progress}%`;
-      ui.progressLabel.textContent =
-        chunks.length > 0
-          ? `${currentIndex + 1} / ${chunks.length}`
-          : '—';
+      if (ui.progressLabel) {
+        ui.progressLabel.textContent =
+          chunks.length > 0
+            ? `${currentIndex + 1} / ${chunks.length}`
+            : '—';
+      }
 
       if (isActive && chunks.length) {
         ui.statusLive.textContent = `Reading section ${currentIndex + 1} of ${chunks.length}${mode === 'selection' ? ' (selection)' : ''}`;
@@ -375,17 +403,19 @@
         btn.classList.toggle('active', Number(btn.dataset.speed) === rate);
       });
 
-      rootEl.querySelector('[data-action="prev"]').disabled =
-        !isActive || currentIndex === 0;
-      rootEl.querySelector('[data-action="next"]').disabled =
-        !isActive || currentIndex >= chunks.length - 1;
-      rootEl.querySelector('[data-action="stop"]').disabled = !isActive;
+      const prevBtn = rootEl.querySelector('[data-action="prev"]');
+      const nextBtn = rootEl.querySelector('[data-action="next"]');
+      const stopBtn = rootEl.querySelector('[data-action="stop"]');
+      if (prevBtn) prevBtn.disabled = !isActive || currentIndex === 0;
+      if (nextBtn) nextBtn.disabled = !isActive || currentIndex >= chunks.length - 1;
+      if (stopBtn) stopBtn.disabled = !isActive;
     }
 
     function stop() {
       session.generation += 1;
       session.stopped = true;
       session.paused = false;
+      stopKeepAlive();
       window.speechSynthesis?.cancel();
       if (mainRef) clearChunkHighlights(mainRef);
       status = 'idle';
@@ -481,16 +511,20 @@
         };
 
         const synth = window.speechSynthesis;
+        if (!synth) {
+          setHint('Speech is not supported in this browser.');
+          stop();
+          return;
+        }
+
+        // Must speak in the same turn as the user click (no setTimeout) or Chrome blocks it.
         synth.cancel();
-        window.setTimeout(() => {
-          if (session.generation !== generation || session.stopped) return;
-          synth.resume();
-          synth.speak(utterance);
-          status = session.paused ? 'paused' : 'playing';
-          setHint('');
-          updateUI();
-        }, 60);
-        return;
+        synth.resume();
+        synth.speak(utterance);
+        status = session.paused ? 'paused' : 'playing';
+        setHint('');
+        startKeepAlive();
+        updateUI();
       } catch (err) {
         console.error('[read-aloud] speak failed:', err);
         setHint('Could not start speech. Try another browser or voice.');
@@ -543,8 +577,9 @@
       chunks = list;
       indexRef = 0;
       currentIndex = 0;
-
-      window.setTimeout(() => speakChunk(0), 50);
+      status = 'playing';
+      updateUI();
+      speakChunk(0);
       return true;
     }
 
@@ -587,28 +622,25 @@
     }
 
     function handleStart(readMode) {
+      openPanel();
       const wasActive = status === 'playing' || status === 'paused';
       if (wasActive) stop();
-      window.setTimeout(
-        () => {
-          const ok = start(readMode);
-          if (!ok) {
-            if (!ui.hint?.textContent) {
-              setHint(
-                readMode === 'selection'
-                  ? 'Highlight some text on the page first, then try again.'
-                  : 'No readable content on this page yet.',
-              );
-            }
-          } else {
-            setHint('');
-          }
-        },
-        wasActive ? 100 : 0,
-      );
+      const ok = start(readMode);
+      if (!ok) {
+        if (!ui.hint?.textContent) {
+          setHint(
+            readMode === 'selection'
+              ? 'Highlight some text on the page first, then try again.'
+              : 'No readable content on this page yet.',
+          );
+        }
+      } else {
+        setHint('');
+      }
     }
 
     function handlePlayPause() {
+      openPanel();
       if (status === 'idle') {
         const ok = start('page');
         if (!ok && !ui.hint?.textContent) {
@@ -622,52 +654,78 @@
       }
     }
 
-    rootEl.querySelector('[data-action="close-panel"]').addEventListener('click', () => {
-      rootEl.classList.remove('is-open');
-      updateUI();
-    });
+    rootEl.addEventListener('click', (e) => {
+      const fab = e.target.closest('.read-aloud-fab');
+      if (fab && rootEl.contains(fab)) {
+        rootEl.classList.toggle('is-open');
+        ui.fab?.setAttribute(
+          'aria-expanded',
+          rootEl.classList.contains('is-open') ? 'true' : 'false',
+        );
+        updateUI();
+        return;
+      }
 
-    ui.fab.addEventListener('click', () => {
-      rootEl.classList.toggle('is-open');
-      const open = rootEl.classList.contains('is-open');
-      ui.fab.setAttribute('aria-expanded', open ? 'true' : 'false');
-      updateUI();
-    });
+      const btn = e.target.closest('[data-action], .read-aloud-mode-btn, .read-aloud-speed-btn');
+      if (!btn || !rootEl.contains(btn)) return;
 
-    rootEl.querySelector('[data-action="play"]').addEventListener('click', handlePlayPause);
-    rootEl.querySelector('[data-action="stop"]').addEventListener('click', stop);
-    rootEl.querySelector('[data-action="prev"]').addEventListener('click', () => skip(-1));
-    rootEl.querySelector('[data-action="next"]').addEventListener('click', () => skip(1));
+      if (btn.classList.contains('read-aloud-mode-btn')) {
+        handleStart(btn.dataset.mode);
+        return;
+      }
 
-    rootEl.querySelectorAll('.read-aloud-mode-btn').forEach((btn) => {
-      btn.addEventListener('click', () => handleStart(btn.dataset.mode));
-    });
-
-    rootEl.querySelectorAll('.read-aloud-speed-btn').forEach((btn) => {
-      btn.addEventListener('click', () => {
+      if (btn.classList.contains('read-aloud-speed-btn')) {
         rate = Number(btn.dataset.speed);
         updateUI();
+        return;
+      }
+
+      switch (btn.dataset.action) {
+        case 'close-panel':
+          rootEl.classList.remove('is-open');
+          updateUI();
+          break;
+        case 'play':
+          handlePlayPause();
+          break;
+        case 'stop':
+          stop();
+          break;
+        case 'prev':
+          skip(-1);
+          break;
+        case 'next':
+          skip(1);
+          break;
+        default:
+          break;
+      }
+    });
+
+    if (ui.voiceSelect) {
+      ui.voiceSelect.addEventListener('change', (e) => {
+        voiceURI = e.target.value;
       });
-    });
+    }
 
-    ui.voiceSelect.addEventListener('change', (e) => {
-      voiceURI = e.target.value;
-    });
+    if (ui.pitchRange) {
+      ui.pitchRange.addEventListener('input', (e) => {
+        pitch = Number(e.target.value);
+        if (ui.pitchVal) ui.pitchVal.textContent = pitch.toFixed(1);
+      });
+    }
 
-    ui.pitchRange.addEventListener('input', (e) => {
-      pitch = Number(e.target.value);
-      ui.pitchVal.textContent = pitch.toFixed(1);
-    });
-
-    ui.volumeRange.addEventListener('input', (e) => {
-      volume = Number(e.target.value);
-      ui.volumeVal.textContent = `${Math.round(volume * 100)}%`;
-    });
+    if (ui.volumeRange) {
+      ui.volumeRange.addEventListener('input', (e) => {
+        volume = Number(e.target.value);
+        if (ui.volumeVal) ui.volumeVal.textContent = `${Math.round(volume * 100)}%`;
+      });
+    }
 
     window.addEventListener('keydown', (e) => {
       if (e.altKey && e.key === 'r') {
         e.preventDefault();
-        rootEl.classList.add('is-open');
+        openPanel();
         if (status === 'idle') start('page');
         else togglePlayPause();
         updateUI();
@@ -765,10 +823,19 @@
   }
 
   function init() {
-    if (!window.speechSynthesis) return;
-
     const toolbar = buildToolbar();
     document.body.appendChild(toolbar);
+
+    if (!window.speechSynthesis) {
+      toolbar.querySelector('.read-aloud-hint')?.removeAttribute('hidden');
+      const hint = toolbar.querySelector('.read-aloud-hint');
+      if (hint) {
+        hint.textContent =
+          'Listen mode needs a browser with speech support (Chrome, Edge, or Safari).';
+      }
+      return;
+    }
+
     const controller = createReadAloudController(toolbar);
     window.tanachReadAloud = controller;
   }
