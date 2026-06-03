@@ -290,7 +290,13 @@ export async function getTanakhLink(displayText, sefariaUrl, generateReaderLink)
   return '';
 }
 
-export async function getTorahLink(parashatText, generateReaderLink, getParashatInfo, getBookInfo) {
+export async function getTorahLink(
+  parashatText,
+  generateReaderLink,
+  getParashatInfo,
+  getBookInfo,
+  sefariaUrl = '',
+) {
   if (!parashatText || parashatText === 'N/A') return '';
 
   const directUrl = await generateReaderLink(parashatText);
@@ -305,7 +311,7 @@ export async function getTorahLink(parashatText, generateReaderLink, getParashat
     }
   }
 
-  return '';
+  return sefariaFallbackLink(sefariaUrl);
 }
 
 export async function getHaftarahLink(haftarahText, sefariaUrl, generateReaderLink) {
@@ -326,12 +332,61 @@ function isMishnahItem(title, category) {
 }
 
 function isRambamItem(title, category) {
+  if (title === 'Halakhah Yomit' || title === 'Arukh HaShulchan Yomi') return false;
   return (
     category === 'Halakhah' ||
     title === 'Daily Rambam' ||
     title === 'Daily Rambam (3 Chapters)' ||
     /mitzvot/i.test(title)
   );
+}
+
+function isSefariaOnlyItem(title, category) {
+  return (
+    title === 'Halakhah Yomit' ||
+    title === 'Arukh HaShulchan Yomi' ||
+    title === 'Tanya Yomi' ||
+    title === 'Yerushalmi Yomi' ||
+    category === 'Chasidut'
+  );
+}
+
+/** Calendar sections shown on the readings page (Sefaria title.en values). */
+export const READING_SECTIONS = {
+  daily: {
+    title: '📖 Daily Study',
+    className: 'daily',
+    titles: [
+      'Daf Yomi',
+      'Daily Mishnah',
+      'Daily Rambam',
+      'Daily Rambam (3 Chapters)',
+      'Chok LeYisrael',
+    ],
+  },
+  moreDaily: {
+    title: '📚 More Daily Cycles',
+    className: 'more-daily',
+    titles: [
+      'Daf a Week',
+      'Halakhah Yomit',
+      'Arukh HaShulchan Yomi',
+      'Tanya Yomi',
+      'Yerushalmi Yomi',
+    ],
+  },
+  yearly: {
+    title: '📅 Yearly Cycles',
+    className: 'yearly',
+    titles: ['929', 'Tanakh Yomi', 'Nach Yomi', 'Psalms', 'Pirkei Avot'],
+  },
+};
+
+export function filterCalendarItemsByTitles(calendarItems, titleList) {
+  const allowed = new Set(titleList);
+  return calendarItems
+    .filter((item) => allowed.has(item.title?.en))
+    .sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
 }
 
 function isTanakhItem(title, category) {
@@ -357,7 +412,18 @@ export async function getReadingLink(item, deps) {
   const category = item.category || '';
 
   if (title === 'Chok LeYisrael') {
-    return getTorahLink(displayText, generateReaderLink, getParashatInfo, getBookInfo);
+    const link = await getTorahLink(
+      displayText,
+      generateReaderLink,
+      getParashatInfo,
+      getBookInfo,
+      sefariaUrl,
+    );
+    return link || sefariaFallbackLink(sefariaUrl);
+  }
+
+  if (isSefariaOnlyItem(title, category)) {
+    return sefariaFallbackLink(sefariaUrl);
   }
 
   if (isTalmudItem(title, category)) {

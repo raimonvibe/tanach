@@ -185,6 +185,10 @@
             border-left-color: #ff9800;
         }
 
+        .reading-card.more-daily {
+            border-left-color: #00897b;
+        }
+
         .reading-card h3 {
             color: #667eea;
             font-size: 1.5rem;
@@ -204,6 +208,10 @@
 
         .reading-card.yearly h3 {
             color: #ff9800;
+        }
+
+        .reading-card.more-daily h3 {
+            color: #00897b;
         }
 
         .reading-item {
@@ -234,6 +242,10 @@
 
         .reading-card.yearly .reading-label {
             color: #ff9800;
+        }
+
+        .reading-card.more-daily .reading-label {
+            color: #00897b;
         }
 
         .reading-text {
@@ -273,6 +285,14 @@
 
         .reading-card.yearly .reading-link:hover {
             color: #f57c00;
+        }
+
+        .reading-card.more-daily .reading-link {
+            color: #00897b;
+        }
+
+        .reading-card.more-daily .reading-link:hover {
+            color: #00695c;
         }
 
         .reading-link:hover {
@@ -457,6 +477,8 @@
             getReadingLink,
             getTorahLink,
             getHaftarahLink,
+            READING_SECTIONS,
+            filterCalendarItemsByTitles,
         } from './js/readings-link-service.js';
 
         const linkDeps = { generateReaderLink, getBookInfo, getParashatInfo };
@@ -619,20 +641,21 @@
                 let html = '';
                 const calendarItems = sefariaCalendar?.calendar_items || [];
                 const haftarahItem = calendarItems.find((item) => item.title?.en === 'Haftarah');
+                const parashatItem = calendarItems.find((item) => item.title?.en === 'Parashat Hashavua');
 
                 // Weekly Readings (from HebCal)
                 if (weeklyInfo) {
-                    html += await this.renderWeeklyCard(weeklyInfo, haftarahItem?.url);
+                    html += await this.renderWeeklyCard(
+                        weeklyInfo,
+                        haftarahItem?.url,
+                        parashatItem?.url,
+                    );
                 }
 
-                // Daily Readings (from Sefaria)
                 if (calendarItems.length) {
-                    html += await this.renderDailyReadings(calendarItems);
-                }
-
-                // Yearly Cycles (from Sefaria)
-                if (calendarItems.length) {
-                    html += await this.renderYearlyReadings(calendarItems);
+                    html += await this.renderReadingSection(calendarItems, READING_SECTIONS.daily);
+                    html += await this.renderReadingSection(calendarItems, READING_SECTIONS.moreDaily);
+                    html += await this.renderReadingSection(calendarItems, READING_SECTIONS.yearly);
                 }
 
                 document.getElementById('readingsContainer').innerHTML = html || `
@@ -640,13 +663,14 @@
                 `;
             }
 
-            async renderWeeklyCard(weeklyInfo, haftarahSefariaUrl) {
+            async renderWeeklyCard(weeklyInfo, haftarahSefariaUrl, parashatSefariaUrl) {
                 const parashatText = weeklyInfo.parashat || 'N/A';
                 const parashatLink = await getTorahLink(
                     parashatText,
                     generateReaderLink,
                     getParashatInfo,
                     getBookInfo,
+                    parashatSefariaUrl || '',
                 );
 
                 const haftarahText = weeklyInfo.haftarah || 'N/A';
@@ -679,46 +703,16 @@
                 `;
             }
 
-            async renderDailyReadings(calendarItems) {
-                const dailyItems = calendarItems.filter(item =>
-                    ['Daf Yomi', 'Daily Mishnah', 'Daily Rambam', 'Chok LeYisrael'].includes(item.title.en)
-                );
-
-                if (dailyItems.length === 0) return '';
+            async renderReadingSection(calendarItems, section) {
+                const items = filterCalendarItemsByTitles(calendarItems, section.titles);
+                if (items.length === 0) return '';
 
                 let html = `
-                    <div class="reading-card daily">
-                        <h3>📖 Daily Study</h3>
+                    <div class="reading-card ${section.className}">
+                        <h3>${section.title}</h3>
                 `;
 
-                for (const item of dailyItems) {
-                    const linkHtml = await getReadingLink(item, linkDeps);
-                    html += `
-                        <div class="reading-item">
-                            <div class="reading-label">${item.title.en}</div>
-                            <div class="reading-text">${item.displayValue.en}</div>
-                            ${linkHtml}
-                        </div>
-                    `;
-                }
-
-                html += `</div>`;
-                return html;
-            }
-
-            async renderYearlyReadings(calendarItems) {
-                const yearlyItems = calendarItems.filter(item =>
-                    ['929', 'Tanakh Yomi', 'Nach Yomi', 'Psalms', 'Pirkei Avot'].includes(item.title.en)
-                );
-
-                if (yearlyItems.length === 0) return '';
-
-                let html = `
-                    <div class="reading-card yearly">
-                        <h3>📅 Yearly Cycles</h3>
-                `;
-
-                for (const item of yearlyItems) {
+                for (const item of items) {
                     const linkHtml = await getReadingLink(item, linkDeps);
                     html += `
                         <div class="reading-item">
