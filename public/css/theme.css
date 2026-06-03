@@ -465,9 +465,16 @@ html[data-color-mode="dark"] .day-cell.other-month {
   color: var(--color-text-faint) !important;
 }
 
-html[data-color-mode="dark"] .day-cell.today {
-  background: var(--color-primary-soft) !important;
-  border-color: var(--color-primary) !important;
+html[data-color-mode="dark"] .day-cell.today,
+html[data-color-mode="dark"] .day-cell.today.shabbat,
+html[data-color-mode="dark"] .day-cell.today.holiday {
+  background: rgba(76, 175, 80, 0.22) !important;
+  border: 2px solid var(--color-accent-daily) !important;
+  box-shadow: inset 0 0 0 1px rgba(129, 199, 132, 0.35);
+}
+
+html[data-color-mode="dark"] .day-cell.today .day-number {
+  color: var(--color-accent-daily) !important;
 }
 
 html[data-color-mode="dark"] .day-number {

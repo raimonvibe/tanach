@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="tanach">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +8,9 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/jewish-bible.ico">
     <link rel="shortcut icon" type="image/x-icon" href="/jewish-bible.ico">
+    <link rel="stylesheet" href="/css/theme.css">
     <link rel="stylesheet" href="/css/read-aloud.css">
+    <script src="/js/theme.js"></script>
 
     <!-- Apple Touch Icon for iOS home screen -->
     <link rel="apple-touch-icon" href="/jewish-bible.png">
@@ -261,6 +263,16 @@
         .day-cell.today {
             background: #e8f5e9;
             border: 2px solid #4caf50;
+        }
+
+        .day-cell.today.shabbat,
+        .day-cell.today.holiday {
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+        }
+
+        .day-cell.today .day-number {
+            color: #2e7d32;
         }
 
         .day-cell.holiday {
@@ -639,61 +651,6 @@
             }
         }
 
-        /* Dark mode support */
-        @media (prefers-color-scheme: dark) {
-            .calendar-container {
-                background: #2d3748;
-                color: #e2e8f0;
-            }
-            
-            .sidebar {
-                background: #2d3748;
-                color: #e2e8f0;
-            }
-            
-            .sidebar h3 {
-                color: #e2e8f0;
-            }
-            
-            .info-label {
-                color: #cbd5e0;
-            }
-            
-            .info-value {
-                color: #e2e8f0;
-            }
-            
-            .loading {
-                color: #cbd5e0;
-            }
-
-            .day-cell {
-                background: #4a5568;
-                color: #e2e8f0;
-                border-color: #718096;
-            }
-
-            .day-cell:hover {
-                background: #2d3748;
-            }
-
-            .day-cell.other-month {
-                background: #1a202c;
-                color: #718096;
-            }
-            
-            .day-number {
-                color: #667eea;
-            }
-            
-            .day-cell.other-month .day-number {
-                color: #667eea;
-            }
-
-            .info-item {
-                border-color: #4a5568;
-            }
-        }
     </style>
 </head>
 <body>
