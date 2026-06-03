@@ -502,6 +502,30 @@ html[data-color-mode="dark"] .reading-card.yearly h3 {
   color: var(--color-accent-yearly) !important;
 }
 
+html[data-color-mode="dark"] .reading-card.weekly .reading-label {
+  color: var(--color-accent-weekly) !important;
+}
+
+html[data-color-mode="dark"] .reading-card.daily .reading-label {
+  color: var(--color-accent-daily) !important;
+}
+
+html[data-color-mode="dark"] .reading-card.yearly .reading-label {
+  color: var(--color-accent-yearly) !important;
+}
+
+html[data-color-mode="dark"] .reading-card.weekly .reading-link {
+  color: var(--color-accent-weekly) !important;
+}
+
+html[data-color-mode="dark"] .reading-card.daily .reading-link {
+  color: var(--color-accent-daily) !important;
+}
+
+html[data-color-mode="dark"] .reading-card.yearly .reading-link {
+  color: var(--color-accent-yearly) !important;
+}
+
 html[data-color-mode="dark"] .halakha-item,
 html[data-color-mode="dark"] .halakha-block,
 html[data-color-mode="dark"] .mishnah-item,
