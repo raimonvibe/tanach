@@ -6,8 +6,9 @@
   'use strict';
 
   const BLOCK_SELECTOR =
-    '[data-read-aloud-block], #main-content, .main-content, article, .text-section, .reading-card, .reading-item, .content-area, .tab-content.active, #tabContent';
-  const READABLE_SELECTOR = 'h1, h2, h3, h4, p, li, blockquote, .verse, .reading-text, .hebrew-text, .english-text';
+    '[data-read-aloud-block], #main-content, .main-content, #searchResults, article, .text-section, .reading-card, .reading-item, .result-item, .halakha-item, .content-area, .tab-content.active, #tabContent';
+  const READABLE_SELECTOR =
+    'h1, h2, h3, h4, p, li, blockquote, .verse, .reading-text, .hebrew-text, .english-text, .result-item, .result-hebrew, .result-english, .halakha-item, .stats';
   const IGNORE_ANCESTOR =
     '[data-read-aloud-ignore], nav, footer, header, button, .nav-links, .language-tabs, .date-selector, .header-content, .chapter-nav, .book-selector, .location-controls';
   const MAIN_ROOT_SELECTORS =
@@ -21,6 +22,7 @@
     while (node && node !== document.body) {
       const style = window.getComputedStyle(node);
       if (style.display === 'none' || style.visibility === 'hidden') return false;
+      if (Number(style.opacity) === 0) return false;
       node = node.parentElement;
     }
     return true;
@@ -117,7 +119,47 @@
       chunks.push({ index: chunks.length, text, element: el });
     }
 
+    if (!chunks.length) {
+      chunks = collectFlatReadableChunks(root);
+    }
+
     return chunks;
+  }
+
+  /** Fallback for AJAX/innerHTML content that does not match block layout rules. */
+  function collectFlatReadableChunks(root) {
+    const seen = new Set();
+    const out = [];
+
+    const candidates = Array.from(root.querySelectorAll(READABLE_SELECTOR)).filter(
+      (el) => !isIgnored(el),
+    );
+
+    for (const el of candidates.sort(compareDocumentOrder)) {
+      if (seen.has(el)) continue;
+      if (el.closest('.read-aloud-root')) continue;
+
+      const text = extractText(el);
+      if (!text) continue;
+
+      const parentVerse = el.closest('.verse');
+      if (parentVerse && el !== parentVerse) {
+        if (seen.has(parentVerse)) continue;
+        if (!isIgnored(parentVerse)) {
+          const verseText = extractText(parentVerse);
+          if (verseText) {
+            seen.add(parentVerse);
+            out.push({ index: out.length, text: verseText, element: parentVerse });
+          }
+        }
+        continue;
+      }
+
+      seen.add(el);
+      out.push({ index: out.length, text, element: el });
+    }
+
+    return out;
   }
 
   function selectionToChunk(selection) {
@@ -372,31 +414,6 @@
       return match || voices[0] || null;
     }
 
-    function waitForVoicesThenSpeak(index) {
-      const generation = session.generation;
-      const trySpeak = () => {
-        if (session.generation !== generation || session.stopped) return;
-        loadVoices();
-        if (voices.length) {
-          speakChunk(index);
-          return;
-        }
-        setHint('Loading voices… try Play again in a moment.');
-      };
-
-      if (window.speechSynthesis.getVoices().length) {
-        trySpeak();
-        return;
-      }
-
-      const onVoices = () => {
-        window.speechSynthesis.removeEventListener('voiceschanged', onVoices);
-        trySpeak();
-      };
-      window.speechSynthesis.addEventListener('voiceschanged', onVoices);
-      window.setTimeout(trySpeak, 250);
-    }
-
     function speakChunk(index) {
       if (session.stopped) return;
 
@@ -407,10 +424,6 @@
       }
 
       loadVoices();
-      if (!voices.length) {
-        waitForVoicesThenSpeak(index);
-        return;
-      }
 
       const generation = session.generation;
       const chunk = list[index];
@@ -467,12 +480,17 @@
           else stop();
         };
 
-        window.speechSynthesis.cancel();
-        window.speechSynthesis.resume();
-        window.speechSynthesis.speak(utterance);
-        status = session.paused ? 'paused' : 'playing';
-        setHint('');
-        updateUI();
+        const synth = window.speechSynthesis;
+        synth.cancel();
+        window.setTimeout(() => {
+          if (session.generation !== generation || session.stopped) return;
+          synth.resume();
+          synth.speak(utterance);
+          status = session.paused ? 'paused' : 'playing';
+          setHint('');
+          updateUI();
+        }, 60);
+        return;
       } catch (err) {
         console.error('[read-aloud] speak failed:', err);
         setHint('Could not start speech. Try another browser or voice.');
@@ -512,6 +530,10 @@
           });
         if (hiddenRoot) {
           setHint('Open a chapter or wait for content to load, then try again.');
+        } else {
+          setHint(
+            'No readable text found yet. Wait for the page to finish loading, then try Play again.',
+          );
         }
         return false;
       }
@@ -694,7 +716,7 @@
         <div class="read-aloud-panel-body">
           <p class="read-aloud-hint" hidden role="status"></p>
           <div class="read-aloud-progress-wrap" hidden>
-            <div style="display:flex;justify-content:space-between;font-size:0.75rem;color:#6c757d;margin-bottom:0.25rem;">
+            <div class="read-aloud-progress-meta">
               <span>Progress</span>
               <span class="read-aloud-progress-label">—</span>
             </div>

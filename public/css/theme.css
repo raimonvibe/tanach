@@ -256,8 +256,8 @@ html[data-color-mode="dark"] .book-info h2,
 html[data-color-mode="dark"] .tractate-info h2,
 html[data-color-mode="dark"] .calendar-title,
 html[data-color-mode="dark"] .reading-card h3,
-html[data-color-mode="dark"] h2,
-html[data-color-mode="dark"] h3 {
+html[data-color-mode="dark"] body h2,
+html[data-color-mode="dark"] body h3 {
   color: var(--color-primary) !important;
 }
 
@@ -265,7 +265,7 @@ html[data-color-mode="dark"] .category p,
 html[data-color-mode="dark"] .book-info p,
 html[data-color-mode="dark"] .info-label,
 html[data-color-mode="dark"] .loading,
-html[data-color-mode="dark"] label {
+html[data-color-mode="dark"] body label {
   color: var(--color-text-muted) !important;
 }
 
@@ -273,7 +273,7 @@ html[data-color-mode="dark"] .books-list a,
 html[data-color-mode="dark"] .info-value,
 html[data-color-mode="dark"] .reading-text,
 html[data-color-mode="dark"] .verse,
-html[data-color-mode="dark"] p {
+html[data-color-mode="dark"] body p {
   color: var(--color-text) !important;
 }
 
@@ -286,7 +286,7 @@ html[data-color-mode="dark"] input[type="text"],
 html[data-color-mode="dark"] input[type="date"],
 html[data-color-mode="dark"] input[type="email"],
 html[data-color-mode="dark"] textarea,
-html[data-color-mode="dark"] select,
+html[data-color-mode="dark"] select:not(.read-aloud-select),
 html[data-color-mode="dark"] .book-selector,
 html[data-color-mode="dark"] .location-select {
   background: var(--color-input-bg) !important;
@@ -495,49 +495,4 @@ html[data-color-mode="dark"] .geo-btn:hover {
   }
 }
 
-/* Listen panel — follow active book theme in dark mode */
-html[data-color-mode="dark"] .read-aloud-mode-btn {
-  background: var(--color-surface-muted) !important;
-  border-color: var(--color-border) !important;
-  color: var(--color-text) !important;
-}
-
-html[data-color-mode="dark"] .read-aloud-mode-btn.active,
-html[data-color-mode="dark"] .read-aloud-speed-btn.active,
-html[data-color-mode="dark"] .read-aloud-icon-btn-primary {
-  background: var(--gradient-header) !important;
-  color: var(--color-on-primary) !important;
-}
-
-html[data-color-mode="dark"] .read-aloud-speed-btn,
-html[data-color-mode="dark"] .read-aloud-progress-track {
-  background: var(--color-surface-muted) !important;
-  color: var(--color-text) !important;
-}
-
-html[data-color-mode="dark"] .read-aloud-select {
-  background: var(--color-input-bg) !important;
-  border-color: var(--color-input-border) !important;
-  color: var(--color-text) !important;
-}
-
-html[data-color-mode="dark"] .read-aloud-label,
-html[data-color-mode="dark"] .read-aloud-footer-note {
-  color: var(--color-text-muted) !important;
-}
-
-html[data-color-mode="dark"] .read-aloud-hint {
-  background: var(--color-surface-raised) !important;
-  border-color: var(--color-primary) !important;
-  color: var(--color-text) !important;
-}
-
-html[data-color-mode="dark"] .read-aloud-icon-btn {
-  border-color: var(--color-border) !important;
-  color: var(--color-text) !important;
-}
-
-html[data-color-mode="dark"] .read-aloud-icon-btn:hover:not(:disabled) {
-  border-color: var(--color-primary) !important;
-  color: var(--color-primary) !important;
-}
+/* Listen panel colors live in read-aloud.css (.read-aloud-root) */

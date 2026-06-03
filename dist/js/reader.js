@@ -57,7 +57,7 @@ async function init() {
                         if (verseElement) {
                             console.log('[Reader] Verse element found, scrolling');
                             verseElement.scrollIntoView({ behavior: 'smooth' });
-                            verseElement.style.backgroundColor = '#fff3cd';
+                            verseElement.classList.add('verse-highlight');
                         } else {
                             console.warn('[Reader] Verse element not found:', verse);
                         }
@@ -387,6 +387,8 @@ function renderVerses(verses) {
     
     switchTab('both');
     
+    window.dispatchEvent(new CustomEvent('read-aloud-content-updated'));
+
     console.log('[Reader] renderVerses() completed, rendered', verses.length, 'verses');
     console.log('[Reader] Hebrew verses element:', hebrewVerses);
     console.log('[Reader] English verses element:', englishVerses);

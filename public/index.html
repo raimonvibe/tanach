@@ -774,8 +774,9 @@
         window.goToVerse = goToVerse;
 
         // Load page
-        loadStats();
-        loadCategories();
+        Promise.all([loadStats(), loadCategories()]).then(() => {
+            window.dispatchEvent(new CustomEvent('read-aloud-content-updated'));
+        });
     </script>
     <script src="/js/read-aloud.js" defer></script>
 </body>

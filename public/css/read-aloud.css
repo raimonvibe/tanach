@@ -1,4 +1,36 @@
-/* Speech / listen mode — bottom-left FAB (Tanach theme) */
+/* Speech / listen mode — bottom-left FAB; self-contained light/dark colors */
+
+.read-aloud-root {
+  --ra-text: #333333;
+  --ra-text-muted: #6c757d;
+  --ra-text-faint: #adb5bd;
+  --ra-surface: #ffffff;
+  --ra-surface-muted: #f8f9fa;
+  --ra-border: #dee2e6;
+  --ra-btn-bg: #ffffff;
+  --ra-btn-text: #495057;
+  --ra-hint-bg: #fff8e1;
+  --ra-hint-text: #856404;
+  --ra-hint-border: #ffc107;
+  --ra-badge-bg: #ffffff;
+  --ra-badge-text: #667eea;
+}
+
+html[data-color-mode='dark'] .read-aloud-root {
+  --ra-text: #e8eaef;
+  --ra-text-muted: #a8b0c4;
+  --ra-text-faint: #7a849c;
+  --ra-surface: #1e2438;
+  --ra-surface-muted: #2f3854;
+  --ra-border: #4a5578;
+  --ra-btn-bg: #2f3854;
+  --ra-btn-text: #e8eaef;
+  --ra-hint-bg: #2f3854;
+  --ra-hint-text: #e8eaef;
+  --ra-hint-border: var(--color-primary, #8b9cf7);
+  --ra-badge-bg: #2f3854;
+  --ra-badge-text: var(--color-primary, #8b9cf7);
+}
 
 .read-aloud-root {
   position: fixed;
@@ -32,9 +64,9 @@
   -webkit-overflow-scrolling: touch;
   border-radius: 1rem;
   border: 1px solid var(--color-primary-soft, rgba(102, 126, 234, 0.25));
-  background: var(--color-surface, rgba(255, 255, 255, 0.97));
+  background: var(--ra-surface, rgba(255, 255, 255, 0.97));
   box-shadow: var(--shadow-card-sm, 0 12px 40px rgba(102, 126, 234, 0.2));
-  color: var(--color-text, #333);
+  color: var(--ra-text, #333);
   backdrop-filter: blur(12px);
   animation: read-aloud-panel-in 0.28s ease-out;
 }
@@ -59,6 +91,15 @@
 
 .read-aloud-panel-body {
   padding: 1rem;
+  color: var(--ra-text);
+}
+
+.read-aloud-progress-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--ra-text-muted);
+  margin-bottom: 0.25rem;
 }
 
 .read-aloud-play-btn {
@@ -96,8 +137,8 @@
   right: -0.2rem;
   padding: 0.1rem 0.4rem;
   border-radius: 999px;
-  background: white;
-  color: #667eea;
+  background: var(--ra-badge-bg, white);
+  color: var(--ra-badge-text, #667eea);
   font-size: 0.55rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -140,16 +181,16 @@
   min-width: 2.75rem;
   min-height: 2.75rem;
   border-radius: 50%;
-  border: 1px solid #dee2e6;
-  background: white;
-  color: #495057;
+  border: 1px solid var(--ra-border);
+  background: var(--ra-btn-bg);
+  color: var(--ra-btn-text);
   cursor: pointer;
-  transition: border-color 0.2s, background 0.2s;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
 }
 
 .read-aloud-icon-btn:hover:not(:disabled) {
-  border-color: #667eea;
-  color: #667eea;
+  border-color: var(--color-primary, #667eea);
+  color: var(--color-primary, #667eea);
 }
 
 .read-aloud-icon-btn:disabled {
@@ -173,25 +214,25 @@
   min-height: 2.75rem;
   padding: 0.5rem 0.75rem;
   border-radius: 0.75rem;
-  border: 1px solid #dee2e6;
-  background: #f8f9fa;
+  border: 1px solid var(--ra-border);
+  background: var(--ra-surface-muted);
   font-size: 0.75rem;
   font-weight: 500;
   cursor: pointer;
-  color: #495057;
+  color: var(--ra-btn-text);
   transition: all 0.2s;
 }
 
 .read-aloud-mode-btn.active {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: var(--gradient-header, linear-gradient(135deg, #667eea 0%, #764ba2 100%));
+  color: var(--color-on-primary, white);
   border-color: transparent;
 }
 
 .read-aloud-progress-track {
   height: 0.5rem;
   border-radius: 999px;
-  background: #e9ecef;
+  background: var(--ra-surface-muted);
   overflow: hidden;
 }
 
@@ -204,17 +245,17 @@
 .read-aloud-hint {
   padding: 0.5rem 0.75rem;
   border-radius: 0.75rem;
-  border: 1px solid #ffc107;
-  background: #fff8e1;
+  border: 1px solid var(--ra-hint-border);
+  background: var(--ra-hint-bg);
   font-size: 0.75rem;
-  color: #856404;
+  color: var(--ra-hint-text);
 }
 
 .read-aloud-label {
   display: block;
   font-size: 0.75rem;
   font-weight: 500;
-  color: #6c757d;
+  color: var(--ra-text-muted);
   margin-bottom: 0.35rem;
 }
 
@@ -230,16 +271,16 @@
   padding: 0.25rem 0.5rem;
   border-radius: 0.5rem;
   border: none;
-  background: #e9ecef;
+  background: var(--ra-surface-muted);
   font-size: 0.75rem;
   font-weight: 500;
   cursor: pointer;
-  color: #495057;
+  color: var(--ra-btn-text);
 }
 
 .read-aloud-speed-btn.active {
-  background: #667eea;
-  color: white;
+  background: var(--color-primary, #667eea);
+  color: var(--color-on-primary, white);
 }
 
 .read-aloud-select {
@@ -247,9 +288,10 @@
   min-height: 2.75rem;
   padding: 0.5rem 0.75rem;
   border-radius: 0.75rem;
-  border: 1px solid #dee2e6;
+  border: 1px solid var(--ra-border);
   font-size: 0.75rem;
-  background: white;
+  background: var(--ra-btn-bg);
+  color: var(--ra-text);
 }
 
 .read-aloud-range {
@@ -339,15 +381,27 @@
 .read-aloud-footer-note {
   text-align: center;
   font-size: 0.625rem;
-  color: #adb5bd;
+  color: var(--ra-text-faint);
   margin-top: 0.75rem;
   line-height: 1.4;
 }
 
 .read-aloud-divider {
-  border-top: 1px solid #e9ecef;
+  border-top: 1px solid var(--ra-border);
   margin-top: 0.75rem;
   padding-top: 0.75rem;
+}
+
+/* Keep listen panel readable — override page-wide dark rules */
+html[data-color-mode='dark'] .read-aloud-root .read-aloud-panel-header h2,
+html[data-color-mode='dark'] .read-aloud-root .read-aloud-panel-header p {
+  color: var(--color-on-primary, #fff) !important;
+}
+
+html[data-color-mode='dark'] .read-aloud-root .read-aloud-icon-btn:not(.read-aloud-icon-btn-primary) {
+  background: var(--ra-btn-bg) !important;
+  color: var(--ra-btn-text) !important;
+  border-color: var(--ra-border) !important;
 }
 
 @media (max-width: 480px) {

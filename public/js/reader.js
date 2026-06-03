@@ -387,6 +387,8 @@ function renderVerses(verses) {
     
     switchTab('both');
     
+    window.dispatchEvent(new CustomEvent('read-aloud-content-updated'));
+
     console.log('[Reader] renderVerses() completed, rendered', verses.length, 'verses');
     console.log('[Reader] Hebrew verses element:', hebrewVerses);
     console.log('[Reader] English verses element:', englishVerses);
