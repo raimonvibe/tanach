@@ -237,22 +237,52 @@
     element.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
-  function filterVoices(voices) {
-    const preferred = voices.filter(
+  function filterVoices(allVoices) {
+    const enHe = allVoices.filter(
       (v) => v.lang.startsWith('en') || v.lang.startsWith('he'),
     );
-    const pool = preferred.length > 0 ? preferred : voices;
+    const rest = allVoices.filter((v) => !enHe.includes(v));
+    const pool = enHe.length > 0 ? [...enHe, ...rest] : allVoices;
 
     return [...pool].sort((a, b) => {
       const score = (v) => {
         let s = 0;
-        if (v.localService) s += 2;
-        if (/natural|premium|enhanced|google/i.test(v.name)) s += 3;
+        if (/natural|premium|enhanced|google/i.test(v.name)) s += 2;
         if (v.default) s += 1;
         return s;
       };
       return score(b) - score(a);
     });
+  }
+
+  const VOICE_KEY_SEP = '\x1e';
+
+  function voiceToKey(voice) {
+    if (!voice) return '';
+    return `${voice.name}${VOICE_KEY_SEP}${voice.lang}${VOICE_KEY_SEP}${voice.localService ? 1 : 0}`;
+  }
+
+  function resolveVoiceByKey(key, pool) {
+    if (!key || !window.speechSynthesis) return null;
+    let decoded = key;
+    try {
+      decoded = decodeURIComponent(key);
+    } catch (_) {
+      decoded = key;
+    }
+    const all = pool || window.speechSynthesis.getVoices();
+    const parts = decoded.split(VOICE_KEY_SEP);
+    if (parts.length >= 3) {
+      const [name, lang, localFlag] = parts;
+      const byParts = all.find(
+        (v) =>
+          v.name === name &&
+          v.lang === lang &&
+          (v.localService ? 1 : 0) === Number(localFlag),
+      );
+      if (byParts) return byParts;
+    }
+    return all.find((v) => v.voiceURI === decoded || v.voiceURI === key) || null;
   }
 
   function formatVoiceLabel(voice) {
@@ -307,7 +337,7 @@
     let pitch = 1;
     let volume = 1;
     let voices = [];
-    let voiceURI = '';
+    let voiceKey = '';
     let mode = 'page';
     const session = { generation: 0, paused: false, stopped: true };
     let chunksRef = [];
@@ -435,23 +465,24 @@
 
     function loadVoices() {
       if (!window.speechSynthesis) return;
+      const previousKey = voiceKey;
       voices = filterVoices(window.speechSynthesis.getVoices());
-      if (!voiceURI && voices[0]) voiceURI = voices[0].voiceURI;
+      if (!voiceKey && voices[0]) voiceKey = voiceToKey(voices[0]);
+      if (previousKey && resolveVoiceByKey(previousKey, voices)) {
+        voiceKey = previousKey;
+      }
+      if (!ui.voiceSelect) return;
       ui.voiceSelect.innerHTML = voices
-        .map(
-          (v) =>
-            `<option value="${v.voiceURI}"${v.voiceURI === voiceURI ? ' selected' : ''}>${formatVoiceLabel(v)}</option>`,
-        )
+        .map((v) => {
+          const key = voiceToKey(v);
+          const encoded = encodeURIComponent(key);
+          return `<option value="${encoded}"${key === voiceKey ? ' selected' : ''}>${formatVoiceLabel(v)}</option>`;
+        })
         .join('');
     }
 
-    function pickVoiceForLang(lang) {
-      const prefix = lang.startsWith('he') ? 'he' : 'en';
-      const match = voices.find((v) => v.lang.startsWith(prefix));
-      return match || voices[0] || null;
-    }
-
-    function speakChunk(index) {
+    function speakChunk(index, options = {}) {
+      const { skipVoiceAssignment = false } = options;
       if (session.stopped) return;
 
       const list = chunksRef;
@@ -475,9 +506,17 @@
         utterance.volume = volume;
         utterance.lang = detectUtteranceLang(chunk.text);
 
-        const selected = voices.find((item) => item.voiceURI === voiceURI);
-        const voice = selected || pickVoiceForLang(utterance.lang);
-        if (voice) utterance.voice = voice;
+        if (!skipVoiceAssignment && voiceKey) {
+          const freshVoices = window.speechSynthesis.getVoices();
+          const voice = resolveVoiceByKey(voiceKey, freshVoices);
+          if (voice) {
+            try {
+              utterance.voice = voice;
+            } catch (voiceErr) {
+              console.warn('[read-aloud] voice assignment failed:', voiceErr);
+            }
+          }
+        }
 
         utterance.onend = () => {
           const current = session;
@@ -511,6 +550,17 @@
               'Speech was blocked. Use Play again after clicking the page, or check browser permissions.',
             );
             stop();
+            return;
+          }
+          if (
+            !skipVoiceAssignment &&
+            (event.error === 'synthesis-failed' ||
+              event.error === 'network' ||
+              event.error === 'audio-busy' ||
+              event.error === 'language-unavailable')
+          ) {
+            console.warn('[read-aloud] retrying without voice:', event.error);
+            speakChunk(index, { skipVoiceAssignment: true });
             return;
           }
           if (index < list.length - 1) speakChunk(index + 1);
@@ -711,7 +761,11 @@
 
     if (ui.voiceSelect) {
       ui.voiceSelect.addEventListener('change', (e) => {
-        voiceURI = e.target.value;
+        try {
+          voiceKey = decodeURIComponent(e.target.value);
+        } catch (_) {
+          voiceKey = e.target.value;
+        }
       });
     }
 

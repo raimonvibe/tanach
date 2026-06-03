@@ -207,6 +207,107 @@ html[data-theme="mishnah"][data-color-mode="dark"] {
   color-scheme: dark;
 }
 
+/* ── Rambam & Mishnah light mode (original book colors via CSS vars) ─ */
+html[data-theme="rambam"]:not([data-color-mode="dark"]) .header {
+  background: var(--gradient-header) !important;
+}
+
+html[data-theme="rambam"]:not([data-color-mode="dark"]) .book-info h2,
+html[data-theme="rambam"]:not([data-color-mode="dark"]) .halakha-item h4,
+html[data-theme="rambam"]:not([data-color-mode="dark"]) .content-area h3 {
+  color: var(--color-primary) !important;
+}
+
+html[data-theme="rambam"]:not([data-color-mode="dark"]) .halakha-item {
+  border-left: 4px solid var(--color-primary) !important;
+  background: var(--color-surface-raised) !important;
+}
+
+html[data-theme="rambam"]:not([data-color-mode="dark"]) .chapter-navigation button:not(:disabled),
+html[data-theme="rambam"]:not([data-color-mode="dark"]) .chapter-nav button:not(:disabled) {
+  background: var(--color-primary) !important;
+  color: var(--color-on-primary) !important;
+}
+
+html[data-theme="rambam"]:not([data-color-mode="dark"]) .chapter-navigation button:hover:not(:disabled),
+html[data-theme="rambam"]:not([data-color-mode="dark"]) .chapter-nav button:hover:not(:disabled) {
+  background: var(--color-primary-hover) !important;
+}
+
+html[data-theme="rambam"]:not([data-color-mode="dark"]) .chapter-navigation select {
+  border-color: var(--color-primary) !important;
+}
+
+html[data-theme="mishnah"]:not([data-color-mode="dark"]) .header {
+  background: var(--gradient-header) !important;
+}
+
+html[data-theme="mishnah"]:not([data-color-mode="dark"]) .tractate-info h2,
+html[data-theme="mishnah"]:not([data-color-mode="dark"]) .mishnah-item h4,
+html[data-theme="mishnah"]:not([data-color-mode="dark"]) .content-area h3 {
+  color: var(--color-primary) !important;
+}
+
+html[data-theme="mishnah"]:not([data-color-mode="dark"]) .mishnah-item {
+  border-left: 4px solid var(--color-primary) !important;
+  background: var(--color-surface-muted) !important;
+}
+
+html[data-theme="mishnah"]:not([data-color-mode="dark"]) .chapter-navigation button:not(:disabled),
+html[data-theme="mishnah"]:not([data-color-mode="dark"]) .chapter-nav button:not(:disabled) {
+  background: var(--color-primary) !important;
+  color: var(--color-on-primary) !important;
+}
+
+html[data-theme="mishnah"]:not([data-color-mode="dark"]) .chapter-navigation button:hover:not(:disabled),
+html[data-theme="mishnah"]:not([data-color-mode="dark"]) .chapter-nav button:hover:not(:disabled) {
+  background: var(--color-primary-hover) !important;
+}
+
+html[data-theme="mishnah"]:not([data-color-mode="dark"]) .chapter-navigation select {
+  border-color: var(--color-primary) !important;
+}
+
+/* ── Rambam & Mishnah dark mode (themed, not Tanach purple) ─────── */
+html[data-theme="rambam"][data-color-mode="dark"] .halakha-item {
+  border-left: 4px solid var(--color-primary) !important;
+  background: var(--color-surface-raised) !important;
+  color: var(--color-text) !important;
+}
+
+html[data-theme="rambam"][data-color-mode="dark"] .halakha-item h4 {
+  color: var(--color-primary) !important;
+}
+
+html[data-theme="mishnah"][data-color-mode="dark"] .mishnah-item {
+  border-left: 4px solid var(--color-primary) !important;
+  background: var(--color-surface-raised) !important;
+  color: var(--color-text) !important;
+}
+
+html[data-theme="mishnah"][data-color-mode="dark"] .mishnah-item h4 {
+  color: var(--color-primary) !important;
+}
+
+html[data-theme="rambam"][data-color-mode="dark"] .chapter-navigation button:not(:disabled),
+html[data-theme="mishnah"][data-color-mode="dark"] .chapter-navigation button:not(:disabled),
+html[data-theme="rambam"][data-color-mode="dark"] .chapter-nav button:not(:disabled),
+html[data-theme="mishnah"][data-color-mode="dark"] .chapter-nav button:not(:disabled) {
+  background: var(--color-primary) !important;
+  color: var(--color-on-primary) !important;
+}
+
+html[data-theme="rambam"][data-color-mode="dark"] .chapter-navigation select,
+html[data-theme="mishnah"][data-color-mode="dark"] .chapter-navigation select {
+  border-color: var(--color-primary) !important;
+  color: var(--color-text) !important;
+}
+
+html[data-theme="rambam"][data-color-mode="dark"] .theme-toggle,
+html[data-theme="mishnah"][data-color-mode="dark"] .theme-toggle {
+  background: var(--gradient-header) !important;
+}
+
 /* ── Dark mode: global overrides (beats duplicated inline colors) ─ */
 html[data-color-mode="dark"] body {
   color: var(--color-text) !important;
@@ -403,13 +504,19 @@ html[data-color-mode="dark"] .reading-card.yearly h3 {
 
 html[data-color-mode="dark"] .halakha-item,
 html[data-color-mode="dark"] .halakha-block,
+html[data-color-mode="dark"] .mishnah-item,
 html[data-color-mode="dark"] .mishnah-block {
-  background: var(--color-surface-raised) !important;
-  border-color: var(--color-border) !important;
   color: var(--color-text) !important;
 }
 
-html[data-color-mode="dark"] .halakha-item h4 {
+html[data-theme="tanach"][data-color-mode="dark"] .halakha-item,
+html[data-theme="tanach"][data-color-mode="dark"] .mishnah-item {
+  background: var(--color-surface-raised) !important;
+  border-color: var(--color-border) !important;
+}
+
+html[data-color-mode="dark"] .halakha-item h4,
+html[data-color-mode="dark"] .mishnah-item h4 {
   color: var(--color-primary) !important;
 }
 
