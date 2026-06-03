@@ -21,8 +21,15 @@
     '.container',
   ];
   const SPEEDS = [0.75, 1, 1.25, 1.5];
+  /** Chromium desktop Google network voices stall after ~15s without firing onend. */
+  const GOOGLE_NETWORK_PAUSE_RESUME_MS = 10000;
+  const UTTERANCE_START_TIMEOUT_MS = 5000;
+  const UTTERANCE_END_BUFFER_MS = 2000;
+  const NETWORK_VOICE_MAX_CHARS = 180;
+  const CHARS_PER_SECOND = 14;
 
   let selectionCache = null;
+  let synthWarmedUp = false;
 
   function isVisible(el) {
     let node = el;
@@ -247,12 +254,33 @@
     return [...pool].sort((a, b) => {
       const score = (v) => {
         let s = 0;
-        if (/natural|premium|enhanced|google/i.test(v.name)) s += 2;
+        if (v.localService) s += 4;
+        if (/microsoft|natural|premium|enhanced/i.test(v.name)) s += 3;
+        if (/google/i.test(v.name) && v.localService) s += 2;
+        if (/google/i.test(v.name) && !v.localService) s += 1;
+        if (v.lang.startsWith('en-US') || v.lang === 'en_US') s += 2;
         if (v.default) s += 1;
         return s;
       };
       return score(b) - score(a);
     });
+  }
+
+  function pickDefaultVoiceKey(voiceList) {
+    if (!voiceList.length) return '';
+    const localEnUs = voiceList.find(
+      (v) =>
+        v.localService &&
+        (v.lang.startsWith('en-US') || v.lang === 'en_US'),
+    );
+    if (localEnUs) return voiceToKey(localEnUs);
+    const localEn = voiceList.find(
+      (v) => v.localService && v.lang.startsWith('en'),
+    );
+    if (localEn) return voiceToKey(localEn);
+    const anyEn = voiceList.find((v) => v.lang.startsWith('en'));
+    if (anyEn) return voiceToKey(anyEn);
+    return voiceToKey(voiceList[0]);
   }
 
   const VOICE_KEY_SEP = '\x1e';
@@ -307,6 +335,83 @@
 
   function detectUtteranceLang(text) {
     return /[\u0590-\u05FF]/.test(text) ? 'he-IL' : 'en-US';
+  }
+
+  function normalizeLang(lang) {
+    return lang.toLowerCase().replace('_', '-');
+  }
+
+  function isChromiumDesktop() {
+    const ua = navigator.userAgent;
+    return /Chrome|Chromium|Edg/i.test(ua) && !/Android|Mobile/i.test(ua);
+  }
+
+  function isGoogleNetworkVoice(voice) {
+    return Boolean(voice && !voice.localService && /google/i.test(voice.name));
+  }
+
+  function voiceMatchesText(voice, text) {
+    const prefix = detectUtteranceLang(text).slice(0, 2).toLowerCase();
+    return normalizeLang(voice.lang).startsWith(prefix);
+  }
+
+  function resolveVoiceForChunk(voiceKey, text, pool) {
+    const selected = resolveVoiceByKey(voiceKey, pool);
+    if (!selected) return null;
+    if (voiceMatchesText(selected, text)) return selected;
+
+    const wantPrefix = detectUtteranceLang(text).slice(0, 2).toLowerCase();
+    const matching = pool.filter((v) =>
+      normalizeLang(v.lang).startsWith(wantPrefix),
+    );
+    if (!matching.length) return null;
+
+    const preferSameKind = matching.find(
+      (v) =>
+        v.localService === selected.localService &&
+        /google/i.test(v.name) === /google/i.test(selected.name),
+    );
+    const preferLocal = matching.find((v) => v.localService);
+    return preferSameKind || preferLocal || matching[0];
+  }
+
+  function splitTextForSpeech(text, maxChars) {
+    if (!maxChars || text.length <= maxChars) return [text];
+
+    const parts = [];
+    let remaining = text.trim();
+
+    while (remaining.length > maxChars) {
+      let splitAt = -1;
+      const slice = remaining.slice(0, maxChars);
+      for (const sep of ['. ', '? ', '! ', '; ', ', ', ' ']) {
+        const idx = slice.lastIndexOf(sep);
+        if (idx > maxChars * 0.4) {
+          splitAt = idx + sep.length;
+          break;
+        }
+      }
+      if (splitAt <= 0) splitAt = maxChars;
+      parts.push(remaining.slice(0, splitAt).trim());
+      remaining = remaining.slice(splitAt).trim();
+    }
+
+    if (remaining) parts.push(remaining);
+    return parts.length ? parts : [text];
+  }
+
+  function estimateSpeechDurationMs(text, speechRate) {
+    const seconds = text.length / (CHARS_PER_SECOND * speechRate);
+    return Math.max(3000, seconds * 1000 + UTTERANCE_END_BUFFER_MS);
+  }
+
+  function warmUpSynth() {
+    if (synthWarmedUp || !window.speechSynthesis) return;
+    synthWarmedUp = true;
+    const warmup = new SpeechSynthesisUtterance(' ');
+    warmup.volume = 0.01;
+    window.speechSynthesis.speak(warmup);
+    window.speechSynthesis.cancel();
   }
 
   function icon(name) {
@@ -369,24 +474,48 @@
 
     const fabIcon = ui.fab?.querySelector('.read-aloud-fab-icon');
     const fabPing = ui.fab?.querySelector('.read-aloud-fab-ping');
-    let keepAliveTimer = null;
+    const activeUtterances = new Map();
+    const speechTimers = {
+      startTimeout: null,
+      watchdog: null,
+      googlePauseResume: null,
+    };
 
-    function stopKeepAlive() {
-      if (keepAliveTimer) {
-        clearInterval(keepAliveTimer);
-        keepAliveTimer = null;
+    function clearSpeechTimers() {
+      if (speechTimers.startTimeout) {
+        clearTimeout(speechTimers.startTimeout);
+        speechTimers.startTimeout = null;
+      }
+      if (speechTimers.watchdog) {
+        clearTimeout(speechTimers.watchdog);
+        speechTimers.watchdog = null;
+      }
+      if (speechTimers.googlePauseResume) {
+        clearInterval(speechTimers.googlePauseResume);
+        speechTimers.googlePauseResume = null;
       }
     }
 
-    function startKeepAlive() {
-      stopKeepAlive();
-      keepAliveTimer = window.setInterval(() => {
-        if (session.stopped || status === 'idle') {
-          stopKeepAlive();
+    function startGooglePauseResumeWorkaround() {
+      if (!isChromiumDesktop()) return;
+      if (speechTimers.googlePauseResume) return;
+      speechTimers.googlePauseResume = window.setInterval(() => {
+        const synth = window.speechSynthesis;
+        if (session.stopped || !synth?.speaking) {
+          clearSpeechTimers();
           return;
         }
-        window.speechSynthesis?.resume();
-      }, 8000);
+        synth.pause();
+        synth.resume();
+      }, GOOGLE_NETWORK_PAUSE_RESUME_MS);
+    }
+
+    function scheduleEndWatchdog(text, generation, onStuck) {
+      if (speechTimers.watchdog) clearTimeout(speechTimers.watchdog);
+      speechTimers.watchdog = window.setTimeout(() => {
+        if (session.generation !== generation || session.stopped) return;
+        onStuck();
+      }, estimateSpeechDurationMs(text, rate));
     }
 
     function openPanel() {
@@ -452,7 +581,8 @@
       session.generation += 1;
       session.stopped = true;
       session.paused = false;
-      stopKeepAlive();
+      clearSpeechTimers();
+      activeUtterances.clear();
       window.speechSynthesis?.cancel();
       if (mainRef) clearChunkHighlights(mainRef);
       status = 'idle';
@@ -467,7 +597,7 @@
       if (!window.speechSynthesis) return;
       const previousKey = voiceKey;
       voices = filterVoices(window.speechSynthesis.getVoices());
-      if (!voiceKey && voices[0]) voiceKey = voiceToKey(voices[0]);
+      if (!voiceKey) voiceKey = pickDefaultVoiceKey(voices);
       if (previousKey && resolveVoiceByKey(previousKey, voices)) {
         voiceKey = previousKey;
       }
@@ -481,9 +611,49 @@
         .join('');
     }
 
+    function advanceAfterChunk(index, segmentIndex, segments, generation) {
+      if (
+        session.generation !== generation ||
+        session.stopped ||
+        session.paused
+      ) {
+        return;
+      }
+
+      if (segments && segmentIndex + 1 < segments.length) {
+        speakChunk(index, {
+          segmentIndex: segmentIndex + 1,
+          segments,
+          generation,
+        });
+        return;
+      }
+
+      if (index + 1 < chunksRef.length) {
+        window.setTimeout(() => {
+          if (
+            session.generation !== generation ||
+            session.stopped ||
+            session.paused
+          ) {
+            return;
+          }
+          speakChunk(index + 1);
+        }, 280);
+      } else {
+        stop();
+      }
+    }
+
     function speakChunk(index, options = {}) {
-      const { skipVoiceAssignment = false } = options;
-      if (session.stopped) return;
+      const {
+        skipVoiceAssignment = false,
+        segmentIndex = 0,
+        segments = null,
+        generation = session.generation,
+      } = options;
+
+      if (session.stopped || session.generation !== generation) return;
 
       const list = chunksRef;
       if (!list.length || index >= list.length) {
@@ -492,59 +662,113 @@
       }
 
       loadVoices();
+      clearSpeechTimers();
 
-      const generation = session.generation;
       const chunk = list[index];
       indexRef = index;
       currentIndex = index;
       highlightChunk(chunk.element);
 
+      const synth = window.speechSynthesis;
+      if (!synth) {
+        setHint('Speech is not supported in this browser.');
+        stop();
+        return;
+      }
+
       try {
-        const utterance = new SpeechSynthesisUtterance(chunk.text);
+        const freshVoices = synth.getVoices();
+        const voice =
+          !skipVoiceAssignment && voiceKey
+            ? resolveVoiceForChunk(voiceKey, chunk.text, freshVoices)
+            : null;
+
+        let maxChars = Infinity;
+        if (voice && isGoogleNetworkVoice(voice) && isChromiumDesktop()) {
+          maxChars = NETWORK_VOICE_MAX_CHARS;
+        } else if (voice && !voice.localService) {
+          maxChars = 250;
+        }
+
+        const textSegments = segments || splitTextForSpeech(chunk.text, maxChars);
+        const text = textSegments[segmentIndex];
+        if (!text) {
+          advanceAfterChunk(index, segmentIndex, textSegments, generation);
+          return;
+        }
+
+        const utteranceId = `${generation}-${index}-${segmentIndex}-${Date.now()}`;
+        const utterance = new SpeechSynthesisUtterance(text);
         utterance.rate = rate;
         utterance.pitch = pitch;
         utterance.volume = volume;
-        utterance.lang = detectUtteranceLang(chunk.text);
 
-        if (!skipVoiceAssignment && voiceKey) {
-          const freshVoices = window.speechSynthesis.getVoices();
-          const voice = resolveVoiceByKey(voiceKey, freshVoices);
-          if (voice) {
-            try {
-              utterance.voice = voice;
-            } catch (voiceErr) {
-              console.warn('[read-aloud] voice assignment failed:', voiceErr);
-            }
+        if (voice) {
+          try {
+            utterance.voice = voice;
+            utterance.lang = voice.lang;
+          } catch (voiceErr) {
+            console.warn('[read-aloud] voice assignment failed:', voiceErr);
+            utterance.lang = detectUtteranceLang(chunk.text);
           }
+        } else {
+          utterance.lang = detectUtteranceLang(chunk.text);
         }
 
+        activeUtterances.set(utteranceId, utterance);
+        let started = false;
+
+        function cleanupUtterance() {
+          activeUtterances.delete(utteranceId);
+        }
+
+        function finishSegment() {
+          clearSpeechTimers();
+          cleanupUtterance();
+          advanceAfterChunk(index, segmentIndex, textSegments, generation);
+        }
+
+        utterance.onstart = () => {
+          started = true;
+          if (speechTimers.startTimeout) {
+            clearTimeout(speechTimers.startTimeout);
+            speechTimers.startTimeout = null;
+          }
+          if (voice && isGoogleNetworkVoice(voice)) {
+            startGooglePauseResumeWorkaround();
+          }
+          scheduleEndWatchdog(text, generation, () => {
+            console.warn('[read-aloud] watchdog: speech stalled, advancing');
+            synth.cancel();
+            finishSegment();
+          });
+        };
+
         utterance.onend = () => {
-          const current = session;
           if (
-            current.generation !== generation ||
-            current.stopped ||
-            current.paused
+            session.generation !== generation ||
+            session.stopped ||
+            session.paused
           ) {
+            clearSpeechTimers();
+            cleanupUtterance();
             return;
           }
-          window.setTimeout(() => {
-            const after = session;
-            if (
-              after.generation !== generation ||
-              after.stopped ||
-              after.paused
-            ) {
-              return;
-            }
-            speakChunk(index + 1);
-          }, 280);
+          finishSegment();
         };
 
         utterance.onerror = (event) => {
-          if (session.generation !== generation || session.stopped) return;
-          if (event.error === 'interrupted' || event.error === 'canceled') {
+          if (session.generation !== generation || session.stopped) {
+            cleanupUtterance();
             return;
           }
+          if (event.error === 'interrupted' || event.error === 'canceled') {
+            cleanupUtterance();
+            return;
+          }
+
+          clearSpeechTimers();
+          cleanupUtterance();
           if (event.error === 'not-allowed') {
             setHint(
               'Speech was blocked. Use Play again after clicking the page, or check browser permissions.',
@@ -560,31 +784,55 @@
               event.error === 'language-unavailable')
           ) {
             console.warn('[read-aloud] retrying without voice:', event.error);
-            speakChunk(index, { skipVoiceAssignment: true });
+            if (voice && isGoogleNetworkVoice(voice)) {
+              setHint(
+                'Google network voice failed. Trying browser default, or pick a Local voice.',
+              );
+            }
+            speakChunk(index, {
+              skipVoiceAssignment: true,
+              segmentIndex,
+              segments: textSegments,
+              generation,
+            });
             return;
           }
-          if (index < list.length - 1) speakChunk(index + 1);
-          else stop();
+          if (index < list.length - 1 || segmentIndex + 1 < textSegments.length) {
+            finishSegment();
+          } else {
+            stop();
+          }
         };
 
-        const synth = window.speechSynthesis;
-        if (!synth) {
-          setHint('Speech is not supported in this browser.');
-          stop();
-          return;
-        }
+        speechTimers.startTimeout = window.setTimeout(() => {
+          if (started || session.generation !== generation || session.stopped) {
+            return;
+          }
+          console.warn('[read-aloud] speech never started, retrying');
+          synth.cancel();
+          clearSpeechTimers();
+          cleanupUtterance();
+          if (!skipVoiceAssignment) {
+            speakChunk(index, {
+              skipVoiceAssignment: true,
+              segmentIndex,
+              segments: textSegments,
+              generation,
+            });
+          } else {
+            advanceAfterChunk(index, segmentIndex, textSegments, generation);
+          }
+        }, UTTERANCE_START_TIMEOUT_MS);
 
-        // Must speak in the same turn as the user click (no setTimeout) or Chrome blocks it.
         synth.cancel();
         synth.resume();
         synth.speak(utterance);
         status = session.paused ? 'paused' : 'playing';
-        setHint('');
-        startKeepAlive();
+        if (!skipVoiceAssignment) setHint('');
         updateUI();
       } catch (err) {
         console.error('[read-aloud] speak failed:', err);
-        setHint('Could not start speech. Try another browser or voice.');
+        setHint('Could not start speech. Try a Local voice or Microsoft Edge.');
         stop();
       }
     }
@@ -673,13 +921,15 @@
       session.generation += 1;
       session.paused = false;
       session.stopped = false;
+      clearSpeechTimers();
+      activeUtterances.clear();
       window.speechSynthesis.cancel();
-
-      window.setTimeout(() => speakChunk(next), 80);
+      speakChunk(next);
     }
 
     function handleStart(readMode) {
       openPanel();
+      warmUpSynth();
       const wasActive = status === 'playing' || status === 'paused';
       if (wasActive) stop();
       const ok = start(readMode);
@@ -698,6 +948,7 @@
 
     function handlePlayPause() {
       openPanel();
+      warmUpSynth();
       if (status === 'idle') {
         const ok = start('page');
         if (!ok && !ui.hint?.textContent) {
@@ -871,7 +1122,7 @@
             </label>
             <input type="range" class="read-aloud-range read-aloud-volume" min="0" max="1" step="0.05" value="1" aria-label="Volume">
           </div>
-          <p class="read-aloud-footer-note">Highlight text first for &ldquo;Read selection&rdquo;. Shortcuts: Alt+R play/pause · Alt+S stop</p>
+          <p class="read-aloud-footer-note">Highlight text first for &ldquo;Read selection&rdquo;. Local voices are most reliable; Google network voices may need a retry on Chrome. Shortcuts: Alt+R play/pause · Alt+S stop</p>
         </div>
       </div>
       <button type="button" class="read-aloud-fab read-aloud-fab-idle" aria-expanded="false" aria-label="Open listen controls">
