@@ -1,4 +1,7 @@
 # Dependabot keeps dependencies up to date.
+# Major-version bumps are excluded from the group so they always show up
+# as their own PR to review individually, instead of hiding inside a
+# bundle of otherwise-safe minor/patch updates.
 # https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
 
 version: 2
@@ -17,6 +20,9 @@ updates:
       root-dependencies:
         patterns:
           - "*"
+        update-types:
+          - minor
+          - patch
 
   - package-ecosystem: github-actions
     directory: /
