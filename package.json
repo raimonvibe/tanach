@@ -33,7 +33,7 @@
     "@hebcal/core": "^5.10.1",
     "@hebcal/leyning": "^9.6.0",
     "express": "^4.22.3",
-    "fs-extra": "^11.4.0",
+    "fs-extra": "^11.4.1",
     "lunr": "^2.3.9",
     "nodemon": "^3.1.14"
   },
