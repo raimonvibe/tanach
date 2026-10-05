@@ -31,7 +31,7 @@
   ],
   "dependencies": {
     "@hebcal/core": "^5.10.1",
-    "@hebcal/leyning": "^9.6.0",
+    "@hebcal/leyning": "^10.0.2",
     "express": "^4.22.3",
     "fs-extra": "^11.4.1",
     "lunr": "^2.3.9",
