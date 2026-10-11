@@ -1,14 +1,15 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs-extra');
-const { HebrewDate, HDate, Location, HebrewCalendar, Event, Zmanim } = require('@hebcal/core');
-const { Leyning, formatAliyahWithBook } = require('@hebcal/leyning');
+// @hebcal/core 6 and @hebcal/leyning 10 are ESM-only, so they are loaded with import() before listen().
+let HDate, Location, HebrewCalendar, Event, Zmanim, Leyning, formatAliyahWithBook;
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Configure location for Amsterdam
-const AMSTERDAM = Location.lookup('Amsterdam') || new Location(
+// Configure location for Amsterdam (set once hebcal has loaded)
+let AMSTERDAM;
+const makeAmsterdam = () => Location.lookup('Amsterdam') || new Location(
     52.3676,            // latitude
     4.9041,             // longitude
     false,              // isIsrael
@@ -754,9 +755,15 @@ function getJewishHolidays(hebrewDate) {
 }
 
 // Start server
-app.listen(PORT, () => {
-    console.log(`🚀 Tanach Reader server running at http://localhost:${PORT}`);
-    console.log(`📚 All books are available via the API`);
-    console.log(`📅 Jewish calendar available at /calendar.html`);
+Promise.all([import('@hebcal/core'), import('@hebcal/leyning')]).then(([core, leyning]) => {
+    ({ HDate, Location, HebrewCalendar, Event, Zmanim } = core);
+    ({ Leyning, formatAliyahWithBook } = leyning);
+    AMSTERDAM = makeAmsterdam();
+
+    app.listen(PORT, () => {
+        console.log(`🚀 Tanach Reader server running at http://localhost:${PORT}`);
+        console.log(`📚 All books are available via the API`);
+        console.log(`📅 Jewish calendar available at /calendar.html`);
+    });
 });
 
