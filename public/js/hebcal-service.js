@@ -1,4 +1,4 @@
-import { HDate, HebrewCalendar, Event, Zmanim } from '@hebcal/core';
+import { HDate, HebrewCalendar, Zmanim, flags } from '@hebcal/core';
 import { getLeyningOnDate, formatAliyahWithBook } from '@hebcal/leyning';
 import {
     getHebcalLocation,
@@ -23,6 +23,9 @@ export {
     getCalendarLabels,
     getDisplayLocale,
 };
+
+// Event flags that mark a day as a holiday or fast in the month calendar
+const HOLIDAY_FLAGS = flags.CHAG | flags.MINOR_HOLIDAY | flags.MAJOR_FAST | flags.MINOR_FAST;
 
 /**
  * Gregorian date as YYYY-MM-DD in the user's local timezone.
@@ -113,7 +116,7 @@ export function getWeeklyInfo(date = null) {
         const roshChodeshEvents = HebrewCalendar.calendar({
             start: targetDate,
             end: new Date(targetDate.getTime() + 30 * 24 * 60 * 60 * 1000), // Next 30 days
-            mask: Event.ROSH_CHODESH
+            mask: flags.ROSH_CHODESH
         });
 
         if (roshChodeshEvents.length > 0) {
@@ -332,8 +335,8 @@ function getDayEventsFromHebcal(date, allEvents) {
                 eventType = 'shabbat';
             } else {
                 // Check if it's a holiday by flags
-                const flags = ev.getFlags();
-                if (flags & Event.MAJOR_HOLIDAY || flags & Event.MINOR_HOLIDAY || flags & Event.MINOR_FAST || flags & Event.MAJOR_FAST) {
+                const evFlags = ev.getFlags();
+                if (evFlags & HOLIDAY_FLAGS) {
                     eventType = 'holiday';
                 }
             }
