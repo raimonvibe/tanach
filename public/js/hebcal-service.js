@@ -10,7 +10,6 @@ import {
     getCalendarLabels,
     setCalendarLocation,
     getActiveLocationId,
-    getLocationPresets,
     LOCATION_PRESETS,
     setCustomGeoLocation,
 } from './calendar-location.js';
