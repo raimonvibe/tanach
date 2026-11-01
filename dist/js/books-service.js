@@ -132,8 +132,8 @@ export async function searchBooks(query) {
                         category: book.category,
                         chapter: firstChapter.chapter,
                         verse: verse.verse,
-                        hebrew: verse.hebrew,
-                        english: verse.english
+                        hebrew: verse.translations?.hebrew || '',
+                        english: verse.translations?.english || ''
                     });
                 });
             }
@@ -141,8 +141,8 @@ export async function searchBooks(query) {
             // Search in verses
             for (const chapter of book.chapters) {
                 for (const verse of chapter.verses) {
-                    const hebrewMatch = verse.hebrew && verse.hebrew.toLowerCase().includes(searchTerm);
-                    const englishMatch = verse.english && verse.english.toLowerCase().includes(searchTerm);
+                    const hebrewMatch = verse.translations?.hebrew && verse.translations.hebrew.toLowerCase().includes(searchTerm);
+                    const englishMatch = verse.translations?.english && verse.translations.english.toLowerCase().includes(searchTerm);
 
                     if (hebrewMatch || englishMatch) {
                         results.push({
@@ -151,8 +151,8 @@ export async function searchBooks(query) {
                             category: book.category,
                             chapter: chapter.chapter,
                             verse: verse.verse,
-                            hebrew: verse.hebrew,
-                            english: verse.english
+                            hebrew: verse.translations?.hebrew || '',
+                            english: verse.translations?.english || ''
                         });
 
                         // Limit results
