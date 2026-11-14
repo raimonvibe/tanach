@@ -42,20 +42,6 @@
     <link rel="stylesheet" href="/css/read-aloud.css">
     <script src="/js/theme.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -106,10 +92,6 @@
             line-height: 1.2;
         }
 
-        .nav-links a:hover {
-            background: rgba(255,255,255,0.3);
-        }
-
         .main-content {
             background: white;
             border-radius: 20px;
@@ -149,10 +131,6 @@
             margin-bottom: 20px;
         }
 
-        .books-list {
-            list-style: none;
-        }
-
         .books-list li {
             margin-bottom: 8px;
         }
@@ -164,10 +142,6 @@
             border-radius: 8px;
             display: block;
             transition: background-color 0.3s ease;
-        }
-
-        .books-list a:hover {
-            background-color: #e9ecef;
         }
 
         .stats {
@@ -207,6 +181,24 @@
             opacity: 0.9;
         }
 
+        .continue-reading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px 16px;
+            background: var(--gradient-header, linear-gradient(135deg, #667eea 0%, #764ba2 100%));
+            color: #fff;
+            text-decoration: none;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 30px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .continue-reading:focus-visible {
+            outline: 3px solid var(--color-primary-ring, rgba(102, 126, 234, 0.45));
+            outline-offset: 2px;
+        }
         .search-section {
             background: #f8f9fa;
             border-radius: 15px;
@@ -373,11 +365,6 @@
             margin: 0 auto;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
         .footer {
             text-align: center;
             color: white;
@@ -504,7 +491,7 @@
         }
     </style>
 </head>
-<body>
+<body class="page-gradient">
     <div class="header">
         <div class="header-content">
             <h1>📖 Tanach Reader</h1>
@@ -521,6 +508,8 @@
                 <div class="loading">Loading statistics...</div>
             </div>
 
+            <div id="continueReading"></div>
+
             <div class="search-section">
                 <h3>🔍 Search the Tanach</h3>
                 <form class="search-form" id="searchForm">
@@ -535,13 +524,38 @@
             </div>
         </div>
 
-        <div class="footer">
-            <p>&copy; 2024 Tanach Reader - Authentic Jewish texts from Sefaria.org</p>
-        </div>
+        <footer class="footer" data-site-footer>
+            <p>&copy; <span data-copyright-years>2024</span> Tanach Reader - Authentic Jewish texts from Sefaria.org</p>
+            <ul class="social-icons" data-social-icons aria-label="Social links"></ul>
+        </footer>
     </div>
 
     <script type="module">
         import { getAllBooks, searchBooks } from './js/books-service.js';
+        import { loadLastPosition, positionUrl, positionLabel } from './js/reader-preferences.js';
+
+        // "Continue where you left off" link to the last chapter opened in the reader
+        function renderContinueReading() {
+            const container = document.getElementById('continueReading');
+            const position = loadLastPosition();
+            if (!container || !position) return;
+
+            const link = document.createElement('a');
+            link.className = 'continue-reading';
+            link.href = positionUrl(position);
+
+            const label = document.createElement('span');
+            label.className = 'continue-reading-label';
+            label.textContent = 'Continue where you left off';
+
+            const target = document.createElement('span');
+            target.className = 'continue-reading-target';
+            target.textContent = `${positionLabel(position)} →`;
+
+            link.append(label, target);
+            container.replaceChildren(link);
+        }
+        renderContinueReading();
 
         // Load statistics
         async function loadStats() {
@@ -778,6 +792,7 @@
             window.dispatchEvent(new CustomEvent('read-aloud-content-updated'));
         });
     </script>
+    <script type="module" src="/js/site-footer.js"></script>
     <script src="/js/read-aloud.js" defer></script>
 </body>
 </html>

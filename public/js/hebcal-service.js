@@ -58,6 +58,7 @@ export function getWeeklyInfo(date = null) {
         });
 
         let parashat = null;
+        let torah = null;
         let haftarah = null;
         let roshChodesh = null;
 
@@ -73,6 +74,10 @@ export function getWeeklyInfo(date = null) {
                 // Get the Haftarah reading
                 try {
                     const leyning = getLeyningOnDate(ev.getDate(), useIsraelCalendar());
+                    if (leyning && typeof leyning.summary === 'string') {
+                        // Verse range of the portion, e.g. "Genesis 6:9-11:32"
+                        torah = leyning.summary;
+                    }
                     if (leyning && leyning.haftara) {
                         const haftaraData = leyning.haftara;
                         console.log('Haftarah data:', haftaraData); // Debug log
@@ -129,6 +134,7 @@ export function getWeeklyInfo(date = null) {
 
         return {
             parashat: parashat || 'N/A',
+            torah: torah,
             haftarah: haftarah || 'N/A',
             roshChodesh: roshChodesh,
             specialShabbat: null

@@ -36,20 +36,6 @@
     <meta name="description" content="Daily, weekly, and yearly Jewish readings and study programs">
     <meta name="theme-color" content="#667eea">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -105,10 +91,6 @@
             display: inline-flex;
             align-items: center;
             line-height: 1.2;
-        }
-
-        .nav-links a:hover {
-            background: rgba(255,255,255,0.3);
         }
 
         .date-selector {
@@ -254,6 +236,11 @@
             line-height: 1.5;
         }
 
+        .reading-range {
+            color: var(--color-text-muted, #666);
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+        }
         .reading-link {
             display: inline-block;
             margin-top: 8px;
@@ -335,11 +322,6 @@
             height: 40px;
             animation: spin 1s linear infinite;
             margin: 0 auto 15px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
         }
 
         .error {
@@ -426,7 +408,7 @@
         }
     </style>
 </head>
-<body>
+<body class="page-gradient">
     <div class="header">
         <div class="header-content">
             <h1>📚 Jewish Reading Schedule</h1>
@@ -462,9 +444,10 @@
             </div>
         </div>
 
-        <div class="footer">
-            <p>&copy; 2024 Tanach Reader - Data from HebCal.org and Sefaria.org</p>
-        </div>
+        <footer class="footer" data-site-footer>
+            <p>&copy; <span data-copyright-years>2024</span> Tanach Reader - Data from HebCal.org and Sefaria.org</p>
+            <ul class="social-icons" data-social-icons aria-label="Social links"></ul>
+        </footer>
     </div>
 
     <script type="module">
@@ -671,13 +654,21 @@
                     getParashatInfo,
                     getBookInfo,
                     parashatSefariaUrl || '',
+                    { torahReference: weeklyInfo.torah || '', label: parashatText },
                 );
+                const torahRange = weeklyInfo.torah
+                    ? `<div class="reading-range">${weeklyInfo.torah}</div>`
+                    : '';
 
                 const haftarahText = weeklyInfo.haftarah || 'N/A';
+                const haftarahLabel = weeklyInfo.parashat && weeklyInfo.parashat !== 'N/A'
+                    ? `Haftarah for ${weeklyInfo.parashat}`
+                    : 'Haftarah';
                 const haftarahLink = await getHaftarahLink(
                     haftarahText,
                     haftarahSefariaUrl || '',
                     generateReaderLink,
+                    haftarahLabel,
                 );
 
                 return `
@@ -686,6 +677,7 @@
                         <div class="reading-item">
                             <div class="reading-label">Parashat HaShavua (Torah Portion)</div>
                             <div class="reading-text">${parashatText}</div>
+                            ${torahRange}
                             ${parashatLink}
                         </div>
                         <div class="reading-item">
@@ -733,6 +725,7 @@
             new ReadingsApp();
         });
     </script>
+    <script type="module" src="/js/site-footer.js"></script>
     <script src="/js/read-aloud.js" defer></script>
 </body>
 </html>

@@ -250,7 +250,8 @@ export function parseReference(reference) {
             book: crossChapterMatch[1].trim(),
             chapter: startChapter,
             verseStart: startVerse,
-            verseEnd: endVerse
+            verseEnd: endVerse,
+            chapterEnd: endChapter
         };
     }
 
@@ -510,7 +511,18 @@ export async function generateReaderLink(reference) {
         console.warn(`[BookMapping] Verse end ${parsed.verseEnd} is invalid (must be >= 1)`);
         return null;
     }
-    if (parsed.verseStart && parsed.verseEnd && parsed.verseEnd < parsed.verseStart) {
+    // A range that ends in a later chapter (e.g. "Genesis 25:19-28:9") is not reversed
+    // and its end verse belongs to that later chapter.
+    const endChapter = parsed.chapterEnd || parsed.chapter;
+    const endsInSameChapter = endChapter === parsed.chapter;
+    if (endChapter) {
+        const maxChapters = BOOK_CHAPTER_LIMITS[bookInfo.id];
+        if (maxChapters && endChapter > maxChapters) {
+            console.warn(`[BookMapping] End chapter ${endChapter} is out of range for ${bookInfo.name} (1-${maxChapters})`);
+            return null;
+        }
+    }
+    if (endsInSameChapter && parsed.verseStart && parsed.verseEnd && parsed.verseEnd < parsed.verseStart) {
         console.warn(`[BookMapping] Verse range is reversed: ${parsed.verseStart}-${parsed.verseEnd}`);
         return null;
     }
@@ -530,7 +542,7 @@ export async function generateReaderLink(reference) {
                 }
                 
                 // Validate verse end if present (same chapter)
-                if (parsed.verseEnd && parsed.verseEnd > maxVerse) {
+                if (endsInSameChapter && parsed.verseEnd && parsed.verseEnd > maxVerse) {
                     console.warn(`[BookMapping] Verse end ${parsed.verseEnd} is out of range for ${bookInfo.name} chapter ${parsed.chapter} (max: ${maxVerse})`);
                     return null;
                 }
@@ -549,6 +561,10 @@ export async function generateReaderLink(reference) {
     }
     if (parsed.verseStart) {
         url += `&verse=${parsed.verseStart}`;
+    }
+    // Carry the full range so the reader can mark the verses of this reading
+    if (parsed.chapter && parsed.verseStart && parsed.verseEnd) {
+        url += `&start=${parsed.chapter}:${parsed.verseStart}&end=${endChapter}:${parsed.verseEnd}`;
     }
 
     return url;

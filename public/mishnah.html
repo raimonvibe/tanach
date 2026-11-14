@@ -28,19 +28,6 @@
     <meta name="description" content="Read the Mishnah online in Hebrew and English">
     <meta name="theme-color" content="#4caf50">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #f8f9fa;
-        }
-
         .header {
             background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
             color: white;
@@ -57,61 +44,9 @@
             align-items: center;
         }
 
-        .header h1 {
-            font-size: 1.8rem;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 10px;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            padding: 6px 12px;
-            border-radius: 15px;
-            background: rgba(255,255,255,0.2);
-            transition: background 0.3s ease;
-            font-size: 0.9rem;
-            display: inline-flex;
-            align-items: center;
-            line-height: 1.2;
-        }
-
-        .nav-links a:hover {
-            background: rgba(255,255,255,0.3);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 0 20px;
-        }
-
-        .tractate-info {
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
         .tractate-info h2 {
             color: #4caf50;
             margin-bottom: 10px;
-        }
-
-        .chapter-navigation {
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            flex-wrap: wrap;
         }
 
         .chapter-navigation button {
@@ -127,11 +62,6 @@
 
         .chapter-navigation button:hover:not(:disabled) {
             background: #45a049;
-        }
-
-        .chapter-navigation button:disabled {
-            background: #ccc;
-            cursor: not-allowed;
         }
 
         .chapter-navigation select {
@@ -172,12 +102,6 @@
             margin-bottom: 0;
         }
 
-        .text-section h5 {
-            color: #666;
-            margin-bottom: 8px;
-            font-size: 0.95rem;
-        }
-
         .hebrew-text {
             font-size: 1.2rem;
             line-height: 1.8;
@@ -207,20 +131,6 @@
             height: 40px;
             animation: spin 1s linear infinite;
             margin: 0 auto 15px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .error {
-            background: #ffebee;
-            color: #c62828;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-            border-left: 4px solid #c62828;
         }
 
         @media (max-width: 768px) {
@@ -256,7 +166,7 @@
         }
     </style>
 </head>
-<body>
+<body class="page-light">
     <div class="header">
         <div class="header-content">
             <h1>📜 Mishnah Reader</h1>
@@ -290,6 +200,11 @@
             </div>
         </div>
     </div>
+
+    <footer class="footer footer--light" data-site-footer>
+        <p>&copy; <span data-copyright-years>2024</span> Tanach Reader - Authentic Jewish texts from Sefaria.org</p>
+        <ul class="social-icons" data-social-icons aria-label="Social links"></ul>
+    </footer>
 
     <script type="module">
         class MishnahReader {
@@ -438,6 +353,7 @@
             new MishnahReader();
         });
     </script>
+    <script type="module" src="/js/site-footer.js"></script>
     <script src="/js/read-aloud.js" defer></script>
 </body>
 </html>
