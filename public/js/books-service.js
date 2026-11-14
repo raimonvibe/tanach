@@ -27,6 +27,21 @@ export async function getAllBooks() {
     return allBooks;
 }
 
+let bookIndexCache = null;
+
+/**
+ * Small list of every book (id, category, name, chapter count) from
+ * data/books/index.json — a few KB, unlike getAllBooks() which downloads
+ * every book's full text.
+ */
+export async function getBookIndex() {
+    if (bookIndexCache) return bookIndexCache;
+    const response = await fetch('/data/books/index.json');
+    if (!response.ok) throw new Error('Book index not found');
+    bookIndexCache = await response.json();
+    return bookIndexCache;
+}
+
 /**
  * Get books by category
  */

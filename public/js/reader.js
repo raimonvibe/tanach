@@ -3,7 +3,7 @@
  * Uses history.pushState() to update URL without reloading
  */
 
-import { getBook, getAllBooks, getChapter } from './books-service.js';
+import { getBook, getAllBooks, getChapter, getBookIndex } from './books-service.js';
 import {
     VIEW_MODES,
     FONT_SCALE_MIN,
@@ -232,15 +232,19 @@ function renderBookCatalogHtml(books) {
     return html;
 }
 
+/**
+ * Fill the book dropdown from the small book index (once per page load).
+ * Runs on every page of the reader, also when it is opened straight on a chapter.
+ */
 async function populateBookSelector() {
-    allBooks = await getAllBooks();
     const selector = document.getElementById('bookSelector');
-    if (!selector) return;
+    if (!selector || selector.dataset.populated) return;
+    const books = await getBookIndex();
 
     selector.innerHTML = '<option value="">Select a book...</option>';
 
     for (const categoryKey of CATEGORY_ORDER) {
-        const categoryBooks = allBooks.filter((book) => book.category === categoryKey);
+        const categoryBooks = books.filter((book) => book.category === categoryKey);
         if (!categoryBooks.length) continue;
 
         const optgroup = document.createElement('optgroup');
@@ -253,6 +257,7 @@ async function populateBookSelector() {
         });
         selector.appendChild(optgroup);
     }
+    selector.dataset.populated = '1';
 }
 
 async function showBookCatalog(options = {}) {
@@ -280,7 +285,7 @@ async function showBookCatalog(options = {}) {
     }
 
     try {
-        await populateBookSelector();
+        [allBooks] = await Promise.all([getAllBooks(), populateBookSelector()]);
         syncBookSelector();
         if (bookInfoEl) {
             bookInfoEl.innerHTML = renderBookCatalogHtml(allBooks);
@@ -367,6 +372,10 @@ async function loadBook(bookId, category, options = {}) {
             contentArea.style.display = 'block';
         }
 
+        // Opened straight on a chapter: the dropdown has not been filled yet
+        populateBookSelector()
+            .then(syncBookSelector)
+            .catch((error) => console.error('[Reader] Could not load book list:', error));
         syncBookSelector();
 
         // Load chapter - either from URL or first chapter
