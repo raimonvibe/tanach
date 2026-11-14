@@ -42,20 +42,6 @@
     <meta name="description" content="Read the Jewish Bible online in Hebrew and English">
     <meta name="theme-color" content="#667eea">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-
         /* Hebrew font support */
         @font-face {
             font-family: 'Noto Sans Hebrew';
@@ -116,10 +102,6 @@
             display: inline-flex;
             align-items: center;
             line-height: 1.2;
-        }
-
-        .nav-links a:hover {
-            background: rgba(255,255,255,0.3);
         }
 
         .calendar-container {
@@ -653,7 +635,7 @@
 
     </style>
 </head>
-<body>
+<body class="page-gradient">
     <div class="header">
         <div class="header-content">
             <h1>📅 Jewish Calendar</h1>
@@ -712,14 +694,16 @@
             </div>
         </div>
 
-        <div class="footer">
-            <p>&copy; 2024 Tanach Reader - Jewish Calendar with data from HebCal.org</p>
-        </div>
+        <footer class="footer" data-site-footer>
+            <p>&copy; <span data-copyright-years>2024</span> Tanach Reader - Jewish Calendar with data from HebCal.org</p>
+            <ul class="social-icons" data-social-icons aria-label="Social links"></ul>
+        </footer>
     </div>
 
     <script type="module">
         import './js/calendar-app.js';
     </script>
+    <script type="module" src="/js/site-footer.js"></script>
     <script src="/js/read-aloud.js" defer></script>
 </body>
 </html>

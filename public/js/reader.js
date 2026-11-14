@@ -4,6 +4,26 @@
  */
 
 import { getBook, getAllBooks, getChapter } from './books-service.js';
+import {
+    VIEW_MODES,
+    FONT_SCALE_MIN,
+    FONT_SCALE_MAX,
+    DEFAULT_PREFS,
+    loadPrefs,
+    savePrefs,
+    stepFontScale,
+    saveLastPosition,
+    loadLastPosition,
+    positionUrl,
+    positionLabel,
+} from './reader-preferences.js';
+import {
+    parseReadingContext,
+    isVerseInReading,
+    formatReadingRange,
+    setReadingParams,
+} from './reading-range.js';
+import { buildChapterMeta, applyMeta, DEFAULT_READER_META } from './chapter-meta.js';
 
 const CATEGORY_META = {
     torah: {
@@ -35,7 +55,20 @@ let currentBook = null;
 let currentChapter = 1;
 let currentCategory = null;
 let allBooks = [];
-let showVerseNumbers = false;
+// Reading preferences (view mode, font size, verse numbers) — remembered between visits
+let prefs = loadPrefs();
+let showVerseNumbers = prefs.showVerseNumbers;
+// Scheduled reading we were opened from (e.g. Parashat Noach), if any
+let readingContext = null;
+
+function escapeHtml(value) {
+    return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
 
 /**
  * Initialize the reader on page load
@@ -59,36 +92,25 @@ async function init() {
             });
         }
         
+        applyFontScale();
+        syncVerseNumbersButton();
+        setupPreferenceControls();
+
         const params = new URLSearchParams(window.location.search);
         const book = params.get('book');
         const category = params.get('category');
         const chapter = params.get('chapter');
-        const verse = params.get('verse');
-        
+        const verse = parseInt(params.get('verse'), 10) || null;
+
         console.log('[Reader] URL parameters:', { book, category, chapter, verse });
 
         if (book && category) {
-            console.log('[Reader] Loading book:', book, 'category:', category);
-            await loadBook(book, category);
-            if (chapter) {
-                currentChapter = parseInt(chapter);
-                console.log('[Reader] Loading chapter:', currentChapter);
-                await loadChapter(currentChapter);
-                // Scroll to verse if specified
-                if (verse) {
-                    console.log('[Reader] Scrolling to verse:', verse);
-                    setTimeout(() => {
-                        const verseElement = document.querySelector(`[data-verse="${verse}"]`);
-                        if (verseElement) {
-                            console.log('[Reader] Verse element found, scrolling');
-                            verseElement.scrollIntoView({ behavior: 'smooth' });
-                            verseElement.classList.add('verse-highlight');
-                        } else {
-                            console.warn('[Reader] Verse element not found:', verse);
-                        }
-                    }, 500);
-                }
-            }
+            readingContext = parseReadingContext(params);
+            currentChapter = parseInt(chapter, 10) || 1;
+            // 'replace': opening a link must not add a second history entry,
+            // otherwise the Back button returns to this same page.
+            await loadBook(book, category, { history: 'replace', verse });
+            if (verse) scrollToVerse(verse);
         } else {
             console.log('[Reader] No book/category in URL, loading book catalog');
             await showBookCatalog({ updateHistory: false });
@@ -114,11 +136,9 @@ async function init() {
         const chapter = params.get('chapter');
 
         if (book && category) {
-            await loadBook(book, category);
-            if (chapter) {
-                currentChapter = parseInt(chapter);
-                await loadChapter(currentChapter);
-            }
+            readingContext = parseReadingContext(params);
+            currentChapter = parseInt(chapter, 10) || 1;
+            await loadBook(book, category, { history: 'none' });
         } else {
             await showBookCatalog({ updateHistory: false });
         }
@@ -133,7 +153,8 @@ function setupCatalogNavigation() {
         const link = event.target.closest('[data-book-id][data-book-category]');
         if (!link) return;
         event.preventDefault();
-        navigateToBook(link.dataset.bookId, link.dataset.bookCategory);
+        const chapter = parseInt(link.dataset.bookChapter, 10) || 1;
+        navigateToBook(link.dataset.bookId, link.dataset.bookCategory, chapter);
     });
 }
 
@@ -147,12 +168,35 @@ function syncBookSelector() {
     }
 }
 
+/**
+ * "Continue where you left off" card, or '' when there is nothing to resume.
+ */
+function renderContinueReadingHtml(books) {
+    const position = loadLastPosition();
+    if (!position) return '';
+
+    const book = books.find((b) => b.id === position.bookId && b.category === position.category);
+    if (!book || position.chapter > book.chapters.length) return '';
+
+    const target = { ...position, bookName: book.name };
+    return `
+        <a class="continue-reading" href="${positionUrl(target)}"
+           data-book-id="${escapeHtml(book.id)}"
+           data-book-category="${escapeHtml(book.category)}"
+           data-book-chapter="${target.chapter}">
+            <span class="continue-reading-label">Continue where you left off</span>
+            <span class="continue-reading-target">${escapeHtml(positionLabel(target))} →</span>
+        </a>
+    `;
+}
+
 function renderBookCatalogHtml(books) {
     const grouped = Object.fromEntries(
         CATEGORY_ORDER.map((key) => [key, books.filter((book) => book.category === key)]),
     );
 
     let html = `
+        ${renderContinueReadingHtml(books)}
         <p class="book-catalog-intro">Choose a book below or use the dropdown above.</p>
         <div class="book-catalog">
     `;
@@ -218,6 +262,9 @@ async function showBookCatalog(options = {}) {
     currentBook = null;
     currentCategory = null;
     currentChapter = 1;
+    readingContext = null;
+    renderReadingBanner();
+    applyMeta(DEFAULT_READER_META);
 
     const bookTitleEl = document.getElementById('bookTitle');
     const bookInfoEl = document.getElementById('bookInfo');
@@ -257,16 +304,16 @@ async function loadBookSelector() {
 }
 
 async function navigateToBook(bookId, category, chapter = 1) {
+    readingContext = null;
     currentChapter = chapter;
     await loadBook(bookId, category);
     syncBookSelector();
-    updateURL(currentChapter);
 }
 
 /**
  * Load a specific book
  */
-async function loadBook(bookId, category) {
+async function loadBook(bookId, category, options = {}) {
     console.log('[Reader] loadBook() called with:', bookId, category);
     try {
         console.log('[Reader] Fetching book data...');
@@ -325,11 +372,11 @@ async function loadBook(bookId, category) {
         // Load chapter - either from URL or first chapter
         if (currentChapter && currentChapter >= 1 && currentChapter <= currentBook.chapters.length) {
             console.log('[Reader] Loading chapter from URL or previous selection:', currentChapter);
-            await loadChapter(currentChapter);
+            await loadChapter(currentChapter, options);
         } else {
             currentChapter = 1;
             console.log('[Reader] Loading first chapter automatically');
-            await loadChapter(1);
+            await loadChapter(1, { ...options, verse: null });
         }
         console.log('[Reader] loadBook() completed successfully');
     } catch (error) {
@@ -346,7 +393,8 @@ async function loadBook(bookId, category) {
 /**
  * Load a specific chapter
  */
-async function loadChapter(chapterNum) {
+async function loadChapter(chapterNum, options = {}) {
+    const { history = 'push', verse = null } = options;
     window.dispatchEvent(new Event('read-aloud-stop'));
     if (!currentBook) return;
 
@@ -377,6 +425,24 @@ async function loadChapter(chapterNum) {
         if (chapterData.chapter && chapterData.chapter.verses && chapterData.chapter.verses.length > 0) {
             console.log('[Reader] Calling renderVerses() with', chapterData.chapter.verses.length, 'verses');
             renderVerses(chapterData.chapter.verses);
+            renderReadingBanner();
+            // Per-chapter title, description and share tags ("Genesis 1 - Tanach Reader")
+            applyMeta(
+                buildChapterMeta({
+                    book: currentBook,
+                    category: currentCategory,
+                    chapter: chapterNum,
+                    verses: chapterData.chapter.verses,
+                    origin: window.location.origin,
+                }),
+            );
+            // Remember this spot for "Continue where you left off"
+            saveLastPosition({
+                bookId: currentBook.id,
+                category: currentCategory,
+                chapter: chapterNum,
+                bookName: currentBook.name,
+            });
         } else {
             console.error('[Reader] No verses found in chapter data!');
             console.error('[Reader] Chapter data structure:', JSON.stringify(chapterData, null, 2));
@@ -387,7 +453,9 @@ async function loadChapter(chapterNum) {
         }
 
         // Update URL without reloading
-        updateURL(chapterNum);
+        if (history !== 'none') {
+            updateURL(chapterNum, { mode: history, verse });
+        }
         console.log('[Reader] loadChapter() completed successfully');
     } catch (error) {
         console.error('[Reader] Error loading chapter:', error);
@@ -450,97 +518,162 @@ function renderVerses(verses) {
         return;
     }
     
-    verses.forEach((verse, index) => {
-        console.log(`[Reader] Rendering verse ${index + 1}/${verses.length}:`, verse.verse);
+    verses.forEach((verse) => {
         const verseNumberClass = showVerseNumbers ? '' : 'hidden';
+        const inReading = isVerseInReading(readingContext, currentChapter, verse.verse);
+        const verseClass = inReading ? 'verse verse-in-reading' : 'verse';
+        const hebrew = verse.translations?.hebrew || verse.hebrew || '';
+        const english = verse.translations?.english || verse.english || '';
 
         // Hebrew tab
         const hebrewDiv = document.createElement('div');
-        hebrewDiv.className = 'verse';
+        hebrewDiv.className = verseClass;
         hebrewDiv.setAttribute('data-verse', verse.verse);
         hebrewDiv.innerHTML = `
             <span class="verse-number ${verseNumberClass}">${verse.verse}</span>
-            <span class="hebrew-text">${verse.translations?.hebrew || verse.hebrew || ''}</span>
+            <span class="hebrew-text">${hebrew}</span>
         `;
         hebrewVerses.appendChild(hebrewDiv);
 
         // English tab
         const englishDiv = document.createElement('div');
-        englishDiv.className = 'verse';
+        englishDiv.className = verseClass;
         englishDiv.setAttribute('data-verse', verse.verse);
         englishDiv.innerHTML = `
             <span class="verse-number ${verseNumberClass}">${verse.verse}</span>
-            <span class="english-text">${verse.translations?.english || verse.english || ''}</span>
+            <span class="english-text">${english}</span>
         `;
         englishVerses.appendChild(englishDiv);
 
-        // Both tab
+        // Side-by-side tab: Hebrew and English next to each other on wide screens,
+        // stacked on narrow ones (see .verse-pair in reader.html)
         const bothDiv = document.createElement('div');
-        bothDiv.className = 'verse';
+        bothDiv.className = `${verseClass} verse-pair`;
         bothDiv.setAttribute('data-verse', verse.verse);
         bothDiv.innerHTML = `
-            <div style="margin-bottom: 10px;">
+            <div class="verse-pair-hebrew">
                 <span class="verse-number ${verseNumberClass}">${verse.verse}</span>
-                <span class="hebrew-text">${verse.translations?.hebrew || verse.hebrew || ''}</span>
+                <span class="hebrew-text">${hebrew}</span>
             </div>
-            <div>
-                <span class="english-text">${verse.translations?.english || verse.english || ''}</span>
+            <div class="verse-pair-english">
+                <span class="english-text">${english}</span>
             </div>
         `;
         bothVerses.appendChild(bothDiv);
     });
-    
-    // Set default tab to "both"
-    console.log('[Reader] About to call switchTab("both")');
-    
-    // Force visibility of tab content BEFORE switchTab
-    const bothContent = document.getElementById('both-content');
+
     const tabContentContainer = document.getElementById('tabContent');
-    
-    console.log('[Reader] tabContentContainer element:', tabContentContainer);
-    console.log('[Reader] tabContentContainer style.display:', tabContentContainer?.style.display);
-    console.log('[Reader] tabContentContainer computed display:', window.getComputedStyle(tabContentContainer || document.body).display);
-    
-    if (bothContent) {
-        bothContent.style.display = 'block';
-        bothContent.style.visibility = 'visible';
-        bothContent.style.opacity = '1';
-        bothContent.classList.add('active');
-        console.log('[Reader] Forced both-content to be visible');
-        console.log('[Reader] both-content computed display:', window.getComputedStyle(bothContent).display);
-        console.log('[Reader] both-content computed visibility:', window.getComputedStyle(bothContent).visibility);
-    }
-    
     if (tabContentContainer) {
         tabContentContainer.style.display = 'block';
         tabContentContainer.style.visibility = 'visible';
-        console.log('[Reader] Forced tabContentContainer to be visible');
     }
-    
-    switchTab('both');
-    
+
+    // Show the view the reader chose last time (Hebrew, English or side by side)
+    switchTab(prefs.viewMode);
+
     window.dispatchEvent(new CustomEvent('read-aloud-content-updated'));
 
     console.log('[Reader] renderVerses() completed, rendered', verses.length, 'verses');
-    console.log('[Reader] Hebrew verses element:', hebrewVerses);
-    console.log('[Reader] English verses element:', englishVerses);
-    console.log('[Reader] Both verses element:', bothVerses);
-    console.log('[Reader] Hebrew verses count:', hebrewVerses.children.length);
-    console.log('[Reader] English verses count:', englishVerses.children.length);
-    console.log('[Reader] Both verses count:', bothVerses.children.length);
+}
+
+/**
+ * Scroll to a verse in the visible tab and highlight it
+ */
+function scrollToVerse(verse) {
+    const verseNum = parseInt(verse, 10);
+    if (!verseNum) return;
+    setTimeout(() => {
+        document.querySelectorAll('.verse-highlight').forEach((el) => el.classList.remove('verse-highlight'));
+        document.querySelectorAll(`.tab-content [data-verse="${verseNum}"]`).forEach((el) => {
+            el.classList.add('verse-highlight');
+        });
+        const visible = document.querySelector(`.tab-content.active [data-verse="${verseNum}"]`);
+        if (visible) {
+            visible.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+            console.warn('[Reader] Verse element not found:', verseNum);
+        }
+    }, 300);
+}
+
+/**
+ * Banner shown when the reader was opened from the reading schedule
+ */
+function renderReadingBanner() {
+    const banner = document.getElementById('readingBanner');
+    if (!banner) return;
+
+    if (!readingContext || !currentBook) {
+        banner.hidden = true;
+        banner.textContent = '';
+        return;
+    }
+
+    banner.textContent = '';
+
+    const info = document.createElement('div');
+    info.className = 'reading-banner-info';
+
+    const label = document.createElement('strong');
+    label.textContent = readingContext.label || 'Scheduled reading';
+    info.appendChild(label);
+
+    const range = formatReadingRange(readingContext);
+    if (range) {
+        const rangeEl = document.createElement('span');
+        rangeEl.className = 'reading-banner-range';
+        rangeEl.textContent = `${currentBook.name} ${range}`;
+        info.appendChild(rangeEl);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'reading-banner-actions';
+
+    const start = readingContext.start;
+    if (start && currentChapter !== start.chapter && start.chapter <= currentBook.chapters.length) {
+        const startBtn = document.createElement('button');
+        startBtn.type = 'button';
+        startBtn.className = 'reading-banner-btn';
+        startBtn.textContent = 'Go to start';
+        startBtn.addEventListener('click', async () => {
+            await loadChapter(start.chapter, { verse: start.verse });
+            scrollToVerse(start.verse);
+        });
+        actions.appendChild(startBtn);
+    }
+
+    const back = document.createElement('a');
+    back.className = 'reading-banner-btn';
+    back.href = '/readings.html';
+    back.textContent = '← Reading schedule';
+    actions.appendChild(back);
+
+    banner.appendChild(info);
+    banner.appendChild(actions);
+    banner.hidden = false;
 }
 
 /**
  * Update URL using history.pushState (no page reload)
  */
-function updateURL(chapterNum) {
+function updateURL(chapterNum, options = {}) {
+    const { mode = 'push', verse = null } = options;
     const params = new URLSearchParams();
     params.set('book', currentBook.id);
     params.set('category', currentCategory);
     params.set('chapter', chapterNum);
-    
+    if (verse) params.set('verse', verse);
+    // Keep the scheduled-reading range in the URL so reload and Back keep the context
+    setReadingParams(params, readingContext);
+
     const newURL = `${window.location.pathname}?${params.toString()}`;
-    window.history.pushState({ book: currentBook.id, category: currentCategory, chapter: chapterNum }, '', newURL);
+    const state = { book: currentBook.id, category: currentCategory, chapter: chapterNum };
+    const currentURL = `${window.location.pathname}${window.location.search}`;
+    if (mode === 'replace' || newURL === currentURL) {
+        window.history.replaceState(state, '', newURL);
+    } else {
+        window.history.pushState(state, '', newURL);
+    }
 }
 
 /**
@@ -572,61 +705,96 @@ async function changeBook() {
         return;
     }
     const [bookId, category] = value.split('|');
+    readingContext = null;
     currentChapter = 1;
     await loadBook(bookId, category);
-    updateURL(1);
 }
 
 /**
- * Toggle verse numbers visibility
+ * Keep the verse-numbers button in sync with the current setting
+ */
+function syncVerseNumbersButton() {
+    const toggleBtn = document.getElementById('toggleVerseNumbers');
+    if (!toggleBtn) return;
+    toggleBtn.textContent = showVerseNumbers ? 'Hide verse numbers' : 'Verse numbers';
+    toggleBtn.classList.toggle('active', showVerseNumbers);
+    toggleBtn.setAttribute('aria-pressed', String(showVerseNumbers));
+}
+
+/**
+ * Toggle verse numbers visibility (remembered between visits)
  */
 function toggleVerseNumbers() {
     showVerseNumbers = !showVerseNumbers;
-    const toggleBtn = document.getElementById('toggleVerseNumbers');
-    if (toggleBtn) {
-        if (showVerseNumbers) {
-            toggleBtn.textContent = 'Hide verse numbers';
-            toggleBtn.classList.add('active');
-        } else {
-            toggleBtn.textContent = 'Verse numbers';
-            toggleBtn.classList.remove('active');
-        }
-    }
+    prefs = savePrefs({ ...prefs, showVerseNumbers });
+    syncVerseNumbersButton();
 
-    // Reload current chapter to update verse numbers
-    if (currentBook) {
-        loadChapter(currentChapter);
+    document.querySelectorAll('#tabContent .verse-number').forEach((el) => {
+        el.classList.toggle('hidden', !showVerseNumbers);
+    });
+}
+
+/**
+ * Apply the stored font size to the text area and update the size controls
+ */
+function applyFontScale() {
+    const contentArea = document.getElementById('contentArea');
+    if (contentArea) {
+        contentArea.style.setProperty('--reader-font-scale', String(prefs.fontScale));
+    }
+    const label = document.getElementById('fontScaleLabel');
+    if (label) label.textContent = `${Math.round(prefs.fontScale * 100)}%`;
+
+    const decrease = document.getElementById('fontDecrease');
+    const increase = document.getElementById('fontIncrease');
+    const reset = document.getElementById('fontReset');
+    if (decrease) decrease.disabled = prefs.fontScale <= FONT_SCALE_MIN;
+    if (increase) increase.disabled = prefs.fontScale >= FONT_SCALE_MAX;
+    if (reset) reset.disabled = prefs.fontScale === DEFAULT_PREFS.fontScale;
+}
+
+function changeFontScale(direction) {
+    const fontScale =
+        direction === 0 ? DEFAULT_PREFS.fontScale : stepFontScale(prefs.fontScale, direction);
+    prefs = savePrefs({ ...prefs, fontScale });
+    applyFontScale();
+}
+
+function setupPreferenceControls() {
+    const bindings = [
+        ['fontDecrease', -1],
+        ['fontIncrease', 1],
+        ['fontReset', 0],
+    ];
+    for (const [id, direction] of bindings) {
+        const button = document.getElementById(id);
+        if (button && !button.dataset.bound) {
+            button.dataset.bound = '1';
+            button.addEventListener('click', () => changeFontScale(direction));
+        }
     }
 }
 
 /**
- * Switch language tab
+ * Switch language view: 'hebrew', 'english' or 'both' (side by side).
+ * The choice is remembered between visits.
  */
 function switchTab(tabName) {
-    // Remove active class from all tabs
-    document.querySelectorAll('.tab').forEach(tab => {
-        tab.classList.remove('active');
+    const mode = VIEW_MODES.includes(tabName) ? tabName : DEFAULT_PREFS.viewMode;
+
+    document.querySelectorAll('.tab').forEach((tab) => {
+        const isActive = tab.dataset.tab === mode;
+        tab.classList.toggle('active', isActive);
+        tab.setAttribute('aria-selected', String(isActive));
     });
-    
-    // Add active class to clicked tab (if event is available)
-    if (typeof event !== 'undefined' && event.target) {
-        event.target.classList.add('active');
-    } else {
-        // Fallback: find the tab button by text content
-        document.querySelectorAll('.tab').forEach(tab => {
-            if (tab.textContent.includes(tabName === 'hebrew' ? 'Hebrew' : tabName === 'english' ? 'English' : 'Both')) {
-                tab.classList.add('active');
-            }
-        });
+
+    document.querySelectorAll('.tab-content').forEach((content) => {
+        content.classList.toggle('active', content.id === `${mode}-content`);
+    });
+
+    if (prefs.viewMode !== mode) {
+        prefs = savePrefs({ ...prefs, viewMode: mode });
     }
-
-    // Hide all tab contents
-    document.querySelectorAll('.tab-content').forEach(content => {
-        content.classList.remove('active');
-    });
-
-    // Show selected tab content
-    document.getElementById(`${tabName}-content`).classList.add('active');
 }
 
 // Export functions to global scope for onclick handlers

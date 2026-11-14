@@ -2,6 +2,8 @@
  * Reading schedule link generation — category + Sefaria URL first, display text last.
  */
 
+import { withReadingLabel } from './reading-range.js';
+
 export const OFFLINE_TALMUD_TRACTATES = new Set([
   'berakhot', 'beitzah', 'chagigah', 'chullin', 'eruvin', 'gittin',
   'ketubot', 'kiddushin', 'megillah', 'menachot', 'moed_katan', 'nazir',
@@ -55,9 +57,20 @@ export function slugifyTractate(name) {
 export function cleanDisplayText(text) {
   if (!text) return '';
   let clean = text.replace(/<[^>]+>/g, ' ');
-  const textarea = document.createElement('textarea');
-  textarea.innerHTML = clean;
-  clean = textarea.value;
+  if (typeof document !== 'undefined') {
+    const textarea = document.createElement('textarea');
+    textarea.innerHTML = clean;
+    clean = textarea.value;
+  } else {
+    // No DOM (tests, scripts): decode the common entities by hand
+    clean = clean
+      .replace(/&nbsp;/g, ' ')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/&amp;/g, '&');
+  }
   return clean.replace(/\s+/g, ' ').trim();
 }
 
@@ -114,8 +127,16 @@ export function sefariaUrlToTanakhReference(cleanUrl) {
   return null;
 }
 
-function tanachLink(href) {
-  return `<a href="${href}" class="reading-link">Read in our Tanach →</a>`;
+function tanachLink(href, label = '') {
+  return `<a href="${withReadingLabel(href, label)}" class="reading-link">Read in our Tanach →</a>`;
+}
+
+/**
+ * First reference of a combined reading: "Genesis 41:1-44:17; Numbers 7:54-8:4" -> "Genesis 41:1-44:17".
+ */
+export function firstReference(text) {
+  if (!text) return '';
+  return String(text).split(/[;,|]/)[0].trim();
 }
 
 function talmudLink(tractate, pageNum, side = 'a') {
@@ -253,18 +274,25 @@ export function getRambamLink(displayText, sefariaUrl) {
   return null;
 }
 
-export async function getTanakhLink(displayText, sefariaUrl, generateReaderLink) {
+export async function getTanakhLink(displayText, sefariaUrl, generateReaderLink, label = '') {
   const cleanText = cleanDisplayText(displayText);
 
   let internalUrl = await generateReaderLink(cleanText);
-  if (internalUrl) return tanachLink(internalUrl);
+  if (internalUrl) return tanachLink(internalUrl, label);
+
+  // Combined readings ("Hosea 12:13-14:10; Micah 7:18-20"): link to the first part
+  const firstPart = firstReference(cleanText);
+  if (firstPart && firstPart !== cleanText) {
+    internalUrl = await generateReaderLink(firstPart);
+    if (internalUrl) return tanachLink(internalUrl, label);
+  }
 
   const cleanUrl = cleanSefariaUrl(sefariaUrl);
   if (cleanUrl) {
     const tanakhRef = sefariaUrlToTanakhReference(cleanUrl);
     if (tanakhRef) {
       internalUrl = await generateReaderLink(tanakhRef);
-      if (internalUrl) return tanachLink(internalUrl);
+      if (internalUrl) return tanachLink(internalUrl, label);
     }
 
     const urlMatch = cleanUrl.match(/^([^./]+)\.(\d+)(?:\.(\d+)(?:-(?:(\d+)\.)?(\d+))?)?$/);
@@ -282,7 +310,7 @@ export async function getTanakhLink(displayText, sefariaUrl, generateReaderLink)
           if (endVerse && !urlMatch[4]) reference += `-${endVerse}`;
         }
         internalUrl = await generateReaderLink(reference);
-        if (internalUrl) return tanachLink(internalUrl);
+        if (internalUrl) return tanachLink(internalUrl, label);
       }
     }
   }
@@ -296,28 +324,43 @@ export async function getTorahLink(
   getParashatInfo,
   getBookInfo,
   sefariaUrl = '',
+  options = {},
 ) {
   if (!parashatText || parashatText === 'N/A') return '';
 
+  const label = options.label ?? parashatText;
+
+  // Exact verse range of the portion (e.g. "Genesis 6:9-11:32") when known
+  const torahReference = firstReference(options.torahReference);
+  if (torahReference) {
+    const rangeUrl = await generateReaderLink(torahReference);
+    if (rangeUrl) return tanachLink(rangeUrl, label);
+  }
+
   const directUrl = await generateReaderLink(parashatText);
-  if (directUrl) return tanachLink(directUrl);
+  if (directUrl) return tanachLink(directUrl, label);
 
   const parashatInfo = getParashatInfo(parashatText);
   if (parashatInfo) {
     const bookInfo = getBookInfo(parashatInfo.book);
     if (bookInfo) {
       const url = `/reader.html?book=${bookInfo.id}&category=${bookInfo.category}&chapter=${parashatInfo.chapter}`;
-      return tanachLink(url);
+      return tanachLink(url, label);
     }
   }
 
   return sefariaFallbackLink(sefariaUrl);
 }
 
-export async function getHaftarahLink(haftarahText, sefariaUrl, generateReaderLink) {
+export async function getHaftarahLink(
+  haftarahText,
+  sefariaUrl,
+  generateReaderLink,
+  label = 'Haftarah',
+) {
   if (!haftarahText || haftarahText === 'N/A') return '';
 
-  const link = await getTanakhLink(haftarahText, sefariaUrl, generateReaderLink);
+  const link = await getTanakhLink(haftarahText, sefariaUrl, generateReaderLink, label);
   if (link) return link;
 
   return sefariaFallbackLink(sefariaUrl);
@@ -418,6 +461,7 @@ export async function getReadingLink(item, deps) {
       getParashatInfo,
       getBookInfo,
       sefariaUrl,
+      { label: title },
     );
     return link || sefariaFallbackLink(sefariaUrl);
   }
@@ -439,11 +483,11 @@ export async function getReadingLink(item, deps) {
   }
 
   if (isTanakhItem(title, category)) {
-    const link = await getTanakhLink(displayText, sefariaUrl, generateReaderLink);
+    const link = await getTanakhLink(displayText, sefariaUrl, generateReaderLink, title);
     return link || sefariaFallbackLink(sefariaUrl);
   }
 
-  const tanakhLinkResult = await getTanakhLink(displayText, sefariaUrl, generateReaderLink);
+  const tanakhLinkResult = await getTanakhLink(displayText, sefariaUrl, generateReaderLink, title);
   if (tanakhLinkResult) return tanakhLinkResult;
 
   return (

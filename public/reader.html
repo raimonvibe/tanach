@@ -3,19 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tanach Reader - Read</title>
+    <title>Read the Tanach in Hebrew and English - Tanach Reader</title>
+    <meta name="description" content="Read all 24 books of the Tanach (Hebrew Bible) chapter by chapter, in Hebrew, English or side by side.">
+    <link rel="canonical" href="https://tanach.vercel.app/reader.html">
+    <meta property="og:title" content="Read the Tanach in Hebrew and English - Tanach Reader">
+    <meta property="og:description" content="Read all 24 books of the Tanach (Hebrew Bible) chapter by chapter, in Hebrew, English or side by side.">
+    <meta property="og:image" content="https://tanach.vercel.app/jewish-bible.png">
+    <meta property="og:image:alt" content="Tanach Reader - Jewish Bible">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tanach.vercel.app/reader.html">
+    <meta property="og:site_name" content="Tanach Reader">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Read the Tanach in Hebrew and English - Tanach Reader">
+    <meta name="twitter:description" content="Read all 24 books of the Tanach (Hebrew Bible) chapter by chapter, in Hebrew, English or side by side.">
+    <meta name="twitter:image" content="https://tanach.vercel.app/jewish-bible.png">
     <link rel="icon" type="image/x-icon" href="/jewish-bible.ico">
     <link rel="stylesheet" href="/css/theme.css">
     <link rel="stylesheet" href="/css/read-aloud.css">
     <script src="/js/theme.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #f8f9fa;
-        }
         .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -35,27 +41,12 @@
             flex-wrap: wrap;
             gap: 10px;
         }
-        .header h1 { font-size: 1.8rem; }
         .nav-controls { 
             display: flex; 
             gap: 10px; 
             align-items: center; 
             flex-wrap: wrap;
         }
-        .nav-links { display: flex; gap: 10px; }
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            padding: 6px 12px;
-            border-radius: 15px;
-            background: rgba(255,255,255,0.2);
-            transition: background 0.3s ease;
-            font-size: 0.9rem;
-            display: inline-flex;
-            align-items: center;
-            line-height: 1.2;
-        }
-        .nav-links a:hover { background: rgba(255,255,255,0.3); }
         .main-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -149,9 +140,141 @@
         }
         .hebrew-text {
             font-family: 'Times New Roman', serif;
-            font-size: 1.2rem;
+            font-size: 1.2em;
             direction: rtl;
             text-align: right;
+        }
+        /* Text size preference: reader.js sets --reader-font-scale on #contentArea */
+        #tabContent {
+            font-size: calc(1rem * var(--reader-font-scale, 1));
+        }
+        .reader-toolbar {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            color: var(--color-text-muted, #666);
+            font-size: 0.9rem;
+        }
+        .font-btn {
+            background: var(--color-surface-raised, #f8f9fa);
+            color: var(--color-text, #333);
+            border: 1px solid var(--color-border-strong, #dee2e6);
+            border-radius: 8px;
+            min-width: 40px;
+            min-height: 36px;
+            padding: 4px 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        .font-btn:hover:not(:disabled) {
+            background: var(--color-primary-soft, rgba(102, 126, 234, 0.15));
+        }
+        .font-btn:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+        .font-btn:focus-visible,
+        .tab:focus-visible,
+        .reading-banner-btn:focus-visible,
+        .continue-reading:focus-visible {
+            outline: 3px solid var(--color-primary-ring, rgba(102, 126, 234, 0.45));
+            outline-offset: 2px;
+        }
+        #fontScaleLabel {
+            min-width: 3.2em;
+            text-align: center;
+            font-variant-numeric: tabular-nums;
+        }
+        /* Side-by-side view: English left, Hebrew right; stacked on narrow screens */
+        .verse-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+        .verse-pair-hebrew {
+            order: 2;
+            direction: rtl;
+            text-align: right;
+        }
+        /* Hebrew-only view reads right to left, verse number on the right */
+        #hebrew-content .verse {
+            direction: rtl;
+            text-align: right;
+        }
+        #hebrew-content .verse-number,
+        .verse-pair-hebrew .verse-number {
+            margin-right: 0;
+            margin-left: 10px;
+        }
+        .verse-pair-english {
+            order: 1;
+        }
+        /* Verses that belong to the scheduled reading we came from */
+        .verse-in-reading {
+            border-inline-start: 4px solid var(--color-accent-weekly, #9c27b0);
+            background: var(--color-primary-soft, rgba(102, 126, 234, 0.15));
+        }
+        .reading-banner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            background: var(--color-surface, #fff);
+            color: var(--color-text, #333);
+            border-left: 5px solid var(--color-accent-weekly, #9c27b0);
+            border-radius: 15px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .reading-banner[hidden] {
+            display: none;
+        }
+        .reading-banner-info {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 4px 12px;
+        }
+        .reading-banner-range {
+            color: var(--color-text-muted, #666);
+        }
+        .reading-banner-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .reading-banner-btn {
+            background: var(--color-primary, #667eea);
+            color: var(--color-on-primary, #fff);
+            border: none;
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .reading-banner-btn:hover {
+            background: var(--color-primary-hover, #5a6fd8);
+        }
+        .continue-reading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px 16px;
+            background: var(--gradient-header, linear-gradient(135deg, #667eea 0%, #764ba2 100%));
+            color: #fff;
+            text-decoration: none;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 1.25rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
         .book-catalog-intro {
             margin-bottom: 1.25rem;
@@ -178,9 +301,6 @@
             margin-bottom: 1rem;
             font-size: 0.95rem;
         }
-        .books-list {
-            list-style: none;
-        }
         .books-list li {
             margin-bottom: 0.5rem;
         }
@@ -191,9 +311,6 @@
             border-radius: 8px;
             display: block;
             transition: background-color 0.3s ease;
-        }
-        .books-list a:hover {
-            background-color: #e9ecef;
         }
         .book-meta {
             color: #666;
@@ -249,15 +366,6 @@
             color: #666;
             font-size: 1.1rem;
         }
-        .error {
-            background: #ffebee;
-            color: #c62828;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-            border-left: 4px solid #c62828;
-        }
-
         @media (max-width: 768px) {
             .header {
                 padding-top: max(15px, env(safe-area-inset-top));
@@ -308,6 +416,16 @@
             .content-area {
                 padding: 20px 15px;
             }
+
+            .verse-pair {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .verse-pair-hebrew,
+            .verse-pair-english {
+                order: 0;
+            }
         }
         
         @media (max-width: 480px) {
@@ -329,7 +447,7 @@
         console.log('[Reader HTML] Module script tag processed');
     </script>
 </head>
-<body>
+<body class="page-light">
     <div class="header">
         <div class="header-content">
             <div>
@@ -354,6 +472,8 @@
             <div class="loading">Loading books...</div>
         </div>
 
+        <div id="readingBanner" class="reading-banner" role="status" hidden></div>
+
         <div id="chapterNav" class="chapter-nav" style="display: none;">
             <h3>Chapters</h3>
             <div id="chapterButtons" class="chapter-buttons" style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;"></div>
@@ -364,14 +484,26 @@
         </div>
 
         <div id="contentArea" class="content-area" data-read-aloud-block style="display: none;">
-            <div class="language-tabs">
-                <button class="tab active" data-tab="hebrew" onclick="switchTab('hebrew')">Hebrew</button>
-                <button class="tab active" data-tab="english" onclick="switchTab('english')">English</button>
-                <button class="tab active" data-tab="both" onclick="switchTab('both')">Both</button>
+            <div class="language-tabs" role="tablist" aria-label="Language view">
+                <button class="tab" role="tab" data-tab="hebrew" onclick="switchTab('hebrew')">Hebrew</button>
+                <button class="tab" role="tab" data-tab="english" onclick="switchTab('english')">English</button>
+                <button class="tab active" role="tab" data-tab="both" onclick="switchTab('both')">Side by side</button>
+            </div>
+            <div class="reader-toolbar" data-read-aloud-ignore>
+                <span id="fontSizeCaption">Text size</span>
+                <button type="button" id="fontDecrease" class="font-btn" aria-label="Smaller text">A−</button>
+                <span id="fontScaleLabel" aria-live="polite">100%</span>
+                <button type="button" id="fontIncrease" class="font-btn" aria-label="Larger text">A+</button>
+                <button type="button" id="fontReset" class="font-btn" aria-label="Reset text size">Reset</button>
             </div>
             <div id="tabContent"></div>
         </div>
     </div>
+    <footer class="footer footer--light" data-site-footer>
+        <p>&copy; <span data-copyright-years>2024</span> Tanach Reader - Authentic Jewish texts from Sefaria.org</p>
+        <ul class="social-icons" data-social-icons aria-label="Social links"></ul>
+    </footer>
+
     <script>
         // Add event listeners after DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
@@ -423,6 +555,7 @@
             console.log('[Reader HTML] Event listeners setup complete');
         });
     </script>
+    <script type="module" src="/js/site-footer.js"></script>
     <script src="/js/read-aloud.js" defer></script>
 </body>
 </html>
