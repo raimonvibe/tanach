@@ -798,6 +798,14 @@ body:where(.page-light) {
   padding: 0 20px;
 }
 
+/* Reader book dropdown: the closed control has white text on the purple header,
+   and the opened list inherited that white text on a white background. */
+.book-selector option,
+.book-selector optgroup {
+  color: var(--color-text, #333);
+  background-color: var(--color-surface, #fff);
+}
+
 /* ===== Site footer: social icons (js/site-footer.js) ===== */
 
 /* The gradient pages fade the whole footer (opacity: 0.8); fade only the text
