@@ -1,0 +1,236 @@
+[
+  {
+    "id": "bereshit",
+    "category": "torah",
+    "name": "Genesis",
+    "chapters": 50
+  },
+  {
+    "id": "shemot",
+    "category": "torah",
+    "name": "Exodus",
+    "chapters": 40
+  },
+  {
+    "id": "vayikra",
+    "category": "torah",
+    "name": "Leviticus",
+    "chapters": 27
+  },
+  {
+    "id": "bamidbar",
+    "category": "torah",
+    "name": "Numbers",
+    "chapters": 36
+  },
+  {
+    "id": "devarim",
+    "category": "torah",
+    "name": "Deuteronomy",
+    "chapters": 34
+  },
+  {
+    "id": "yehoshua",
+    "category": "neviim",
+    "name": "Joshua",
+    "chapters": 24
+  },
+  {
+    "id": "shoftim",
+    "category": "neviim",
+    "name": "Judges",
+    "chapters": 21
+  },
+  {
+    "id": "shmuel1",
+    "category": "neviim",
+    "name": "I Samuel",
+    "chapters": 31
+  },
+  {
+    "id": "shmuel2",
+    "category": "neviim",
+    "name": "II Samuel",
+    "chapters": 24
+  },
+  {
+    "id": "melachim1",
+    "category": "neviim",
+    "name": "I Kings",
+    "chapters": 22
+  },
+  {
+    "id": "melachim2",
+    "category": "neviim",
+    "name": "II Kings",
+    "chapters": 25
+  },
+  {
+    "id": "yeshayahu",
+    "category": "neviim",
+    "name": "Isaiah",
+    "chapters": 66
+  },
+  {
+    "id": "yirmeyahu",
+    "category": "neviim",
+    "name": "Jeremiah",
+    "chapters": 52
+  },
+  {
+    "id": "yechezkel",
+    "category": "neviim",
+    "name": "Ezekiel",
+    "chapters": 48
+  },
+  {
+    "id": "hoshea",
+    "category": "trei_asara",
+    "name": "Hosea",
+    "chapters": 14
+  },
+  {
+    "id": "yoel",
+    "category": "trei_asara",
+    "name": "Joel",
+    "chapters": 4
+  },
+  {
+    "id": "amos",
+    "category": "trei_asara",
+    "name": "Amos",
+    "chapters": 9
+  },
+  {
+    "id": "ovadya",
+    "category": "trei_asara",
+    "name": "Obadiah",
+    "chapters": 1
+  },
+  {
+    "id": "yona",
+    "category": "trei_asara",
+    "name": "Jonah",
+    "chapters": 4
+  },
+  {
+    "id": "michah",
+    "category": "trei_asara",
+    "name": "Micah",
+    "chapters": 7
+  },
+  {
+    "id": "nachum",
+    "category": "trei_asara",
+    "name": "Nahum",
+    "chapters": 3
+  },
+  {
+    "id": "chavakuk",
+    "category": "trei_asara",
+    "name": "Habakkuk",
+    "chapters": 3
+  },
+  {
+    "id": "tzefanya",
+    "category": "trei_asara",
+    "name": "Zephaniah",
+    "chapters": 3
+  },
+  {
+    "id": "chagai",
+    "category": "trei_asara",
+    "name": "Haggai",
+    "chapters": 2
+  },
+  {
+    "id": "zecharya",
+    "category": "trei_asara",
+    "name": "Zechariah",
+    "chapters": 14
+  },
+  {
+    "id": "malachi",
+    "category": "trei_asara",
+    "name": "Malachi",
+    "chapters": 3
+  },
+  {
+    "id": "tehillim",
+    "category": "ketuvim",
+    "name": "Psalms",
+    "chapters": 150
+  },
+  {
+    "id": "mishlei",
+    "category": "ketuvim",
+    "name": "Proverbs",
+    "chapters": 31
+  },
+  {
+    "id": "iyov",
+    "category": "ketuvim",
+    "name": "Job",
+    "chapters": 42
+  },
+  {
+    "id": "shir_hashirim",
+    "category": "ketuvim",
+    "name": "Song of Songs",
+    "chapters": 8
+  },
+  {
+    "id": "rut",
+    "category": "ketuvim",
+    "name": "Ruth",
+    "chapters": 4
+  },
+  {
+    "id": "eicha",
+    "category": "ketuvim",
+    "name": "Lamentations",
+    "chapters": 5
+  },
+  {
+    "id": "kohelet",
+    "category": "ketuvim",
+    "name": "Ecclesiastes",
+    "chapters": 12
+  },
+  {
+    "id": "esther",
+    "category": "ketuvim",
+    "name": "Esther",
+    "chapters": 10
+  },
+  {
+    "id": "daniel",
+    "category": "ketuvim",
+    "name": "Daniel",
+    "chapters": 12
+  },
+  {
+    "id": "ezra",
+    "category": "ketuvim",
+    "name": "Ezra",
+    "chapters": 10
+  },
+  {
+    "id": "nechemya",
+    "category": "ketuvim",
+    "name": "Nehemiah",
+    "chapters": 13
+  },
+  {
+    "id": "divrei_hayamim1",
+    "category": "ketuvim",
+    "name": "I Chronicles",
+    "chapters": 29
+  },
+  {
+    "id": "divrei_hayamim2",
+    "category": "ketuvim",
+    "name": "II Chronicles",
+    "chapters": 36
+  }
+]

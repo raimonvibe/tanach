@@ -99,3 +99,30 @@ describe('every page', () => {
         });
     }
 });
+
+describe('book index', () => {
+    const index = JSON.parse(readFileSync(path.join(PUBLIC_DIR, 'data/books/index.json'), 'utf8'));
+
+    test('lists all 39 books of the Tanach once', () => {
+        assert.equal(index.length, 39);
+        assert.equal(new Set(index.map((b) => b.id)).size, 39);
+    });
+
+    test('matches the book files (name and chapter count)', () => {
+        for (const entry of index) {
+            const book = JSON.parse(
+                readFileSync(path.join(PUBLIC_DIR, 'data/books', entry.category, `${entry.id}.json`), 'utf8'),
+            );
+            assert.equal(entry.name, book.name, entry.id);
+            assert.equal(entry.chapters, book.chapters.length, entry.id);
+        }
+    });
+});
+
+describe('reader book dropdown', () => {
+    const css = readFileSync(path.join(PUBLIC_DIR, 'css/theme.css'), 'utf8');
+
+    test('options get readable colours instead of the white header text', () => {
+        assert.match(css, /\.book-selector option,\s*\.book-selector optgroup \{\s*color: var\(--color-text, #333\);\s*background-color: var\(--color-surface, #fff\);/);
+    });
+});
